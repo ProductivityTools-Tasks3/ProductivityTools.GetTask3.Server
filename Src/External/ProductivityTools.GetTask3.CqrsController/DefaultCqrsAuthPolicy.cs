@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ProductivityTools.GetTask3.CqrsController
 {
-    public abstract class ICqrsAuthPolicy
+    public class DefaultCqrsAuthPolicy : ICqrsAuthPolicy
     {
     }
 }
