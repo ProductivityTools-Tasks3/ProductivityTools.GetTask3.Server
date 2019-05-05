@@ -11,6 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\External\Cqrs\ProductivityTools.Cqrs.HttpConnector\ProductivityTools.Cqrs.HttpConnector.csproj" />
+    <ProjectReference Include="..\..\External\FrameworkExtensions\FrameworkExtensions.csproj" />
+    <ProjectReference Include="..\..\External\ProductivityTools.Gateway.Swagger\ProductivityTools.Gateway.Swagger.csproj" />
     <ProjectReference Include="..\..\External\ProductivityTools.GetTask3.CqrsController\ProductivityTools.GetTask3.CqrsController.csproj" />
   </ItemGroup>
 

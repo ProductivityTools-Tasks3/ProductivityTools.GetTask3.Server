@@ -1,4 +1,5 @@
 ﻿using ProductivityTools.GetTask3.CqrsController;
+using ProductivityTools.GetTask3.WebApi.Areas.Tasks.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,8 @@ namespace ProductivityTools.GetTask3.WebApi.Areas.Tasks
     {
         public TaskCqrsModule() : base(Areas.Task)
         {
-            WireUpQuery<TaskDetailsRequest,>();
+            //pw: mediator1
+           // WireUpQuery<TaskDetailsRequest,>();
         }
     }
 }
