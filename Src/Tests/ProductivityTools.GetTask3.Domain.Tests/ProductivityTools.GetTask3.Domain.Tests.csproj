@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Server\ProductivityTools.GetTask3.Domain\ProductivityTools.GetTask3.Domain.csproj" />
+    <ProjectReference Include="..\..\Server\ProductivityTools.GetTask3.App.Commands\ProductivityTools.GetTask3.App.Commands.csproj" />
   </ItemGroup>
 
 </Project>
