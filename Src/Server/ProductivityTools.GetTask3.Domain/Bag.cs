@@ -6,17 +6,18 @@ namespace ProductivityTools.GetTask3.Domain
 {
     public class Bag : Component
     {
+        public string Name;
         BagType Type;
         //pw: make it private and add external contract
         public List<Component> Components = new List<Component>();
-        public string Name => throw new NotImplementedException();
 
-        public Bag(BagType type)
+        public Bag(string name, BagType type)
         {
+            this.Name = name;
             this.Type = type;
         }
 
-        internal void Add(Component component)
+        public void Add(Component component)
         {
             this.Components.Add(component);
         }

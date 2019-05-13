@@ -6,6 +6,7 @@ namespace ProductivityTools.GetTask3.Domain
 {
     public class Item : Component
     {
+        public int TaskOrderId { get; set; }
         public string Name { get; set; }
     }
 }

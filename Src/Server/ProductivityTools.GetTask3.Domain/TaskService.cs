@@ -6,24 +6,18 @@ namespace ProductivityTools.GetTask3.Domain
 {
     public class TaskService
     {
-        //pw:change it
-        Bag root = new Bag(BagType.GList);
-        public TaskService()
-        {
-            
-            
-        }
-        
-        public Bag GetStructure()
-        {
-            return this.root;
-        }
+        //ITaskRepository taskRepository;
 
-        public void Add(string name)
-        {
-            Item item = new Item();
-            item.Name = name;
-            root.Add(item);
-        }
+        //public TaskService()
+        //{         
+            
+        //}
+        
+        //public Bag GetStructure(ITaskRepository taskRepository)
+        //{
+        //    return this.root;
+        //}
+
+  
     }
 }
