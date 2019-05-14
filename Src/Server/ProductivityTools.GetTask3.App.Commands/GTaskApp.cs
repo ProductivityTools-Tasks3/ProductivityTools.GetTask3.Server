@@ -13,9 +13,10 @@ namespace ProductivityTools.GetTask3.App.Commands
         }
 
         //pw:change it to handlers
-        public void GetTaskList()
+        public Bag GetTaskList()
         {
             Bag bag = _taskRepository.GetStructure();
+            return bag;
         }
 
         public void Add(string name)
