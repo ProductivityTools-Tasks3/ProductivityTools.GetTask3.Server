@@ -1,6 +1,8 @@
+using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 using ProductivityTools.GetTask3.App.Commands;
 using ProductivityTools.GetTask3.Domain;
+using ProductivityTools.GetTask3.MsSql;
 
 namespace Tests
 {
@@ -9,15 +11,31 @@ namespace Tests
         [SetUp]
         public void Setup()
         {
-            
-            
+
+
+        }
+
+        private GTaskApp GTaskApp
+        {
+            get
+            {
+                var serviceCollection = new Microsoft.Extensions.DependencyInjection.ServiceCollection();
+                serviceCollection.ConfigureServices();
+                var serviceProvider = serviceCollection.BuildServiceProvider();
+
+                var taskrepository = serviceProvider.GetService<ITaskRepository>();
+                var ts = new GTaskApp(taskrepository);
+                return ts;
+            }
         }
 
         [Test]
         public void GetEmptyTaskList()
         {
-            var ts = new GTaskApp();
-            var structure = ts.GetStructure();
+            //var serviceProvider = serviceCollection.BuildServiceProvider();
+            //var taskrepository = serviceProvider.GetService<ITaskRepository>();
+            //var ts = new GTaskApp(taskrepository);
+            var structure = GTaskApp.GetTaskList();
             Assert.AreEqual(0, structure.Components.Count);
         }
 
@@ -25,10 +43,9 @@ namespace Tests
         public void AddOneItem()
         {
             string valueToTest = "Pawel Wujczyk";
-            var ts = new GTaskApp();
-            ts.Add(valueToTest);
-            var structure=ts.GetStructure();
-            var x = structure.Components[0] as Item ;
+            GTaskApp.Add(valueToTest);
+            var structure = GTaskApp.GetTaskList();
+            var x = structure.Components[0] as Item;
             Assert.AreEqual(valueToTest, x.Name);
         }
 
@@ -36,28 +53,23 @@ namespace Tests
         public void AddSecondBag()
         {
             string bagName = "HomeTasks";
-            var ts = new GTaskApp();
-            ts.AddBag(bagName);
+            GTaskApp.AddBag(bagName);
 
-            var structure = ts.GetStructure();
-            var x=structure.Components[0] as Bag;
+            var structure = GTaskApp.GetTaskList();
+            var x = structure.Components[0] as Bag;
             Assert.AreEqual(bagName, x.Name);
         }
 
         [Test]
         public void FinishTask()
         {
-            var ts = new GTaskApp();
+            GTaskApp.Add("TaskToFinish");
 
-            ts.Add("TaskToFinish");
-
-            var structure = ts.GetStructure();
+            var structure = GTaskApp.GetTaskList();
             var x = structure.Components[0] as Item;
-            var taskOrderId=x.TaskOrderId;
+            var taskOrderId = x.TaskOrderId;
 
-            ts.FinishTask(taskOrderId);
+            GTaskApp.FinishTask(taskOrderId);
         }
-
-
     }
 }

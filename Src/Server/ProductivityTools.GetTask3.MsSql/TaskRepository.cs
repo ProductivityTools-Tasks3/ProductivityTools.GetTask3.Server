@@ -5,11 +5,12 @@ namespace ProductivityTools.GetTask3.MsSql
 {
     public class TaskRepository : ITaskRepository
     {
+        private static Bag bag;
         //pw: make it nice repository
         public Bag GetStructure()
         {
-            Bag root = new Bag("GetTask3", BagType.GList);
-            return root;
+            if (bag == null) { bag = new Bag("GetTask3", BagType.GList); }
+            return bag;
         }
     }
 }
