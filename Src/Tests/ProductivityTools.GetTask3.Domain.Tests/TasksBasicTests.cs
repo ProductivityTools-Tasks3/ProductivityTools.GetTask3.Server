@@ -1,8 +1,9 @@
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 using ProductivityTools.GetTask3.App.Commands;
+using ProductivityTools.GetTask3.App.Queries;
 using ProductivityTools.GetTask3.Domain;
-using ProductivityTools.GetTask3.MsSql;
+using ProductivityTools.GetTask3.Infrastructure;
 
 namespace Tests
 {
@@ -29,14 +30,29 @@ namespace Tests
             }
         }
 
+
+        private GTaskAppQuery GTaskAppQuery
+        {
+            get
+            {
+                var serviceCollection = new Microsoft.Extensions.DependencyInjection.ServiceCollection();
+                serviceCollection.ConfigureServices();
+                var serviceProvider = serviceCollection.BuildServiceProvider();
+
+                var taskrepository = serviceProvider.GetService<ITaskRepository>();
+                var ts = new GTaskAppQuery(taskrepository);
+                return ts;
+            }
+        }
+
         [Test]
         public void GetEmptyTaskList()
         {
             //var serviceProvider = serviceCollection.BuildServiceProvider();
             //var taskrepository = serviceProvider.GetService<ITaskRepository>();
             //var ts = new GTaskApp(taskrepository);
-            var structure = GTaskApp.GetTaskList();
-            Assert.AreEqual(0, structure.Components.Count);
+            var structure = GTaskAppQuery.GetTaskList();
+            Assert.AreEqual(0, structure.Items.Count);
         }
 
         [Test]
@@ -44,8 +60,8 @@ namespace Tests
         {
             string valueToTest = "Pawel Wujczyk";
             GTaskApp.Add(valueToTest);
-            var structure = GTaskApp.GetTaskList();
-            var x = structure.Components[0] as Item;
+            var structure = GTaskAppQuery.GetTaskList();
+            var x = structure.Items[0] as ItemView;
             Assert.AreEqual(valueToTest, x.Name);
         }
 
@@ -55,8 +71,8 @@ namespace Tests
             string bagName = "HomeTasks";
             GTaskApp.AddBag(bagName);
 
-            var structure = GTaskApp.GetTaskList();
-            var x = structure.Components[0] as Bag;
+            var structure = GTaskAppQuery.GetTaskList();
+            var x = structure.Items[0] as ItemView;
             Assert.AreEqual(bagName, x.Name);
         }
 
@@ -65,11 +81,11 @@ namespace Tests
         {
             GTaskApp.Add("TaskToFinish");
 
-            var structure = GTaskApp.GetTaskList();
-            var x = structure.Components[0] as Item;
-            var taskOrderId = x.TaskOrderId;
+            var structure = GTaskAppQuery.GetTaskList();
+            var x = structure.Items[0] as ItemView;
+            //var taskOrderId = x.TaskOrderId;
 
-            GTaskApp.FinishTask(taskOrderId);
+            //GTaskApp.FinishTask(taskOrderId);
         }
     }
 }

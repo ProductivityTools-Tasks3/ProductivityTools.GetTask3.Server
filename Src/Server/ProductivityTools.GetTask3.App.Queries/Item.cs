@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ProductivityTools.GetTask3.Domain
+namespace ProductivityTools.GetTask3.App.Queries
 {
-    public class Item : Component
+    public class ItemView
     {
-        public int TaskOrderId { get; set; }
         public string Name { get; set; }
+        public string Type { get; set; }
     }
 }
