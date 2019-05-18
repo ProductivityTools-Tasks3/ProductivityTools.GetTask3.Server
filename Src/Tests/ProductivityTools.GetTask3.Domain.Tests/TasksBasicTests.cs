@@ -52,7 +52,7 @@ namespace Tests
             //var taskrepository = serviceProvider.GetService<ITaskRepository>();
             //var ts = new GTaskApp(taskrepository);
             var structure = GTaskAppQuery.GetTaskList();
-            Assert.AreEqual(0, structure.Items.Count);
+            Assert.AreEqual(0, structure.Components.Count);
         }
 
         [Test]
@@ -61,7 +61,7 @@ namespace Tests
             string valueToTest = "Pawel Wujczyk";
             GTaskApp.Add(valueToTest);
             var structure = GTaskAppQuery.GetTaskList();
-            var x = structure.Items[0] as ItemView;
+            var x = structure.Components[0];
             Assert.AreEqual(valueToTest, x.Name);
         }
 
@@ -72,7 +72,7 @@ namespace Tests
             GTaskApp.AddBag(bagName);
 
             var structure = GTaskAppQuery.GetTaskList();
-            var x = structure.Items[0] as ItemView;
+            var x = structure.Components[0];
             Assert.AreEqual(bagName, x.Name);
         }
 
@@ -82,7 +82,7 @@ namespace Tests
             GTaskApp.Add("TaskToFinish");
 
             var structure = GTaskAppQuery.GetTaskList();
-            var x = structure.Items[0] as ItemView;
+            var x = structure.Components[0];
             //var taskOrderId = x.TaskOrderId;
 
             //GTaskApp.FinishTask(taskOrderId);

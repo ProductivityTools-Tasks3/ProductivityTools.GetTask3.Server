@@ -6,14 +6,12 @@ namespace ProductivityTools.GetTask3.Domain
 {
     public class Bag : Component
     {
-        public string Name;
         BagType Type;
         //pw: make it private and add external contract
         public List<Component> Components = new List<Component>();
 
-        public Bag(string name, BagType type)
+        public Bag(string name, BagType type) :base(name)
         {
-            this.Name = name;
             this.Type = type;
         }
 
