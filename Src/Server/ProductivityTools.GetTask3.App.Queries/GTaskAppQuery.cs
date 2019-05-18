@@ -14,12 +14,12 @@ namespace ProductivityTools.GetTask3.App.Queries
         }
 
         //pw:change it to handlers
-        public StructureView GetTaskList()
+        public Bag GetTaskList()
         {
             Bag bag = _taskRepository.GetStructure();
-            StructureView st = new StructureView();
-
-            return st;
+            //StructureView st = new StructureView();
+            //bag.Components.ForEach(x => st.Items.Add(new ItemView() { Name = x.Name }));
+            return bag;
         }
     }
 }

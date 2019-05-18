@@ -4,8 +4,14 @@ using System.Text;
 
 namespace ProductivityTools.GetTask3.App.Queries
 {
-    public class StructureView
-    {
-         public List<ItemView> Items { get; set; }
-    }
+    //public class StructureView
+    //{
+    //    public List<ItemView> Items { get; set; }
+
+    //    public StructureView()
+    //    {
+    //        this.Items = new List<ItemView>();
+    //    }
+
+    //}
 }

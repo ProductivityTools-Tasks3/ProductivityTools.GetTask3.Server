@@ -12,13 +12,10 @@ namespace ProductivityTools.GetTask3.App.Commands
             _taskRepository = taskRepository;
         }
 
-
-
         public void Add(string name)
         {
             Bag root = _taskRepository.GetStructure();
-            DomainItem item = new DomainItem();
-            item.Name = name;
+            DomainItem item = new DomainItem(name);
             root.Add(item);
         }
 
