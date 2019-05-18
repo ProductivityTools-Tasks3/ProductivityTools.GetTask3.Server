@@ -1,5 +1,5 @@
 ﻿using ProductivityTools.GetTask3.Domain;
-using ProductivityTools.GetTask3.MsSql;
+using ProductivityTools.GetTask3.Infrastructure;
 using System;
 
 namespace ProductivityTools.GetTask3.App.Commands
@@ -12,17 +12,12 @@ namespace ProductivityTools.GetTask3.App.Commands
             _taskRepository = taskRepository;
         }
 
-        //pw:change it to handlers
-        public Bag GetTaskList()
-        {
-            Bag bag = _taskRepository.GetStructure();
-            return bag;
-        }
+
 
         public void Add(string name)
         {
             Bag root = _taskRepository.GetStructure();
-            Item item = new Item();
+            DomainItem item = new DomainItem();
             item.Name = name;
             root.Add(item);
         }

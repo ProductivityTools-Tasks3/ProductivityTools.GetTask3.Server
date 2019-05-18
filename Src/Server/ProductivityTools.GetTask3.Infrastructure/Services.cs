@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ProductivityTools.GetTask3.MsSql
+namespace ProductivityTools.GetTask3.Infrastructure
 {
     public static class Services
     {
