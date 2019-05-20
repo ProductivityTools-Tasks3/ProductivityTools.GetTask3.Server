@@ -4,7 +4,7 @@ using System;
 
 namespace ProductivityTools.GetTask3.App.Queries
 {
-    public class GTaskAppQuery
+    public class GTaskAppQuery : IGTaskAppQuery
     {
 
         ITaskRepository _taskRepository;
@@ -14,12 +14,12 @@ namespace ProductivityTools.GetTask3.App.Queries
         }
 
         //pw:change it to handlers
-        public Bag GetTaskList()
+        public StructureView GetTaskList()
         {
             Bag bag = _taskRepository.GetStructure();
-            //StructureView st = new StructureView();
-            //bag.Components.ForEach(x => st.Items.Add(new ItemView() { Name = x.Name }));
-            return bag;
+            StructureView st = new StructureView();
+            bag.Components.ForEach(x => st.Items.Add(new ItemView() { Name = x.Name }));
+            return st;
         }
     }
 }

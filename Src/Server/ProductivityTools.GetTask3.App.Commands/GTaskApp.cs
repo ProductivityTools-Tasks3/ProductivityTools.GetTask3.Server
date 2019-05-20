@@ -4,7 +4,7 @@ using System;
 
 namespace ProductivityTools.GetTask3.App.Commands
 {
-    public class GTaskApp
+    public class GTaskApp : IGTaskApp
     {
         ITaskRepository _taskRepository;
         public GTaskApp(ITaskRepository taskRepository)
