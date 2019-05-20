@@ -7,7 +7,7 @@ namespace ProductivityTools.GetTask3.Infrastructure
 {
     public static class Services
     {
-        public static IServiceCollection ConfigureServices(this IServiceCollection services)
+        public static IServiceCollection ConfigureInfrastructureServices(this IServiceCollection services)
         {
             services.AddSingleton<ITaskRepository, TaskRepository>();
             return services;
