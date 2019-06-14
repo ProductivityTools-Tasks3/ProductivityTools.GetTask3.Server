@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -12,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using ProductivityTools.GetTask3.App.Commands;
 using ProductivityTools.GetTask3.App.Queries;
+using ProductivityTools.GetTask3.Configuration;
 
 namespace ProductivityTools.GetTask3.API
 {
@@ -27,9 +29,11 @@ namespace ProductivityTools.GetTask3.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc(x => x.AllowEmptyInputInBodyModelBinding = true).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.ConfigureServicesQueries();
+            services.ConfigureServicesConfig();
             services.ConfigureServicesCommands();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

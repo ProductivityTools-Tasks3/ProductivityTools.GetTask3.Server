@@ -1,20 +1,39 @@
+using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 using ProductivityTools.GetTask3.API.Controllers;
+using ProductivityTools.GetTask3.API.Models;
 using ProductivityTools.GetTask3.App.Commands;
 using ProductivityTools.GetTask3.App.Queries;
+using ProductivityTools.GetTask3.Configuration;
+using ProductivityTools.GetTask3.Domain;
 using ProductivityTools.GetTask3.Infrastructure;
+using ProductivityTools.GetTask3.IntegrationTests;
+using System;
+using System.Data.SqlClient;
 
 namespace Tests
 {
     public class Tests
     {
         [SetUp]
+
         public void Setup()
         {
+
+            var config = ServiceProvider.GetService<IConfig>();
+            Snapshot.CreateSnapshot(config.ConnectionString);
         }
 
-        TaskController TaskController
+        [TearDown]
+        public void TearDown()
+        {
+            var config = ServiceProvider.GetService<IConfig>();
+            Snapshot.RestoreFromSnapshot(config.ConnectionString);
+        }
+
+
+        ServiceProvider ServiceProvider
         {
             get
             {
@@ -23,9 +42,18 @@ namespace Tests
                 serviceCollection.AddSingleton<TaskController>();
                 serviceCollection.ConfigureServicesQueries();
                 serviceCollection.ConfigureServicesCommands();
+                serviceCollection.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+                serviceCollection.AddSingleton<IConfig, ConfigTest>();
                 var serviceProvider = serviceCollection.BuildServiceProvider();
+                return serviceProvider;
+            }
+        }
 
-                return serviceProvider.GetService<TaskController>();
+        TaskController TaskController
+        {
+            get
+            {
+                return ServiceProvider.GetService<TaskController>();
             }
         }
 
@@ -41,10 +69,51 @@ namespace Tests
         public void AddOneItem2()
         {
             string valueToTest = "Pawel Wujczyk";
-            TaskController.Add(valueToTest);
+            TaskController.Add(new ElementRequest() { Name = valueToTest });
             var structure = TaskController.GetTasks();
             var x = structure.Items[0];
             Assert.AreEqual(valueToTest, x.Name);
+        }
+
+        [Test]
+        public void AddSecondBag()
+        {
+            string bagName = "HomeTasks";
+            TaskController.AddBag(new ElementRequest() { Name = bagName });
+
+            var structure = TaskController.GetTasks();
+            var x = structure.Items[0];
+            Assert.AreEqual(bagName, x.Name);
+        }
+
+        [Test]
+        public void FinishTask2()
+        {
+            TaskController.Add(new ElementRequest() { Name = "TaskToFinish" });
+
+            var structure = TaskController.GetTasks();
+            var x = structure.Items[0];
+            Assert.AreEqual(Status.New.ToString(), x.Status);
+            var taskOrderId = x.OrderId;
+            TaskController.Finish(taskOrderId);
+
+            structure = TaskController.GetTasks();
+            x = structure.Items[0];
+        }
+
+        [Test]
+        public void AddTaskAddBagAddTaskInBagFinish()
+        {
+            string firstTask = "FirstTask";
+            TaskController.Add(new ElementRequest() { Name = firstTask });
+            var structure = TaskController.GetTasks();
+            var x = structure.Items[0];
+            Assert.AreEqual(firstTask, x.Name);
+
+            string bag = "Bag";
+            TaskController.AddBag(new ElementRequest() { Name = bag });
+
+
         }
 
     }
