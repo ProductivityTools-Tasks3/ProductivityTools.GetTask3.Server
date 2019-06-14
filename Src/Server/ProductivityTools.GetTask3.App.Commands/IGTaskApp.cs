@@ -2,8 +2,8 @@
 {
     public interface IGTaskApp
     {
-        void Add(string name);
-        void AddBag(string bagName);
-        void FinishTask(int TaskOrderId);
+        void Add( string name, int? bagId = null);
+        void AddBag(string bagName, int? bagId = null);
+        void Finish(int orderId, int? bagId = null);
     }
 }

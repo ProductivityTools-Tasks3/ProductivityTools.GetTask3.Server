@@ -4,9 +4,17 @@ using System.Text;
 
 namespace ProductivityTools.GetTask3.Domain
 {
-    public class Component
+    public class xxx
+    {
+        public int pawel { get; set; }
+        public string marcin { get; set; }
+    }
+
+    public abstract class Component
     {
         public string Name { get; set; }
+
+        public xxx xxx { get; set; }
 
         public Component(string name)
         {

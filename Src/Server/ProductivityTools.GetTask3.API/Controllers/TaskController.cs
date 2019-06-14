@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ProductivityTools.GetTask3.API.Models;
 using ProductivityTools.GetTask3.App.Commands;
 using ProductivityTools.GetTask3.App.Queries;
 
@@ -30,20 +31,34 @@ namespace ProductivityTools.GetTask3.API.Controllers
             return new string[] { "value1", "value2" };
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("List")]
-        public StructureView GetTasks()
+        public StructureView GetTasks([FromBody]int? bagId = null)
         {
-            var x= GTaskAppQuery.GetTaskList();
+            var x = GTaskAppQuery.GetTaskList(bagId);
             return x;
         }
 
         [HttpPost]
         [Route("Add")]
-        public void Add([FromBody] string name)
+        public void Add([FromBody] ElementRequest request)
         {
-            GTaskApp.Add(name);
+            GTaskApp.Add(request.Name, request.BagId);
         }
 
+        [HttpPost]
+        [Route("AddBag")]
+        public void AddBag([FromBody] ElementRequest request)
+        {
+            GTaskApp.AddBag(request.Name, request.BagId);
+        }
+
+
+        [HttpPost]
+        [Route("Finish")]
+        public void Finish([FromBody] int orderId, int? bagId = null)
+        {
+            GTaskApp.Finish(orderId, bagId);
+        }
     }
 }

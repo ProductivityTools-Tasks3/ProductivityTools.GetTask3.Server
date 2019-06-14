@@ -1,34 +1,51 @@
 ﻿using ProductivityTools.GetTask3.Domain;
 using ProductivityTools.GetTask3.Infrastructure;
+using ProductivityTools.GetTask3.Infrastructure.Repositories;
 using System;
 
 namespace ProductivityTools.GetTask3.App.Commands
 {
     public class GTaskApp : IGTaskApp
     {
-        ITaskRepository _taskRepository;
-        public GTaskApp(ITaskRepository taskRepository)
+        ITaskUnitOfWork _taskUnitOfWork;
+
+        public GTaskApp(ITaskUnitOfWork taskUnitOfWork)
         {
-            _taskRepository = taskRepository;
+            _taskUnitOfWork = taskUnitOfWork;
         }
 
-        public void Add(string name)
+        public void Add(string name, int? bagId = null)
         {
-            Bag root = _taskRepository.GetStructure();
-            DomainItem item = new DomainItem(name);
-            root.Add(item);
+            AddElement(name, ElementType.Task, bagId);
         }
 
-        public void AddBag(string bagName)
+        public void AddBag(string bagName, int? bagId = null)
         {
-            Bag root = _taskRepository.GetStructure();
-            Bag bag = new Bag(bagName, BagType.GTask);
-            root.Add(bag);
+            AddElement(bagName, ElementType.Bag, bagId);
         }
 
-        public void FinishTask(int TaskOrderId)
+        private void AddElement(string name, ElementType type, int? bagId = null)
         {
+            Infrastructure.Element e = new Infrastructure.Element();
+            e.Name = name;
+            e.Type = type;
+            e.Created = DateTime.Now;
+            e.Deadline = DateTime.Now.AddDays(1);
+            e.Status = Status.New;
+            e.BagId = bagId;
 
+
+            _taskUnitOfWork.TaskRepository.Add(e);
+            _taskUnitOfWork.Commit();
+        }
+
+        public void Finish(int orderId, int? bagId = null)
+        {
+            var elements = _taskUnitOfWork.TaskRepository.GetStructure();
+            Domain.Task elemnet = elements.Components.Find(x => (x as Domain.Task).OrderId == orderId) as Domain.Task;
+            _taskUnitOfWork.TaskRepository.FinishTask(elemnet.Id);
+
+            _taskUnitOfWork.Commit();
         }
     }
 }
