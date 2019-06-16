@@ -23,17 +23,15 @@ namespace ProductivityTools.GetTask3.App.Queries
         //pw:change it to handlers
         public StructureView GetTaskList(int? bagId=null)
         {
-            Bag bag = _taskRepository.GetStructure(bagId);
+            Domain.Element bag = _taskRepository.GetStructure(bagId);
             StructureView st = new StructureView();
 
-            bag.Components.ForEach(x => st.Items.Add(_mapper.Map<ItemView>(x)));
+            bag.Elements.ForEach(x => st.Items.Add(_mapper.Map<ItemView>(x)));
 
             //new ItemView() {
             //    Name = x.Name,
             //    OrderId =(x as Domain.Element).OrderId ,
             //Status= (x as Domain.Element).Status.ToString()}));
-            st.xxx = new xxx();
-            st.xxx.marcin = "marcin";
             return st;
         }
     }

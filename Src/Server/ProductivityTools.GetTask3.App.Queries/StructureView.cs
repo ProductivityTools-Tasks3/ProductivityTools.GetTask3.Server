@@ -14,8 +14,6 @@ namespace ProductivityTools.GetTask3.App.Queries
     {
         public List<ItemView> Items { get; set; }
 
-        public xxx xxx { get; set; }
-
         public StructureView()
         {
             this.Items = new List<ItemView>();
