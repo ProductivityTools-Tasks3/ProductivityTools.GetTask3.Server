@@ -6,9 +6,9 @@ using System.Text;
 
 namespace ProductivityTools.GetTask3.Infrastructure.Repositories
 {
-    public interface ITaskRepository: IRepository<Element>
+    public interface ITaskRepository: IRepository<Domain.Element>
     {
-        Bag GetStructure(int? root = null);
+        Domain.Element GetStructure(int? root = null);
         //void AddItem(string name);
     }
 }

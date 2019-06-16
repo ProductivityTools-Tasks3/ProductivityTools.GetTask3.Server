@@ -7,35 +7,29 @@ using System.Text;
 
 namespace ProductivityTools.GetTask3.Infrastructure.Repositories
 {
-    public class TaskRepository : Repository<Element>, ITaskRepository
+    public class TaskRepository : Repository<Domain.Element>, ITaskRepository
     {
         public TaskRepository(TaskContext context) : base(context) { }
 
         //pw: make it nice repository
-        public Bag GetStructure(int? rootId = null)
+        public Domain.Element GetStructure(int? rootId = null)
         {
-            var x = _taskContext.Elements.Where(q=>q.BagId==rootId).ToList();
-            var bag = new Bag("GetTask3", BagType.GTask);
-            for (int i = 0; i < x.Count; i++)
+            var x = _taskContext.Elements.Where(l => l.BagId == rootId).ToList();
+            var bag = new Domain.Element("GetTask3", Domain.ElementType.TaskBag);
+            for (int i = 0; i < x.Count(); i++)
             {
-                Domain.Component element = null;
-                if (x[i].Type==ElementType.Bag)
-                {
-                    element = new Domain.Bag(x[i].Name, BagType.GTask);
-                }
-                if (x[i].Type==ElementType.Task)
-                {
-                    element = new Domain.Task(x[i].ElementId, x[i].Name, i, x[i].Status);
-                }
-                bag.Components.Add(element);
+                Domain.Element element = new Domain.Element(x[i].ElementId, x[i].Name, i, x[i].Status);
+                bag.Elements.Add(element);
             }
+
+
             //x.ForEach(i => bag.Components.Add(new Domain.Element(i.Name)));
             return bag;
         }
 
         public void FinishTask(int id)
         {
-            var element=_taskContext.Elements.First(x => x.ElementId == id);
+            var element = _taskContext.Elements.First(x => x.ElementId == id);
             element.Status = Status.Finished;
         }
 

@@ -16,23 +16,22 @@ namespace ProductivityTools.GetTask3.App.Commands
 
         public void Add(string name, int? bagId = null)
         {
-            AddElement(name, ElementType.Task, bagId);
+            AddElement(name, Domain.ElementType.Task, bagId);
         }
 
         public void AddBag(string bagName, int? bagId = null)
         {
-            AddElement(bagName, ElementType.Bag, bagId);
+            AddElement(bagName, Domain.ElementType.TaskBag, bagId);
         }
 
-        private void AddElement(string name, ElementType type, int? bagId = null)
+        private void AddElement(string name, Domain.ElementType type, int? bagId = null)
         {
-            Infrastructure.Element e = new Infrastructure.Element();
+            Domain.Element e = new Domain.Element(name, type);
             e.Name = name;
             e.Type = type;
             e.Created = DateTime.Now;
             e.Deadline = DateTime.Now.AddDays(1);
             e.Status = Status.New;
-            e.BagId = bagId;
 
 
             _taskUnitOfWork.TaskRepository.Add(e);
@@ -41,9 +40,9 @@ namespace ProductivityTools.GetTask3.App.Commands
 
         public void Finish(int orderId, int? bagId = null)
         {
-            var elements = _taskUnitOfWork.TaskRepository.GetStructure();
-            Domain.Task elemnet = elements.Components.Find(x => (x as Domain.Task).OrderId == orderId) as Domain.Task;
-            _taskUnitOfWork.TaskRepository.FinishTask(elemnet.Id);
+            var element = _taskUnitOfWork.TaskRepository.GetStructure();
+            Domain.Element elemnet = element.Elements.Find(x => (x as Domain.Element).OrderId == orderId) as Domain.Element;
+            _taskUnitOfWork.TaskRepository.FinishTask(elemnet.ElementId);
 
             _taskUnitOfWork.Commit();
         }

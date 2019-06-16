@@ -4,20 +4,31 @@ using System.Text;
 
 namespace ProductivityTools.GetTask3.Domain
 {
-    public class Task : Component
+    public class Element 
     {
-        public int Id { get; set; }
+        public string Name { get; set; }
+        //pw:change it to Id  
+        public int ElementId { get; set; }
+        public int? BagId { get; set; }
         public int OrderId { get; set; }
-
+        public ElementType Type { get; set; }
         public Status Status { get; set; }
         public DateTime Created { get; set; }
         public DateTime Deadline { get; set; }
-        public DateTime Finished { get; set; }
+        public DateTime? Finished { get; set; }
 
+        public List<Element> Elements { get; set; }
 
-        public Task(int id, string name, int orderId, Status status) : base(name)
+        public Element(string name, ElementType type)
         {
-            this.Id = id;
+            this.Name = name;
+            this.Type = type;
+            this.Elements = new List<Element>();
+        }
+
+        public Element(int id, string name, int orderId, Status status)
+        {
+            this.ElementId = id;
             this.OrderId = orderId;
             this.Status = status;
         }
