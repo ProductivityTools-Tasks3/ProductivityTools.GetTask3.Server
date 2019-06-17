@@ -32,6 +32,7 @@ namespace ProductivityTools.GetTask3.App.Commands
             e.Created = DateTime.Now;
             e.Deadline = DateTime.Now.AddDays(1);
             e.Status = Status.New;
+            e.BagId = bagId;
 
 
             _taskUnitOfWork.TaskRepository.Add(e);

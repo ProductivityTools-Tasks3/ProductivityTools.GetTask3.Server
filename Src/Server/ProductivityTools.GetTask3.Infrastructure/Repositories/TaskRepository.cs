@@ -14,17 +14,30 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
         //pw: make it nice repository
         public Domain.Element GetStructure(int? rootId = null)
         {
-            var x = _taskContext.Elements.Where(l => l.BagId == rootId).ToList();
+            
             var bag = new Domain.Element("GetTask3", Domain.ElementType.TaskBag);
-            for (int i = 0; i < x.Count(); i++)
-            {
-                Domain.Element element = new Domain.Element(x[i].ElementId, x[i].Name, i, x[i].Status);
-                bag.Elements.Add(element);
-            }
+            var elements = GetElements(rootId);
+            bag.Elements = elements;
 
 
             //x.ForEach(i => bag.Components.Add(new Domain.Element(i.Name)));
             return bag;
+        }
+
+        private List<Element> GetElements(int? rootId = null)
+        {
+            List<Element> result = new List<Element>();
+            var x = _taskContext.Elements.Where(l => l.BagId == rootId).ToList();
+            for (int i = 0; i < x.Count(); i++)
+            {
+                Domain.Element element = new Domain.Element(x[i].ElementId, x[i].Type, x[i].Name, i, x[i].Status);
+                if (element.Type == Domain.ElementType.TaskBag)
+                {
+                    element.Elements = GetElements(x[i].ElementId);
+                }
+                result.Add(element);
+            }
+            return result;
         }
 
         public void FinishTask(int id)

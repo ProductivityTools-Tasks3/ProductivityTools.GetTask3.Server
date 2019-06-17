@@ -61,7 +61,7 @@ namespace Tests
         public void GetEmptyTaskList2()
         {
             var structure = TaskController.GetTasks();
-            Assert.AreEqual(0, structure.Items.Count);
+            Assert.AreEqual(0, structure.Elements.Count);
         }
 
 
@@ -71,7 +71,7 @@ namespace Tests
             string valueToTest = "Pawel Wujczyk";
             TaskController.Add(new ElementRequest() { Name = valueToTest });
             var structure = TaskController.GetTasks();
-            var x = structure.Items[0];
+            var x = structure.Elements[0];
             Assert.AreEqual(valueToTest, x.Name);
         }
 
@@ -82,7 +82,7 @@ namespace Tests
             TaskController.AddBag(new ElementRequest() { Name = bagName });
 
             var structure = TaskController.GetTasks();
-            var x = structure.Items[0];
+            var x = structure.Elements[0];
             Assert.AreEqual(bagName, x.Name);
         }
 
@@ -92,13 +92,13 @@ namespace Tests
             TaskController.Add(new ElementRequest() { Name = "TaskToFinish" });
 
             var structure = TaskController.GetTasks();
-            var x = structure.Items[0];
+            var x = structure.Elements[0];
             Assert.AreEqual(Status.New.ToString(), x.Status);
             var taskOrderId = x.OrderId;
             TaskController.Finish(taskOrderId);
 
             structure = TaskController.GetTasks();
-            x = structure.Items[0];
+            x = structure.Elements[0];
         }
 
         [Test]
@@ -107,13 +107,25 @@ namespace Tests
             string firstTask = "FirstTask";
             TaskController.Add(new ElementRequest() { Name = firstTask });
             var structure = TaskController.GetTasks();
-            var x = structure.Items[0];
-            Assert.AreEqual(firstTask, x.Name);
+            var structureItem = structure.Elements[0];
+            Assert.AreEqual(firstTask, structureItem.Name);
 
             string bag = "Bag";
             TaskController.AddBag(new ElementRequest() { Name = bag });
+            structure = TaskController.GetTasks();
+            Assert.AreEqual(2, structure.Elements.Count);
 
+            var bagObj = structure.Elements.Find(x => x.Name == bag);
+            Assert.AreEqual(bag, bagObj.Name);
 
+            structure = TaskController.GetTasks(bagObj.ElementId);
+            Assert.AreEqual(0, structure.Elements.Count);
+
+            string secondTask = "SecondTask";
+            TaskController.Add(new ElementRequest() { Name = secondTask, BagId = bagObj.ElementId });
+
+            structure = TaskController.GetTasks(bagObj.ElementId);
+            Assert.AreEqual(1, structure.Elements.Count);
         }
 
     }

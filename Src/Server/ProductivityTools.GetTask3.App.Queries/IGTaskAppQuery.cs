@@ -4,6 +4,6 @@ namespace ProductivityTools.GetTask3.App.Queries
 {
     public interface IGTaskAppQuery
     {
-        StructureView GetTaskList(int? bagId = null);
+        ItemView GetTaskList(int? bagId = null);
     }
 }
