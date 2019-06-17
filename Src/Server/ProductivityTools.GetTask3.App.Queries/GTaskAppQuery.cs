@@ -8,9 +8,7 @@ namespace ProductivityTools.GetTask3.App.Queries
 {
     public class GTaskAppQuery : IGTaskAppQuery
     {
-
         private readonly IMapper _mapper;
-
 
         ITaskRepository _taskRepository;
         public GTaskAppQuery(ITaskRepository taskRepository, IMapper mapper)
@@ -21,12 +19,12 @@ namespace ProductivityTools.GetTask3.App.Queries
 
 
         //pw:change it to handlers
-        public StructureView GetTaskList(int? bagId=null)
+        public ItemView GetTaskList(int? bagId=null)
         {
-            Domain.Element bag = _taskRepository.GetStructure(bagId);
-            StructureView st = new StructureView();
+            Domain.Element element = _taskRepository.GetStructure(bagId);
+            ItemView st = _mapper.Map<Element,ItemView>(element);
 
-            bag.Elements.ForEach(x => st.Items.Add(_mapper.Map<ItemView>(x)));
+            //element.Elements.ForEach(x => st.Items.Add(_mapper.Map<ItemView>(x)));
 
             //new ItemView() {
             //    Name = x.Name,

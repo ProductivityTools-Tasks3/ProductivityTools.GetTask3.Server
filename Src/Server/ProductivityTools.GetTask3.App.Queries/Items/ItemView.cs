@@ -9,11 +9,12 @@ namespace ProductivityTools.GetTask3.App.Queries
         public string Name { get; set; }
         public string Type { get; set; }
         public int OrderId { get; set; }
+        public int ElementId { get; set; }
         public string Status { get; set; }
         public DateTime Created { get; set; }
         public DateTime Deadline { get; set; }
         public DateTime Finished { get; set; }
 
-        public List<ItemView> Items { get; set; }
+        public List<ItemView> Elements { get; set; }
     }
 }

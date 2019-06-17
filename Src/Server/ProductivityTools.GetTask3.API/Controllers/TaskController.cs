@@ -33,7 +33,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
 
         [HttpPost]
         [Route("List")]
-        public StructureView GetTasks([FromBody]int? bagId = null)
+        public ItemView GetTasks([FromBody]int? bagId = null)
         {
             var x = GTaskAppQuery.GetTaskList(bagId);
             return x;

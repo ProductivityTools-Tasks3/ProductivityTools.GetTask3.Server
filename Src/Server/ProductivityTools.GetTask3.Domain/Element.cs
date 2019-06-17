@@ -26,9 +26,11 @@ namespace ProductivityTools.GetTask3.Domain
             this.Elements = new List<Element>();
         }
 
-        public Element(int id, string name, int orderId, Status status)
+        public Element(int id, ElementType type, string name, int orderId, Status status)
         {
             this.ElementId = id;
+            this.Type = type;
+            this.Name = name;
             this.OrderId = orderId;
             this.Status = status;
         }
