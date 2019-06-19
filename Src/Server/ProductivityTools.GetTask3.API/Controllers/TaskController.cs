@@ -33,9 +33,9 @@ namespace ProductivityTools.GetTask3.API.Controllers
 
         [HttpPost]
         [Route("List")]
-        public ItemView GetTasks([FromBody]int? bagId = null)
+        public ItemView GetTasks([FromBody]int? parentId = null)
         {
-            var x = GTaskAppQuery.GetTaskList(bagId);
+            var x = GTaskAppQuery.GetTaskList(parentId);
             return x;
         }
 
@@ -43,22 +43,22 @@ namespace ProductivityTools.GetTask3.API.Controllers
         [Route("Add")]
         public void Add([FromBody] ElementRequest request)
         {
-            GTaskApp.Add(request.Name, request.BagId);
+            GTaskApp.Add(request.Name, request.ParentId);
         }
 
         [HttpPost]
         [Route("AddBag")]
         public void AddBag([FromBody] ElementRequest request)
         {
-            GTaskApp.AddBag(request.Name, request.BagId);
+            GTaskApp.AddBag(request.Name, request.ParentId);
         }
 
 
         [HttpPost]
         [Route("Finish")]
-        public void Finish([FromBody] int orderId, int? bagId = null)
+        public void Finish(int bagId)
         {
-            GTaskApp.Finish(orderId, bagId);
+            //GTaskApp.Finish(orderId, bagId);
         }
     }
 }

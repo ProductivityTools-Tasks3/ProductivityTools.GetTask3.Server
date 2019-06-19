@@ -1,23 +1,24 @@
-﻿using System;
+﻿using ProductivityTools.GetTask3.Domain.Policy;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace ProductivityTools.GetTask3.Domain
 {
-    public class Element 
+    public class Element
     {
-        public string Name { get; set; }
+        public string Name { get; protected set; }
         //pw:change it to Id  
-        public int ElementId { get; set; }
-        public int? BagId { get; set; }
-        public int OrderId { get; set; }
-        public ElementType Type { get; set; }
-        public Status Status { get; set; }
-        public DateTime Created { get; set; }
-        public DateTime Deadline { get; set; }
-        public DateTime? Finished { get; set; }
+        public int ElementId { get; protected set; }
+        public int? ParentId { get; protected set; }
+        public int OrderId { get; protected set; }
+        public ElementType Type { get; protected set; }
+        public Status Status { get; protected set; }
+        public DateTime Created { get; protected set; }
+        public DateTime Deadline { get; protected set; }
+        public DateTime? Finished { get; protected set; }
 
-        public List<Element> Elements { get; set; }
+        public List<Element> Elements { get; protected set; }
 
         public Element(string name, ElementType type)
         {
@@ -33,6 +34,26 @@ namespace ProductivityTools.GetTask3.Domain
             this.Name = name;
             this.OrderId = orderId;
             this.Status = status;
+        }
+
+        public void Update(int? parentId, ElementType type)
+        {
+            new OneCoreInTree().Evaluate(parentId, type);
+            Created = DateTime.Now;
+            Deadline = DateTime.Now.AddDays(1);
+            Status = Status.New;
+            Type = type;
+            ParentId = parentId;
+        }
+
+        public void SetElements(List<Element> elements)
+        {
+            this.Elements = elements;
+        }
+
+        public void FinishTask()
+        {
+            Status = Status.Finished;
         }
     }
 }
