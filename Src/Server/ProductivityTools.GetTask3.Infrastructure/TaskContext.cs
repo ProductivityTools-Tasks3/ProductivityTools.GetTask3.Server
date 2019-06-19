@@ -8,7 +8,7 @@ namespace ProductivityTools.GetTask3.Infrastructure
     public class TaskContext : DbContext
     {
         private readonly IConfig _config;
-        public DbSet<Domain.Element> Elements { get; set; }
+        public DbSet<Domain.Element> Element { get; set; }
 
         public TaskContext(IConfig config)
         {

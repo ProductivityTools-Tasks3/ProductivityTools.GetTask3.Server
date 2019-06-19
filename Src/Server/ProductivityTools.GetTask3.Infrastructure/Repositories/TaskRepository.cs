@@ -12,28 +12,39 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
         public TaskRepository(TaskContext context) : base(context) { }
 
         //pw: make it nice repository
-        public Domain.Element GetStructure(int? rootId = null)
+        public Domain.Element GetStructure(int? rootId)
         {
-            
-            var bag = new Domain.Element("GetTask3", Domain.ElementType.TaskBag);
-            var elements = GetElements(rootId);
-            bag.Elements = elements;
 
+            var result = GetElement(rootId);
+            if (result == null) return null;
+            result.SetElements(GetElements(result.ElementId));
+            return result;
+        }
 
-            //x.ForEach(i => bag.Components.Add(new Domain.Element(i.Name)));
-            return bag;
+        private Element GetElement(int? id)
+        {
+            Element result = null;
+            if (id == null)
+            {
+                result = _taskContext.Element.SingleOrDefault(x => x.ParentId == null);
+            }
+            else
+            {
+                result = _taskContext.Element.SingleOrDefault(x => x.ElementId == id);
+            }
+            return result;
         }
 
         private List<Element> GetElements(int? rootId = null)
         {
             List<Element> result = new List<Element>();
-            var x = _taskContext.Elements.Where(l => l.BagId == rootId).ToList();
+            var x = _taskContext.Element.Where(l => l.ParentId == rootId).ToList();
             for (int i = 0; i < x.Count(); i++)
             {
                 Domain.Element element = new Domain.Element(x[i].ElementId, x[i].Type, x[i].Name, i, x[i].Status);
                 if (element.Type == Domain.ElementType.TaskBag)
                 {
-                    element.Elements = GetElements(x[i].ElementId);
+                    element.SetElements(GetElements(x[i].ElementId));
                 }
                 result.Add(element);
             }
@@ -42,8 +53,8 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
 
         public void FinishTask(int id)
         {
-            var element = _taskContext.Elements.First(x => x.ElementId == id);
-            element.Status = Status.Finished;
+            var element = _taskContext.Element.First(x => x.ElementId == id);
+            element.FinishTask();
         }
 
     }

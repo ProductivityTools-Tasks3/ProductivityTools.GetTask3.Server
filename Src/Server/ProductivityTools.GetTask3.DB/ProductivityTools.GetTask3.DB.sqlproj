@@ -62,10 +62,12 @@
     <Folder Include="Snapshots" />
     <Folder Include="bin\" />
     <Folder Include="bin\Debug\" />
+    <Folder Include="Index" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\Element.sql" />
     <Build Include="Schema\gt.sql" />
+    <Build Include="Index\ElementSingleRoot.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="ProductivityTools.GetTask3.DB.refactorlog" />

@@ -122,7 +122,7 @@ namespace Tests
             Assert.AreEqual(0, structure.Elements.Count);
 
             string secondTask = "SecondTask";
-            TaskController.Add(new ElementRequest() { Name = secondTask, BagId = bagObj.ElementId });
+            TaskController.Add(new ElementRequest() { Name = secondTask, ParentId = bagObj.ElementId });
 
             structure = TaskController.GetTasks(bagObj.ElementId);
             Assert.AreEqual(1, structure.Elements.Count);
