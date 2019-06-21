@@ -66,5 +66,11 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\ProductivityTools.GetTask3.Contract\ProductivityTools.GetTask3.Contract.csproj">
+      <Project>{fbbc455a-bfd8-48fb-aea7-3651906914af}</Project>
+      <Name>ProductivityTools.GetTask3.Contract</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
