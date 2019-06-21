@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\ProductivityTools.GetTask3.Contract\ProductivityTools.GetTask3.Contract.csproj" />
     <ProjectReference Include="..\ProductivityTools.GetTask3.Domain\ProductivityTools.GetTask3.Domain.csproj" />
     <ProjectReference Include="..\ProductivityTools.GetTask3.Infrastructure\ProductivityTools.GetTask3.Infrastructure.csproj" />
   </ItemGroup>

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ProductivityTools.GetTask3.Contract;
 using System;
 using System.Collections.Generic;
 using System.Text;

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using ProductivityTools.GetTask3.API.Models;
 using ProductivityTools.GetTask3.App.Commands;
 using ProductivityTools.GetTask3.App.Queries;
+using ProductivityTools.GetTask3.Contract;
 
 namespace ProductivityTools.GetTask3.API.Controllers
 {
