@@ -14,13 +14,13 @@ namespace ProductivityTools.GetTask3.API.Controllers
     [ApiController]
     public class TaskController : ControllerBase
     {
-        IGTaskAppQuery GTaskAppQuery;
-        IGTaskApp GTaskApp;
+        IGTaskAppQuery Queries;
+        IGTaskApp Commands;
 
         public TaskController(IGTaskAppQuery gTaskAppQuery, IGTaskApp gTaskApp)
         {
-            this.GTaskAppQuery = gTaskAppQuery;
-            this.GTaskApp = gTaskApp;
+            this.Queries = gTaskAppQuery;
+            this.Commands = gTaskApp;
         }
 
         // GET api/values
@@ -35,7 +35,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
         [Route("List")]
         public ItemView GetTasks([FromBody]int? parentId = null)
         {
-            var x = GTaskAppQuery.GetTaskList(parentId);
+            var x = Queries.GetTaskList(parentId);
             return x;
         }
 
@@ -43,22 +43,38 @@ namespace ProductivityTools.GetTask3.API.Controllers
         [Route("Add")]
         public void Add([FromBody] ElementRequest request)
         {
-            GTaskApp.Add(request.Name, request.ParentId);
+            Commands.Add(request.Name, request.ParentId);
         }
 
         [HttpPost]
         [Route("AddBag")]
         public void AddBag([FromBody] ElementRequest request)
         {
-            GTaskApp.AddBag(request.Name, request.ParentId);
+            Commands.AddBag(request.Name, request.ParentId);
         }
 
 
         [HttpPost]
         [Route("Finish")]
-        public void Finish(int bagId)
+        public void Finish([FromBody] int elementId)
         {
-            //GTaskApp.Finish(orderId, bagId);
+            Commands.Finish(elementId);
         }
+
+        [HttpPost]
+        [Route("Undone")]
+        public void Undone([FromBody] int elementId)
+        {
+            Commands.Undone(elementId);
+        }
+
+        [HttpPost]
+        [Route("Delay")]
+        public void Delay([FromBody] DelayItem delayItem)
+        {
+            Commands.Delay(delayItem.ElementId,delayItem.StartDate);
+        }
+
+
     }
 }

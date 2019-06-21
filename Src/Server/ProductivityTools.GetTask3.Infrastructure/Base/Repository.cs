@@ -20,5 +20,11 @@ namespace ProductivityTools.GetTask3.Infrastructure.Base
         {
             _dbSet.Add(entity);
         }
+
+        public T Get(int elementId)
+        {
+            var x = _dbSet.Find(elementId);
+            return x;
+        }
     }
 }

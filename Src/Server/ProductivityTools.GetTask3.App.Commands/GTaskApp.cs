@@ -1,4 +1,5 @@
-﻿using ProductivityTools.GetTask3.Domain;
+﻿using ProductivityTools.DateTimeTools;
+using ProductivityTools.GetTask3.Domain;
 using ProductivityTools.GetTask3.Infrastructure;
 using ProductivityTools.GetTask3.Infrastructure.Repositories;
 using System;
@@ -8,10 +9,12 @@ namespace ProductivityTools.GetTask3.App.Commands
     public class GTaskApp : IGTaskApp
     {
         ITaskUnitOfWork _taskUnitOfWork;
+        IDateTimePT _dateTime;
 
-        public GTaskApp(ITaskUnitOfWork taskUnitOfWork)
+        public GTaskApp(ITaskUnitOfWork taskUnitOfWork, IDateTimePT datetime)
         {
             _taskUnitOfWork = taskUnitOfWork;
+            _dateTime = datetime;
         }
 
         public void Add(string name, int? bagId)
@@ -26,7 +29,6 @@ namespace ProductivityTools.GetTask3.App.Commands
 
         private void AddElement(string name, Domain.ElementType type, int? parentId)
         {
-
             Domain.Element e = new Domain.Element(name, type);
             e.Update(parentId, type);
 
@@ -34,12 +36,24 @@ namespace ProductivityTools.GetTask3.App.Commands
             _taskUnitOfWork.Commit();
         }
 
-        public void Finish(int orderId, int? bagId)
+        public void Finish(int elementId)
         {
-            var element = _taskUnitOfWork.TaskRepository.GetStructure(bagId);
-            Domain.Element elemnet = element.Elements.Find(x => (x as Domain.Element).OrderId == orderId) as Domain.Element;
-            _taskUnitOfWork.TaskRepository.FinishTask(elemnet.ElementId);
+            var element = _taskUnitOfWork.TaskRepository.Get(elementId);
+            element.Finish(_dateTime.Now);
+            _taskUnitOfWork.Commit();
+        }
 
+        public void Undone(int elementId)
+        {
+            var element = _taskUnitOfWork.TaskRepository.Get(elementId);
+            element.Undone(_dateTime.Now);
+            _taskUnitOfWork.Commit();
+        }
+
+        public void Delay(int elementId, DateTime startDate)
+        {
+            var element = _taskUnitOfWork.TaskRepository.Get(elementId);
+            element.Delay(startDate);
             _taskUnitOfWork.Commit();
         }
     }

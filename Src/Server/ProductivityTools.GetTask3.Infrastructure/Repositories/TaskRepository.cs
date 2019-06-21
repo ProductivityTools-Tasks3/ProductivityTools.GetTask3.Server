@@ -14,14 +14,13 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
         //pw: make it nice repository
         public Domain.Element GetStructure(int? rootId)
         {
-
-            var result = GetElement(rootId);
+            var result = Get(rootId);
             if (result == null) return null;
             result.SetElements(GetElements(result.ElementId));
             return result;
         }
 
-        private Element GetElement(int? id)
+        public Element Get(int? id)
         {
             Element result = null;
             if (id == null)
@@ -51,11 +50,10 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
             return result;
         }
 
-        public void FinishTask(int id)
-        {
-            var element = _taskContext.Element.First(x => x.ElementId == id);
-            element.FinishTask();
-        }
-
+        //public void FinishTask(int id)
+        //{
+        //    var element = _taskContext.Element.First(x => x.ElementId == id);
+        //    element.Finish();
+        //}
     }
 }
