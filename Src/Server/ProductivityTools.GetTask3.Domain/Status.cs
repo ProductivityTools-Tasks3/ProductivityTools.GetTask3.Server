@@ -8,6 +8,6 @@ namespace ProductivityTools.GetTask3.Domain
     {
         None,
         New,
-        Finished
+        Finished,
     }
 }

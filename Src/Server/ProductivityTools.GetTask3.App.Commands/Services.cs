@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using ProductivityTools.DateTimeTools;
 using ProductivityTools.GetTask3.Infrastructure;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ namespace ProductivityTools.GetTask3.App.Commands
         public static IServiceCollection ConfigureServicesCommands(this IServiceCollection services)
         {
             services.AddSingleton<IGTaskApp, GTaskApp>();
+            services.AddSingleton<IDateTimePT, DateTimePT>();
             services.ConfigureInfrastructureServices();
             return services;
         }

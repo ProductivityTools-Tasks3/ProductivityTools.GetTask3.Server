@@ -61,7 +61,7 @@ namespace Tests
         public void GetEmptyTaskList2()
         {
             var structure = TaskController.GetTasks();
-            Assert.AreEqual(0, structure.Elements.Count);
+            Assert.Null(structure);
         }
 
 

@@ -1,5 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
+using ProductivityTools.DateTimeTools;
 using ProductivityTools.GetTask3.API.Controllers;
 using ProductivityTools.GetTask3.App.Commands;
 using ProductivityTools.GetTask3.App.Queries;
@@ -27,7 +28,8 @@ namespace Tests
                 var serviceProvider = serviceCollection.BuildServiceProvider();
 
                 var taskrepository = serviceProvider.GetService<ITaskUnitOfWork>();
-                var ts = new GTaskApp(taskrepository);
+                var dateTime = serviceProvider.GetService<IDateTimePT>();
+                var ts = new GTaskApp(taskrepository, dateTime);
                 return ts;
             }
         }

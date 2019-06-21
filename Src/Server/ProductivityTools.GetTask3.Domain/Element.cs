@@ -15,7 +15,7 @@ namespace ProductivityTools.GetTask3.Domain
         public ElementType Type { get; protected set; }
         public Status Status { get; protected set; }
         public DateTime Created { get; protected set; }
-        public DateTime Deadline { get; protected set; }
+        public DateTime Start { get; protected set; }
         public DateTime? Finished { get; protected set; }
 
         public List<Element> Elements { get; protected set; }
@@ -39,8 +39,9 @@ namespace ProductivityTools.GetTask3.Domain
         public void Update(int? parentId, ElementType type)
         {
             new OneCoreInTree().Evaluate(parentId, type);
+            //pw: change this dates
             Created = DateTime.Now;
-            Deadline = DateTime.Now.AddDays(1);
+            Start = DateTime.Now.AddDays(1);
             Status = Status.New;
             Type = type;
             ParentId = parentId;
@@ -51,9 +52,21 @@ namespace ProductivityTools.GetTask3.Domain
             this.Elements = elements;
         }
 
-        public void FinishTask()
+        public void Finish(DateTime finishDate)
         {
             Status = Status.Finished;
+            Finished = finishDate;
+        }
+
+        public void Undone(DateTime finishDate)
+        {
+            Status = Status.New;
+            Finished = null;
+        }
+
+        public void Delay(DateTime startDate)
+        {
+            Start = startDate;   
         }
     }
 }
