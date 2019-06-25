@@ -19,15 +19,15 @@ namespace ProductivityTools.GetTask3.App.Commands
 
         public void Add(string name, int? bagId)
         {
-            AddElement(name, Domain.ElementType.Task, bagId);
+            AddElement(name, CoreObjects.ElementType.Task, bagId);
         }
 
         public void AddBag(string bagName, int? bagId)
         {
-            AddElement(bagName, Domain.ElementType.TaskBag, bagId);
+            AddElement(bagName, CoreObjects.ElementType.TaskBag, bagId);
         }
 
-        private void AddElement(string name, Domain.ElementType type, int? parentId)
+        private void AddElement(string name, CoreObjects.ElementType type, int? parentId)
         {
             Domain.Element e = new Domain.Element(name, type);
             e.Update(parentId, type);

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using ProductivityTools.GetTask3.Infrastructure.Base;
 using ProductivityTools.GetTask3.Infrastructure.Repositories;
 using System;
@@ -22,6 +23,13 @@ namespace ProductivityTools.GetTask3.Infrastructure
 
         public void Commit()
         {
+            var ChangeTracker = _dbContext.ChangeTracker;
+
+            var addedEntities = ChangeTracker.Entries().Where(x => x.State == EntityState.Added).ToList();
+            var modifiedEntities = ChangeTracker.Entries().Where(x => x.State == EntityState.Modified).ToList();
+            var deletedEntities = ChangeTracker.Entries().Where(x => x.State == EntityState.Deleted).ToList();
+
+
             _dbContext.SaveChanges();
         }
 

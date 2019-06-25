@@ -6,7 +6,8 @@
     [Type] INT NOT NULL, 
     [Status] INT NOT NULL, 
     [Created] DATETIME2 NOT NULL, 
-    [Start] DATETIME2 NOT NULL, 
+	[Start] DATETIME2 NOT NULL,
+    [Deadline] DATETIME2 NOT NULL, 
     [Finished] DATETIME2 NULL, 
 	CONSTRAINT FK_ParentId FOREIGN KEY ([ParentId]) REFERENCES [gt].[Element](ElementId)
 )

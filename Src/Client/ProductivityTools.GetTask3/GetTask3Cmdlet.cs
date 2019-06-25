@@ -18,6 +18,9 @@ namespace ProductivityTools.GetTask3
 
         protected override void ProcessRecord()
         {
+       
+            
+
             base.ProcessCommands();
         }
     }

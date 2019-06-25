@@ -54,6 +54,9 @@
     <Compile Include="Commands\GetTask\GetTaskList.cs" />
     <Compile Include="GetTask3Cmdlet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="View\ElementViewExtensions.cs" />
+    <Compile Include="View\ViewMetadata.cs" />
+    <Compile Include="View\PSView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -62,6 +65,10 @@
     <ProjectReference Include="..\..\..\ProductivityTools.GetTask3.Contract\ProductivityTools.GetTask3.Contract.csproj">
       <Project>{fbbc455a-bfd8-48fb-aea7-3651906914af}</Project>
       <Name>ProductivityTools.GetTask3.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\ProductivityTools.GetTask3.CoreObjects\ProductivityTools.GetTask3.CoreObjects.csproj">
+      <Project>{f57ec928-1328-4f02-8c6d-48d54a7cef22}</Project>
+      <Name>ProductivityTools.GetTask3.CoreObjects</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProductivityTools.GetTask3.Client\ProductivityTools.GetTask3.Client.csproj">
       <Project>{61497df7-371e-4247-b0e1-74271605baf2}</Project>
