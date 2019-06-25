@@ -15,4 +15,8 @@
     <ProjectReference Include="..\ProductivityTools.GetTask3.Infrastructure\ProductivityTools.GetTask3.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Items\" />
+  </ItemGroup>
+
 </Project>

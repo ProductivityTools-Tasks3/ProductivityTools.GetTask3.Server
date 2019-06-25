@@ -34,7 +34,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
 
         [HttpPost]
         [Route("List")]
-        public ItemView GetTasks([FromBody]int? parentId = null)
+        public ElementView GetTasks([FromBody]int? parentId = null)
         {
             var x = Queries.GetTaskList(parentId);
             return x;

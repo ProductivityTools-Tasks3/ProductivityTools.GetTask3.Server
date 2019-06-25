@@ -1,4 +1,5 @@
-﻿using ProductivityTools.GetTask3.Domain.Policy;
+﻿using ProductivityTools.GetTask3.CoreObjects;
+using ProductivityTools.GetTask3.Domain.Policy;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -16,6 +17,7 @@ namespace ProductivityTools.GetTask3.Domain
         public Status Status { get; protected set; }
         public DateTime Created { get; protected set; }
         public DateTime Start { get; protected set; }
+        public DateTime Deadline { get; protected set; }
         public DateTime? Finished { get; protected set; }
 
         public List<Element> Elements { get; protected set; }
@@ -41,7 +43,8 @@ namespace ProductivityTools.GetTask3.Domain
             new OneCoreInTree().Evaluate(parentId, type);
             //pw: change this dates
             Created = DateTime.Now;
-            Start = DateTime.Now.AddDays(1);
+            Start = DateTime.Now;
+            Deadline = DateTime.Now.AddDays(1);
             Status = Status.New;
             Type = type;
             ParentId = parentId;

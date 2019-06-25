@@ -11,7 +11,7 @@ namespace ProductivityTools.GetTask3.App.Queries.AutoMapper
         public ElementProfile()
         {
 
-            CreateMap<Domain.Element, ItemView>();
+            CreateMap<Domain.Element, ElementView>();
             //    ForMember(dest => dest.Elements, opt => opt.MapFrom(src => src.Elements));
             //CreateMap<List<Domain.Element>, List<ItemView>>();
 

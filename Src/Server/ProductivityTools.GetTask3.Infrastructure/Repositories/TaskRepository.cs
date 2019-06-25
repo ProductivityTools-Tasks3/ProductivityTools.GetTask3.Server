@@ -41,7 +41,7 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
             for (int i = 0; i < x.Count(); i++)
             {
                 Domain.Element element = new Domain.Element(x[i].ElementId, x[i].Type, x[i].Name, i, x[i].Status);
-                if (element.Type == Domain.ElementType.TaskBag)
+                if (element.Type == CoreObjects.ElementType.TaskBag)
                 {
                     element.SetElements(GetElements(x[i].ElementId));
                 }

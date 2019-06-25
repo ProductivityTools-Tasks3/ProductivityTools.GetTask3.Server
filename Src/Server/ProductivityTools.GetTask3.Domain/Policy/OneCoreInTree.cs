@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProductivityTools.GetTask3.CoreObjects;
+using System;
 using System.Collections.Generic;
 using System.Text;
 

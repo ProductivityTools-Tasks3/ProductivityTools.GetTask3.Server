@@ -15,7 +15,7 @@ namespace ProductivityTools.GetTask3.Client
     public class GetTaskHttpClient
     {
         static string URL = @"https://GetTask3:44317/api/Task/";
-        public static T Get<T>(string action, string query)
+        public static T Get<T>(string action, string jsonContent)
         {
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri(URL);
@@ -23,13 +23,14 @@ namespace ProductivityTools.GetTask3.Client
             // Add an Accept header for JSON format.
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            
-            HttpContent content = new StringContent("{Name: \"TaskOnSecondLevel2\",ParentId: 3 }", Encoding.UTF8, "application/json"); ;
 
+            //HttpContent content = new StringContent("{Name: \"TaskOnSecondLevel2\",ParentId: 3 }", Encoding.UTF8, "application/json"); 
+            HttpContent content = new StringContent(jsonContent, Encoding.UTF8, "application/json"); 
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
             // List data response.
-            HttpResponseMessage response = client.PostAsync("Add",content).Result;  // Blocking call! Program will wait here until a response is received or a timeout occurs.
+            //HttpResponseMessage response = client.PostAsync("Add",content).Result;  // Blocking call! Program will wait here until a response is received or a timeout occurs.
+            HttpResponseMessage response = client.PostAsync(action, content).Result;  // Blocking call! Program will wait here until a 
             if (response.IsSuccessStatusCode)
             {
                 // Parse the response body.
