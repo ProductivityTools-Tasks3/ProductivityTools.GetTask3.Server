@@ -73,7 +73,15 @@ namespace ProductivityTools.GetTask3.API.Controllers
         [Route("Delay")]
         public void Delay([FromBody] DelayItem delayItem)
         {
-            Commands.Delay(delayItem.ElementId,delayItem.StartDate);
+            Commands.Delay(delayItem.ElementId, delayItem.StartDate);
+        }
+
+        [HttpPost]
+        [Route("GetParent")]
+        public int? GetParent([FromBody] int elementId)
+        {
+            var r = Queries.GetParent(elementId);
+            return r;
         }
 
 

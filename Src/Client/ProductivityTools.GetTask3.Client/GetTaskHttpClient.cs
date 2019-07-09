@@ -14,7 +14,8 @@ namespace ProductivityTools.GetTask3.Client
 {
     public class GetTaskHttpClient
     {
-        static string URL = @"https://GetTask3:44317/api/Task/";
+       // static string URL = @"https://GetTask3:44317/api/Task/";
+        static string URL = @"https://localhost:44317/api/Task/";
         public static T Get<T>(string action, string jsonContent)
         {
             HttpClient client = new HttpClient();

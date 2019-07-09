@@ -51,12 +51,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\TaskStructure.cs" />
+    <Compile Include="Commands\CommandsBase.cs" />
     <Compile Include="Commands\GetTask\GetTaskList.cs" />
-    <Compile Include="GetTask3Cmdlet.cs" />
+    <Compile Include="Commands\GetTask\GetTask3Cmdlet.cs" />
+    <Compile Include="Commands\SelectCurrentRoot\Parent.cs" />
+    <Compile Include="Commands\SelectCurrentRoot\DirectItem.cs" />
+    <Compile Include="Commands\SelectCurrentRoot\SelectCurrentRootCmdlet.cs" />
+    <Compile Include="Domain\TaskStructureFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SingleCommands\SingleCommandsBase.cs" />
     <Compile Include="View\ElementViewExtensions.cs" />
-    <Compile Include="View\ViewMetadata.cs" />
-    <Compile Include="View\PSView.cs" />
+    <Compile Include="View\SessionManager.cs" />
+    <Compile Include="Session\SessionElementMetadata.cs" />
+    <Compile Include="Session\SessionMetadata.cs" />
+    <Compile Include="View\PSElementView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

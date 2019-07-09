@@ -10,5 +10,7 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
     {
         Domain.Element GetStructure(int? root = null);
         //void AddItem(string name);
+
+        Element Get(int? id);
     }
 }
