@@ -15,7 +15,7 @@ namespace ProductivityTools.GetTask3.App
     {
         string _sesisonKey = "ViewMetadata";
 
-        private SessionMetadata SessionMetadata
+        private SessionMetadata _sessionMetadata
         {
             get
             {
@@ -29,17 +29,49 @@ namespace ProductivityTools.GetTask3.App
             }
         }
 
-        private Dictionary<int, SessionElementMetadata> ItemOrder
+        //private Dictionary<int, SessionElementMetadata> ItemOrder
+        //{
+        //    get
+        //    {
+        //        var r = cmdlet.SessionState.PSVariable.Get(_sesisonKey);
+        //        if (r == null)
+        //        {
+        //            cmdlet.SessionState.PSVariable.Set(_sesisonKey, new Dictionary<int, SessionElementMetadata>());
+        //            r = cmdlet.SessionState.PSVariable.Get(_sesisonKey);
+        //        }
+        //        return (Dictionary<int, SessionElementMetadata>)r.Value;
+        //    }
+        //}
+
+        public int? CurentNodeElementId
         {
             get
             {
-                var r = cmdlet.SessionState.PSVariable.Get(_sesisonKey);
-                if (r == null)
+                //if (_sessionMetadata.SelectedNodeOrder.HasValue)
+                //{
+                //    var orderElement = _sessionMetadata.ItemOrder.Single(x => x.Value.Order == _sessionMetadata.SelectedNodeOrder);
+                //    return orderElement.Key;
+                //}
+                throw new Exception();
+            }
+        }
+
+        private int _selectedNodeElementId { get; set; }
+        public int? SelectedNodeElementId
+        {
+            get
+            {
+                if (_sessionMetadata.SelectedNodeOrder.HasValue)
                 {
-                    cmdlet.SessionState.PSVariable.Set(_sesisonKey, new Dictionary<int, SessionElementMetadata>());
-                    r = cmdlet.SessionState.PSVariable.Get(_sesisonKey);
+                    var currentElement = this._sessionMetadata.ItemOrder.SingleOrDefault(x => x.Value.Order == _sessionMetadata.SelectedNodeOrder);
+                    {
+                        return currentElement.Key;
+                    }
                 }
-                return (Dictionary<int, SessionElementMetadata>)r.Value;
+                else
+                {
+                    return null;
+                }
             }
         }
 
@@ -48,16 +80,15 @@ namespace ProductivityTools.GetTask3.App
         {
             get
             {
-                int? currentNode = null;
                 if (structure == null)
                 {
-                    structure = GetStructure();
+                    structure = GetStructure(SelectedNodeElementId);
                 }
                 return structure;
             }
         }
 
-        private ElementView GetStructure(int? currentNode = null)
+        private ElementView GetStructure(int? currentNode)
         {
             var rootElement = GetTaskHttpClient.Get<Contract.ElementView>("List", currentNode.ToString());
             CreateViewMetadata(rootElement);
@@ -77,7 +108,7 @@ namespace ProductivityTools.GetTask3.App
 
             int taskcounter = 0;
             //int bagcounter = 0;
-            ItemOrder.Clear();
+            this._sessionMetadata.ItemOrder.Clear();
 
             Action<ElementType> fillOrder = (type) =>
             {
@@ -86,7 +117,7 @@ namespace ProductivityTools.GetTask3.App
                     foreach (var element in root.Elements.Where(x => x.Type == type))
                     {
 
-                        ItemOrder.Add(element.ElementId, new SessionElementMetadata()
+                        this._sessionMetadata.ItemOrder.Add(element.ElementId, new SessionElementMetadata()
                         {
                             ElementId = element.ElementId,
                             Order = taskcounter,
@@ -119,50 +150,25 @@ namespace ProductivityTools.GetTask3.App
                 var root = this.Structure;
                 foreach (var element in root.Elements)
                 {
-                    var sessionelement = this.ItemOrder.First(x => x.Key == element.ElementId);
+                    var sessionelement = this._sessionMetadata.ItemOrder.First(x => x.Key == element.ElementId);
                     yield return new PSElementView() { Element = element, SessionElement = sessionelement.Value };
                 }
             }
         }
 
-        private int? _curentNodeElementId;
-        public int? CurentNodeElementId
-        {
-            get
-            {
-                return _curentNodeElementId;
-            }
-        }
 
-        private int? _selectedNodeOrder { get; set; }
 
-        private int _selectedNodeElementId { get; set; }
-        public int? SelectedNodeElementId
-        {
-            get
-            {
-                if (_selectedNodeOrder.HasValue)
-                {
-                    var currentElement = this.ItemOrder.SingleOrDefault(x => x.Value.Order == _selectedNodeOrder);
-                    {
-                        return currentElement.Key;
-                    }
-                }
-                else
-                {
-                    return _curentNodeElementId;
-                }
-            }
-        }
+
+
 
         public void SelectNodeByElementId(int value)
         {
-            _curentNodeElementId = value;
+            //this._sessionMetadata.
         }
 
         public void SelectNodeByOrder(int value)
         {
-            _selectedNodeOrder = value;
+            this._sessionMetadata.SelectedNodeOrder = value;
         }
     }
 }
