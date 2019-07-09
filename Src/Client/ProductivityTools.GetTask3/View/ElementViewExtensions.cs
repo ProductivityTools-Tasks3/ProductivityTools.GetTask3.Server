@@ -9,7 +9,7 @@ namespace ProductivityTools.GetTask3.View
 {
     public static class ElementViewExtensions
     {
-        public static int ChildElementsAmount(this ElementView that)
+        public static int ChildElementsAmount(this Contract.ElementView that)
         {
             if (that.Elements==null || that.Elements.Count==0)
             {

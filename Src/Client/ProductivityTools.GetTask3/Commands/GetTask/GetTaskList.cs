@@ -1,5 +1,8 @@
-﻿using ProductivityTools.GetTask3.Client;
+﻿using ProductivityTools.GetTask3.App;
+using ProductivityTools.GetTask3.Client;
 using ProductivityTools.GetTask3.Contract;
+using ProductivityTools.GetTask3.CoreObjects;
+using ProductivityTools.GetTask3.Domain;
 using ProductivityTools.GetTask3.View;
 using System;
 using System.Collections.Generic;
@@ -11,39 +14,46 @@ namespace ProductivityTools.GetTask3.Commands.GetTask
 {
     public class GetTaskList : PSCmdlet.PSCommandPT<GetTask3Cmdlet>
     {
-        ElementView RootElement;
-        PSView View;
+        //ElementView RootElement;
+        //ViewMetadata View
+        //{
+        //    get
+        //    {
+        //        return this.Cmdlet.SessionManager.ViewMetadata;
+        //    }
+        //}
+
+        TaskStructure TaskStructure { get; set; }
+
+
         protected override bool Condition => true;
 
-        public GetTaskList(GetTask3Cmdlet cmdlet) : base(cmdlet) { }
+        public GetTaskList(GetTask3Cmdlet cmdlet) : base(cmdlet)
+        {
+            this.TaskStructure = TaskStructureFactory.Get(cmdlet);
+        }
 
 
-        private string FormatRow(ElementView element)
+        private string FormatRow(PSElementView element)
         {
             var result = string.Empty;
-            ViewMetadata viewMetadata = this.View.ItemOrder[element.ElementId];
-            switch (element.Type)
+            var domain = element.Element;
+            SessionElementMetadata viewMetadata = element.SessionElement;// this.View.ItemOrder[element.ElementId];
+            switch (domain.Type)
             {
                 case CoreObjects.ElementType.Task:
-                    return $"T{GetOrder(viewMetadata)}. {element.Name} <{viewMetadata.ChildCount}>";
+                    return $"T{GetOrder(viewMetadata)}. {domain.Name} <{viewMetadata.ChildCount}>";
                 case CoreObjects.ElementType.TaskBag:
-                    return $"B{GetOrder(viewMetadata)}. [{element.Name}] <{viewMetadata.ChildCount}>";
+                    return $"B{GetOrder(viewMetadata)}. [{domain.Name}] <{viewMetadata.ChildCount}t>";
             }
             return "empty";
         }
 
         protected override void Invoke()
         {
-
-            //var xxxz = Cmdlet.SessionState.PSVariable.Get("fsa");
-            //List<string> xxx = new List<string>();
-            //xxx.Add("p");
-            //xxx.Add("d");
-            //Environment.SetEnvironmentVariable("pawel", "Fdsa");
-            //Cmdlet.SessionState.PSVariable.Set("fsa", xxx);
-            GetTasks();
+            TaskStructure ts = TaskStructureFactory.Get(this.Cmdlet);
             WriteOutput("GetTaskList");
-            WriteOutput($"+[{RootElement.Name}]");
+            WriteOutput($"+[{TaskStructure.CurrentElement.Name}]");
             DisplayList(CoreObjects.ElementType.TaskBag);
             DisplayList(CoreObjects.ElementType.Task);
             //root.Elements
@@ -53,10 +63,10 @@ namespace ProductivityTools.GetTask3.Commands.GetTask
 
         private void DisplayBags()
         {
-            WriteOutput($"+[{RootElement.Name}]");
-            foreach (var element in RootElement.Elements)
+            WriteOutput($"+[{TaskStructure.CurrentElement.Name}]");
+            foreach (var element in TaskStructure.Elements)
             {
-                if (element.Type == CoreObjects.ElementType.TaskBag)
+                if (element.Element.Type == CoreObjects.ElementType.TaskBag)
                 {
                     WriteOutput(FormatRow(element));
                 }
@@ -65,41 +75,47 @@ namespace ProductivityTools.GetTask3.Commands.GetTask
 
         private void DisplayList(CoreObjects.ElementType type)
         {
-            foreach (var element in RootElement.Elements.Where(x => x.Type == type))
+            foreach (var element in TaskStructure.Elements.Where(x => x.Element.Type == type))
             {
                 WriteOutput(FormatRow(element));
             }
         }
 
-        private void GetTasks()
+        //private void GetTasks()
+        //{
+        //    var currentNode = this.Cmdlet.SessionManager.ViewMetadata.SelectedNodeElementId;
+        //    RootElement = GetTaskHttpClient.Get<ElementView>("List", currentNode.ToString());
+        //    View.ItemOrder = new Dictionary<int, ElementViewMetadata>();
+
+        //    int taskcounter = 0;
+        //    //int bagcounter = 0;
+
+        //    Action<ElementType> fillOrder = (type) =>
+        //    {
+        //        if (RootElement != null)
+        //        {
+        //            foreach (var element in RootElement.Elements.Where(x => x.Type == type))
+        //            {
+
+        //                View.ItemOrder.Add(element.ElementId, new ElementViewMetadata()
+        //                {
+        //                    ElementId = element.ElementId,
+        //                    Order = taskcounter,
+        //                    ChildCount = element.ChildElementsAmount()
+        //                });
+        //                taskcounter++;
+        //            }
+        //        }
+        //    };
+        //    View.SelectNodeByElementId(RootElement.ElementId);
+
+        //    fillOrder(ElementType.TaskBag);
+        //    fillOrder(ElementType.Task);
+        //}
+
+        private string GetOrder(SessionElementMetadata metadata)
         {
-            RootElement = GetTaskHttpClient.Get<ElementView>("List", string.Empty);
-            View = new PSView();
-            View.ItemOrder = new Dictionary<int, ViewMetadata>();
 
-            int taskcounter = 0;
-            int bagcounter = 0;
-
-            foreach (var element in RootElement.Elements)
-            {
-                switch (element.Type)
-                {
-                    case CoreObjects.ElementType.TaskBag:
-                        View.ItemOrder.Add(element.ElementId, new ViewMetadata() { ElementId = element.ElementId, Order = bagcounter, ChildCount=element.ChildElementsAmount() });
-                        bagcounter++;
-                        break;
-                    case CoreObjects.ElementType.Task:
-                        View.ItemOrder.Add(element.ElementId, new ViewMetadata() { ElementId = element.ElementId, Order = taskcounter, ChildCount = element.ChildElementsAmount() });
-                        taskcounter++;
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
-
-        private string GetOrder(ViewMetadata metadata)
-        {
             return metadata.Order.ToString().PadLeft(3, '0');
         }
     }

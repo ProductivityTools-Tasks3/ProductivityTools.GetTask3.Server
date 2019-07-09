@@ -6,5 +6,6 @@ namespace ProductivityTools.GetTask3.App.Queries
     public interface IGTaskAppQuery
     {
         ElementView GetTaskList(int? bagId = null);
+        int? GetParent(int elementId);
     }
 }

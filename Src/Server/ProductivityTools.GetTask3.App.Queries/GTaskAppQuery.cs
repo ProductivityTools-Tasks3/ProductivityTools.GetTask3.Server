@@ -33,5 +33,11 @@ namespace ProductivityTools.GetTask3.App.Queries
             //Status= (x as Domain.Element).Status.ToString()}));
             return st;
         }
+
+        public int? GetParent(int elementId)
+        {
+            var element=_taskRepository.Get(elementId);
+            return element?.ParentId;
+        }
     }
 }
