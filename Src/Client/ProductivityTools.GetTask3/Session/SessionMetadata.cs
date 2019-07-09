@@ -10,6 +10,11 @@ namespace ProductivityTools.GetTask3.View
     {
         public Dictionary<int, SessionElementMetadata> ItemOrder { get; set; }
 
+        public SessionMetadata()
+        {
+            this.ItemOrder = new Dictionary<int, SessionElementMetadata>();
+        }
+
         //private int? _curentNodeElementId;
         //public int? CurentNodeElementId
         //{
@@ -20,7 +25,7 @@ namespace ProductivityTools.GetTask3.View
         //}
 
 
-        //private int? _selectedNodeOrder { get; set; }
+        public int? SelectedNodeOrder { get; set; }
 
         //private int _selectedNodeElementId { get; set; }
         //public int? SelectedNodeElementId
