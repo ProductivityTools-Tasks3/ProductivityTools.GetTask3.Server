@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace ProductivityTools.GetTask3.Commands
 {
-    public class CommandsBase: PSCmdlet.PSCmdletPT
+    public class GT3CmldetsBase: PSCmdlet.PSCmdletPT
     {
         public SessionManager SessionManager;
-        public CommandsBase()
+        public GT3CmldetsBase()
         {
             SessionManager = new SessionManager(this);
         }

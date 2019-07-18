@@ -6,6 +6,7 @@ using ProductivityTools.GetTask3.API.Models;
 using ProductivityTools.GetTask3.App.Commands;
 using ProductivityTools.GetTask3.App.Queries;
 using ProductivityTools.GetTask3.Configuration;
+using ProductivityTools.GetTask3.Contract;
 using ProductivityTools.GetTask3.Domain;
 using ProductivityTools.GetTask3.Infrastructure;
 using ProductivityTools.GetTask3.IntegrationTests;
@@ -69,7 +70,7 @@ namespace Tests
         public void AddOneItem2()
         {
             string valueToTest = "Pawel Wujczyk";
-            TaskController.Add(new ElementRequest() { Name = valueToTest });
+            TaskController.Add(new AddRequest() { Name = valueToTest });
             var structure = TaskController.GetTasks();
             var x = structure.Elements[0];
             Assert.AreEqual(valueToTest, x.Name);
@@ -79,7 +80,7 @@ namespace Tests
         public void AddSecondBag()
         {
             string bagName = "HomeTasks";
-            TaskController.AddBag(new ElementRequest() { Name = bagName });
+            TaskController.AddBag(new AddRequest() { Name = bagName });
 
             var structure = TaskController.GetTasks();
             var x = structure.Elements[0];
@@ -89,7 +90,7 @@ namespace Tests
         [Test]
         public void FinishTask2()
         {
-            TaskController.Add(new ElementRequest() { Name = "TaskToFinish" });
+            TaskController.Add(new AddRequest() { Name = "TaskToFinish" });
 
             var structure = TaskController.GetTasks();
             var x = structure.Elements[0];
@@ -105,26 +106,26 @@ namespace Tests
         public void AddTaskAddBagAddTaskInBagFinish()
         {
             string firstTask = "FirstTask";
-            TaskController.Add(new ElementRequest() { Name = firstTask });
+            TaskController.Add(new AddRequest() { Name = firstTask });
             var structure = TaskController.GetTasks();
             var structureItem = structure.Elements[0];
             Assert.AreEqual(firstTask, structureItem.Name);
 
             string bag = "Bag";
-            TaskController.AddBag(new ElementRequest() { Name = bag });
+            TaskController.AddBag(new AddRequest() { Name = bag });
             structure = TaskController.GetTasks();
             Assert.AreEqual(2, structure.Elements.Count);
 
             var bagObj = structure.Elements.Find(x => x.Name == bag);
             Assert.AreEqual(bag, bagObj.Name);
 
-            structure = TaskController.GetTasks(bagObj.ElementId);
+            structure = TaskController.GetTasks(new ListRequest() { ParentId = bagObj.ElementId });
             Assert.AreEqual(0, structure.Elements.Count);
 
             string secondTask = "SecondTask";
-            TaskController.Add(new ElementRequest() { Name = secondTask, ParentId = bagObj.ElementId });
+            TaskController.Add(new AddRequest() { Name = secondTask, ParentId = bagObj.ElementId });
 
-            structure = TaskController.GetTasks(bagObj.ElementId);
+            structure = TaskController.GetTasks(new ListRequest() { ParentId = bagObj.ElementId });
             Assert.AreEqual(1, structure.Elements.Count);
         }
 

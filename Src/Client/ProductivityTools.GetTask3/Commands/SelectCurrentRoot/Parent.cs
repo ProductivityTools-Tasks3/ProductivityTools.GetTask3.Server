@@ -24,8 +24,10 @@ namespace ProductivityTools.GetTask3.Commands.SelectCurrentRoot
         {
             //get parent for id
             var currentNode = TaskStructure.SelectedNodeElementId;
-            var parent = GetTaskHttpClient.Get<int>("GetParent", currentNode.ToString());
-            TaskStructure.SelectNodeByElementId(parent);
+            var parent = GetTaskHttpClient.Post2<int>("GetParent", currentNode.ToString());
+
+            
+            TaskStructure.SelectNodeByElementId(parent.Result);
         }
     }
 }
