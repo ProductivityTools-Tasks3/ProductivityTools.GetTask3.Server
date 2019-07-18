@@ -1,4 +1,5 @@
-﻿using ProductivityTools.GetTask3.Domain;
+﻿using AutoMapper;
+using ProductivityTools.GetTask3.Domain;
 using ProductivityTools.GetTask3.Infrastructure.Base;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,11 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
 {
     public class TaskRepository : Repository<Domain.Element>, ITaskRepository
     {
-        public TaskRepository(TaskContext context) : base(context) { }
+        private readonly IMapper _mapper;
+
+        public TaskRepository(TaskContext context, IMapper mapper) : base(context) {
+            _mapper = mapper;
+        }
 
         //pw: make it nice repository
         public Domain.Element GetStructure(int? rootId)
@@ -40,7 +45,7 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
             var x = _taskContext.Element.Where(l => l.ParentId == rootId).ToList();
             for (int i = 0; i < x.Count(); i++)
             {
-                Domain.Element element = new Domain.Element(x[i].ElementId, x[i].Type, x[i].Name, i, x[i].Status);
+                Domain.Element element = _mapper.Map<Domain.Element>(x[i]);// new Domain.Element(x[i].ElementId, x[i].Type, x[i].Name, i, x[i].Status);
                 if (element.Type == CoreObjects.ElementType.TaskBag)
                 {
                     element.SetElements(GetElements(x[i].ElementId));

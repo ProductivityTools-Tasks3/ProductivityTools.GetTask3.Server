@@ -11,15 +11,28 @@ namespace ProductivityTools.GetTask3.View
     {
         public static int ChildElementsAmount(this Contract.ElementView that)
         {
-            if (that.Elements==null || that.Elements.Count==0)
+            if (that.Elements == null || that.Elements.Count == 0)
             {
                 return 0;
             }
             else
             {
-                var result=that.Elements.Sum(x => x.ChildElementsAmount());
+                var result = that.Elements.Sum(x => x.ChildElementsAmount());
                 result += that.Elements.Count;
                 return result;
+            }
+        }
+
+        public static bool Delayed(this ElementView that)
+        {
+            //pw: correct it
+            if (that.Deadline < DateTime.Now)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
     }

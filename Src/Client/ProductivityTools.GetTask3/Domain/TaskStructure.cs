@@ -57,6 +57,13 @@ namespace ProductivityTools.GetTask3.App
             }
         }
 
+        private int GetElementIdByOrder(int? elementOrderId)
+        {
+            var currentElement = this._sessionMetadata.ItemOrder.SingleOrDefault(x => x.Value.Order == elementOrderId);
+            return currentElement.Key;
+
+        }
+
         private int _selectedNodeElementId { get; set; }
         public int? SelectedNodeElementId
         {
@@ -64,10 +71,8 @@ namespace ProductivityTools.GetTask3.App
             {
                 if (_sessionMetadata.SelectedNodeOrder.HasValue)
                 {
-                    var currentElement = this._sessionMetadata.ItemOrder.SingleOrDefault(x => x.Value.Order == _sessionMetadata.SelectedNodeOrder);
-                    {
-                        return currentElement.Key;
-                    }
+                    var x = GetElementIdByOrder(_sessionMetadata.SelectedNodeOrder);
+                    return x;
                 }
                 if (_sessionMetadata.SelectedNodeElementId.HasValue)
                 {
@@ -100,7 +105,6 @@ namespace ProductivityTools.GetTask3.App
             this.cmdlet = pSVariableIntrinsics;
             this.repository = new TaskStructureRepository();
         }
-
 
         private void CreateViewMetadata(Contract.ElementView root)
         {
@@ -156,7 +160,13 @@ namespace ProductivityTools.GetTask3.App
 
         public void Add(string name, ElementType type)
         {
-            this.repository.Add(name,this.SelectedNodeElementId, type);
+            this.repository.Add(name, this.SelectedNodeElementId, type);
+        }
+
+        public void Finish(int orderElementId)
+        {
+            var elementId = GetElementIdByOrder(orderElementId);
+            this.repository.Finish(elementId);
         }
 
         public void SelectNodeByElementId(int value)
