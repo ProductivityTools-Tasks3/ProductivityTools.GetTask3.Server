@@ -8,6 +8,7 @@ using ProductivityTools.GetTask3.API.Models;
 using ProductivityTools.GetTask3.App.Commands;
 using ProductivityTools.GetTask3.App.Queries;
 using ProductivityTools.GetTask3.Contract;
+using ProductivityTools.GetTask3.Contract.Requests;
 
 namespace ProductivityTools.GetTask3.API.Controllers
 {
@@ -54,12 +55,11 @@ namespace ProductivityTools.GetTask3.API.Controllers
             Commands.AddBag(request.Name, request.ParentId);
         }
 
-
         [HttpPost]
         [Route("Finish")]
-        public void Finish([FromBody] int elementId)
+        public void Finish([FromBody] FinishRequest request)
         {
-            Commands.Finish(elementId);
+            Commands.Finish(request.ElementId);
         }
 
         [HttpPost]

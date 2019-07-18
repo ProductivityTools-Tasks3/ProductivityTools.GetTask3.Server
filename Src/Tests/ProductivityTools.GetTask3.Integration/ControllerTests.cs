@@ -96,7 +96,7 @@ namespace Tests
             var x = structure.Elements[0];
             Assert.AreEqual(Status.New.ToString(), x.Status);
             var taskOrderId = x.OrderId;
-            TaskController.Finish(taskOrderId);
+            TaskController.Finish(new ProductivityTools.GetTask3.Contract.Requests.FinishRequest() { ElementId = taskOrderId });
 
             structure = TaskController.GetTasks();
             x = structure.Elements[0];

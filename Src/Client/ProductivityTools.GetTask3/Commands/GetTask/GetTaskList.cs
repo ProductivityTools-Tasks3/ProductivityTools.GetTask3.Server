@@ -14,17 +14,7 @@ namespace ProductivityTools.GetTask3.Commands.GetTask
 {
     public class GetTaskList : PSCmdlet.PSCommandPT<GetTask3Cmdlet>
     {
-        //ElementView RootElement;
-        //ViewMetadata View
-        //{
-        //    get
-        //    {
-        //        return this.Cmdlet.SessionManager.ViewMetadata;
-        //    }
-        //}
-
         TaskStructure TaskStructure { get; set; }
-
 
         protected override bool Condition => true;
 
@@ -61,6 +51,30 @@ namespace ProductivityTools.GetTask3.Commands.GetTask
             // var z = GetTaskHttpClient.Get<ElementView>("Add", "{Name: \"XXX\",ParentId: 3 }");
         }
 
+        private void Setcolor(ElementView element)
+        {
+            if (element.Delayed())
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+            }
+            if (element.Finished.HasValue)
+            {
+                Console.ForegroundColor = ConsoleColor.Gray;
+            }
+        }
+
+        private void ResetColor()
+        {
+            Console.ResetColor();
+        }
+
+        private void WriteToScreen(PSElementView element)
+        {
+            Setcolor(element.Element);
+            WriteOutput(FormatRow(element));
+            ResetColor();
+        }
+
         private void DisplayBags()
         {
             WriteOutput($"+[{TaskStructure.CurrentElement.Name}]");
@@ -68,7 +82,7 @@ namespace ProductivityTools.GetTask3.Commands.GetTask
             {
                 if (element.Element.Type == CoreObjects.ElementType.TaskBag)
                 {
-                    WriteOutput(FormatRow(element));
+                    WriteToScreen(element);
                 }
             }
         }
@@ -77,45 +91,12 @@ namespace ProductivityTools.GetTask3.Commands.GetTask
         {
             foreach (var element in TaskStructure.Elements.Where(x => x.Element.Type == type))
             {
-                WriteOutput(FormatRow(element));
+                WriteToScreen(element);
             }
         }
 
-        //private void GetTasks()
-        //{
-        //    var currentNode = this.Cmdlet.SessionManager.ViewMetadata.SelectedNodeElementId;
-        //    RootElement = GetTaskHttpClient.Get<ElementView>("List", currentNode.ToString());
-        //    View.ItemOrder = new Dictionary<int, ElementViewMetadata>();
-
-        //    int taskcounter = 0;
-        //    //int bagcounter = 0;
-
-        //    Action<ElementType> fillOrder = (type) =>
-        //    {
-        //        if (RootElement != null)
-        //        {
-        //            foreach (var element in RootElement.Elements.Where(x => x.Type == type))
-        //            {
-
-        //                View.ItemOrder.Add(element.ElementId, new ElementViewMetadata()
-        //                {
-        //                    ElementId = element.ElementId,
-        //                    Order = taskcounter,
-        //                    ChildCount = element.ChildElementsAmount()
-        //                });
-        //                taskcounter++;
-        //            }
-        //        }
-        //    };
-        //    View.SelectNodeByElementId(RootElement.ElementId);
-
-        //    fillOrder(ElementType.TaskBag);
-        //    fillOrder(ElementType.Task);
-        //}
-
         private string GetOrder(SessionElementMetadata metadata)
         {
-
             return metadata.Order.ToString().PadLeft(3, '0');
         }
     }

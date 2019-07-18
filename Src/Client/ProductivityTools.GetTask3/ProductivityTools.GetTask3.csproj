@@ -63,6 +63,7 @@
     <Compile Include="Domain\TaskStructureFactory.cs" />
     <Compile Include="Domain\TaskStructureRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SingleCommands\FinishTask.cs" />
     <Compile Include="SingleCommands\SingleCommandsBase.cs" />
     <Compile Include="View\ElementViewExtensions.cs" />
     <Compile Include="View\SessionManager.cs" />

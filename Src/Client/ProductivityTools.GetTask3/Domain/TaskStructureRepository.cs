@@ -1,5 +1,6 @@
 ﻿using ProductivityTools.GetTask3.Client;
 using ProductivityTools.GetTask3.Contract;
+using ProductivityTools.GetTask3.Contract.Requests;
 using ProductivityTools.GetTask3.CoreObjects;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,12 @@ namespace ProductivityTools.GetTask3.Domain
 
         public async void Add(string Name, int? parentId, ElementType type)
         {
-            var x= await GetTaskHttpClient.Post2<object>("Add", new AddRequest() { Name = Name, ParentId = parentId });
+            var x = await GetTaskHttpClient.Post2<object>("Add", new AddRequest() { Name = Name, ParentId = parentId });
+        }
+
+        internal async void Finish(int elementId)
+        {
+            await GetTaskHttpClient.Post2<object>("Finish", new FinishRequest() { ElementId = elementId });
         }
     }
 }
