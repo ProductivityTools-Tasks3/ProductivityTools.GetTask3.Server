@@ -1,6 +1,7 @@
 ﻿using ProductivityTools.GetTask3.Client;
 using ProductivityTools.GetTask3.Contract;
 using ProductivityTools.GetTask3.CoreObjects;
+using ProductivityTools.GetTask3.Domain;
 using ProductivityTools.GetTask3.View;
 using System;
 using System.Collections.Generic;
@@ -68,10 +69,11 @@ namespace ProductivityTools.GetTask3.App
                         return currentElement.Key;
                     }
                 }
-                else
+                if (_sessionMetadata.SelectedNodeElementId.HasValue)
                 {
-                    return null;
+                    return _sessionMetadata.SelectedNodeElementId.Value;
                 }
+                return null;
             }
         }
 
@@ -82,25 +84,23 @@ namespace ProductivityTools.GetTask3.App
             {
                 if (structure == null)
                 {
-                    structure = GetStructure(SelectedNodeElementId);
+                    structure = repository.GetStructure(SelectedNodeElementId);
+                    CreateViewMetadata(structure);
                 }
                 return structure;
             }
         }
 
-        private ElementView GetStructure(int? currentNode)
-        {
-            var rootElement = GetTaskHttpClient.Get<Contract.ElementView>("List", currentNode.ToString());
-            CreateViewMetadata(rootElement);
-            return rootElement;
-        }
 
         System.Management.Automation.PSCmdlet cmdlet;
+        TaskStructureRepository repository;
 
         internal TaskStructure(System.Management.Automation.PSCmdlet pSVariableIntrinsics)
         {
             this.cmdlet = pSVariableIntrinsics;
+            this.repository = new TaskStructureRepository();
         }
+
 
         private void CreateViewMetadata(Contract.ElementView root)
         {
@@ -133,8 +133,6 @@ namespace ProductivityTools.GetTask3.App
             fillOrder(ElementType.Task);
         }
 
-
-
         public Contract.ElementView CurrentElement
         {
             get
@@ -156,19 +154,21 @@ namespace ProductivityTools.GetTask3.App
             }
         }
 
-
-
-
-
+        public void Add(string name, ElementType type)
+        {
+            this.repository.Add(name,this.SelectedNodeElementId, type);
+        }
 
         public void SelectNodeByElementId(int value)
         {
-            //this._sessionMetadata.
+            _sessionMetadata.SelectedNodeOrder = null;
+            _sessionMetadata.SelectedNodeElementId = value;
         }
 
         public void SelectNodeByOrder(int value)
         {
-            this._sessionMetadata.SelectedNodeOrder = value;
+            _sessionMetadata.SelectedNodeOrder = value;
+            _sessionMetadata.SelectedNodeElementId = null;
         }
     }
 }

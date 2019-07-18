@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace ProductivityTools.GetTask3.SingleCommands
 {
     [Cmdlet(VerbsCommon.Select, "CurrentRoot")]
-    public class SelectCurrentRootCmdlet : CommandsBase
+    public class SelectCurrentRootCmdlet : GT3CmldetsBase
     {
         [Parameter(Position = 0)]
         public int? Root { get; set; }

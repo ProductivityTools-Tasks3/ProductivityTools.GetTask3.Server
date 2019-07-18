@@ -16,7 +16,27 @@ namespace ProductivityTools.GetTask3.Client
     {
        // static string URL = @"https://GetTask3:44317/api/Task/";
         static string URL = @"https://localhost:44317/api/Task/";
-        public static T Get<T>(string action, string jsonContent)
+
+
+        public static async Task<T> Post2<T>(string action, object obj)
+        {
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri(URL);
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+
+            HttpResponseMessage response = await client.PostAsJsonAsync(action, obj);
+            if (response.IsSuccessStatusCode)
+            {
+                T result = await response.Content.ReadAsAsync<T>();
+                return result;
+            }
+            throw new Exception(response.ReasonPhrase);
+
+        }
+
+        private static T Post<T>(string action, string jsonContent)
         {
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri(URL);

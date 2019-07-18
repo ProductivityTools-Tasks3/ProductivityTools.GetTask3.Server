@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace ProductivityTools.GetTask3
 {
     [Cmdlet(VerbsCommon.Get, "Task3")]
-    public class GetTask3Cmdlet : CommandsBase
+    public class GetTask3Cmdlet : GT3CmldetsBase
     {
 
         public GetTask3Cmdlet()

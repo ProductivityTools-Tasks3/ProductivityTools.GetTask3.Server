@@ -34,22 +34,22 @@ namespace ProductivityTools.GetTask3.API.Controllers
 
         [HttpPost]
         [Route("List")]
-        public ElementView GetTasks([FromBody]int? parentId = null)
+        public ElementView GetTasks([FromBody]ListRequest request=null)
         {
-            var x = Queries.GetTaskList(parentId);
+            var x = Queries.GetTaskList(request?.ParentId);
             return x;
         }
 
         [HttpPost]
         [Route("Add")]
-        public void Add([FromBody] ElementRequest request)
+        public void Add([FromBody] AddRequest request)
         {
             Commands.Add(request.Name, request.ParentId);
         }
 
         [HttpPost]
         [Route("AddBag")]
-        public void AddBag([FromBody] ElementRequest request)
+        public void AddBag([FromBody] AddRequest request)
         {
             Commands.AddBag(request.Name, request.ParentId);
         }
