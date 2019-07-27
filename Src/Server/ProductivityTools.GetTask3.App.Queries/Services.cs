@@ -10,7 +10,8 @@ namespace ProductivityTools.GetTask3.App.Queries
     {
         public static IServiceCollection ConfigureServicesQueries(this IServiceCollection services)
         {
-            services.AddSingleton<IGTaskAppQuery, GTaskAppQuery>();
+            services.AddSingleton<ITaskQueries, TaskQueries>();
+            services.AddSingleton<IDefinedTaskQueries,DefinedTaskQueries > ();
             services.ConfigureInfrastructureServices();
             return services;
         }

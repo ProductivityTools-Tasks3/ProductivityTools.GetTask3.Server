@@ -9,6 +9,7 @@ namespace ProductivityTools.GetTask3.Infrastructure
     {
         private readonly IConfig _config;
         public DbSet<Domain.Element> Element { get; set; }
+        public DbSet<Domain.DefinedElementGroup> DefinedElementGroup { get; set; }
 
         public TaskContext(IConfig config)
         {
@@ -27,8 +28,14 @@ namespace ProductivityTools.GetTask3.Infrastructure
             modelBuilder.Entity<Domain.Element>(entity =>
             {
                 entity.HasKey(e => e.ElementId);
-                entity.Ignore(e => e.OrderId);
                 entity.Ignore(e => e.Elements);
+            });
+
+            modelBuilder.Entity<Domain.DefinedElementGroup>(entity =>
+            {
+                entity.HasKey(e => e.DefinedElementGroupId);
+                
+               // entity.HasMany(e => e.Elements);
             });
         }
     }

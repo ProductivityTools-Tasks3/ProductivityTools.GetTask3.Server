@@ -13,15 +13,17 @@ namespace ProductivityTools.GetTask3.Commands.AddTask
         protected override bool Condition => true;
 
         public AddElement(AddTaskCmdlet cmdlet) : base(cmdlet)
-        {
-            
-            
+        {    
         }
 
         protected override void Invoke()
         {
             TaskStructure ts = TaskStructureFactory.Get(this.Cmdlet);
-            ts.Add(this.Cmdlet.Name, this.Cmdlet.Type);
+            string[] elements = this.Cmdlet.Name.Split('\n').Where(x => !string.IsNullOrEmpty(x)).ToArray();
+            foreach (var element in elements)
+            {
+                ts.Add(element, this.Cmdlet.Type);
+            }
         }
     }
 }

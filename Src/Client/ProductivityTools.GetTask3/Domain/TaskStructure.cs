@@ -30,6 +30,11 @@ namespace ProductivityTools.GetTask3.App
             }
         }
 
+        internal void GetPredefinedTask()
+        {
+            
+        }
+
         //private Dictionary<int, SessionElementMetadata> ItemOrder
         //{
         //    get
@@ -98,12 +103,12 @@ namespace ProductivityTools.GetTask3.App
 
 
         System.Management.Automation.PSCmdlet cmdlet;
-        TaskStructureRepository repository;
+        TaskRepository repository;
 
         internal TaskStructure(System.Management.Automation.PSCmdlet pSVariableIntrinsics)
         {
             this.cmdlet = pSVariableIntrinsics;
-            this.repository = new TaskStructureRepository();
+            this.repository = new TaskRepository();
         }
 
         private void CreateViewMetadata(Contract.ElementView root)
@@ -131,7 +136,7 @@ namespace ProductivityTools.GetTask3.App
                     }
                 }
             };
-            SelectNodeByElementId(root.ElementId);
+            SelectNodeByElementId(root?.ElementId);
 
             fillOrder(ElementType.TaskBag);
             fillOrder(ElementType.Task);
@@ -169,7 +174,13 @@ namespace ProductivityTools.GetTask3.App
             this.repository.Finish(elementId);
         }
 
-        public void SelectNodeByElementId(int value)
+        public void Undone(int orderElementId)
+        {
+            var elementId = GetElementIdByOrder(orderElementId);
+            this.repository.Undone(elementId);
+        }
+
+        public void SelectNodeByElementId(int? value)
         {
             _sessionMetadata.SelectedNodeOrder = null;
             _sessionMetadata.SelectedNodeElementId = value;

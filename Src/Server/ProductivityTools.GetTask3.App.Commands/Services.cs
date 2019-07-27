@@ -11,7 +11,7 @@ namespace ProductivityTools.GetTask3.App.Commands
     {
         public static IServiceCollection ConfigureServicesCommands(this IServiceCollection services)
         {
-            services.AddSingleton<IGTaskApp, GTaskApp>();
+            services.AddSingleton<IGTaskCommands, TaskCommands>();
             services.AddSingleton<IDateTimePT, DateTimePT>();
             services.ConfigureInfrastructureServices();
             return services;
