@@ -12,6 +12,7 @@ namespace ProductivityTools.GetTask3.Infrastructure
         {
             services.AddSingleton<ITaskUnitOfWork, TaskUnitOfWork>();
             services.AddSingleton<ITaskRepository, TaskRepository>();
+            services.AddSingleton<IDefinedTaskRepository, DefinedTaskRepository>();
             services.AddSingleton<TaskContext>();
             return services;
         }

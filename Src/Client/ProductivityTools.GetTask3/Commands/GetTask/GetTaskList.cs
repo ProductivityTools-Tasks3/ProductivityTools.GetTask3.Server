@@ -23,7 +23,6 @@ namespace ProductivityTools.GetTask3.Commands.GetTask
             this.TaskStructure = TaskStructureFactory.Get(cmdlet);
         }
 
-
         private string FormatRow(PSElementView element)
         {
             var result = string.Empty;
@@ -43,9 +42,16 @@ namespace ProductivityTools.GetTask3.Commands.GetTask
         {
             TaskStructure ts = TaskStructureFactory.Get(this.Cmdlet);
             WriteOutput("GetTaskList");
-            WriteOutput($"+[{TaskStructure.CurrentElement.Name}]");
-            DisplayList(CoreObjects.ElementType.TaskBag);
-            DisplayList(CoreObjects.ElementType.Task);
+            if (TaskStructure.CurrentElement == null)
+            {
+                WriteOutput("No task found");
+            }
+            else
+            {
+                WriteOutput($"+[{TaskStructure.CurrentElement.Name}]");
+                DisplayList(CoreObjects.ElementType.TaskBag);
+                DisplayList(CoreObjects.ElementType.Task);
+            }
             //root.Elements
 
             // var z = GetTaskHttpClient.Get<ElementView>("Add", "{Name: \"XXX\",ParentId: 3 }");
@@ -53,13 +59,16 @@ namespace ProductivityTools.GetTask3.Commands.GetTask
 
         private void Setcolor(ElementView element)
         {
-            if (element.Delayed())
+            if (element.Type != ElementType.TaskBag)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-            }
-            if (element.Finished.HasValue)
-            {
-                Console.ForegroundColor = ConsoleColor.Gray;
+                if (element.Delayed())
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                }
+                if (element.Finished.HasValue)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                }
             }
         }
 

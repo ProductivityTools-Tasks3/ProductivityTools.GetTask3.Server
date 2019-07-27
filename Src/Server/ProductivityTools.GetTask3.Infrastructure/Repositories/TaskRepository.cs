@@ -8,11 +8,21 @@ using System.Text;
 
 namespace ProductivityTools.GetTask3.Infrastructure.Repositories
 {
+    public interface ITaskRepository : IRepository<Domain.Element>
+    {
+        Domain.Element GetStructure(int? root = null);
+        //void AddItem(string name);
+        
+        Element Get(int? id);
+        List<Element> GetTaskBags(int? rootId);
+    }
+
     public class TaskRepository : Repository<Domain.Element>, ITaskRepository
     {
         private readonly IMapper _mapper;
 
-        public TaskRepository(TaskContext context, IMapper mapper) : base(context) {
+        public TaskRepository(TaskContext context, IMapper mapper) : base(context)
+        {
             _mapper = mapper;
         }
 
@@ -37,6 +47,29 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
                 result = _taskContext.Element.SingleOrDefault(x => x.ElementId == id);
             }
             return result;
+        }
+
+        public List<Element> GetTaskBags(int? rootId)
+        {
+            var result = new List<Element>();
+            GetTaskBagsRecurse(result, rootId);
+            return result;
+        }
+
+        private void GetTaskBagsRecurse(List<Element> elements, int? rootId)
+        {
+            var current = Get(rootId);
+            if (current ==null)
+            {
+                throw new Exception("No task no bags found");
+            }
+            elements.Add(current);
+            var childBags = _taskContext.Element.Where(l => l.ParentId==current.ElementId &&  l.Type == CoreObjects.ElementType.TaskBag).ToList();
+            
+            foreach(var childBag in childBags)
+            {
+                GetTaskBagsRecurse(elements, childBag.ElementId);
+            }
         }
 
         private List<Element> GetElements(int? rootId = null)

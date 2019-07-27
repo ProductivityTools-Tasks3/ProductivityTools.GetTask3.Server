@@ -16,10 +16,10 @@ namespace ProductivityTools.GetTask3.API.Controllers
     [ApiController]
     public class TaskController : ControllerBase
     {
-        IGTaskAppQuery Queries;
-        IGTaskApp Commands;
+        ITaskQueries Queries;
+        IGTaskCommands Commands;
 
-        public TaskController(IGTaskAppQuery gTaskAppQuery, IGTaskApp gTaskApp)
+        public TaskController(ITaskQueries gTaskAppQuery, IGTaskCommands gTaskApp)
         {
             this.Queries = gTaskAppQuery;
             this.Commands = gTaskApp;
@@ -37,6 +37,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
         [Route("List")]
         public ElementView GetTasks([FromBody]ListRequest request=null)
         {
+            //pw: perform mapping in this layer
             var x = Queries.GetTaskList(request?.ParentId);
             return x;
         }
@@ -64,9 +65,9 @@ namespace ProductivityTools.GetTask3.API.Controllers
 
         [HttpPost]
         [Route("Undone")]
-        public void Undone([FromBody] int elementId)
-        {
-            Commands.Undone(elementId);
+        public void Undone([FromBody] UndoneRequest request)
+       {
+            Commands.Undone(request.ElementId);
         }
 
         [HttpPost]

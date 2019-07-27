@@ -15,13 +15,13 @@ namespace ProductivityTools.GetTask3.Client
     public class GetTaskHttpClient
     {
        // static string URL = @"https://GetTask3:44317/api/Task/";
-        static string URL = @"https://localhost:44317/api/Task/";
+        static string URL = @"https://localhost:44317/api/";
 
 
-        public static async Task<T> Post2<T>(string action, object obj)
+        public static async Task<T> Post2<T>(string controller, string action, object obj)
         {
             HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri(URL);
+            client.BaseAddress = new Uri(URL+controller+"/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 

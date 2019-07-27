@@ -19,7 +19,7 @@ namespace Tests
 
         }
 
-        private GTaskApp GTaskApp
+        private TaskCommands GTaskApp
         {
             get
             {
@@ -29,7 +29,7 @@ namespace Tests
 
                 var taskrepository = serviceProvider.GetService<ITaskUnitOfWork>();
                 var dateTime = serviceProvider.GetService<IDateTimePT>();
-                var ts = new GTaskApp(taskrepository, dateTime);
+                var ts = new TaskCommands(taskrepository, dateTime);
                 return ts;
             }
         }
