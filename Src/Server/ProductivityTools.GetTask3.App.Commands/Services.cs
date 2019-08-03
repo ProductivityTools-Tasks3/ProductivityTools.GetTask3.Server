@@ -13,6 +13,7 @@ namespace ProductivityTools.GetTask3.App.Commands
         {
             services.AddSingleton<IGTaskCommands, TaskCommands>();
             services.AddSingleton<IDateTimePT, DateTimePT>();
+            services.AddSingleton<IDefinedTaskCommands, DefinedTaskCommands>();
             services.ConfigureInfrastructureServices();
             return services;
         }

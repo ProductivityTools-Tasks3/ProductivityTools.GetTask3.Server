@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [gt].[Element]
 (
-	[ElementId] INT NOT NULL PRIMARY KEY IDENTITY(1,1),
+	[ElementId] INT NOT NULL IDENTITY(1,1),
 	[ParentId] INT NULL,
 	[Name] VARCHAR(100), 
     [Type] INT NOT NULL, 

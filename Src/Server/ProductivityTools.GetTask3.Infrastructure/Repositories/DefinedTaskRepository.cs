@@ -1,4 +1,5 @@
-﻿using AutoMapper;using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using ProductivityTools.GetTask3.Domain;
 using ProductivityTools.GetTask3.Infrastructure.Base;
 using System;
@@ -11,6 +12,8 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
     public interface IDefinedTaskRepository : IRepository<DefinedElementGroup>
     {
         IEnumerable<Domain.DefinedElementGroup> GetForBag(int bagId, bool includeDetails);
+        DefinedElementGroup Get(int definedElementGroupId);
+        DefinedElementGroup GetByName(int bagid, string name);
     }
 
     class DefinedTaskRepository : Repository<DefinedElementGroup>, IDefinedTaskRepository
@@ -27,13 +30,25 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
             IEnumerable<Domain.DefinedElementGroup> definedTasks;
             if (includeDetails)
             {
-                definedTasks = _taskContext.DefinedElementGroup.Include(i=>i.Items).Where(x => x.Bag.ElementId == bagId).ToList();
+                definedTasks = _taskContext.DefinedElementGroup.Include(i => i.Items).Where(x => x.Bag.ElementId == bagId).ToList();
             }
             else
             {
-             definedTasks= _taskContext.DefinedElementGroup.Where(x => x.Bag.ElementId == bagId).ToList();
+                definedTasks = _taskContext.DefinedElementGroup.Where(x => x.Bag.ElementId == bagId).ToList();
             }
             return definedTasks;
         }
+
+        public Domain.DefinedElementGroup GetByName(int bagid, string name)
+        {
+            var r=_taskContext.DefinedElementGroup.SingleOrDefault(x => x.BagId == bagid && x.Name == name);
+            return r;
+        }
+
+        //public DefinedElementGroup Get(int definedElementGroupId)
+        //{
+        //    var result = _taskContext.DefinedElementGroup.FirstOrDefault(x => x.DefinedElementGroupId == definedElementGroupId);
+        //    return result;
+        //}
     }
 }

@@ -11,7 +11,7 @@ namespace ProductivityTools.GetTask3.Commands.SelectCurrentRoot
 {
     public class DirectItem : PSCmdlet.PSCommandPT<SelectCurrentRootCmdlet>
     {
-        TaskStructure TaskStructure; 
+        App.Task TaskStructure; 
         public DirectItem(SelectCurrentRootCmdlet selectCurrentRootCmdlet) : base(selectCurrentRootCmdlet)
         {
             TaskStructure = TaskStructureFactory.Get(this.Cmdlet);

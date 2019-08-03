@@ -13,16 +13,16 @@ namespace ProductivityTools.GetTask3.Commands.AddTask
         protected override bool Condition => true;
 
         public AddElement(AddTaskCmdlet cmdlet) : base(cmdlet)
-        {    
+        {
         }
 
         protected override void Invoke()
         {
-            TaskStructure ts = TaskStructureFactory.Get(this.Cmdlet);
+            App.Task ts = TaskStructureFactory.Get(this.Cmdlet);
             string[] elements = this.Cmdlet.Name.Split('\n').Where(x => !string.IsNullOrEmpty(x)).ToArray();
             foreach (var element in elements)
             {
-                ts.Add(element, this.Cmdlet.Type);
+                ts.Add(element, this.Cmdlet.Type == CoreObjects.ElementType.NotDefined ? CoreObjects.ElementType.Task : this.Cmdlet.Type);
             }
         }
     }

@@ -15,12 +15,14 @@ namespace ProductivityTools.GetTask3.API.Controllers
     [ApiController]
     public class DefinedTaskController : ControllerBase
     {
-        IDefinedTaskQueries _queries;
-        IMapper _mapper;
+        private readonly IDefinedTaskQueries _queries;
+        private readonly IDefinedTaskCommands _commands;
+        private readonly IMapper _mapper;
 
-        public DefinedTaskController(IDefinedTaskQueries queries, IMapper mapper)
+        public DefinedTaskController(IDefinedTaskQueries queries, IDefinedTaskCommands commands, IMapper mapper)
         {
-            this._queries = queries;
+            _queries = queries;
+            _commands = commands;
             _mapper = mapper;
         }
 
@@ -28,11 +30,28 @@ namespace ProductivityTools.GetTask3.API.Controllers
         [Route("List")]
         public DefinedTaskView GetDefinedTasks([FromBody]ListDefinedTaskRequest request = null)
         {
-            var definedTask = _queries.GetDefinedTaskForBag(request?.BagId, request.IncudeDetails);
+            var definedTask = _queries.GetDefinedTaskGroupsForBag(request?.BagId, request.IncudeDetails);
             DefinedTaskView result = new DefinedTaskView();
-            result.DefinedTasks = _mapper.Map<List<DefinedTaskGroup>>(definedTask);
+            result.DefinedTasks = _mapper.Map<List<DefinedTaskGroupView>>(definedTask);
             //definedTask.ForEach(x => result.DefinedTasks.Add(new DefinedTaskGroup() { Name = x.Name, BagName = x.BagId.ToString() }));
             return result;
+        }
+
+
+        [HttpPost]
+        [Route("GetDefinedTaskGroup")]
+        public DefinedTaskGroupView GetDefinedTaskGroup([FromBody]GetDefinedTaskGroupRequest request = null)
+        {
+            Domain.DefinedElementGroup definedTaskGroup = _queries.GetDefinedTaskGroup(request.BagId, request.DefinedTaskGroupName);
+            DefinedTaskGroupView result = _mapper.Map< DefinedTaskGroupView>(definedTaskGroup);
+            return result;
+        }
+
+        [HttpPost]
+        [Route("AddDefinedTasks")]
+        public void AddDefinedTasks([FromBody]AddDefinedTasksRequest request)
+        {
+            _commands.AddDefinedTask(request.DefinedTaskId);
         }
     }
 }

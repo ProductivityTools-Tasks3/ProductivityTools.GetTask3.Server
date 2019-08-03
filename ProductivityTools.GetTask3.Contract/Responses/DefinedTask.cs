@@ -2,8 +2,9 @@
 
 namespace ProductivityTools.GetTask3.Contract.Responses
 {
-    public class DefinedTaskGroup
+    public class DefinedTaskGroupView
     {
+        public int DefinedTaskGroupId { get; set; }
         public string BagName { get; set; }
         public string Name { get; set; }
 

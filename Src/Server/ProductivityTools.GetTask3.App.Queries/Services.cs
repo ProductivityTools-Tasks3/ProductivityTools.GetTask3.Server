@@ -12,6 +12,7 @@ namespace ProductivityTools.GetTask3.App.Queries
         {
             services.AddSingleton<ITaskQueries, TaskQueries>();
             services.AddSingleton<IDefinedTaskQueries,DefinedTaskQueries > ();
+            
             services.ConfigureInfrastructureServices();
             return services;
         }
