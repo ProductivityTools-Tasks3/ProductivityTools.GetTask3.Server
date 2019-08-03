@@ -12,7 +12,7 @@ namespace ProductivityTools.GetTask3.Commands.SelectCurrentRoot
 {
     public class Parent : PSCmdlet.PSCommandPT<SelectCurrentRootCmdlet>
     {
-        TaskStructure TaskStructure;
+        App.Task TaskStructure;
         public Parent(SelectCurrentRootCmdlet selectCurrentRootCmdlet) : base(selectCurrentRootCmdlet)
         {
             TaskStructure = TaskStructureFactory.Get(Cmdlet);

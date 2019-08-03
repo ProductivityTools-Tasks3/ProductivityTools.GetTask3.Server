@@ -51,6 +51,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\AddDefinedTask\AddDefinedTaskCmdlet.cs" />
+    <Compile Include="Commands\AddDefinedTask\AddDefinedTaskCommand.cs" />
     <Compile Include="Commands\AddTask\AddElement.cs" />
     <Compile Include="Commands\AddTask\AddTaskCmdlet.cs" />
     <Compile Include="Commands\GetDefinedTask\GetDefinedTaskCmdlet.cs" />
@@ -58,7 +60,8 @@
     <Compile Include="Commands\GetDefinedTask\GetDefinedTaskList.cs" />
     <Compile Include="Domain\DefinedTask.cs" />
     <Compile Include="Domain\DefinedTaskRepository.cs" />
-    <Compile Include="Domain\TaskStructure.cs" />
+    <Compile Include="Domain\DomainBase.cs" />
+    <Compile Include="Domain\Task.cs" />
     <Compile Include="Commands\CommandsBase.cs" />
     <Compile Include="Commands\GetTask\GetTaskList.cs" />
     <Compile Include="Commands\GetTask\GetTask3Cmdlet.cs" />

@@ -11,7 +11,7 @@ namespace ProductivityTools.GetTask3.API.Automapper
     {
         public DefinedTaskProfile()
         {
-            CreateMap<Domain.DefinedElementGroup, DefinedTaskGroup>();
+            CreateMap<Domain.DefinedElementGroup, DefinedTaskGroupView>();
             CreateMap<Domain.DefinedElement, DefinedTask>();
         }
     }

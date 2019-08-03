@@ -11,11 +11,11 @@ namespace ProductivityTools.GetTask3.SingleCommands
     [Cmdlet("Get", "PredefinedTask3")]
     public class GetPredefinedTask : SingleCommandsBase
     {
-        TaskStructure TaskStructure { get; set; }
+        App.Task TaskStructure { get; set; }
 
         public GetPredefinedTask()
         {
-            TaskStructure = new TaskStructure(this);
+            TaskStructure = new App.Task(this);
         }
 
         protected override void ProcessRecord()

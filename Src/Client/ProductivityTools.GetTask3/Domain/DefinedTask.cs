@@ -7,21 +7,40 @@ using System.Threading.Tasks;
 
 namespace ProductivityTools.GetTask3.Domain
 {
-    class DefinedTask
+    class DefinedTask : DomainBase
     {
+        public DefinedTask(System.Management.Automation.PSCmdlet pSVariableIntrinsics) : base(pSVariableIntrinsics) { }
+
         public DefinedTaskView Get(bool withDetails)
         {
             DefinedTaskRepository definedTaskRepository = new DefinedTaskRepository();
             DefinedTaskView defineddatsk;
             if (withDetails)
             {
-                defineddatsk = definedTaskRepository.GetWithDetails();
+                defineddatsk = definedTaskRepository.GetWithDetailsForbagId(_sessionMetadata.SelectedNodeElementId);
             }
             else
             {
-                defineddatsk = definedTaskRepository.Get();
+                defineddatsk = definedTaskRepository.GetForBag(base._sessionMetadata.SelectedNodeElementId);
             }
             return defineddatsk;
+        }
+
+        public void AddDefinedTask(string name)
+        {
+            //here bagid is needed to fill defined task repository
+            DefinedTaskRepository definedTaskRepository = new DefinedTaskRepository();
+            DefinedTaskView definedTask;
+            definedTask = definedTaskRepository.GetForBag(_sessionMetadata.SelectedNodeElementId);
+            DefinedTaskGroupView definedTaskGroup = definedTask.DefinedTasks.SingleOrDefault(x => x.Name == name);
+            if (definedTask == null)
+            {
+                throw new Exception("No defined task with given name exists");
+            }
+            else
+            {
+                definedTaskRepository.AddDefinedTasks(definedTaskGroup.DefinedTaskGroupId);
+            }
         }
     }
 }

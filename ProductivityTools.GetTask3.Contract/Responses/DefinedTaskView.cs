@@ -6,11 +6,11 @@ namespace ProductivityTools.GetTask3.Contract.Responses
 {
     public class DefinedTaskView
     {
-        public List<DefinedTaskGroup> DefinedTasks { get; set; }
+        public List<DefinedTaskGroupView> DefinedTasks { get; set; }
 
         public DefinedTaskView()
         {
-            this.DefinedTasks = new List<DefinedTaskGroup>();
+            this.DefinedTasks = new List<DefinedTaskGroupView>();
         }
     }
 }

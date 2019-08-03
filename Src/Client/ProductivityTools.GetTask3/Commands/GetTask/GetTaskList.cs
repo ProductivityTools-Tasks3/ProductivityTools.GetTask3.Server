@@ -14,7 +14,7 @@ namespace ProductivityTools.GetTask3.Commands.GetTask
 {
     public class GetTaskList : PSCmdlet.PSCommandPT<GetTask3Cmdlet>
     {
-        TaskStructure TaskStructure { get; set; }
+        App.Task TaskStructure { get; set; }
 
         protected override bool Condition => true;
 
@@ -40,7 +40,7 @@ namespace ProductivityTools.GetTask3.Commands.GetTask
 
         protected override void Invoke()
         {
-            TaskStructure ts = TaskStructureFactory.Get(this.Cmdlet);
+            App.Task ts = TaskStructureFactory.Get(this.Cmdlet);
             WriteOutput("GetTaskList");
             if (TaskStructure.CurrentElement == null)
             {

@@ -14,11 +14,11 @@ namespace ProductivityTools.GetTask3.SingleCommands
         [Parameter(HelpMessage = "Id or Ids space separated which should be finished", Position = 0)]
         public string Id { get; set; }
 
-        TaskStructure TaskStructure { get; set; }
+        App.Task TaskStructure { get; set; }
 
         public FinishTask()
         {
-            TaskStructure = new TaskStructure(this);
+            TaskStructure = new App.Task(this);
         }
 
         protected override void ProcessRecord()
