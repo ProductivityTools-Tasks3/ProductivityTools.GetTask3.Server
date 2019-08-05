@@ -1,4 +1,5 @@
 ﻿using ProductivityTools.GetTask3.App;
+using ProductivityTools.GetTask3.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,7 @@ namespace ProductivityTools.GetTask3.SingleCommands
 
         protected override void ProcessRecord()
         {
-            int[] orderIds = Id.Split(' ').Select(x => int.Parse(x)).ToArray();
+            int[] orderIds = Id.GetIds();
             foreach (var id in orderIds)
             {
                 TaskStructure.Finish(id);

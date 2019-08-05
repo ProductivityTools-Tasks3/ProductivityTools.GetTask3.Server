@@ -55,6 +55,8 @@
     <Compile Include="Commands\AddDefinedTask\AddDefinedTaskCommand.cs" />
     <Compile Include="Commands\AddTask\AddElement.cs" />
     <Compile Include="Commands\AddTask\AddTaskCmdlet.cs" />
+    <Compile Include="Commands\DelayTask\DelayTaskCmdlet.cs" />
+    <Compile Include="Commands\DelayTask\DelayTaskToDate.cs" />
     <Compile Include="Commands\GetDefinedTask\GetDefinedTaskCmdlet.cs" />
     <Compile Include="Commands\GetDefinedTask\GetDefinedTaskListWitDetails.cs" />
     <Compile Include="Commands\GetDefinedTask\GetDefinedTaskList.cs" />
@@ -70,6 +72,7 @@
     <Compile Include="Commands\SelectTask\SelectTaskCmdlet.cs" />
     <Compile Include="Domain\TaskStructureFactory.cs" />
     <Compile Include="Domain\TaskRepository.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SingleCommands\AddPredefinedTask.cs" />
     <Compile Include="SingleCommands\FinishTask.cs" />
@@ -99,5 +102,6 @@
       <Name>ProductivityTools.GetTask3.Client</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

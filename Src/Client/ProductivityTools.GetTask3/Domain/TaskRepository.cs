@@ -44,5 +44,10 @@ namespace ProductivityTools.GetTask3.Domain
         {
             await GetTaskHttpClient.Post2<object>("Task", "Undone", new UndoneRequest() { ElementId = elementId });
         }
+
+        internal async void Delay(int elementId, DateTime date)
+        {
+            await GetTaskHttpClient.Post2<object>("Task", "Delay", new DelayItemRequest() { ElementId=elementId, StartDate=date });
+        }
     }
 }

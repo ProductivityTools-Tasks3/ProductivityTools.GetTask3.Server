@@ -15,8 +15,8 @@ namespace ProductivityTools.GetTask3.Domain
         public ElementType Type { get; protected set; }
         public Status Status { get; protected set; }
         public DateTime Created { get; protected set; }
-        public DateTime Start { get; protected set; }
-        public DateTime Deadline { get; protected set; }
+        public DateTime? Start { get; protected set; }
+        public DateTime? Deadline { get; protected set; }
         public DateTime? Finished { get; protected set; }
 
         public List<Element> Elements { get; protected set; }
@@ -42,7 +42,7 @@ namespace ProductivityTools.GetTask3.Domain
             //pw: change this dates
             Created = DateTime.Now;
             Start = DateTime.Now;
-            Deadline = DateTime.Now.AddDays(1);
+            Deadline = AddDeadline(Start);
             Status = Status.New;
             Type = type;
             ParentId = parentId;
@@ -67,7 +67,18 @@ namespace ProductivityTools.GetTask3.Domain
 
         public void Delay(DateTime startDate)
         {
-            Start = startDate;   
+            Start = startDate;
+            Deadline = AddDeadline(startDate);
+        }
+
+        private DateTime AddDeadline(DateTime? startDate)
+        {
+            if (startDate.HasValue==false)
+            {
+                throw new Exception("If you want to set deadline you need to define start");
+            }
+            var r = startDate.Value.AddDays(1);
+            return r;
         }
     }
 }
