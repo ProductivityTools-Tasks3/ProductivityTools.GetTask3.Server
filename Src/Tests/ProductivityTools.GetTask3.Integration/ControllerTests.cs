@@ -2,7 +2,6 @@ using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 using ProductivityTools.GetTask3.API.Controllers;
-using ProductivityTools.GetTask3.API.Models;
 using ProductivityTools.GetTask3.App.Commands;
 using ProductivityTools.GetTask3.App.Queries;
 using ProductivityTools.GetTask3.Configuration;

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using ProductivityTools.GetTask3.API.Models;
 using ProductivityTools.GetTask3.App.Commands;
 using ProductivityTools.GetTask3.App.Queries;
 using ProductivityTools.GetTask3.Contract;
@@ -72,7 +71,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
 
         [HttpPost]
         [Route("Delay")]
-        public void Delay([FromBody] DelayItem delayItem)
+        public void Delay([FromBody] DelayItemRequest delayItem)
         {
             Commands.Delay(delayItem.ElementId, delayItem.StartDate);
         }

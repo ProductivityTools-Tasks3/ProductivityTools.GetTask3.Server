@@ -158,6 +158,12 @@ namespace ProductivityTools.GetTask3.App
             this.repository.Finish(elementId);
         }
 
+        public void Delay(int orderElementId, DateTime date)
+        {
+            var elementId = GetElementIdByOrder(orderElementId);
+            this.repository.Delay(elementId, date);
+        }
+
         public void Undone(int orderElementId)
         {
             var elementId = GetElementIdByOrder(orderElementId);

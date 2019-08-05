@@ -6,8 +6,8 @@ namespace ProductivityTools.GetTask3.Domain
 {
     public enum Status
     {
-        None,
-        New,
-        Finished,
+        None=0,
+        New=1,
+        Finished=2,
     }
 }
