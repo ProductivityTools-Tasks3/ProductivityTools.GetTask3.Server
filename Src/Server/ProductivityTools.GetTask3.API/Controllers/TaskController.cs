@@ -8,6 +8,7 @@ using ProductivityTools.GetTask3.App.Commands;
 using ProductivityTools.GetTask3.App.Queries;
 using ProductivityTools.GetTask3.Contract;
 using ProductivityTools.GetTask3.Contract.Requests;
+using ProductivityTools.GetTask3.CoreObjects;
 
 namespace ProductivityTools.GetTask3.API.Controllers
 {
@@ -33,7 +34,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
         }
 
         [HttpPost]
-        [Route("List")]
+        [Route(Consts.TodayList)]
         public ElementView GetTasks([FromBody]ListRequest request=null)
         {
             //pw: perform mapping in this layer

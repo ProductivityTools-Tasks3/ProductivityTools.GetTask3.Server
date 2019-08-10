@@ -12,7 +12,7 @@ namespace ProductivityTools.GetTask3.Contract
         public int ElementId { get; set; }
         public string Status { get; set; }
         public DateTime Created { get; set; }
-        public DateTime Deadline { get; set; }
+        public DateTime Start { get; set; }
         public DateTime? Finished { get; set; }
 
         public List<ElementView> Elements { get; set; }

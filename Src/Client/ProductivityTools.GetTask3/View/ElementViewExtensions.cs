@@ -26,7 +26,7 @@ namespace ProductivityTools.GetTask3.View
         public static bool Delayed(this ElementView that)
         {
             //pw: correct it
-            if (that.Deadline < DateTime.Now)
+            if (that.Start.AddDays(1) < DateTime.Now)
             {
                 return true;
             }
