@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ProductivityTools.DateTimeTools;
 using ProductivityTools.GetTask3.Domain;
 using ProductivityTools.GetTask3.Infrastructure.Base;
 using System;
@@ -12,7 +13,7 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
     {
         Domain.Element GetStructure(int? root = null);
         //void AddItem(string name);
-        
+
         Element Get(int? id);
         List<Element> GetTaskBags(int? rootId);
     }
@@ -20,10 +21,12 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
     public class TaskRepository : Repository<Domain.Element>, ITaskRepository
     {
         private readonly IMapper _mapper;
+        private readonly IDateTimePT _dateTimePT;
 
-        public TaskRepository(TaskContext context, IMapper mapper) : base(context)
+        public TaskRepository(TaskContext context, IMapper mapper, IDateTimePT dateTime) : base(context)
         {
             _mapper = mapper;
+            _dateTimePT = dateTime;
         }
 
         //pw: make it nice repository
@@ -59,26 +62,35 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
         private void GetTaskBagsRecurse(List<Element> elements, int? rootId)
         {
             var current = Get(rootId);
-            if (current ==null)
+            if (current == null)
             {
                 throw new Exception("No task no bags found");
             }
             elements.Add(current);
-            var childBags = _taskContext.Element.Where(l => l.ParentId==current.ElementId &&  l.Type == CoreObjects.ElementType.TaskBag).ToList();
-            
-            foreach(var childBag in childBags)
+            var childBags = _taskContext.Element.Where(l => l.ParentId == current.ElementId && l.Type == CoreObjects.ElementType.TaskBag).ToList();
+
+            foreach (var childBag in childBags)
             {
                 GetTaskBagsRecurse(elements, childBag.ElementId);
             }
         }
 
+        private void GetTomato()
+        {
+            //_taskContext.
+        }
+
         private List<Element> GetElements(int? rootId = null)
         {
             List<Element> result = new List<Element>();
-            var x = _taskContext.Element.Where(l => l.ParentId == rootId).ToList();
+            var x = _taskContext.Element.Where(l => 
+            (l.ParentId == rootId && l.Status != Status.Finished && l.Start<=_dateTimePT.Now.AddDays(1).Date.AddSeconds(-1)) ||
+            (l.ParentId == rootId && l.Status == Status.Finished && l.Finished.Value.Date == _dateTimePT.Now.Date)
+
+            ).ToList();
             for (int i = 0; i < x.Count(); i++)
             {
-                Domain.Element element = _mapper.Map<Domain.Element>(x[i]);// new Domain.Element(x[i].ElementId, x[i].Type, x[i].Name, i, x[i].Status);
+                Domain.Element element = x[i];// new Domain.Element(x[i].ElementId, x[i].Type, x[i].Name, i, x[i].Status);
                 if (element.Type == CoreObjects.ElementType.TaskBag)
                 {
                     element.SetElements(GetElements(x[i].ElementId));

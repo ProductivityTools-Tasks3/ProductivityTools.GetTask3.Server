@@ -60,6 +60,8 @@
     <Compile Include="Commands\GetDefinedTask\GetDefinedTaskCmdlet.cs" />
     <Compile Include="Commands\GetDefinedTask\GetDefinedTaskListWitDetails.cs" />
     <Compile Include="Commands\GetDefinedTask\GetDefinedTaskList.cs" />
+    <Compile Include="Commands\NewTomato\NewTomatoByName.cs" />
+    <Compile Include="Commands\NewTomato\NewTomatoCmdlet.cs" />
     <Compile Include="Domain\DefinedTask.cs" />
     <Compile Include="Domain\DefinedTaskRepository.cs" />
     <Compile Include="Domain\DomainBase.cs" />
@@ -72,6 +74,7 @@
     <Compile Include="Commands\SelectTask\SelectTaskCmdlet.cs" />
     <Compile Include="Domain\TaskStructureFactory.cs" />
     <Compile Include="Domain\TaskRepository.cs" />
+    <Compile Include="Domain\Tomato.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SingleCommands\AddPredefinedTask.cs" />
