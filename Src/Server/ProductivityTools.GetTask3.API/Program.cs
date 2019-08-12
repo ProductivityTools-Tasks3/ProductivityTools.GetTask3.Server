@@ -21,7 +21,7 @@ namespace ProductivityTools.GetTask3.API
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-            .UseUrls(Consts.HttpAddress)
+                .UseUrls(Consts.HttpAddress)
                 .UseStartup<Startup>();
     }
 }
