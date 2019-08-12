@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Console;
 using ProductivityTools.GetTask3.Configuration;
@@ -10,6 +11,7 @@ namespace ProductivityTools.GetTask3.Infrastructure
 {
     public class TaskContext : DbContext
     {
+
 
         private readonly IConfiguration _configuration;
         public DbSet<Domain.Element> Element { get; set; }
@@ -22,9 +24,21 @@ namespace ProductivityTools.GetTask3.Infrastructure
             _configuration = configuration;
         }
 
+        private ILoggerFactory GetLoggerFactory()
+        {
+            IServiceCollection serviceCollection = new ServiceCollection();
+            serviceCollection.AddLogging(builder =>
+                   builder.AddConsole()
+                          .AddFilter(DbLoggerCategory.Database.Command.Name,
+                                     LogLevel.Information));
+            return serviceCollection.BuildServiceProvider()
+                    .GetService<ILoggerFactory>();
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(_configuration.GetConnectionString("GetTask3"));
+            optionsBuilder.UseLoggerFactory(GetLoggerFactory());
             optionsBuilder.EnableSensitiveDataLogging();
         }
 

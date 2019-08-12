@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Console;
 using ProductivityTools.GetTask3.Infrastructure.Repositories;
@@ -17,7 +18,11 @@ namespace ProductivityTools.GetTask3.Infrastructure
             services.AddSingleton<ITaskRepository, TaskRepository>();
             services.AddSingleton<IDefinedTaskRepository, DefinedTaskRepository>();
             services.AddSingleton<TaskContext>();
-           return services;
+            //services.AddLogging(builder => builder
+            //    .AddConsole()
+            //    .AddFilter(DbLoggerCategory.Database.Command.Name, LogLevel.Information));
+            //var loggerFactory = services.BuildServiceProvider().GetService<ILoggerFactory>();
+            return services;
         }
     }
 }
