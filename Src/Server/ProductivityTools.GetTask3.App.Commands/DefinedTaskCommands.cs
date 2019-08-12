@@ -15,13 +15,14 @@ namespace ProductivityTools.GetTask3.App.Commands
     {
         private readonly ITaskUnitOfWork _taskUnitOfWork;
         private readonly IDefinedTaskRepository _definedTaskRepository;
-        private readonly ITaskRepository _taskRepository;
+       // private readonly ITaskRepository _taskRepository;
 
         //IDateTimePT _dateTime;
 
         public DefinedTaskCommands(ITaskUnitOfWork taskUnitOfWork, IDefinedTaskRepository definedTaskRepository, ITaskRepository taskRepository)
         {
             _taskUnitOfWork = taskUnitOfWork;
+            _definedTaskRepository = definedTaskRepository;
 
         }
 

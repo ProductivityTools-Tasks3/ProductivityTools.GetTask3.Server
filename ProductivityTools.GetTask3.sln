@@ -37,7 +37,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{1B0FE9
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductivityTools.GetTask3.Contract", "ProductivityTools.GetTask3.Contract\ProductivityTools.GetTask3.Contract.csproj", "{FBBC455A-BFD8-48FB-AEA7-3651906914AF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductivityTools.GetTask3.CoreObjects", "Src\Common\ProductivityTools.GetTask3.CoreObjects\ProductivityTools.GetTask3.CoreObjects.csproj", "{F57EC928-1328-4F02-8C6D-48D54A7CEF22}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductivityTools.GetTask3.CoreObjects", "Src\Common\ProductivityTools.GetTask3.CoreObjects\ProductivityTools.GetTask3.CoreObjects.csproj", "{F57EC928-1328-4F02-8C6D-48D54A7CEF22}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductivityTools.GetTask3.CommonConfiguration", "Src\Common\ProductivityTools.GetTask3.CommonConfiguration\ProductivityTools.GetTask3.CommonConfiguration.csproj", "{B6018BBD-3C5E-45EE-BAB5-099F1A1F8027}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -103,6 +105,10 @@ Global
 		{F57EC928-1328-4F02-8C6D-48D54A7CEF22}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F57EC928-1328-4F02-8C6D-48D54A7CEF22}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F57EC928-1328-4F02-8C6D-48D54A7CEF22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6018BBD-3C5E-45EE-BAB5-099F1A1F8027}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6018BBD-3C5E-45EE-BAB5-099F1A1F8027}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6018BBD-3C5E-45EE-BAB5-099F1A1F8027}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6018BBD-3C5E-45EE-BAB5-099F1A1F8027}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -122,6 +128,7 @@ Global
 		{61497DF7-371E-4247-B0E1-74271605BAF2} = {8ADC382E-C527-48EC-B31B-11304CE3D8B2}
 		{FBBC455A-BFD8-48FB-AEA7-3651906914AF} = {1B0FE912-A016-4C23-81FA-A486E70A3827}
 		{F57EC928-1328-4F02-8C6D-48D54A7CEF22} = {1B0FE912-A016-4C23-81FA-A486E70A3827}
+		{B6018BBD-3C5E-45EE-BAB5-099F1A1F8027} = {1B0FE912-A016-4C23-81FA-A486E70A3827}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E0A3855A-2490-4366-9CB1-4EA79EF4BEDC}
