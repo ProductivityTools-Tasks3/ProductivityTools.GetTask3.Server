@@ -1,4 +1,5 @@
-﻿using ProductivityTools.GetTask3.Contract;
+﻿using ProductivityTools.GetTask3.CommonConfiguration;
+using ProductivityTools.GetTask3.Contract;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +15,8 @@ namespace ProductivityTools.GetTask3.Client
 {
     public class GetTaskHttpClient
     {
-       // static string URL = @"https://GetTask3:44317/api/Task/";
-        static string URL = @"https://localhost:44317/api/";
+       // static string URL = @"https://GetTask3:5001/api/Task/";
+        static string URL = Consts.EndpointAddress;
 
 
         public static async Task<T> Post2<T>(string controller, string action, object obj)

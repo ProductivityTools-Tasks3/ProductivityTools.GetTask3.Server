@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
 using ProductivityTools.GetTask3.Configuration;
 using System;
 
@@ -8,6 +10,7 @@ namespace ProductivityTools.GetTask3.Infrastructure
 {
     public class TaskContext : DbContext
     {
+
         private readonly IConfiguration _configuration;
         public DbSet<Domain.Element> Element { get; set; }
         public DbSet<Domain.DefinedElementGroup> DefinedElementGroup { get; set; }
@@ -32,7 +35,7 @@ namespace ProductivityTools.GetTask3.Infrastructure
             {
                 entity.HasKey(e => e.ElementId);
                 entity.Ignore(e => e.Elements);
-                
+
             });
 
             modelBuilder.Entity<Domain.DefinedElementGroup>(entity =>

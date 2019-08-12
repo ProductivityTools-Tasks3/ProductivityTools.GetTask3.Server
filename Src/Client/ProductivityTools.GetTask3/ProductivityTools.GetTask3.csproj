@@ -96,6 +96,10 @@
       <Project>{fbbc455a-bfd8-48fb-aea7-3651906914af}</Project>
       <Name>ProductivityTools.GetTask3.Contract</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Common\ProductivityTools.GetTask3.CommonConfiguration\ProductivityTools.GetTask3.CommonConfiguration.csproj">
+      <Project>{B6018BBD-3C5E-45EE-BAB5-099F1A1F8027}</Project>
+      <Name>ProductivityTools.GetTask3.CommonConfiguration</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Common\ProductivityTools.GetTask3.CoreObjects\ProductivityTools.GetTask3.CoreObjects.csproj">
       <Project>{f57ec928-1328-4f02-8c6d-48d54a7cef22}</Project>
       <Name>ProductivityTools.GetTask3.CoreObjects</Name>

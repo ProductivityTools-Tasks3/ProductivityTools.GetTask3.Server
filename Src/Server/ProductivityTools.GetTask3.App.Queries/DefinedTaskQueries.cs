@@ -25,7 +25,7 @@ namespace ProductivityTools.GetTask3.App.Queries
             _definedTaskRepository = definedtaskrepository;
         }
 
-        public List<Domain.DefinedElementGroup> GetDefinedTaskGroupsForBag(int? bagId, bool includeDetails)
+        public List<Domain.DefinedElementGroup> GetDefinedTaskGroupsForBag(int? bagId, bool includeDetails=false)
         {
             var result = new List<Domain.DefinedElementGroup>();
             var childbags = _taskRepository.GetTaskBags(bagId);

@@ -1,4 +1,5 @@
 ﻿using ProductivityTools.GetTask3.Client;
+using ProductivityTools.GetTask3.CommonConfiguration;
 using ProductivityTools.GetTask3.Contract;
 using ProductivityTools.GetTask3.Contract.Requests;
 using ProductivityTools.GetTask3.CoreObjects;

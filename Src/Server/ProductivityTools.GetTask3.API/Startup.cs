@@ -33,6 +33,13 @@ namespace ProductivityTools.GetTask3.API
             services.ConfigureServicesQueries();
             services.ConfigureServicesConfig();
             services.ConfigureServicesCommands();
+            services.AddLogging(opt =>
+                     {
+                         opt.AddConsole();
+                         opt.AddDebug();
+                     });
+
+
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
 
@@ -49,7 +56,7 @@ namespace ProductivityTools.GetTask3.API
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseMvc();
         }
     }
