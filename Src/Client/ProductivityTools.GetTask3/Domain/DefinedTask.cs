@@ -39,7 +39,7 @@ namespace ProductivityTools.GetTask3.Domain
             }
             else
             {
-                definedTaskRepository.AddDefinedTasks(definedTaskGroup.DefinedTaskGroupId);
+                definedTaskRepository.AddDefinedTasks(definedTaskGroup.DefinedElementGroupId);
             }
         }
     }

@@ -152,6 +152,11 @@ namespace ProductivityTools.GetTask3.App
             this.repository.Add(name, this.SelectedNodeElementId, type);
         }
 
+        public void AddToTomato(int[] orderElementIds)
+        {
+
+        }
+
         public void Finish(int orderElementId)
         {
             var elementId = GetElementIdByOrder(orderElementId);

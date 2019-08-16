@@ -13,8 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\ProductivityTools.GetTask3.Contract\ProductivityTools.GetTask3.Contract.csproj" />
     <ProjectReference Include="..\..\Common\ProductivityTools.GetTask3.CommonConfiguration\ProductivityTools.GetTask3.CommonConfiguration.csproj" />
+    <ProjectReference Include="..\..\Common\ProductivityTools.GetTask3.Contract\ProductivityTools.GetTask3.Contract.csproj" />
     <ProjectReference Include="..\ProductivityTools.GetTask3.App.Commands\ProductivityTools.GetTask3.App.Commands.csproj" />
     <ProjectReference Include="..\ProductivityTools.GetTask3.App.Queries\ProductivityTools.GetTask3.App.Queries.csproj" />
   </ItemGroup>

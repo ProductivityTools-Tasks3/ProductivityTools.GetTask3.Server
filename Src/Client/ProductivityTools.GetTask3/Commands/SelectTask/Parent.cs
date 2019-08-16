@@ -2,6 +2,7 @@
 using ProductivityTools.GetTask3.Client;
 using ProductivityTools.GetTask3.Domain;
 using ProductivityTools.GetTask3.SingleCommands;
+using ProductivityTools.GetTask3.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +25,7 @@ namespace ProductivityTools.GetTask3.Commands.SelectCurrentRoot
         {
             //get parent for id
             var currentNode = TaskStructure.SelectedNodeElementId;
-            var parent = GetTaskHttpClient.Post2<int>("Task","GetParent", currentNode.ToString());
+            var parent = GetTaskHttpClient.Post2<int>("Task","GetParent", currentNode.ToString(), VerboseHelper.WriteVerboseStatic);
 
             
             TaskStructure.SelectNodeByElementId(parent.Result);

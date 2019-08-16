@@ -3,6 +3,7 @@ using ProductivityTools.GetTask3.Domain;
 using ProductivityTools.GetTask3.Infrastructure;
 using ProductivityTools.GetTask3.Infrastructure.Repositories;
 using System;
+using System.Linq;
 
 namespace ProductivityTools.GetTask3.App.Commands
 {
@@ -13,7 +14,9 @@ namespace ProductivityTools.GetTask3.App.Commands
         void Finish(int elementId);
         void Undone(int elementId);
         void Delay(int elementId, DateTime dateTime);
+        void AddToTomato(int[] elementIds);
     }
+
 
     public class TaskCommands : IGTaskCommands
     {
@@ -64,6 +67,12 @@ namespace ProductivityTools.GetTask3.App.Commands
             var element = _taskUnitOfWork.TaskRepository.Get(elementId);
             element.Delay(startDate);
             _taskUnitOfWork.Commit();
+        }
+
+        public void AddToTomato(int[] elementIds)
+        {
+            var tomato = _taskUnitOfWork.TomatoRepository.Get();
+            _taskUnitOfWork.TomatoRepository.Add(new Infrastructure.Tomato() { Items = elementIds.ToList().Select(x => new Infrastructure.TomatoItem() { TomatoItemId = x }).ToList() });
         }
     }
 }

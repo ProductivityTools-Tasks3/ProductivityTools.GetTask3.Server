@@ -19,8 +19,9 @@ namespace ProductivityTools.GetTask3.Client
         static string URL = Consts.EndpointAddress;
 
 
-        public static async Task<T> Post2<T>(string controller, string action, object obj)
+        public static async Task<T> Post2<T>(string controller, string action, object obj,Action<string> log)
         {
+            log($"Performing Post under address {URL}");
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri(URL+controller+"/");
             client.DefaultRequestHeaders.Accept.Clear();
