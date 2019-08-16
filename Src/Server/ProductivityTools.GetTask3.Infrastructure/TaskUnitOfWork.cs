@@ -14,11 +14,13 @@ namespace ProductivityTools.GetTask3.Infrastructure
         private readonly TaskContext _dbContext;
 
         public ITaskRepository TaskRepository { get; private set; }// => new TaskRepository(_dbContext);
+        public ITomatoRepository TomatoRepository { get; private set; }// => new TaskRepository(_dbContext);
 
-        public TaskUnitOfWork(TaskContext taskContext, ITaskRepository repository)
+        public TaskUnitOfWork(TaskContext taskContext, ITaskRepository repository, ITomatoRepository tomatoRepository)
         {
             _dbContext = taskContext;
             TaskRepository = repository;
+            TomatoRepository = tomatoRepository;
         }
 
 

@@ -36,7 +36,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
 
         [HttpPost]
         [Route(Consts.TodayList)]
-        public ElementView GetTasks([FromBody]ListRequest request=null)
+        public ElementView GetTasks([FromBody]ListRequest request = null)
         {
             //pw: perform mapping in this layer
             var x = Queries.GetTaskList(request?.ParentId);
@@ -67,7 +67,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
         [HttpPost]
         [Route("Undone")]
         public void Undone([FromBody] UndoneRequest request)
-       {
+        {
             Commands.Undone(request.ElementId);
         }
 
@@ -86,6 +86,11 @@ namespace ProductivityTools.GetTask3.API.Controllers
             return r;
         }
 
-
+        [HttpPost]
+        [Route(Consts.AddToTomato)]
+        public void AddToTomato([FromBody] AddToTomatoRequest request)
+        {
+            Commands.AddToTomato(request.ElementItems);
+        }
     }
 }

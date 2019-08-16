@@ -67,13 +67,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\ProductivityTools.GetTask3.Contract\ProductivityTools.GetTask3.Contract.csproj">
-      <Project>{fbbc455a-bfd8-48fb-aea7-3651906914af}</Project>
-      <Name>ProductivityTools.GetTask3.Contract</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Common\ProductivityTools.GetTask3.CommonConfiguration\ProductivityTools.GetTask3.CommonConfiguration.csproj">
       <Project>{B6018BBD-3C5E-45EE-BAB5-099F1A1F8027}</Project>
       <Name>ProductivityTools.GetTask3.CommonConfiguration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\ProductivityTools.GetTask3.Contract\ProductivityTools.GetTask3.Contract.csproj">
+      <Project>{4d0b0408-26b7-4be3-9acc-87862e542a26}</Project>
+      <Name>ProductivityTools.GetTask3.Contract</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

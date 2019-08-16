@@ -16,7 +16,7 @@ namespace ProductivityTools.GetTask3.Infrastructure
         private readonly IConfiguration _configuration;
         public DbSet<Domain.Element> Element { get; set; }
         public DbSet<Domain.DefinedElementGroup> DefinedElementGroup { get; set; }
-        //public DbSet<Domain.TomatoItem> TomatoItem { get; set; }
+        public DbSet<Infrastructure.Tomato> Tomato { get; set; }
         //public DbSet<Domain.Tomato> Tomato { get; set; }
 
         public TaskContext(IConfig config, IConfiguration configuration)
@@ -49,14 +49,23 @@ namespace ProductivityTools.GetTask3.Infrastructure
             {
                 entity.HasKey(e => e.ElementId);
                 entity.Ignore(e => e.Elements);
+                entity.Ignore(e => e.Tomato);
 
             });
 
             modelBuilder.Entity<Domain.DefinedElementGroup>(entity =>
             {
                 entity.HasKey(e => e.DefinedElementGroupId);
+            });
 
-                // entity.HasMany(e => e.Elements);
+            modelBuilder.Entity<Infrastructure.Tomato>(entity =>
+            {
+                entity.HasKey(e => e.TomatoId);
+            });
+
+            modelBuilder.Entity<Infrastructure.TomatoItem>(entity =>
+            {
+                entity.HasKey(e => e.TomatoItemId);
             });
         }
     }

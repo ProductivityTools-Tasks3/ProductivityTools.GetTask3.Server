@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Common\ProductivityTools.GetTask3.Contract\ProductivityTools.GetTask3.Contract.csproj" />
     <ProjectReference Include="..\ProductivityTools.GetTask3.Configuration\ProductivityTools.GetTask3.Configuration.csproj" />
     <ProjectReference Include="..\ProductivityTools.GetTask3.Domain\ProductivityTools.GetTask3.Domain.csproj" />
   </ItemGroup>

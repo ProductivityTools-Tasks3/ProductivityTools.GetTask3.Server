@@ -6,5 +6,6 @@ namespace ProductivityTools.GetTask3.Infrastructure
     public interface ITaskUnitOfWork: IUnitOfWork
     {
         ITaskRepository TaskRepository { get; }
+        ITomatoRepository TomatoRepository { get; }
     }
 }

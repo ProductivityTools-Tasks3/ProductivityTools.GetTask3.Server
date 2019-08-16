@@ -12,5 +12,10 @@ namespace ProductivityTools.GetTask3.Domain
         {
 
         }
+
+        public void AssignItemsToTomato(int[] idItems)
+        {
+
+        }
     }
 }

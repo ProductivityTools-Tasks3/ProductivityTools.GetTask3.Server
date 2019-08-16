@@ -20,6 +20,7 @@ namespace ProductivityTools.GetTask3.Commands.GetTask
 
         public GetTaskList(GetTask3Cmdlet cmdlet) : base(cmdlet)
         {
+            
             this.TaskStructure = TaskStructureFactory.Get(cmdlet);
         }
 
@@ -40,6 +41,7 @@ namespace ProductivityTools.GetTask3.Commands.GetTask
 
         protected override void Invoke()
         {
+            VerboseHelper.WriteVerboseStatic("GetTaskList Invoke");
             App.Task ts = TaskStructureFactory.Get(this.Cmdlet);
             WriteOutput("GetTaskList");
             if (TaskStructure.CurrentElement == null)

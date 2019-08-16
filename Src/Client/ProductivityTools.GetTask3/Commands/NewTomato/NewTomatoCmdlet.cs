@@ -21,6 +21,7 @@ namespace ProductivityTools.GetTask3
         public NewTomatoCmdlet()
         {
             this.AddCommand(new NewTomatoByName(this));
+            this.AddCommand(new NewTomatoByIds(this));
         }
 
         protected override void ProcessRecord()

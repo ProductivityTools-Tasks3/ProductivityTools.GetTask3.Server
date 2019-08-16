@@ -15,6 +15,7 @@ namespace ProductivityTools.GetTask3
 
         public GetTask3Cmdlet()
         {
+            
             this.AddCommand(new GetTaskList(this));
         }
 
