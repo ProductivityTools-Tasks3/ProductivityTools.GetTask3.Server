@@ -2,6 +2,7 @@
 using ProductivityTools.GetTask3.Contract;
 using ProductivityTools.GetTask3.CoreObjects;
 using ProductivityTools.GetTask3.Domain;
+using ProductivityTools.GetTask3.Repositories;
 using ProductivityTools.GetTask3.View;
 using System;
 using System.Collections.Generic;
@@ -45,6 +46,16 @@ namespace ProductivityTools.GetTask3.App
                 //}
                 throw new Exception();
             }
+        }
+
+        private int[] GetElementsIdByOrder(int[] elementsOrderId)
+        {
+            int[] result = new int[elementsOrderId.Length];
+            for (int i = 0; i < elementsOrderId.Length; i++)
+            {
+                result[i] = GetElementIdByOrder(elementsOrderId[i]);
+            }
+            return result;
         }
 
         private int GetElementIdByOrder(int? elementOrderId)
@@ -154,7 +165,9 @@ namespace ProductivityTools.GetTask3.App
 
         public void AddToTomato(int[] orderElementIds)
         {
-
+            TomatoRepository TomatoRepository = new TomatoRepository();
+            var elementIds = GetElementsIdByOrder(orderElementIds);
+            TomatoRepository.AddToTomato(elementIds);
         }
 
         public void Finish(int orderElementId)

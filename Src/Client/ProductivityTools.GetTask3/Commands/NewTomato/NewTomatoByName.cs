@@ -17,8 +17,7 @@ namespace ProductivityTools.GetTask3.Commands
 
         protected override void Invoke()
         {
-            var x = new Tomato();
-            x.CreateNew(this.Cmdlet.Name);
+            
         }
     }
 }

@@ -71,8 +71,10 @@ namespace ProductivityTools.GetTask3.App.Commands
 
         public void AddToTomato(int[] elementIds)
         {
-            var tomato = _taskUnitOfWork.TomatoRepository.Get();
-            _taskUnitOfWork.TomatoRepository.Add(new Infrastructure.Tomato() { Items = elementIds.ToList().Select(x => new Infrastructure.TomatoItem() { TomatoItemId = x }).ToList() });
+            var tomatoItems = elementIds.ToList().Select(x => new Infrastructure.TomatoItem() { ElementId = x }).ToList();
+            var tomato = new Infrastructure.Tomato() { Status = CoreObjects.Tomato.Status.New, Items = tomatoItems };
+            _taskUnitOfWork.TomatoRepository.Add(tomato);
+            _taskUnitOfWork.Commit();
         }
     }
 }

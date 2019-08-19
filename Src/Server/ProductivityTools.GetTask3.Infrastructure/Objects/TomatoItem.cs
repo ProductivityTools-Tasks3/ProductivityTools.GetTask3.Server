@@ -7,5 +7,6 @@ namespace ProductivityTools.GetTask3.Infrastructure
     public class TomatoItem
     {
         public int TomatoItemId { get; set; }
+        public int ElementId { get; set; }
     }
 }
