@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using ProductivityTools.DateTimeTools;
 using ProductivityTools.GetTask3.Domain;
 using ProductivityTools.GetTask3.Infrastructure.Base;
@@ -29,13 +30,30 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
             _dateTimePT = dateTime;
         }
 
+        private Tomato GetTomato()
+        {
+            var x = _taskContext.Tomato.Include(t => t.Items).Single();
+            return x;
+        }
+
         //pw: make it nice repository
         public Domain.Element GetStructure(int? rootId)
         {
             var result = Get(rootId);
             if (result == null) return null;
-            result.SetElements(GetElements(result.ElementId));
+            //get tomato
+            //pw: change it to mapping
+            Tomato tomato = GetTomato();
+            List<Element> childElements = GetElements(result.ElementId);
+            FillWithtomato(childElements, tomato);
+            result.SetElements(childElements);
             return result;
+        }
+
+        private void FillWithtomato(List<Element> childElements, Tomato tomato)
+        {
+            var tomatoelements = childElements.Where(x => tomato.Items.Select(item => item.ElementId).Contains(x.ElementId)).ToList();
+            tomatoelements.ForEach(x => x.Tomato = true);
         }
 
         public Element Get(int? id)
@@ -80,8 +98,8 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
         private List<Element> GetElements(int? rootId = null)
         {
             List<Element> result = new List<Element>();
-            var x = _taskContext.Element.Where(l => 
-            (l.ParentId == rootId && l.Status != Status.Finished && l.Start<=_dateTimePT.Now.AddDays(1).Date.AddSeconds(-1)) ||
+            var x = _taskContext.Element.Where(l =>
+            (l.ParentId == rootId && l.Status != Status.Finished && l.Start <= _dateTimePT.Now.AddDays(1).Date.AddSeconds(-1)) ||
             (l.ParentId == rootId && l.Status == Status.Finished && l.Finished.Value.Date == _dateTimePT.Now.Date)
 
             ).ToList();

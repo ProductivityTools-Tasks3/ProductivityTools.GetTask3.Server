@@ -32,11 +32,19 @@ namespace ProductivityTools.GetTask3.Commands.GetTask
             switch (domain.Type)
             {
                 case CoreObjects.ElementType.Task:
-                    return $"T{GetOrder(viewMetadata)}. {domain.Name} <{viewMetadata.ChildCount}>";
+                    result= $"T{GetOrder(viewMetadata)}. {domain.Name} <{viewMetadata.ChildCount}>";
+                    break;
                 case CoreObjects.ElementType.TaskBag:
-                    return $"B{GetOrder(viewMetadata)}. [{domain.Name}] <{viewMetadata.ChildCount}t>";
+                    result= $"B{GetOrder(viewMetadata)}. [{domain.Name}] <{viewMetadata.ChildCount}t>";
+                    break;
             }
-            return "empty";
+
+            if (element.Element.Tomato)
+            {
+                result += "TOMATO";
+            }
+
+            return result;
         }
 
         protected override void Invoke()

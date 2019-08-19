@@ -61,6 +61,7 @@ namespace ProductivityTools.GetTask3.Infrastructure
             modelBuilder.Entity<Infrastructure.Tomato>(entity =>
             {
                 entity.HasKey(e => e.TomatoId);
+                entity.Property(x => x.Created).HasDefaultValue(DateTime.Now);
             });
 
             modelBuilder.Entity<Infrastructure.TomatoItem>(entity =>
