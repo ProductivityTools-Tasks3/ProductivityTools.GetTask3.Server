@@ -14,9 +14,10 @@ namespace ProductivityTools.GetTask3.Infrastructure
 
 
         private readonly IConfiguration _configuration;
-        public DbSet<Domain.Element> Element { get; set; }
-        public DbSet<Domain.DefinedElementGroup> DefinedElementGroup { get; set; }
-        public DbSet<Infrastructure.Tomato> Tomato { get; set; }
+        public DbSet<Infrastructure.Element> Elements { get; set; }
+        public DbSet<Infrastructure.DefinedElementGroup> DefinedElementGroup { get; set; }
+        public DbSet<Infrastructure.Tomato> Tomatos { get; set; }
+        public DbSet<Infrastructure.TomatoElement> TomatoItems { get; set; }
         //public DbSet<Domain.Tomato> Tomato { get; set; }
 
         public TaskContext(IConfig config, IConfiguration configuration)
@@ -45,29 +46,35 @@ namespace ProductivityTools.GetTask3.Infrastructure
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("gt");
-            modelBuilder.Entity<Domain.Element>(entity =>
+
+            modelBuilder.Entity<TomatoElement>().HasKey(x => new { x.TomatoId, x.ElementId });
+
+            modelBuilder.Entity<Element>().ToTable("Element");
+
+            modelBuilder.Entity<Element>(entity =>
             {
                 entity.HasKey(e => e.ElementId);
                 entity.Ignore(e => e.Elements);
-                entity.Ignore(e => e.Tomato);
-
+               // entity.Ignore(e => e.Tomato);
             });
 
-            modelBuilder.Entity<Domain.DefinedElementGroup>(entity =>
-            {
-                entity.HasKey(e => e.DefinedElementGroupId);
-            });
+            //modelBuilder.Entity<Domain.DefinedElementGroup>(entity =>
+            //{
+            //    entity.HasKey(e => e.DefinedElementGroupId);
+            //});
 
-            modelBuilder.Entity<Infrastructure.Tomato>(entity =>
-            {
-                entity.HasKey(e => e.TomatoId);
-                entity.Property(x => x.Created).HasDefaultValue(DateTime.Now);
-            });
+            //modelBuilder.Entity<Infrastructure.Tomato>(entity =>
+            //{
+            //    entity.HasKey(e => e.TomatoId);
+            //    entity.Property(x => x.Created).HasDefaultValue(DateTime.Now);
+            //});
 
-            modelBuilder.Entity<Infrastructure.TomatoItem>(entity =>
-            {
-                entity.HasKey(e => e.TomatoItemId);
-            });
+            //modelBuilder.Entity<Infrastructure.TomatoElement>()
+            //    .HasKey(k => new { k.ElementId, k.TomatoId });
+            //modelBuilder.Entity<Infrastructure.TomatoElement>()
+            //    .HasOne(x => x.Tomato).WithMany(x => x.TomatoElements).HasForeignKey(x => x.ElementId);
+            //modelBuilder.Entity<Infrastructure.TomatoElement>()
+            //    .HasOne(x => x.Element).WithMany(x => x.TomatoElements).HasForeignKey(x => x.TomatoId);
         }
     }
 }

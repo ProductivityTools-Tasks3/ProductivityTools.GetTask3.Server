@@ -4,8 +4,10 @@ using System.Text;
 
 namespace ProductivityTools.GetTask3.Infrastructure.Base
 {
-    public interface IRepository<T>
+    public interface IRepository<DomainElement,InfrastructureElement>
     {
-        void Add(T entity);
+        void Add(DomainElement entity);
+        DomainElement Get(int? id);
+        void Update(DomainElement entity, int id);
     }
 }

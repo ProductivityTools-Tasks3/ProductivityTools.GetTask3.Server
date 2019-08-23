@@ -1,30 +1,49 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace ProductivityTools.GetTask3.Infrastructure.Base
 {
-    public class Repository<T> : IRepository<T> where T : class
+    public class Repository<DomainObject, InfrastructureObject> : IRepository<DomainObject, InfrastructureObject>
+        where DomainObject : class
+        where InfrastructureObject : class
     {
         protected readonly TaskContext _taskContext;
 
-        private DbSet<T> _dbSet => _taskContext.Set<T>();
+        protected readonly IMapper _mapper;
 
-        public Repository(TaskContext taskContext)
+        private DbSet<InfrastructureObject> _dbSet => _taskContext.Set<InfrastructureObject>();
+
+        public Repository(TaskContext taskContext, IMapper mapper)
         {
             _taskContext = taskContext;
+            _mapper = mapper;
         }
 
-        public void Add(T entity)
+        public void Add(DomainObject entity)
         {
-            _dbSet.Add(entity);
+            InfrastructureObject ifrastructure = _mapper.Map<InfrastructureObject>(entity);
+            _dbSet.Add(ifrastructure);
         }
 
-        public T Get(int elementId)
+        public DomainObject Get(int? id)
         {
-            var x = _dbSet.Find(elementId);
-            return x;
+            var x = _dbSet.Find(id);
+            _taskContext.Entry(x).State = EntityState.Detached;
+            DomainObject d = _mapper.Map<DomainObject>(x);
+            return d;
         }
+
+        //pw: change this id to interface on domain object
+        public void Update(DomainObject @object,int id)
+        {
+            InfrastructureObject ifra = _mapper.Map<InfrastructureObject>(@object);
+            //_taskContext.Entry(ifra).State = EntityState.Modified;
+            _dbSet.Update(ifra);
+            //_dbSet.Attach(ifra);
+        }
+
     }
 }

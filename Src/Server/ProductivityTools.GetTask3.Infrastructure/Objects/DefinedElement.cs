@@ -4,9 +4,9 @@ using System.Text;
 
 namespace ProductivityTools.GetTask3.Infrastructure
 {
-    public class TomatoItem
+    public class DefinedElement
     {
-        public int TomatoItemId { get; set; }
-        public int ElementId { get; set; }
+        public int DefinedElementId { get; set; }
+        public string Name { get; set; }
     }
 }
