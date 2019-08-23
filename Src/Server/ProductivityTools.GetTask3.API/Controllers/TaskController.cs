@@ -92,5 +92,12 @@ namespace ProductivityTools.GetTask3.API.Controllers
         {
             Commands.AddToTomato(request.ElementItems);
         }
+
+        [HttpPost]
+        [Route(Consts.FinishTomato)]
+        public void FinishTomato([FromBody] FinishTomatoRequest request)
+        {
+            Commands.FinishTomato();
+        }
     }
 }

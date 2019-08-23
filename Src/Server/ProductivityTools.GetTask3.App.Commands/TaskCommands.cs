@@ -15,6 +15,7 @@ namespace ProductivityTools.GetTask3.App.Commands
         void Undone(int elementId);
         void Delay(int elementId, DateTime dateTime);
         void AddToTomato(int[] elementIds);
+        void FinishTomato();
     }
 
 
@@ -52,6 +53,7 @@ namespace ProductivityTools.GetTask3.App.Commands
         {
             var element = _taskUnitOfWork.TaskRepository.Get(elementId);
             element.Finish(_dateTime.Now);
+            _taskUnitOfWork.TaskRepository.Update(element, element.ElementId);
             _taskUnitOfWork.Commit();
         }
 
@@ -66,14 +68,22 @@ namespace ProductivityTools.GetTask3.App.Commands
         {
             var element = _taskUnitOfWork.TaskRepository.Get(elementId);
             element.Delay(startDate);
+            _taskUnitOfWork.TaskRepository.Update(element,element.ElementId);
             _taskUnitOfWork.Commit();
         }
 
         public void AddToTomato(int[] elementIds)
         {
-            var tomatoItems = elementIds.ToList().Select(x => new Infrastructure.TomatoItem() { ElementId = x }).ToList();
-            var tomato = new Infrastructure.Tomato() { Status = CoreObjects.Tomato.Status.New, Items = tomatoItems };
-            _taskUnitOfWork.TomatoRepository.Add(tomato);
+            //pw: move to repository
+            //var tomatoItems = elementIds.ToList().Select(x => new Infrastructure.TomatoElement() { ElementId = x }).ToList();
+            //var tomato = new Infrastructure.Tomato() { Status = CoreObjects.Tomato.Status.New, Items = tomatoItems };
+            //_taskUnitOfWork.TomatoRepository.Add(tomato);
+            //_taskUnitOfWork.Commit();
+        }
+
+        public void FinishTomato()
+        {
+            _taskUnitOfWork.TomatoRepository.Finish();
             _taskUnitOfWork.Commit();
         }
     }

@@ -39,12 +39,25 @@ namespace ProductivityTools.GetTask3.Commands.GetTask
                     break;
             }
 
-            if (element.Element.Tomato)
+            //pw: rewrite it to make some chain
+            if (element.Element.Tomato!=null)
             {
-                result += "TOMATO";
+                var tomato = element.Element.Tomato;
+                //result += $" Tomato {tomato.TomatoId}: " + GetTomatoTime(tomato.Created);
+                //if (tomato.Finished.HasValue)
+                //{
+                //    result += "FINISHED";
+                //}
             }
 
             return result;
+        }
+
+        private int GetTomatoTime(DateTime dt)
+        {
+            //pw:change it to provider
+            var x = DateTime.Now - dt;
+            return x.Minutes;
         }
 
         protected override void Invoke()

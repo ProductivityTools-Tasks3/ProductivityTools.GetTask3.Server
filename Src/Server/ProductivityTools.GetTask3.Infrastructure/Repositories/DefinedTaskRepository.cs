@@ -9,25 +9,23 @@ using System.Text;
 
 namespace ProductivityTools.GetTask3.Infrastructure.Repositories
 {
-    public interface IDefinedTaskRepository : IRepository<DefinedElementGroup>
+    public interface IDefinedTaskRepository : IRepository<Domain.DefinedElementGroup, Infrastructure.DefinedElementGroup>
     {
         IEnumerable<Domain.DefinedElementGroup> GetForBag(int bagId, bool includeDetails);
-        DefinedElementGroup Get(int definedElementGroupId);
-        DefinedElementGroup GetByName(int bagid, string name);
+       // Domain.DefinedElementGroup Get(int definedElementGroupId);
+        Domain.DefinedElementGroup GetByName(int bagid, string name);
     }
 
-    class DefinedTaskRepository : Repository<DefinedElementGroup>, IDefinedTaskRepository
+    class DefinedTaskRepository : Repository<Domain.DefinedElementGroup,Infrastructure.DefinedElementGroup>, IDefinedTaskRepository
     {
-        private readonly IMapper _mapper;
 
-        public DefinedTaskRepository(TaskContext context, IMapper mapper) : base(context)
+        public DefinedTaskRepository(TaskContext context, IMapper mapper) : base(context, mapper)
         {
-            _mapper = mapper;
         }
 
         public IEnumerable<Domain.DefinedElementGroup> GetForBag(int bagId, bool includeDetails)
         {
-            IEnumerable<Domain.DefinedElementGroup> definedTasks;
+            IEnumerable<DefinedElementGroup> definedTasks;
             if (includeDetails)
             {
                 definedTasks = _taskContext.DefinedElementGroup.Include(i => i.Items).Where(x => x.Bag.ElementId == bagId).ToList();
@@ -36,13 +34,15 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
             {
                 definedTasks = _taskContext.DefinedElementGroup.Where(x => x.Bag.ElementId == bagId).ToList();
             }
-            return definedTasks;
+            var r1 = Mapper.Map<IEnumerable<Domain.DefinedElementGroup>>(definedTasks);
+            return r1;
         }
 
         public Domain.DefinedElementGroup GetByName(int bagid, string name)
         {
             var r=_taskContext.DefinedElementGroup.SingleOrDefault(x => x.BagId == bagid && x.Name == name);
-            return r;
+            var r1=Mapper.Map<Domain.DefinedElementGroup>(r);
+            return r1;
         }
 
         //public DefinedElementGroup Get(int definedElementGroupId)

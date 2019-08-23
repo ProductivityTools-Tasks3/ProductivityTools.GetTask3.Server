@@ -20,8 +20,4 @@
     <ProjectReference Include="..\ProductivityTools.GetTask3.Domain\ProductivityTools.GetTask3.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="AutoMapper\" />
-  </ItemGroup>
-
 </Project>

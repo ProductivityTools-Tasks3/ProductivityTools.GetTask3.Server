@@ -29,7 +29,7 @@ namespace ProductivityTools.GetTask3.App.Queries
         public ElementView GetTaskList(int? bagId=null)
         {
             Domain.Element element = _taskRepository.GetStructure(bagId);
-            ElementView st = _mapper.Map<Element,ElementView>(element);
+            ElementView st = _mapper.Map<Domain.Element,ElementView>(element);
 
             //element.Elements.ForEach(x => st.Items.Add(_mapper.Map<ItemView>(x)));
 

@@ -10,6 +10,8 @@ namespace ProductivityTools.GetTask3.Infrastructure
         public int TomatoId { get; set; }
         public Status Status { get; set; }
         public DateTime Created { get; set; }
-        public List<TomatoItem> Items { get; set; }
+        public DateTime? Finished { get; set; }
+
+        public List<TomatoElement> TomatoElements { get; set; }
     }
 }

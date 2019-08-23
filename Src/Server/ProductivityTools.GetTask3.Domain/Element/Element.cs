@@ -15,11 +15,13 @@ namespace ProductivityTools.GetTask3.Domain
         public ElementType Type { get; protected set; }
         public Status Status { get; protected set; }
         public DateTime Created { get; protected set; }
+        //pw:change to started
         public DateTime? Start { get; protected set; }
         public DateTime? Finished { get; protected set; }
         public bool Cleared { get; protected set; }
-        public bool Tomato { get; set; }
-        //public bool TomatoStart { get; set; }
+
+        //pw: change this public
+        public List<Tomato> Tomato { get; set; }
 
         public List<Element> Elements { get; protected set; }
 
@@ -49,10 +51,10 @@ namespace ProductivityTools.GetTask3.Domain
             ParentId = parentId;
         }
 
-        public void SetElements(List<Element> elements)
-        {
-            this.Elements = elements;
-        }
+        //public void SetElements(List<Element> elements)
+        //{
+        //    this.Elements = elements;
+        //}
 
         public void Finish(DateTime finishDate)
         {
@@ -73,12 +75,12 @@ namespace ProductivityTools.GetTask3.Domain
 
         public void AddToTomato(int tomatoId)
         {
-           
+
         }
 
         private DateTime AddDeadline(DateTime? startDate)
         {
-            if (startDate.HasValue==false)
+            if (startDate.HasValue == false)
             {
                 throw new Exception("If you want to set deadline you need to define start");
             }
