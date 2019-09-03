@@ -3,6 +3,7 @@ using ProductivityTools.GetTask3.Domain;
 using ProductivityTools.GetTask3.Infrastructure;
 using ProductivityTools.GetTask3.Infrastructure.Repositories;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace ProductivityTools.GetTask3.App.Commands
@@ -68,12 +69,26 @@ namespace ProductivityTools.GetTask3.App.Commands
         {
             var element = _taskUnitOfWork.TaskRepository.Get(elementId);
             element.Delay(startDate);
-            _taskUnitOfWork.TaskRepository.Update(element,element.ElementId);
+            _taskUnitOfWork.TaskRepository.Update(element, element.ElementId);
             _taskUnitOfWork.Commit();
         }
 
         public void AddToTomato(int[] elementIds)
         {
+            Domain.Tomato curentTomato = _taskUnitOfWork.TomatoRepository.GetCurrent();
+            if (curentTomato == null)
+            {
+                curentTomato = new Domain.Tomato();
+                _taskUnitOfWork.TomatoRepository.Add(curentTomato);
+            }
+
+            List<Domain.Element> elements = _taskUnitOfWork.TaskRepository.GetElements(elementIds);
+            elements.ForEach(x =>
+            {
+                x.AddToTomato(curentTomato);
+                _taskUnitOfWork.TaskRepository.Update(x,x.ElementId);
+             });
+            _taskUnitOfWork.Commit();
             //pw: move to repository
             //var tomatoItems = elementIds.ToList().Select(x => new Infrastructure.TomatoElement() { ElementId = x }).ToList();
             //var tomato = new Infrastructure.Tomato() { Status = CoreObjects.Tomato.Status.New, Items = tomatoItems };

@@ -9,7 +9,7 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
 {
     public interface ITomatoRepository : IRepository<Domain.Tomato, Infrastructure.Tomato>
     {
-        Infrastructure.Tomato Get();
+        Domain.Tomato GetCurrent();
         void Finish();
     }
 
@@ -17,15 +17,16 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
     {
         public TomatoRepository(TaskContext taskContext, IMapper mapper) : base(taskContext, mapper) { }
 
-        public Tomato Get()
+        public Domain.Tomato GetCurrent()
         {
-            var z = _taskContext.Tomatos.Single();
-            return z;
+            var z = _taskContext.Tomato.SingleOrDefault();
+            Domain.Tomato result = _mapper.Map<Domain.Tomato>(z);
+            return result;
         }
 
         public void Finish()
         {
-            var tomato = _taskContext.Tomatos.SingleOrDefault(x => x.Status == CoreObjects.Tomato.Status.New);
+            var tomato = _taskContext.Tomato.SingleOrDefault(x => x.Status == CoreObjects.Tomato.Status.New);
             if (tomato != null)
             {
                 tomato.Status = CoreObjects.Tomato.Status.Finished;
