@@ -14,7 +14,7 @@ namespace ProductivityTools.GetTask3.Infrastructure.Base
 
         protected readonly IMapper _mapper;
 
-        private DbSet<InfrastructureObject> _dbSet => _taskContext.Set<InfrastructureObject>();
+        protected DbSet<InfrastructureObject> _dbSet => _taskContext.Set<InfrastructureObject>();
 
         public Repository(TaskContext taskContext, IMapper mapper)
         {
@@ -40,10 +40,7 @@ namespace ProductivityTools.GetTask3.Infrastructure.Base
         public void Update(DomainObject @object,int id)
         {
             InfrastructureObject ifra = _mapper.Map<InfrastructureObject>(@object);
-            //_taskContext.Entry(ifra).State = EntityState.Modified;
             _dbSet.Update(ifra);
-            //_dbSet.Attach(ifra);
         }
-
     }
 }

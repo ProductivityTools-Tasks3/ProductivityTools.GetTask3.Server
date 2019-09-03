@@ -40,9 +40,10 @@ namespace ProductivityTools.GetTask3.Commands.GetTask
             }
 
             //pw: rewrite it to make some chain
-            if (element.Element.Tomato!=null)
+            if (element.Element.Tomatoes!=null && element.Element.Tomatoes.Count>0)
             {
-                var tomato = element.Element.Tomato;
+                var tomato = element.Element.Tomatoes;
+                result += $" [Tomato!!!!!]";
                 //result += $" Tomato {tomato.TomatoId}: " + GetTomatoTime(tomato.Created);
                 //if (tomato.Finished.HasValue)
                 //{

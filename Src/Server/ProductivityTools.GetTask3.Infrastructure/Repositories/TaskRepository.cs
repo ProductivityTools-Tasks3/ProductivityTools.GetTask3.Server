@@ -13,9 +13,10 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
     public interface ITaskRepository : IRepository<Domain.Element, Infrastructure.Element>
     {
         Domain.Element GetStructure(int? root = null);
+        List<Domain.Element> GetElements(int[] elementids);
         //void AddItem(string name);
 
- 
+
         List<Element> GetTaskBags(int? rootId);
     }
 
@@ -66,7 +67,16 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
             //    FillWithtomato(childElements, tomato);
             //}
             result.Elements = childElements;
-            return _mapper.Map<Domain.Element>(result);
+            var r= _mapper.Map<Domain.Element>(result);
+            return r;
+        }
+
+        public List<Domain.Element> GetElements(int[] elementids)
+        {
+            var elements = _dbSet.Where(x => elementids.Contains(x.ElementId)).ToList();
+            elements.ForEach(x => { _taskContext.Entry(x).State = EntityState.Detached; });
+            var r = _mapper.Map<List<Domain.Element>>(elements);
+            return r;
         }
 
         //private void FillWithtomato(List<Element> childElements, Tomato tomato)
@@ -85,11 +95,11 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
             Element element = null;
             if (id == null)
             {
-                element = _taskContext.Elements.AsNoTracking().SingleOrDefault(x => x.ParentId == null);
+                element = _taskContext.Element.AsNoTracking().SingleOrDefault(x => x.ParentId == null);
             }
             else
             {
-                element = _taskContext.Elements.AsNoTracking().SingleOrDefault(x => x.ElementId == id);
+                element = _taskContext.Element.AsNoTracking().SingleOrDefault(x => x.ElementId == id);
             }
             return element;
         }
@@ -112,7 +122,7 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
                 throw new Exception("No task no bags found");
             }
             elements.Add(current);
-            var childBags = _taskContext.Elements.AsNoTracking().Where(l => l.ParentId == current.ElementId && l.Type == CoreObjects.ElementType.TaskBag).ToList();
+            var childBags = _taskContext.Element.AsNoTracking().Where(l => l.ParentId == current.ElementId && l.Type == CoreObjects.ElementType.TaskBag).ToList();
 
             foreach (var childBag in childBags)
             {
@@ -123,35 +133,20 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
         private List<Element> GetElementsInfrastructure(int? rootId = null)
         {
             List<Element> result = new List<Element>();
-            var x = _taskContext.Elements.Where(l =>
+            var elements = _taskContext.Element.Where(l =>
             (l.ParentId == rootId && l.Status != Status.Finished && l.Start <= _dateTimePT.Now.AddDays(1).Date.AddSeconds(-1)) ||
             (l.ParentId == rootId && l.Status == Status.Finished && l.Finished.Value.Date == _dateTimePT.Now.Date)
 
-            ).ToList();
+            )
+            .Include(x => x.TomatoElements).ThenInclude(i => i.Tomato)
+            .ToList();
 
-
-            //var x3 = (from e in _taskContext.Element.Where(xe => xe.ElementId == 19435)
-            //          from ti in _taskContext.TomatoItem.Where(m => m.ElementId == e.ElementId).DefaultIfEmpty()
-            //          from t in _taskContext.Tomato.Where(n => n.TomatoId == ti.TomatoId).DefaultIfEmpty()
-            //          select e).ToList();
-
-
-            //var x1 = (from e in _taskContext.Element
-            //          join ti in _taskContext.TomatoItem on e.ElementId equals ti.ElementId into eti
-            //          from etiResult in eti.DefaultIfEmpty()
-
-            //          join t in _taskContext.Tomato on etiResult.TomatoId equals t.TomatoId into x2
-            //          from x2result in x2.DefaultIfEmpty()
-
-            //          select etiResult).Include(dfd=>dfd.Element).Include(fdsa=>fdsa.Element).Where(xdd=>xdd.Element !=null)
-            //          .ToList();
-
-            for (int i = 0; i < x.Count(); i++)
+            for (int i = 0; i < elements.Count(); i++)
             {
-                Element element = x[i];// new Domain.Element(x[i].ElementId, x[i].Type, x[i].Name, i, x[i].Status);
+                Element element = elements[i];// new Domain.Element(x[i].ElementId, x[i].Type, x[i].Name, i, x[i].Status);
                 if (element.Type == CoreObjects.ElementType.TaskBag)
                 {
-                    element.Elements = GetElementsInfrastructure(x[i].ElementId);
+                    element.Elements = GetElementsInfrastructure(elements[i].ElementId);
                 }
                 result.Add(element);
             }

@@ -21,7 +21,7 @@ namespace ProductivityTools.GetTask3.Domain
         public bool Cleared { get; protected set; }
 
         //pw: change this public
-        public List<Tomato> Tomato { get; set; }
+        public List<Tomato> Tomatoes { get; set; }
 
         public List<Element> Elements { get; protected set; }
 
@@ -30,6 +30,7 @@ namespace ProductivityTools.GetTask3.Domain
             this.Name = name;
             this.Type = type;
             this.Elements = new List<Element>();
+            this.Tomatoes = new List<Tomato>();
         }
 
         public Element(int id, ElementType type, string name, Status status)
@@ -73,9 +74,9 @@ namespace ProductivityTools.GetTask3.Domain
             Start = startDate;
         }
 
-        public void AddToTomato(int tomatoId)
+        public void AddToTomato(Tomato currentTomato)
         {
-
+            this.Tomatoes.Add(currentTomato);
         }
 
         private DateTime AddDeadline(DateTime? startDate)

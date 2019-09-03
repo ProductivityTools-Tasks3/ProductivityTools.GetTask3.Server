@@ -22,8 +22,8 @@ namespace ProductivityTools.GetTask3.Infrastructure
 
         public List<Element> Elements { get; set; }
 
-        //pw: change this public
-        public List<Tomato> Tomato { get; set; }
+        //pw: change this public/
+        //public List<Tomato> Tomato { get; set; }
 
         public List<TomatoElement> TomatoElements { get; protected set; }
     }
