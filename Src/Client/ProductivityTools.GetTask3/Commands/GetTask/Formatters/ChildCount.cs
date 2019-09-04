@@ -9,22 +9,22 @@ namespace ProductivityTools.GetTask3.Commands.GetTask.Formatters
 {
     public class ChildCount
     {
-        internal string Format(string input, PSElementView element)
+        internal void Format(ColorString input, PSElementView element)
         {
-            var part = string.Empty;
+            var part = new ColorStringItem();
             var domain = element.Element;
             SessionElementMetadata viewMetadata = element.SessionElement;// this.View.ItemOrder[element.ElementId];
             switch (domain.Type)
             {
                 case CoreObjects.ElementType.Task:
-                    part = $"<{viewMetadata.ChildCount}>";
+                    part.Value = $"<{viewMetadata.ChildCount}>";
                     break;
                 case CoreObjects.ElementType.TaskBag:
-                    part = $"<{viewMetadata.ChildCount}t>";
+                    part.Value = $"<{viewMetadata.ChildCount}t>";
                     break;
             }
-            var result = input + part;
-            return result;
+            part.Color = 215;
+            input.Add(part);
         }
     }
 }
