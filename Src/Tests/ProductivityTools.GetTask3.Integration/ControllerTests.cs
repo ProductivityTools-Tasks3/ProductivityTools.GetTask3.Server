@@ -6,6 +6,7 @@ using ProductivityTools.GetTask3.App.Commands;
 using ProductivityTools.GetTask3.App.Queries;
 using ProductivityTools.GetTask3.Configuration;
 using ProductivityTools.GetTask3.Contract;
+using ProductivityTools.GetTask3.CoreObjects.Tomato;
 using ProductivityTools.GetTask3.Domain;
 using ProductivityTools.GetTask3.Infrastructure;
 using ProductivityTools.GetTask3.IntegrationTests;

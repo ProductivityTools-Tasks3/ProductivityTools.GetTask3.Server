@@ -19,7 +19,7 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
 
         public Domain.Tomato GetCurrent()
         {
-            var z = _taskContext.Tomato.SingleOrDefault();
+            var z = _taskContext.Tomato.SingleOrDefault(x=>x.Status==CoreObjects.Tomato.Status.New);
             Domain.Tomato result = _mapper.Map<Domain.Tomato>(z);
             return result;
         }

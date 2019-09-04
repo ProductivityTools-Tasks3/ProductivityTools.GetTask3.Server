@@ -28,7 +28,7 @@ namespace ProductivityTools.GetTask3.App.Commands
 
         public void AddDefinedTask(int definedTaskId)
         {
-            var definedTaskGroup=_definedTaskRepository.Get(definedTaskId);
+            var definedTaskGroup=_definedTaskRepository.GetWithDetails(definedTaskId);
             Domain.Element e =_taskUnitOfWork.TaskRepository.Get(definedTaskGroup.BagId);
             foreach (var definedElement in definedTaskGroup.Items)
             {

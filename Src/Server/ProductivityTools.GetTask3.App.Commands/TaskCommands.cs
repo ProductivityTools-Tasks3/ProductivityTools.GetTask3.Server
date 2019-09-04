@@ -1,4 +1,5 @@
 ﻿using ProductivityTools.DateTimeTools;
+using ProductivityTools.GetTask3.CoreObjects.Tomato;
 using ProductivityTools.GetTask3.Domain;
 using ProductivityTools.GetTask3.Infrastructure;
 using ProductivityTools.GetTask3.Infrastructure.Repositories;
@@ -79,7 +80,7 @@ namespace ProductivityTools.GetTask3.App.Commands
             if (curentTomato == null)
             {
                 curentTomato = new Domain.Tomato();
-                _taskUnitOfWork.TomatoRepository.Add(curentTomato);
+                curentTomato.Status = Status.New;
             }
 
             List<Domain.Element> elements = _taskUnitOfWork.TaskRepository.GetElements(elementIds);
