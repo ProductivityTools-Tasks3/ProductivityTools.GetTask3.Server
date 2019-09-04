@@ -10,9 +10,9 @@ namespace ProductivityTools.GetTask3.Commands.GetTask.Formatters
 
     public class TomatoInfo
     {
-        internal string Format(string input, PSElementView element)
+        internal void Format(ColorString input, PSElementView element)
         {
-            var part = string.Empty;
+            var part = new ColorStringItem();
             string tomatoInfo = string.Empty;
             if (element.Element.Tomatoes != null && element.Element.Tomatoes.Count > 0)
             {
@@ -22,8 +22,7 @@ namespace ProductivityTools.GetTask3.Commands.GetTask.Formatters
                     tomatoInfo += $" [T{tomato.TomatoId}] {DateTime.Now.Subtract(tomato.Created)} - {tomato.Status}";
                 }
             }
-            var result = input + part;
-            return result;
+            input.Add(part);
         }
     }
 }

@@ -9,22 +9,22 @@ namespace ProductivityTools.GetTask3.Commands.GetTask.Formatters
 {
     public class ItemName
     {
-        internal string Format(string input, PSElementView element)
+        internal void Format(ColorString input, PSElementView element)
         {
-            var part = string.Empty;
+            var part = new ColorStringItem();
             var domain = element.Element;
             SessionElementMetadata viewMetadata = element.SessionElement;// this.View.ItemOrder[element.ElementId];
             switch (domain.Type)
             {
                 case CoreObjects.ElementType.Task:
-                    part = $"{domain.Name}";
+                    part.Value = $"{domain.Name}";
                     break;
                 case CoreObjects.ElementType.TaskBag:
-                    part = $"[{domain.Name}]";
+                    part.Value = $"[{domain.Name}]";
                     break;
             }
-            var result = input + part;
-            return result;
+            part.Color = 206;
+            input.Add(part);
         }
     }
 }

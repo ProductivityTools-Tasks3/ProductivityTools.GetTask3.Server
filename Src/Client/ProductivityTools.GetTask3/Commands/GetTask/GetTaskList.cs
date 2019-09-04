@@ -1,5 +1,6 @@
 ﻿using ProductivityTools.GetTask3.App;
 using ProductivityTools.GetTask3.Client;
+using ProductivityTools.GetTask3.Colors;
 using ProductivityTools.GetTask3.Commands.GetTask.Formatters;
 using ProductivityTools.GetTask3.Contract;
 using ProductivityTools.GetTask3.CoreObjects;
@@ -25,13 +26,13 @@ namespace ProductivityTools.GetTask3.Commands.GetTask
             this.TaskStructure = TaskStructureFactory.Get(cmdlet);
         }
 
-        private string FormatRow(PSElementView element)
+        private ColorString FormatRow(PSElementView element)
         {
-            var result = string.Empty;
-            result = new Order().Format(result, element);
-            result = new TomatoInfo().Format(result, element);
-            result = new ItemName().Format(result, element);
-            result = new ChildCount().Format(result, element);
+            var result = new ColorString();
+            new Order().Format(result, element);
+            new TomatoInfo().Format(result, element);
+            new ItemName().Format(result, element);
+            new ChildCount().Format(result, element);
             return result;
         }
 
@@ -82,10 +83,30 @@ namespace ProductivityTools.GetTask3.Commands.GetTask
             Console.ResetColor();
         }
 
+        private void WriteInColor(ColorString input)
+        {
+            foreach (var item in input)
+            {
+                if (item.Color != null)
+                {
+                    Console.Write($"\x1b[38;5;{item.Color}m");
+                }
+                Console.Write(item.Value);
+            }
+            Console.WriteLine();
+        }
+
         private void WriteToScreen(PSElementView element)
         {
             Setcolor(element.Element);
-            WriteOutput(FormatRow(element));
+
+            ConsoleColors.ChangeMode();
+
+      
+            Console.Write("\x1b[38;5;200m");
+
+            var colorString = FormatRow(element);
+            WriteInColor(colorString);
             ResetColor();
         }
 
