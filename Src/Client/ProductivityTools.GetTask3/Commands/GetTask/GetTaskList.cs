@@ -27,12 +27,23 @@ namespace ProductivityTools.GetTask3.Commands.GetTask
         private string FormatRow(PSElementView element)
         {
             var result = string.Empty;
+            string tomatoInfo = string.Empty;
+            if (element.Element.Tomatoes != null && element.Element.Tomatoes.Count > 0)
+            {
+                var tomatoes = element.Element.Tomatoes;
+                foreach (var tomato in tomatoes)
+                {
+                    tomatoInfo += $" [T{tomato.TomatoId}] {DateTime.Now.Subtract(tomato.Created)} - {tomato.Status}";
+                }
+            }
+
+
             var domain = element.Element;
             SessionElementMetadata viewMetadata = element.SessionElement;// this.View.ItemOrder[element.ElementId];
             switch (domain.Type)
             {
                 case CoreObjects.ElementType.Task:
-                    result= $"T{GetOrder(viewMetadata)}. {domain.Name} <{viewMetadata.ChildCount}>";
+                    result= $"T{GetOrder(viewMetadata)}. {tomatoInfo} {domain.Name} <{viewMetadata.ChildCount}>";
                     break;
                 case CoreObjects.ElementType.TaskBag:
                     result= $"B{GetOrder(viewMetadata)}. [{domain.Name}] <{viewMetadata.ChildCount}t>";
@@ -40,16 +51,6 @@ namespace ProductivityTools.GetTask3.Commands.GetTask
             }
 
             //pw: rewrite it to make some chain
-            if (element.Element.Tomatoes!=null && element.Element.Tomatoes.Count>0)
-            {
-                var tomato = element.Element.Tomatoes;
-                result += $" [Tomato!!!!!]";
-                //result += $" Tomato {tomato.TomatoId}: " + GetTomatoTime(tomato.Created);
-                //if (tomato.Finished.HasValue)
-                //{
-                //    result += "FINISHED";
-                //}
-            }
 
             return result;
         }

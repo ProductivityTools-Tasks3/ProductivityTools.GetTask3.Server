@@ -8,6 +8,7 @@ namespace ProductivityTools.GetTask3.Infrastructure.Base
     {
         void Add(DomainElement entity);
         DomainElement Get(int? id);
+
         void Update(DomainElement entity, int id);
     }
 }

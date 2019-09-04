@@ -6,27 +6,34 @@ using System.Text;
 
 namespace ProductivityTools.GetTask3.Infrastructure.AutoMapper
 {
-    public class ElementProfile:Profile
+    public class ElementProfile : Profile
     {
         public ElementProfile()
         {
             CreateMap<Infrastructure.Element, Domain.Element>()
                 .ForMember(dest => dest.Tomatoes, opt => opt.MapFrom(src => src.TomatoElements.Select(x => x.Tomato)));
-            CreateMap<Domain.Element,Infrastructure.Element>()
-                .ForMember(x=>x.TomatoElements, opt=>opt.MapFrom<CustomResolver>());
+            CreateMap<Domain.Element, Infrastructure.Element>()
+                .ForMember(x => x.TomatoElements, opt => opt.MapFrom<CustomResolver>());
         }
 
         public class CustomResolver : IValueResolver<Domain.Element, Infrastructure.Element, List<TomatoElement>>
         {
             public List<TomatoElement> Resolve(Domain.Element source, Infrastructure.Element destination, List<TomatoElement> member, ResolutionContext context)
             {
-                var result= new List<TomatoElement>();
-                var tomatoElement = new TomatoElement();
-                var tomato = new Tomato();
-                tomatoElement.Tomato = tomato;
-                result.Add(tomatoElement);
+                List<TomatoElement> result = null;
+                if (source.Tomatoes.Any())
+                {
+                    result = new List<TomatoElement>();
+                    foreach (var tomato in source.Tomatoes)
+                    {
+                        var tomatoElement = new TomatoElement();
+                        tomatoElement.Tomato = context.Mapper.Map<Infrastructure.Tomato>(tomato);
+                        result.Add(tomatoElement);
+                        tomatoElement.Element = destination;
+                    }
 
-                tomatoElement.Element = destination;
+                }
+
 
                 return result;
             }
@@ -37,7 +44,23 @@ namespace ProductivityTools.GetTask3.Infrastructure.AutoMapper
     {
         public TomatoProfie()
         {
-            CreateMap<Infrastructure.Tomato, Domain.Tomato>();
+            CreateMap<Infrastructure.Tomato, Domain.Tomato>().ReverseMap();
+        }
+    }
+
+    public class DefinedElementGroupProfile : Profile
+    {
+        public DefinedElementGroupProfile()
+        {
+            CreateMap<Infrastructure.DefinedElementGroup, Domain.DefinedElementGroup>().ReverseMap();
+        }
+    }
+
+    public class DefinedElementProfile : Profile
+    {
+        public DefinedElementProfile()
+        {
+            CreateMap<Infrastructure.DefinedElement, Domain.DefinedElement>().ReverseMap();
         }
     }
 }

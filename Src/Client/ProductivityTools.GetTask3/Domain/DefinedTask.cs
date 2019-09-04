@@ -29,6 +29,7 @@ namespace ProductivityTools.GetTask3.Domain
         public void AddDefinedTask(string name)
         {
             //here bagid is needed to fill defined task repository
+            //here need to be change because unecessairy id we could send name
             DefinedTaskRepository definedTaskRepository = new DefinedTaskRepository();
             DefinedTaskView definedTask;
             definedTask = definedTaskRepository.GetForBag(_sessionMetadata.SelectedNodeElementId);
