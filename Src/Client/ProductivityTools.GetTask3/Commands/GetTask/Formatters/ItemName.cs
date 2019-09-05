@@ -1,4 +1,5 @@
-﻿using ProductivityTools.GetTask3.View;
+﻿using ProductivityTools.GetTask3.Colors;
+using ProductivityTools.GetTask3.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,21 @@ namespace ProductivityTools.GetTask3.Commands.GetTask.Formatters
                     part.Value = $"[{domain.Name}]";
                     break;
             }
-            part.Color = 206;
+
+            Dictionary<Func<bool>, byte> colormap = new Dictionary<Func<bool>, byte>();
+            colormap.Add(() => true, 15);
+            colormap.Add(() => domain.Type == CoreObjects.ElementType.TaskBag, 15);
+            colormap.Add(() => domain.Type != CoreObjects.ElementType.TaskBag && domain.Delayed(), 9);
+            colormap.Add(() => domain.Type != CoreObjects.ElementType.TaskBag && domain.Finished.HasValue, 8);
+
+            foreach (var item in colormap)
+            {
+                if(item.Key.Invoke())
+                {
+                    part.Color = item.Value;
+                }
+            }
+
             input.Add(part);
         }
     }

@@ -83,30 +83,12 @@ namespace ProductivityTools.GetTask3.Commands.GetTask
             Console.ResetColor();
         }
 
-        private void WriteInColor(ColorString input)
-        {
-            foreach (var item in input)
-            {
-                if (item.Color != null)
-                {
-                    Console.Write($"\x1b[38;5;{item.Color}m");
-                }
-                Console.Write(item.Value);
-            }
-            Console.WriteLine();
-        }
 
         private void WriteToScreen(PSElementView element)
         {
-            Setcolor(element.Element);
-
-            ConsoleColors.ChangeMode();
-
-      
-            Console.Write("\x1b[38;5;200m");
-
+            //Setcolor(element.Element);
             var colorString = FormatRow(element);
-            WriteInColor(colorString);
+            ConsoleColors.WriteInColor(colorString);
             ResetColor();
         }
 

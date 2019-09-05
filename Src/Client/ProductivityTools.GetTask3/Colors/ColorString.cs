@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProductivityTools.GetTask3.Commands.GetTask
+namespace ProductivityTools.GetTask3.Colors
 {
-    class ColorString : IEnumerable<ColorStringItem>
+    public class ColorString : IEnumerable<ColorStringItem>
     {
         private List<ColorStringItem> Items { get; set; }
 

@@ -1,4 +1,5 @@
-﻿using ProductivityTools.GetTask3.View;
+﻿using ProductivityTools.GetTask3.Colors;
+using ProductivityTools.GetTask3.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;

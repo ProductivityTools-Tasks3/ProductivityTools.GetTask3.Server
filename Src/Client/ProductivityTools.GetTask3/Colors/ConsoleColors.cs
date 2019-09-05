@@ -20,12 +20,29 @@ namespace ProductivityTools.GetTask3.Colors
         [DllImport("kernel32.dll", SetLastError = true)]
         private static extern IntPtr GetStdHandle(int handle);
 
-        public static void ChangeMode()
+        private static void ChangeMode()
         {
             var handle = GetStdHandle(-11);
             int mode;
             GetConsoleMode(handle, out mode);
             SetConsoleMode(handle, mode | 0x4);
+        }
+
+        public static void WriteInColor(ColorString input, bool newLine=true)
+        {
+            ChangeMode();
+            foreach (var item in input)
+            {
+                if (item.Color != null)
+                {
+                    Console.Write($"\x1b[38;5;{item.Color}m");
+                }
+                Console.Write(item.Value);
+            }
+            if (newLine)
+            {
+                Console.WriteLine();
+            }
         }
     }
 }
