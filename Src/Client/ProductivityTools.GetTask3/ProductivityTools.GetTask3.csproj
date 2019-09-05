@@ -63,9 +63,9 @@
     <Compile Include="Commands\GetDefinedTask\GetDefinedTaskCmdlet.cs" />
     <Compile Include="Commands\GetDefinedTask\GetDefinedTaskListWitDetails.cs" />
     <Compile Include="Commands\GetDefinedTask\GetDefinedTaskList.cs" />
-    <Compile Include="Commands\GetTask\ColorString\ColorStringItem.cs" />
+    <Compile Include="Colors\ColorStringItem.cs" />
     <Compile Include="Commands\GetTask\Formatters\ChildCount.cs" />
-    <Compile Include="Commands\GetTask\ColorString\ColorString.cs" />
+    <Compile Include="Colors\ColorString.cs" />
     <Compile Include="Commands\GetTask\Formatters\ItemName.cs" />
     <Compile Include="Commands\GetTask\Formatters\Order.cs" />
     <Compile Include="Commands\GetTask\Formatters\Tomato.cs" />

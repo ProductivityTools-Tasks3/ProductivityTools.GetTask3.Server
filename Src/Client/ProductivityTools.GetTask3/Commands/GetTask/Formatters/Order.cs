@@ -1,4 +1,5 @@
-﻿using ProductivityTools.GetTask3.View;
+﻿using ProductivityTools.GetTask3.Colors;
+using ProductivityTools.GetTask3.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,7 @@ namespace ProductivityTools.GetTask3.Commands.GetTask.Formatters
                     part.Value = $"B{GetOrder(viewMetadata)}. ";
                     break;
             }
-            part.Color = 190;
+            part.Color = 15;
             input.Add(part);
         }
 
