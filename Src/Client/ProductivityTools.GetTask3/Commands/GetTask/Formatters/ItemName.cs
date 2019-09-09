@@ -1,4 +1,4 @@
-﻿using ProductivityTools.GetTask3.Colors;
+﻿using ProductivityTools.ConsoleColors;
 using ProductivityTools.GetTask3.View;
 using System;
 using System.Collections.Generic;
@@ -18,10 +18,10 @@ namespace ProductivityTools.GetTask3.Commands.GetTask.Formatters
             switch (domain.Type)
             {
                 case CoreObjects.ElementType.Task:
-                    part.Value = $"{domain.Name}";
+                    part.Value = $"{domain.Name} ";
                     break;
                 case CoreObjects.ElementType.TaskBag:
-                    part.Value = $"[{domain.Name}]";
+                    part.Value = $"[{domain.Name}] ";
                     break;
             }
 

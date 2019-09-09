@@ -19,9 +19,11 @@ namespace ProductivityTools.GetTask3.Repositories
             var rootElement = GetTaskHttpClient.Post2<object>(Consts.Task, Consts.AddToTomato, new AddToTomatoRequest { ElementItems = ids }, VerboseHelper.WriteVerboseStatic).Result;
         }
 
-        public async void Finish()
+        public async void Finish(bool finishAlsoTasks)
         {
-            await GetTaskHttpClient.Post2<object>(Consts.Task, Consts.FinishTomato, new FinishTomatoRequest(), VerboseHelper.WriteVerboseStatic);
+            var request = new FinishTomatoRequest();
+            request.FinishAlsoTasks = finishAlsoTasks;
+            await GetTaskHttpClient.Post2<object>(Consts.Task, Consts.FinishTomato, request, VerboseHelper.WriteVerboseStatic);
         }
     }
 }

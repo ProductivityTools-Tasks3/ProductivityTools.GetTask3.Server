@@ -51,7 +51,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Colors\ConsoleColors.cs" />
     <Compile Include="Commands\AddDefinedTask\AddDefinedTaskCmdlet.cs" />
     <Compile Include="Commands\AddDefinedTask\AddDefinedTaskCommand.cs" />
     <Compile Include="Commands\AddTask\AddElement.cs" />
@@ -63,9 +62,7 @@
     <Compile Include="Commands\GetDefinedTask\GetDefinedTaskCmdlet.cs" />
     <Compile Include="Commands\GetDefinedTask\GetDefinedTaskListWitDetails.cs" />
     <Compile Include="Commands\GetDefinedTask\GetDefinedTaskList.cs" />
-    <Compile Include="Colors\ColorStringItem.cs" />
     <Compile Include="Commands\GetTask\Formatters\ChildCount.cs" />
-    <Compile Include="Colors\ColorString.cs" />
     <Compile Include="Commands\GetTask\Formatters\ItemName.cs" />
     <Compile Include="Commands\GetTask\Formatters\Order.cs" />
     <Compile Include="Commands\GetTask\Formatters\Tomato.cs" />
@@ -103,6 +100,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\ProductivityTools.ConsoleColors\ProductivityTools.ConsoleColors.csproj">
+      <Project>{78913C2A-A689-42F2-94B9-11BB568418A0}</Project>
+      <Name>ProductivityTools.ConsoleColors</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Common\ProductivityTools.GetTask3.CommonConfiguration\ProductivityTools.GetTask3.CommonConfiguration.csproj">
       <Project>{B6018BBD-3C5E-45EE-BAB5-099F1A1F8027}</Project>
       <Name>ProductivityTools.GetTask3.CommonConfiguration</Name>

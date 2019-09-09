@@ -1,6 +1,6 @@
-﻿using ProductivityTools.GetTask3.App;
+﻿using ProductivityTools.ConsoleColors;
+using ProductivityTools.GetTask3.App;
 using ProductivityTools.GetTask3.Client;
-using ProductivityTools.GetTask3.Colors;
 using ProductivityTools.GetTask3.Commands.GetTask.Formatters;
 using ProductivityTools.GetTask3.Contract;
 using ProductivityTools.GetTask3.CoreObjects;
@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ConsoleColor = ProductivityTools.ConsoleColors.ConsoleColor;
 
 namespace ProductivityTools.GetTask3.Commands.GetTask
 {
@@ -69,11 +70,11 @@ namespace ProductivityTools.GetTask3.Commands.GetTask
             {
                 if (element.Delayed())
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.ForegroundColor = System.ConsoleColor.Red;
                 }
                 if (element.Finished.HasValue)
                 {
-                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    Console.ForegroundColor = System.ConsoleColor.DarkGray;
                 }
             }
         }
@@ -88,7 +89,7 @@ namespace ProductivityTools.GetTask3.Commands.GetTask
         {
             //Setcolor(element.Element);
             var colorString = FormatRow(element);
-            ConsoleColors.WriteInColor(colorString);
+            ConsoleColor.WriteInColor(colorString);
             ResetColor();
         }
 
