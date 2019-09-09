@@ -15,7 +15,7 @@ namespace ProductivityTools.GetTask3
         [Parameter]
         public string Name { get; set; }
 
-        [Parameter]
+        [Parameter(Position = 0)]
         public string Id { get; set; }
 
         public NewTomatoCmdlet()

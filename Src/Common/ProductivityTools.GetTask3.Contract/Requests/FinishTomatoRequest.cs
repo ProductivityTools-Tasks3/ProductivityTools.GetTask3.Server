@@ -6,5 +6,6 @@ namespace ProductivityTools.GetTask3.Contract.Requests
 {
     public class FinishTomatoRequest
     {
+        public bool FinishAlsoTasks { get; set; }
     }
 }

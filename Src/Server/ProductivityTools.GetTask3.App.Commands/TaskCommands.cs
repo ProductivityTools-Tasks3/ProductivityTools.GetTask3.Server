@@ -17,7 +17,7 @@ namespace ProductivityTools.GetTask3.App.Commands
         void Undone(int elementId);
         void Delay(int elementId, DateTime dateTime);
         void AddToTomato(int[] elementIds);
-        void FinishTomato();
+        void FinishTomato(bool finishAlsoTasks);
     }
 
 

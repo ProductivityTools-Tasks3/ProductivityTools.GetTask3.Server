@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProductivityTools.GetTask3.Colors
+namespace ProductivityTools.ConsoleColors
 {
     public class ColorStringItem
     {

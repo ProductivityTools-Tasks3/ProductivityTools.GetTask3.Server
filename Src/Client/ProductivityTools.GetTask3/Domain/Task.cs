@@ -170,10 +170,10 @@ namespace ProductivityTools.GetTask3.App
             TomatoRepository.AddToTomato(elementIds);
         }
 
-        public void FinishTomato()
+        public void FinishTomato(bool finishAlsoTasks)
         {
             TomatoRepository TomatoRepository = new TomatoRepository();
-            TomatoRepository.Finish();
+            TomatoRepository.Finish(finishAlsoTasks);
         }
 
         public void Finish(int orderElementId)

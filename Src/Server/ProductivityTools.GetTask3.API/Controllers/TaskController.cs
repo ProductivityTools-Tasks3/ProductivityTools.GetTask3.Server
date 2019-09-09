@@ -97,7 +97,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
         [Route(Consts.FinishTomato)]
         public void FinishTomato([FromBody] FinishTomatoRequest request)
         {
-            Commands.FinishTomato();
+            Commands.FinishTomato(request.FinishAlsoTasks);
         }
     }
 }

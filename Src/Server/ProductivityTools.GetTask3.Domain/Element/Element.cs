@@ -53,11 +53,6 @@ namespace ProductivityTools.GetTask3.Domain
             ParentId = parentId;
         }
 
-        //public void SetElements(List<Element> elements)
-        //{
-        //    this.Elements = elements;
-        //}
-
         public void Finish(DateTime finishDate)
         {
             Status = Status.Finished;

@@ -7,20 +7,20 @@ using System.Text;
 
 namespace ProductivityTools.GetTask3.Commands.FinishTomato
 {
-    class FinishSingleTomato : PSCmdlet.PSCommandPT<FinishTomatoCmdlet>
+    class FinishTomatoAndTasks : PSCmdlet.PSCommandPT<FinishTomatoCmdlet>
     {
         Task TaskStructure;
 
-        public FinishSingleTomato(FinishTomatoCmdlet cmdletType) : base(cmdletType)
+        public FinishTomatoAndTasks(FinishTomatoCmdlet cmdletType) : base(cmdletType)
         {
             this.TaskStructure = TaskStructureFactory.Get(cmdletType);
         }
 
-        protected override bool Condition => this.Cmdlet.FinishAlsoTasks == false;
+        protected override bool Condition => this.Cmdlet.FinishAlsoTasks;
 
         protected override void Invoke()
         {
-            this.TaskStructure.FinishTomato(false); 
+            this.TaskStructure.FinishTomato(true); 
         }
     }
 }

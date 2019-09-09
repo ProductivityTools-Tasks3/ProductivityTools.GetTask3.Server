@@ -10,6 +10,8 @@ namespace ProductivityTools.GetTask3.Commands.FinishTomato
     [Cmdlet("Finish", "Tomato")]
     public class FinishTomatoCmdlet : GT3CmldetsBase
     {
+        [Parameter]
+        public SwitchParameter FinishAlsoTasks { get; set; }
 
         public FinishTomatoCmdlet()
         {
