@@ -90,7 +90,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
         [Route(Consts.AddToTomato)]
         public void AddToTomato([FromBody] AddToTomatoRequest request)
         {
-            Commands.AddToTomato(request.ElementItems);
+            Commands.AddToTomato(request.ElementItems.ToList());
         }
 
         [HttpPost]

@@ -11,5 +11,12 @@ namespace ProductivityTools.GetTask3.Domain
         public Status Status { get; set; }
         public DateTime Created { get; set; }
         public DateTime? Finished { get; set; }
+
+        public List<int> ElementsId { get; set; }
+
+        public void Finish()
+        {
+            this.Status = CoreObjects.Tomato.Status.Finished;
+        }
     }
 }

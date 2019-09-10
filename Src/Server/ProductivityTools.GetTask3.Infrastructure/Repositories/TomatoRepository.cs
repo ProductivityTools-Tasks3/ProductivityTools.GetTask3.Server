@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using ProductivityTools.GetTask3.Infrastructure.Base;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,6 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
     public interface ITomatoRepository : IRepository<Domain.Tomato, Infrastructure.Tomato>
     {
         Domain.Tomato GetCurrent();
-        void Finish();
     }
 
     public class TomatoRepository : Repository<Domain.Tomato, Infrastructure.Tomato>, ITomatoRepository
@@ -19,7 +19,9 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
 
         public Domain.Tomato GetCurrent()
         {
-            var z = _taskContext.Tomato.SingleOrDefault(x=>x.Status==CoreObjects.Tomato.Status.New);
+            var z = _taskContext.Tomato.AsNoTracking()
+                .Include(x=>x.TomatoElements).ThenInclude(x=>x.Element)
+                .SingleOrDefault(x=>x.Status==CoreObjects.Tomato.Status.New);
             Domain.Tomato result = _mapper.Map<Domain.Tomato>(z);
             return result;
         }
