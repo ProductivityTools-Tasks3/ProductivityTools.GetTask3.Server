@@ -16,11 +16,11 @@ namespace ProductivityTools.GetTask3.Commands.FinishTomato
             this.TaskStructure = TaskStructureFactory.Get(cmdletType);
         }
 
-        protected override bool Condition => this.Cmdlet.FinishAlsoTasks == false;
+        protected override bool Condition => true;
 
         protected override void Invoke()
         {
-            this.TaskStructure.FinishTomato(false); 
+            this.TaskStructure.FinishTomato(this.Cmdlet.FinishAlsoTasks); 
         }
     }
 }

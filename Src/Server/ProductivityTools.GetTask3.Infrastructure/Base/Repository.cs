@@ -37,9 +37,10 @@ namespace ProductivityTools.GetTask3.Infrastructure.Base
         }
 
         //pw: change this id to interface on domain object
-        public void Update(DomainObject @object,int id)
+        public void Update(DomainObject @object)
         {
             InfrastructureObject ifra = _mapper.Map<InfrastructureObject>(@object);
+            //_taskContext.Entry(ifra).State = EntityState.Detached;
             _dbSet.Update(ifra);
         }
     }

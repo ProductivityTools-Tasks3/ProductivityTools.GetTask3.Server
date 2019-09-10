@@ -33,8 +33,6 @@ namespace ProductivityTools.GetTask3.Infrastructure.AutoMapper
                     }
 
                 }
-
-
                 return result;
             }
         }
@@ -44,7 +42,9 @@ namespace ProductivityTools.GetTask3.Infrastructure.AutoMapper
     {
         public TomatoProfie()
         {
-            CreateMap<Infrastructure.Tomato, Domain.Tomato>().ReverseMap();
+            CreateMap<Infrastructure.Tomato, Domain.Tomato>()
+                .ForMember(x=>x.ElementsId,opt=>opt.MapFrom(x=>x.TomatoElements.Select(y=>y.ElementId)))
+                .ReverseMap();
         }
     }
 

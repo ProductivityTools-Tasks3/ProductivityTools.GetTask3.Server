@@ -9,7 +9,7 @@ namespace ProductivityTools.GetTask3.CommonConfiguration
         public const string AddToTomato = "AddToTomato";
         public const string FinishTomato = "FinishTomato";
 
-        public const string HttpAddress = @"http://localhost:8000/";
+        public const string HttpAddress = @"http://localhost:4500/";
         public static string EndpointAddress
         {
             get

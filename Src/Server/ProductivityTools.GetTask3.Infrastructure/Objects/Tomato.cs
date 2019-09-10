@@ -12,6 +12,6 @@ namespace ProductivityTools.GetTask3.Infrastructure
         public DateTime Created { get; set; }
         public DateTime? Finished { get; set; }
 
-        //public List<TomatoElement> TomatoElements { get; set; }
+        public List<TomatoElement> TomatoElements { get; set; }
     }
 }

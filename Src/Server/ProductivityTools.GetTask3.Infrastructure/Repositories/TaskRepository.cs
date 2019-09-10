@@ -14,7 +14,7 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
     public interface ITaskRepository : IRepository<Domain.Element, Infrastructure.Element>
     {
         Domain.Element GetStructure(int? root = null);
-        List<Domain.Element> GetElements(int[] elementids);
+        List<Domain.Element> GetElements(List<int> elementids);
         //void AddItem(string name);
 
 
@@ -72,7 +72,7 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
             return r;
         }
 
-        public List<Domain.Element> GetElements(int[] elementids)
+        public List<Domain.Element> GetElements(List<int> elementids)
         {
             var elements = _dbSet.Where(x => elementids.Contains(x.ElementId)).ToList();
             elements.ForEach(x => { _taskContext.Entry(x).State = EntityState.Detached; });
@@ -104,8 +104,6 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
             }
             return element;
         }
-
-
 
 
         public List<Element> GetTaskBags(int? rootId)
@@ -160,11 +158,5 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
             var r = _mapper.Map<List<Domain.Element>>(result);
             return r;
         }
-
-        //public void FinishTask(int id)
-        //{
-        //    var element = _taskContext.Element.First(x => x.ElementId == id);
-        //    element.Finish();
-        //}
     }
 }

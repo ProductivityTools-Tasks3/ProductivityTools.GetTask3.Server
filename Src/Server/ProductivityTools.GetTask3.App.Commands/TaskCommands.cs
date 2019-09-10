@@ -16,7 +16,7 @@ namespace ProductivityTools.GetTask3.App.Commands
         void Finish(int elementId);
         void Undone(int elementId);
         void Delay(int elementId, DateTime dateTime);
-        void AddToTomato(int[] elementIds);
+        void AddToTomato(List<int> elementIds);
         void FinishTomato(bool finishAlsoTasks);
     }
 
@@ -55,7 +55,7 @@ namespace ProductivityTools.GetTask3.App.Commands
         {
             var element = _taskUnitOfWork.TaskRepository.Get(elementId);
             element.Finish(_dateTime.Now);
-            _taskUnitOfWork.TaskRepository.Update(element, element.ElementId);
+            _taskUnitOfWork.TaskRepository.Update(element);
             _taskUnitOfWork.Commit();
         }
 
@@ -70,11 +70,11 @@ namespace ProductivityTools.GetTask3.App.Commands
         {
             var element = _taskUnitOfWork.TaskRepository.Get(elementId);
             element.Delay(startDate);
-            _taskUnitOfWork.TaskRepository.Update(element, element.ElementId);
+            _taskUnitOfWork.TaskRepository.Update(element);
             _taskUnitOfWork.Commit();
         }
 
-        public void AddToTomato(int[] elementIds)
+        public void AddToTomato(List<int> elementIds)
         {
             Domain.Tomato curentTomato = _taskUnitOfWork.TomatoRepository.GetCurrent();
             if (curentTomato == null)
@@ -87,8 +87,8 @@ namespace ProductivityTools.GetTask3.App.Commands
             elements.ForEach(x =>
             {
                 x.AddToTomato(curentTomato);
-                _taskUnitOfWork.TaskRepository.Update(x,x.ElementId);
-             });
+                _taskUnitOfWork.TaskRepository.Update(x);
+            });
             _taskUnitOfWork.Commit();
             //pw: move to repository
             //var tomatoItems = elementIds.ToList().Select(x => new Infrastructure.TomatoElement() { ElementId = x }).ToList();
@@ -97,9 +97,23 @@ namespace ProductivityTools.GetTask3.App.Commands
             //_taskUnitOfWork.Commit();
         }
 
-        public void FinishTomato()
+        public void FinishTomato(bool finishAlsoTask)
         {
-            _taskUnitOfWork.TomatoRepository.Finish();
+            Domain.Tomato tomato = _taskUnitOfWork.TomatoRepository.GetCurrent();
+            tomato.Finish();
+            _taskUnitOfWork.TomatoRepository.Update(tomato);
+
+            if (finishAlsoTask)
+            {
+                List<Domain.Element> elements = _taskUnitOfWork.TaskRepository.GetElements(tomato.ElementsId);
+                //pw: chage it
+                elements.ForEach(x =>
+                {
+                    x.Finish(DateTime.Now);
+                    _taskUnitOfWork.TaskRepository.Update(x);
+                });
+            }
+
             _taskUnitOfWork.Commit();
         }
     }
