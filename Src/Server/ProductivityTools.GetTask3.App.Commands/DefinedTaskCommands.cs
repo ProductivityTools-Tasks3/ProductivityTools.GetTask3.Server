@@ -15,7 +15,7 @@ namespace ProductivityTools.GetTask3.App.Commands
     {
         private readonly ITaskUnitOfWork _taskUnitOfWork;
         private readonly IDefinedTaskRepository _definedTaskRepository;
-       // private readonly ITaskRepository _taskRepository;
+        // private readonly ITaskRepository _taskRepository;
 
         //IDateTimePT _dateTime;
 
@@ -28,11 +28,11 @@ namespace ProductivityTools.GetTask3.App.Commands
 
         public void AddDefinedTask(int definedTaskId)
         {
-            var definedTaskGroup=_definedTaskRepository.GetWithDetails(definedTaskId);
-            Domain.Element e =_taskUnitOfWork.TaskRepository.Get(definedTaskGroup.BagId);
+            var definedTaskGroup = _definedTaskRepository.GetWithDetails(definedTaskId);
+            Domain.Element e = _taskUnitOfWork.TaskRepository.Get(definedTaskGroup.BagId);
             foreach (var definedElement in definedTaskGroup.Items)
             {
-                Domain.Element newElement = new Domain.Element(definedElement.Name, CoreObjects.ElementType.Task);
+                Domain.Element newElement = new Domain.Element(definedElement.Name, CoreObjects.ElementType.Task, definedTaskGroup.Name);
                 newElement.Update(e.ElementId, CoreObjects.ElementType.Task);
 
                 _taskUnitOfWork.TaskRepository.Add(newElement);

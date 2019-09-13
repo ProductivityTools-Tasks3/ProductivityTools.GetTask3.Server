@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace ProductivityTools.GetTask3.Commands.GetTask.Formatters
 {
 
-    public class TomatoInfo
+    public class Tomato
     {
         internal void Format(ColorString input, PSElementView element)
         {
@@ -20,7 +20,7 @@ namespace ProductivityTools.GetTask3.Commands.GetTask.Formatters
                 var tomatoes = element.Element.Tomatoes;
                 foreach (var tomato in tomatoes)
                 {
-                    tomatoInfo = $"[T{tomato.TomatoId}] {DateTime.Now.Subtract(tomato.Created).ToString(@"hh\:mm")} | ";
+                    tomatoInfo = $"|{DateTime.Now.Subtract(tomato.Created).ToString(@"hh\:mm")}| ";
                     var part = new ColorStringItem();
                     part.Value = tomatoInfo;
                     if (tomato.Status == CoreObjects.Tomato.Status.Finished)

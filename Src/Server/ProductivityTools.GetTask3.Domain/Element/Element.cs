@@ -19,6 +19,7 @@ namespace ProductivityTools.GetTask3.Domain
         //pw:change to started
         public DateTime? Start { get; protected set; }
         public DateTime? Finished { get; protected set; }
+        public string Category { get; protected set; }
         public bool Cleared { get; protected set; }
 
         //pw: change this public
@@ -32,6 +33,11 @@ namespace ProductivityTools.GetTask3.Domain
             this.Type = type;
             this.Elements = new List<Element>();
             this.Tomatoes = new List<Tomato>();
+        }
+
+        public Element(string name, ElementType type, string category) : this(name, type)
+        {
+            this.Category = category;
         }
 
         public Element(int id, ElementType type, string name, Status status)
