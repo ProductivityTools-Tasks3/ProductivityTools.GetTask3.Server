@@ -31,7 +31,8 @@ namespace ProductivityTools.GetTask3.Commands.GetTask
         {
             var result = new ColorString();
             new Order().Format(result, element);
-            new TomatoInfo().Format(result, element);
+            new Category().Format(result, element);
+            new Tomato().Format(result, element);
             new ItemName().Format(result, element);
             new ChildCount().Format(result, element);
             return result;

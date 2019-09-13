@@ -14,6 +14,8 @@ namespace ProductivityTools.GetTask3.Contract
         public DateTime Created { get; set; }
         public DateTime Start { get; set; }
         public DateTime? Finished { get; set; }
+        public string Category { get; set; }
+
         public List<TomatoView> Tomatoes {get;set;}
         
 
