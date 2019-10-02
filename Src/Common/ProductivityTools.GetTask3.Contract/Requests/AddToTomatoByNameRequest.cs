@@ -4,8 +4,9 @@ using System.Text;
 
 namespace ProductivityTools.GetTask3.Contract.Requests
 {
-    public class AddToTomatoByIdRequest
+    public class AddToTomatoByNameRequest
     {
-        public int[] ElementItems { get; set; }
+        public int ParentId { get; set; }
+        public string TaskName { get; set; }
     }
 }

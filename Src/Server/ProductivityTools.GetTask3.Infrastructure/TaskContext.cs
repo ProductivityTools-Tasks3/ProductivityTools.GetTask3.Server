@@ -20,10 +20,12 @@ namespace ProductivityTools.GetTask3.Infrastructure
       //  public DbSet<Infrastructure.TomatoElement> TomatoItems { get; set; }
         //public DbSet<Domain.Tomato> Tomato { get; set; }
 
-        public TaskContext(IConfig config, IConfiguration configuration)
+        public TaskContext(IConfiguration configuration)
         {
             _configuration = configuration;
         }
+
+        public TaskContext(DbContextOptions<TaskContext> options) : base(options) { }
 
         private ILoggerFactory GetLoggerFactory()
         {
@@ -38,9 +40,12 @@ namespace ProductivityTools.GetTask3.Infrastructure
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(_configuration.GetConnectionString("GetTask3"));
-            optionsBuilder.UseLoggerFactory(GetLoggerFactory());
-            optionsBuilder.EnableSensitiveDataLogging();
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer(_configuration.GetConnectionString("GetTask3"));
+                optionsBuilder.UseLoggerFactory(GetLoggerFactory());
+                optionsBuilder.EnableSensitiveDataLogging();
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

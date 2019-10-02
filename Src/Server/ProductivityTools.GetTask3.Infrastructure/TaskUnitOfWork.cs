@@ -32,7 +32,6 @@ namespace ProductivityTools.GetTask3.Infrastructure
             var modifiedEntities = ChangeTracker.Entries().Where(x => x.State == EntityState.Modified).ToList();
             var deletedEntities = ChangeTracker.Entries().Where(x => x.State == EntityState.Deleted).ToList();
 
-
             _dbContext.SaveChanges();
         }
 

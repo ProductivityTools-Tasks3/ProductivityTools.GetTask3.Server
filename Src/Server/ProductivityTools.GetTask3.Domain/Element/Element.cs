@@ -27,15 +27,22 @@ namespace ProductivityTools.GetTask3.Domain
 
         public List<Element> Elements { get; protected set; }
 
-        public Element(string name, ElementType type)
+        public Element(string name, ElementType type, int? parentId)
         {
+            new OneCoreInTree().Evaluate(parentId, type);
             this.Name = name;
             this.Type = type;
+            this.ParentId = parentId;
+            //pw: change this dates
+            Created = DateTime.Now;
+            Start = DateTime.Now;
+            Status = Status.New;
+
             this.Elements = new List<Element>();
             this.Tomatoes = new List<Tomato>();
         }
 
-        public Element(string name, ElementType type, string category) : this(name, type)
+        public Element(string name, ElementType type, int? parentId, string category) : this(name, type, parentId)
         {
             this.Category = category;
         }
@@ -48,16 +55,11 @@ namespace ProductivityTools.GetTask3.Domain
             this.Status = status;
         }
 
-        public void Update(int? parentId, ElementType type)
-        {
-            new OneCoreInTree().Evaluate(parentId, type);
-            //pw: change this dates
-            Created = DateTime.Now;
-            Start = DateTime.Now;
-            Status = Status.New;
-            Type = type;
-            ParentId = parentId;
-        }
+        //public void Update(ElementType type)
+        //{
+        
+        //    Type = type;
+        //}
 
         public void Finish(DateTime finishDate)
         {

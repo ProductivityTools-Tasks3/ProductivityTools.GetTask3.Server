@@ -17,6 +17,7 @@ namespace ProductivityTools.GetTask3.App.Commands
         void Undone(int elementId);
         void Delay(int elementId, DateTime dateTime);
         void AddToTomato(List<int> elementIds);
+        void AddToTomato(string name, int parentId);
         void FinishTomato(bool finishAlsoTasks);
     }
 
@@ -44,8 +45,7 @@ namespace ProductivityTools.GetTask3.App.Commands
 
         private void AddElement(string name, CoreObjects.ElementType type, int? parentId)
         {
-            Domain.Element e = new Domain.Element(name, type);
-            e.Update(parentId, type);
+            Domain.Element e = new Domain.Element(name, type, parentId);
 
             _taskUnitOfWork.TaskRepository.Add(e);
             _taskUnitOfWork.Commit();
@@ -97,6 +97,23 @@ namespace ProductivityTools.GetTask3.App.Commands
             //_taskUnitOfWork.Commit();
         }
 
+        public void AddToTomato(string name, int parentId)
+        {
+            Domain.Tomato curentTomato = _taskUnitOfWork.TomatoRepository.GetCurrent();
+            if (curentTomato == null)
+            {
+                curentTomato = new Domain.Tomato();
+                curentTomato.Status = Status.New;
+            }
+
+            var element = new Domain.Element(name, CoreObjects.ElementType.Task, parentId);
+            element.AddToTomato(curentTomato);
+
+            _taskUnitOfWork.TaskRepository.Add(element);
+           // _taskUnitOfWork.TomatoRepository.Update(curentTomato);
+            _taskUnitOfWork.Commit();
+        }
+
         public void FinishTomato(bool finishAlsoTask)
         {
             Domain.Tomato tomato = _taskUnitOfWork.TomatoRepository.GetCurrent();
@@ -116,5 +133,7 @@ namespace ProductivityTools.GetTask3.App.Commands
 
             _taskUnitOfWork.Commit();
         }
+
+
     }
 }

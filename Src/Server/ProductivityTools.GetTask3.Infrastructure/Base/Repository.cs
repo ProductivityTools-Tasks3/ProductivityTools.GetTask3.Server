@@ -25,7 +25,9 @@ namespace ProductivityTools.GetTask3.Infrastructure.Base
         public void Add(DomainObject entity)
         {
             InfrastructureObject ifrastructure = _mapper.Map<InfrastructureObject>(entity);
-            _dbSet.Add(ifrastructure);
+            //pw: here test are failing if add chosen
+            _dbSet.Attach(ifrastructure);
+           // _dbSet.Add(ifrastructure);
         }
 
         public DomainObject Get(int? id)
