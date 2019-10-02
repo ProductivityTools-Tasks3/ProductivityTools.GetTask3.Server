@@ -18,9 +18,9 @@ namespace ProductivityTools.GetTask3.Commands
 
         protected override void Invoke()
         {
-            var tomato = TaskStructureFactory.Get(this.Cmdlet);
+            var task = TaskStructureFactory.Get(this.Cmdlet);
             var items = this.Cmdlet.Id.GetIds();
-            tomato.AddToTomato(items);
+            task.AddToTomato(items);
         }
     }
 }

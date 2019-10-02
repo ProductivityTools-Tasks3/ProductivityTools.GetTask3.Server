@@ -63,7 +63,7 @@ namespace ProductivityTools.GetTask3.Domain
 
         internal async void AddToTomato(int[] elementIds)
         {
-            await GetTaskHttpClient.Post2<object>("Task", Consts.AddToTomato, new AddToTomatoRequest() { ElementItems = elementIds }, VerboseHelper.WriteVerboseStatic);
+            await GetTaskHttpClient.Post2<object>("Task", Consts.AddToTomatoById, new AddToTomatoByIdRequest() { ElementItems = elementIds }, VerboseHelper.WriteVerboseStatic);
         }
     }
 }

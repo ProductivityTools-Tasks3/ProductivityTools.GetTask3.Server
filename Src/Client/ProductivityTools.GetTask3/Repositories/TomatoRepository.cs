@@ -16,7 +16,14 @@ namespace ProductivityTools.GetTask3.Repositories
         {
             VerboseHelper.WriteVerboseStatic("Calling AddToTomato");
             // var rootElement = GetTaskHttpClient.Post<Contract.ElementView>("List", currentNode.ToString());
-            var rootElement = GetTaskHttpClient.Post2<object>(Consts.Task, Consts.AddToTomato, new AddToTomatoRequest { ElementItems = ids }, VerboseHelper.WriteVerboseStatic).Result;
+            var rootElement = GetTaskHttpClient.Post2<object>(Consts.Task, Consts.AddToTomatoById, new AddToTomatoByIdRequest { ElementItems = ids }, VerboseHelper.WriteVerboseStatic).Result;
+        }
+
+        public void AddToTomato(string name, int parentId)
+        {
+            VerboseHelper.WriteVerboseStatic("Calling AddToTomato");
+            // var rootElement = GetTaskHttpClient.Post<Contract.ElementView>("List", currentNode.ToString());
+            var rootElement = GetTaskHttpClient.Post2<object>(Consts.Task, Consts.AddToTomatoByName, new AddToTomatoByNameRequest { TaskName = name , ParentId=parentId }, VerboseHelper.WriteVerboseStatic).Result;
         }
 
         public async void Finish(bool finishAlsoTasks)

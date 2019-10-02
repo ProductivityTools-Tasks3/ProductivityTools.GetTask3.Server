@@ -32,8 +32,8 @@ namespace ProductivityTools.GetTask3.App.Commands
             Domain.Element e = _taskUnitOfWork.TaskRepository.Get(definedTaskGroup.BagId);
             foreach (var definedElement in definedTaskGroup.Items)
             {
-                Domain.Element newElement = new Domain.Element(definedElement.Name, CoreObjects.ElementType.Task, definedTaskGroup.Name);
-                newElement.Update(e.ElementId, CoreObjects.ElementType.Task);
+                Domain.Element newElement = new Domain.Element(definedElement.Name, CoreObjects.ElementType.Task, e.ElementId, definedTaskGroup.Name);
+                //newElement.Update(CoreObjects.ElementType.Task);
 
                 _taskUnitOfWork.TaskRepository.Add(newElement);
             }

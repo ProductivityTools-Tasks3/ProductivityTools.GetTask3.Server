@@ -87,11 +87,20 @@ namespace ProductivityTools.GetTask3.API.Controllers
         }
 
         [HttpPost]
-        [Route(Consts.AddToTomato)]
-        public void AddToTomato([FromBody] AddToTomatoRequest request)
+        [Route(Consts.AddToTomatoById)]
+        public void AddToTomato([FromBody] AddToTomatoByIdRequest request)
         {
             Commands.AddToTomato(request.ElementItems.ToList());
         }
+
+
+        [HttpPost]
+        [Route(Consts.AddToTomatoByName)]
+        public void AddToTomatoByName([FromBody] AddToTomatoByNameRequest request)
+        {
+            Commands.AddToTomato(request.TaskName, request.ParentId);
+        }
+
 
         [HttpPost]
         [Route(Consts.FinishTomato)]

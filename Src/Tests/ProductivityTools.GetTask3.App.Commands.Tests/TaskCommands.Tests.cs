@@ -1,0 +1,56 @@
+using System;
+using System.Collections.Generic;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using ProductivityTools.GetTask3.App.Fakes.Tests;
+using ProductivityTools.GetTask3.Domain;
+using ProductivityTools.GetTask3.Infrastructure;
+using ProductivityTools.GetTask3.Infrastructure.Repositories;
+
+namespace ProductivityTools.GetTask3.App.Commands.Tests
+{
+    [TestClass]
+    public class TaskCommandsTests
+    {
+        [TestMethod]
+        public void AddTask()
+        {
+            ITaskUnitOfWork taskUnitOfWork = new TaskUnitOfWorkTest(new TestTaskRepository(),null);
+            TaskCommands taskCommands = new TaskCommands(taskUnitOfWork, new DateTimeTools.DateTimePT());
+            taskCommands.Add("Test1", 0);
+            Assert.AreEqual((taskUnitOfWork.TaskRepository as TestTaskRepository).Element.Elements.Count, 1);
+        }
+
+        [TestMethod]
+        public void AddTomatoById()
+        {
+            var testTomatoRepository= new TomatoRepositoryTest();
+            var testTaskRepository = new TestTaskRepository();
+            testTaskRepository.ElementsTeset.Add(new Domain.Element("jeden",CoreObjects.ElementType.Task,null));
+            testTaskRepository.ElementsTeset.Add(new Domain.Element("dwa", CoreObjects.ElementType.Task, null));
+            ITaskUnitOfWork taskUnitOfWork = new TaskUnitOfWorkTest(testTaskRepository, testTomatoRepository);
+
+            TaskCommands taskCommands = new TaskCommands(taskUnitOfWork, new DateTimeTools.DateTimePT());
+            Assert.IsTrue(testTaskRepository.ElementsTeset[0].Tomatoes.Count == 0);
+            taskCommands.AddToTomato(new List<int>() { 1, 2 });
+            Assert.IsTrue(testTaskRepository.ElementsTeset[0].Tomatoes.Count > 0);
+            Assert.IsTrue(testTaskRepository.ElementsTeset[1].Tomatoes.Count > 0);
+        }
+
+        [TestMethod]
+        public void AddTomatoByName()
+        {
+            var testTomatoRepository = new TomatoRepositoryTest();
+            var testTaskRepository = new TestTaskRepository();
+            ITaskUnitOfWork taskUnitOfWork = new TaskUnitOfWorkTest(testTaskRepository, testTomatoRepository);
+
+            TaskCommands taskCommands = new TaskCommands(taskUnitOfWork, new DateTimeTools.DateTimePT());
+            Assert.IsTrue(testTaskRepository.Element.Elements.Count == 0);
+            taskCommands.AddToTomato("XXX",0);
+            Assert.IsTrue(testTaskRepository.Element.Elements.Count ==1);
+            Assert.IsTrue(testTaskRepository.Element.Elements[0].Tomatoes.Count > 0);
+        }
+
+
+    }
+}
