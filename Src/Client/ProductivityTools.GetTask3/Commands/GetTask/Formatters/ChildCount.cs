@@ -14,7 +14,7 @@ namespace ProductivityTools.GetTask3.Commands.GetTask.Formatters
         {
             var part = new ColorStringItem();
             var domain = element.Element;
-            SessionElementMetadata viewMetadata = element.SessionElement;// this.View.ItemOrder[element.ElementId];
+            ElementMetadata viewMetadata = element.SessionElement;// this.View.ItemOrder[element.ElementId];
             switch (domain.Type)
             {
                 case CoreObjects.ElementType.Task:

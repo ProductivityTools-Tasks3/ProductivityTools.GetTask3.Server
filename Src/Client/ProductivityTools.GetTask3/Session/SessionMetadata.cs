@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace ProductivityTools.GetTask3.View
 {
-    public class SessionMetadata
+    public class StructureMetadata
     {
-        public Dictionary<int, SessionElementMetadata> ItemOrder { get; set; }
+        public Dictionary<int, ElementMetadata> ElementOrder { get; set; }
 
-        public SessionMetadata()
+        public StructureMetadata()
         {
-            this.ItemOrder = new Dictionary<int, SessionElementMetadata>();
+            this.ElementOrder = new Dictionary<int, ElementMetadata>();
         }
 
         public int? SelectedNodeOrder { get; set; }

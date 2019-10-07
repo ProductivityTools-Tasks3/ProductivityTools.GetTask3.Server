@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace ProductivityTools.GetTask3.View
 {
-    class PSElementView
+    public class PSElementView
     {
         public Contract.ElementView Element { get; set; }
-        public SessionElementMetadata SessionElement { get; set; }
+        public ElementMetadata SessionElement { get; set; }
     }
 }

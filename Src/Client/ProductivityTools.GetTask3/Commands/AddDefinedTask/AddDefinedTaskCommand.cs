@@ -1,5 +1,6 @@
 ﻿using ProductivityTools.GetTask3.App;
 using ProductivityTools.GetTask3.Contract.Responses;
+using ProductivityTools.GetTask3.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,8 @@ namespace ProductivityTools.GetTask3.Commands.AddDefinedTask
 
         protected override void Invoke()
         {
-            var d = new Domain.DefinedTask(Cmdlet);
+            ISessionMetaDataProvider sessionMetaDataProvider = new SessionMetaDataProvider(Cmdlet);
+            var d = new Domain.DefinedTask(sessionMetaDataProvider);
             //DefinedTaskView definedTasks = d.Get(false);
             //string definedTaskName = this.Cmdlet.Name;
             //var id = definedTasks.DefinedTasks.SingleOrDefault(x => x.Name ==definedTaskName);

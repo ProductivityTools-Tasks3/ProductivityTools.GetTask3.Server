@@ -14,7 +14,7 @@ namespace ProductivityTools.GetTask3.Commands.GetTask.Formatters
         {
             var part = new ColorStringItem();
             var domain = element.Element;
-            SessionElementMetadata viewMetadata = element.SessionElement;// this.View.ItemOrder[element.ElementId];
+            ElementMetadata viewMetadata = element.SessionElement;// this.View.ItemOrder[element.ElementId];
             switch (domain.Type)
             {
                 case CoreObjects.ElementType.Task:
@@ -28,7 +28,7 @@ namespace ProductivityTools.GetTask3.Commands.GetTask.Formatters
             input.Add(part);
         }
 
-        private string GetOrder(SessionElementMetadata metadata)
+        private string GetOrder(ElementMetadata metadata)
         {
             return metadata.Order.ToString().PadLeft(3, '0');
         }

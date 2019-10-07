@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProductivityTools.GetTask3.View
 {
-    public class SessionElementMetadata
+    public class ElementMetadata
     {
         public int ElementId { get; set; }
         public int Order { get; set; }

@@ -7,11 +7,12 @@ using System.Text;
 
 namespace ProductivityTools.GetTask3.Domain
 {
-    class TaskStructureFactory
+    public class TaskStructureFactory
     {
-        public static Task Get(System.Management.Automation.PSCmdlet cmdlet)
+        internal static Task Get(System.Management.Automation.PSCmdlet cmdlet)
         {
-            return new App.Task(cmdlet);
+            ISessionMetaDataProvider sessionMetaDataProvider = new SessionMetaDataProvider(cmdlet);
+            return new App.Task(sessionMetaDataProvider, new TaskRepository());
         }
     }
 }

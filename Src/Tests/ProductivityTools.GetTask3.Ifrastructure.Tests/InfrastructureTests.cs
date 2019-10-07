@@ -8,7 +8,6 @@ using ProductivityTools.GetTask3.Configuration;
 using ProductivityTools.GetTask3.Infrastructure;
 using ProductivityTools.GetTask3.Infrastructure.AutoMapper;
 using ProductivityTools.GetTask3.Infrastructure.Repositories;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;

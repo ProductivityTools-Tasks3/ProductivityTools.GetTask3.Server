@@ -1,4 +1,5 @@
 ﻿using ProductivityTools.GetTask3.App;
+using ProductivityTools.GetTask3.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace ProductivityTools.GetTask3.SingleCommands
 
         public GetPredefinedTask()
         {
-            TaskStructure = new App.Task(this);
+            TaskStructure = TaskStructureFactory.Get(this);
         }
 
         protected override void ProcessRecord()

@@ -26,8 +26,10 @@ namespace ProductivityTools.GetTask3.App.Commands.Tests
         {
             var testTomatoRepository= new TomatoRepositoryTest();
             var testTaskRepository = new TestTaskRepository();
-            testTaskRepository.ElementsTeset.Add(new Domain.Element("jeden",CoreObjects.ElementType.Task,null));
-            testTaskRepository.ElementsTeset.Add(new Domain.Element("dwa", CoreObjects.ElementType.Task, null));
+
+            testTaskRepository.ElementsTeset.Add(new Domain.Element("core", CoreObjects.ElementType.TaskBag, null));
+            testTaskRepository.ElementsTeset.Add(new Domain.Element("jeden",CoreObjects.ElementType.Task,0));
+            testTaskRepository.ElementsTeset.Add(new Domain.Element("dwa", CoreObjects.ElementType.Task, 0));
             ITaskUnitOfWork taskUnitOfWork = new TaskUnitOfWorkTest(testTaskRepository, testTomatoRepository);
 
             TaskCommands taskCommands = new TaskCommands(taskUnitOfWork, new DateTimeTools.DateTimePT());
