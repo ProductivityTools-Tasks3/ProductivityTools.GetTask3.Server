@@ -8,6 +8,11 @@ namespace ProductivityTools.GetTask3.View
 {
     public static class VerboseHelper
     {
+        static VerboseHelper()
+        {
+            WriteVerboseStatic = (s) => Console.WriteLine(s);
+        }
+
         public static Action<String> WriteVerboseStatic;
     }
 }

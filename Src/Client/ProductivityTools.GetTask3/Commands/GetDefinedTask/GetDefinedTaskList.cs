@@ -16,7 +16,8 @@ namespace ProductivityTools.GetTask3.Commands.GetDefinedTask
 
         protected override void Invoke()
         {
-            DefinedTaskView definedTasks = new Domain.DefinedTask(Cmdlet).Get(false);
+            ISessionMetaDataProvider sessionMetaDataProvider = new SessionMetaDataProvider(Cmdlet);
+            DefinedTaskView definedTasks = new Domain.DefinedTask(sessionMetaDataProvider).Get(false);
             foreach (var item in definedTasks.DefinedTasks)
             {
                 WriteOutput($"[Bag name:{item.BagName}] {item.Name}");

@@ -71,6 +71,8 @@
     <Compile Include="Commands\NewTomato\NewTomatoByName.cs" />
     <Compile Include="Commands\NewTomato\NewTomatoCmdlet.cs" />
     <Compile Include="Domain\DefinedTask.cs" />
+    <Compile Include="Domain\ISessionMetaDataProvider.cs" />
+    <Compile Include="Domain\SessionMetaDataProvider.cs" />
     <Compile Include="Repositories\DefinedTaskRepository.cs" />
     <Compile Include="Domain\DomainBase.cs" />
     <Compile Include="Domain\Task.cs" />
@@ -81,6 +83,7 @@
     <Compile Include="Commands\SelectTask\DirectItem.cs" />
     <Compile Include="Commands\SelectTask\SelectTaskCmdlet.cs" />
     <Compile Include="Domain\TaskStructureFactory.cs" />
+    <Compile Include="Repositories\ITaskRepository.cs" />
     <Compile Include="Repositories\TaskRepository.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

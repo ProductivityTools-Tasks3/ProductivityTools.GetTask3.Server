@@ -7,28 +7,21 @@ using System.Threading.Tasks;
 
 namespace ProductivityTools.GetTask3.Domain
 {
-    class DomainBase
+    public class DomainBase
     {
-        protected System.Management.Automation.PSCmdlet cmdlet;
-        string _sesisonKey = "ViewMetadata";
+        private readonly ISessionMetaDataProvider SessionMetaDataProvider;
 
-        protected SessionMetadata _sessionMetadata
+        internal StructureMetadata session
         {
             get
             {
-                var r = cmdlet.SessionState.PSVariable.Get(_sesisonKey);
-                if (r == null)
-                {
-                    cmdlet.SessionState.PSVariable.Set(_sesisonKey, new SessionMetadata());
-                    r = cmdlet.SessionState.PSVariable.Get(_sesisonKey);
-                }
-                return (SessionMetadata)r.Value;
+                return this.SessionMetaDataProvider.SessionMetadata;
             }
         }
 
-        public DomainBase(System.Management.Automation.PSCmdlet pSVariableIntrinsics)
+        public DomainBase(ISessionMetaDataProvider sessionMetaDataProvider)
         {
-            this.cmdlet = pSVariableIntrinsics;
+            this.SessionMetaDataProvider = sessionMetaDataProvider;
         }
     }
 }

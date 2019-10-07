@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace ProductivityTools.GetTask3.App
 {
-    class Task : DomainBase
+    public class Task : DomainBase
     {
 
         internal void GetPredefinedTask()
@@ -60,7 +60,7 @@ namespace ProductivityTools.GetTask3.App
 
         private int GetElementIdByOrder(int? elementOrderId)
         {
-            var currentElement = this._sessionMetadata.ItemOrder.SingleOrDefault(x => x.Value.Order == elementOrderId);
+            var currentElement = this.session.ElementOrder.SingleOrDefault(x => x.Value.Order == elementOrderId);
             return currentElement.Key;
 
         }
@@ -70,14 +70,14 @@ namespace ProductivityTools.GetTask3.App
         {
             get
             {
-                if (_sessionMetadata.SelectedNodeOrder.HasValue)
+                if (session.SelectedNodeOrder.HasValue)
                 {
-                    var x = GetElementIdByOrder(_sessionMetadata.SelectedNodeOrder);
+                    var x = GetElementIdByOrder(session.SelectedNodeOrder);
                     return x;
                 }
-                if (_sessionMetadata.SelectedNodeElementId.HasValue)
+                if (session.SelectedNodeElementId.HasValue)
                 {
-                    return _sessionMetadata.SelectedNodeElementId.Value;
+                    return session.SelectedNodeElementId.Value;
                 }
                 return null;
             }
@@ -99,20 +99,20 @@ namespace ProductivityTools.GetTask3.App
 
 
 
-        TaskRepository repository;
+        ITaskRepository repository;
 
-        internal Task(System.Management.Automation.PSCmdlet pSVariableIntrinsics) : base(pSVariableIntrinsics)
+        public Task(ISessionMetaDataProvider sessionMetaDataProvider, ITaskRepository taskRepository) : base(sessionMetaDataProvider)
         {
-            this.repository = new TaskRepository();
+            this.repository = taskRepository;
         }
 
         private void CreateViewMetadata(Contract.ElementView root)
         {
-            SessionMetadata View = new SessionMetadata();
+          //  ElementMetadata View = new ElementMetadata();
 
             int taskcounter = 0;
             //int bagcounter = 0;
-            this._sessionMetadata.ItemOrder.Clear();
+            this.session.ElementOrder.Clear();
 
             Action<ElementType> fillOrder = (type) =>
             {
@@ -121,7 +121,7 @@ namespace ProductivityTools.GetTask3.App
                     foreach (var element in root.Elements.Where(x => x.Type == type))
                     {
 
-                        this._sessionMetadata.ItemOrder.Add(element.ElementId, new SessionElementMetadata()
+                        this.session.ElementOrder.Add(element.ElementId, new ElementMetadata()
                         {
                             ElementId = element.ElementId,
                             Order = taskcounter,
@@ -152,7 +152,7 @@ namespace ProductivityTools.GetTask3.App
                 var root = this.Structure;
                 foreach (var element in root.Elements)
                 {
-                    var sessionelement = this._sessionMetadata.ItemOrder.First(x => x.Key == element.ElementId);
+                    var sessionelement = this.session.ElementOrder.First(x => x.Key == element.ElementId);
                     yield return new PSElementView() { Element = element, SessionElement = sessionelement.Value };
                 }
             }
@@ -202,14 +202,14 @@ namespace ProductivityTools.GetTask3.App
 
         public void SelectNodeByElementId(int? value)
         {
-            _sessionMetadata.SelectedNodeOrder = null;
-            _sessionMetadata.SelectedNodeElementId = value;
+            session.SelectedNodeOrder = null;
+            session.SelectedNodeElementId = value;
         }
 
         public void SelectNodeByOrder(int value)
         {
-            _sessionMetadata.SelectedNodeOrder = value;
-            _sessionMetadata.SelectedNodeElementId = null;
+            session.SelectedNodeOrder = value;
+            session.SelectedNodeElementId = null;
         }
     }
 }

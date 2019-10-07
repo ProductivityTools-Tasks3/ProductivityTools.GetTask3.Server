@@ -13,15 +13,8 @@ using System.Threading.Tasks;
 
 namespace ProductivityTools.GetTask3.Domain
 {
-    class TaskRepository
+    class TaskRepository : ITaskRepository
     {
-        //Action<String> WriteVerbose;
-
-        //public TaskRepository(Action<string> writeVerbose)
-        //{
-        //    this.WriteVerbose = writeVerbose;
-        //}
-
         public ElementView GetStructure(int? currentNode)
         {
             VerboseHelper.WriteVerboseStatic("Calling GetStructure");
@@ -46,22 +39,22 @@ namespace ProductivityTools.GetTask3.Domain
 
         }
 
-        internal async void Finish(int elementId)
+        public async void Finish(int elementId)
         {
             await GetTaskHttpClient.Post2<object>("Task", "Finish", new FinishRequest() { ElementId = elementId }, VerboseHelper.WriteVerboseStatic);
         }
 
-        internal async void Undone(int elementId)
+        public async void Undone(int elementId)
         {
             await GetTaskHttpClient.Post2<object>("Task", "Undone", new UndoneRequest() { ElementId = elementId }, VerboseHelper.WriteVerboseStatic);
         }
 
-        internal async void Delay(int elementId, DateTime date)
+        public async void Delay(int elementId, DateTime date)
         {
             await GetTaskHttpClient.Post2<object>("Task", "Delay", new DelayItemRequest() { ElementId = elementId, StartDate = date }, VerboseHelper.WriteVerboseStatic);
         }
 
-        internal async void AddToTomato(int[] elementIds)
+        public async void AddToTomato(int[] elementIds)
         {
             await GetTaskHttpClient.Post2<object>("Task", Consts.AddToTomatoById, new AddToTomatoByIdRequest() { ElementItems = elementIds }, VerboseHelper.WriteVerboseStatic);
         }

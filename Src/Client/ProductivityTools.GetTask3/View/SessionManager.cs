@@ -16,17 +16,17 @@ namespace ProductivityTools.GetTask3.View
             _cmdlet = cmdlet;
         }
 
-        public SessionMetadata ViewMetadata
+        public StructureMetadata ViewMetadata
         {
             get
             {
                 var r=_cmdlet.SessionState.PSVariable.Get(_sesisonKey);
                 if (r==null)
                 {
-                    _cmdlet.SessionState.PSVariable.Set(_sesisonKey, new SessionMetadata());
+                    _cmdlet.SessionState.PSVariable.Set(_sesisonKey, new StructureMetadata());
                     r = _cmdlet.SessionState.PSVariable.Get(_sesisonKey);
                 }
-                return (SessionMetadata)r.Value;
+                return (StructureMetadata)r.Value;
                 //var xxxz = Cmdlet.SessionState.PSVariable.Get("fsa");
                 //List<string> xxx = new List<string>();
                 //xxx.Add("p");
