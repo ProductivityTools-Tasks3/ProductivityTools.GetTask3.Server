@@ -112,10 +112,17 @@ namespace ProductivityTools.GetTask3.Ifrastructure.Tests
     [TestClass]
     public class InfrastructureTests
     {
+
         private TaskContext GetTaskContextInMemory()
         {
+            var r=GetTaskContextInMemory(Guid.NewGuid().ToString());
+            return r;
+        }
+
+        private TaskContext GetTaskContextInMemory(string name)
+        {
             var options = new DbContextOptionsBuilder<TaskContext>()
-             .UseInMemoryDatabase(databaseName: "Add_writes_to_database")
+             .UseInMemoryDatabase(databaseName: name)
              .Options;
 
             var taskContext = new Infrastructure.TaskContext(options);
@@ -140,11 +147,11 @@ namespace ProductivityTools.GetTask3.Ifrastructure.Tests
         {
             IMapper mapper = GetMapper();
 
-            var taskContext0 = GetTaskContextInMemory();
-            taskContext0.Tomato.Add(new Tomato() { Status = CoreObjects.Tomato.Status.New });
-            taskContext0.SaveChanges();
-
             var taskContext = GetTaskContextInMemory();
+            taskContext.Tomato.Add(new Tomato() { Status = CoreObjects.Tomato.Status.New });
+            taskContext.SaveChanges();
+
+           // var taskContext = GetTaskContextInMemory();
             TomatoRepository tomatoRepository = new TomatoRepository(taskContext, mapper);
             TaskRepository taskRepository = new TaskRepository(taskContext, mapper, new DateTimeTools.DateTimePT());
             TaskUnitOfWork taskUnitOfWork = new TaskUnitOfWork(taskContext, taskRepository, tomatoRepository);
