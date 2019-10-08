@@ -58,76 +58,76 @@ namespace Tests
             }
         }
 
-        [Test]
-        public void GetEmptyTaskList2()
-        {
-            var structure = TaskController.GetTasks();
-            Assert.Null(structure);
-        }
+        //[Test]
+        //public void GetEmptyTaskList2()
+        //{
+        //    var structure = TaskController.GetTasks();
+        //    Assert.Null(structure);
+        //}
 
 
-        [Test]
-        public void AddOneItem2()
-        {
-            string valueToTest = "Pawel Wujczyk";
-            TaskController.Add(new AddRequest() { Name = valueToTest });
-            var structure = TaskController.GetTasks();
-            var x = structure.Elements[0];
-            Assert.AreEqual(valueToTest, x.Name);
-        }
+        //[Test]
+        //public void AddOneItem2()
+        //{
+        //    string valueToTest = "Pawel Wujczyk";
+        //    TaskController.Add(new AddRequest() { Name = valueToTest });
+        //    var structure = TaskController.GetTasks();
+        //    var x = structure.Elements[0];
+        //    Assert.AreEqual(valueToTest, x.Name);
+        //}
 
-        [Test]
-        public void AddSecondBag()
-        {
-            string bagName = "HomeTasks";
-            TaskController.AddBag(new AddRequest() { Name = bagName });
+        //[Test]
+        //public void AddSecondBag()
+        //{
+        //    string bagName = "HomeTasks";
+        //    TaskController.AddBag(new AddRequest() { Name = bagName });
 
-            var structure = TaskController.GetTasks();
-            var x = structure.Elements[0];
-            Assert.AreEqual(bagName, x.Name);
-        }
+        //    var structure = TaskController.GetTasks();
+        //    var x = structure.Elements[0];
+        //    Assert.AreEqual(bagName, x.Name);
+        //}
 
-        [Test]
-        public void FinishTask2()
-        {
-            TaskController.Add(new AddRequest() { Name = "TaskToFinish" });
+        //[Test]
+        //public void FinishTask2()
+        //{
+        //    TaskController.Add(new AddRequest() { Name = "TaskToFinish" });
 
-            var structure = TaskController.GetTasks();
-            var x = structure.Elements[0];
-            Assert.AreEqual(Status.New.ToString(), x.Status);
-            var taskOrderId = x.OrderId;
-            TaskController.Finish(new ProductivityTools.GetTask3.Contract.Requests.FinishRequest() { ElementId = taskOrderId });
+        //    var structure = TaskController.GetTasks();
+        //    var x = structure.Elements[0];
+        //    Assert.AreEqual(Status.New.ToString(), x.Status);
+        //    var taskOrderId = x.OrderId;
+        //    TaskController.Finish(new ProductivityTools.GetTask3.Contract.Requests.FinishRequest() { ElementId = taskOrderId });
 
-            structure = TaskController.GetTasks();
-            x = structure.Elements[0];
-        }
+        //    structure = TaskController.GetTasks();
+        //    x = structure.Elements[0];
+        //}
 
-        [Test]
-        public void AddTaskAddBagAddTaskInBagFinish()
-        {
-            string firstTask = "FirstTask";
-            TaskController.Add(new AddRequest() { Name = firstTask });
-            var structure = TaskController.GetTasks();
-            var structureItem = structure.Elements[0];
-            Assert.AreEqual(firstTask, structureItem.Name);
+        //[Test]
+        //public void AddTaskAddBagAddTaskInBagFinish()
+        //{
+        //    string firstTask = "FirstTask";
+        //    TaskController.Add(new AddRequest() { Name = firstTask });
+        //    var structure = TaskController.GetTasks();
+        //    var structureItem = structure.Elements[0];
+        //    Assert.AreEqual(firstTask, structureItem.Name);
 
-            string bag = "Bag";
-            TaskController.AddBag(new AddRequest() { Name = bag });
-            structure = TaskController.GetTasks();
-            Assert.AreEqual(2, structure.Elements.Count);
+        //    string bag = "Bag";
+        //    TaskController.AddBag(new AddRequest() { Name = bag });
+        //    structure = TaskController.GetTasks();
+        //    Assert.AreEqual(2, structure.Elements.Count);
 
-            var bagObj = structure.Elements.Find(x => x.Name == bag);
-            Assert.AreEqual(bag, bagObj.Name);
+        //    var bagObj = structure.Elements.Find(x => x.Name == bag);
+        //    Assert.AreEqual(bag, bagObj.Name);
 
-            structure = TaskController.GetTasks(new ListRequest() { ParentId = bagObj.ElementId });
-            Assert.AreEqual(0, structure.Elements.Count);
+        //    structure = TaskController.GetTasks(new ListRequest() { ParentId = bagObj.ElementId });
+        //    Assert.AreEqual(0, structure.Elements.Count);
 
-            string secondTask = "SecondTask";
-            TaskController.Add(new AddRequest() { Name = secondTask, ParentId = bagObj.ElementId });
+        //    string secondTask = "SecondTask";
+        //    TaskController.Add(new AddRequest() { Name = secondTask, ParentId = bagObj.ElementId });
 
-            structure = TaskController.GetTasks(new ListRequest() { ParentId = bagObj.ElementId });
-            Assert.AreEqual(1, structure.Elements.Count);
-        }
+        //    structure = TaskController.GetTasks(new ListRequest() { ParentId = bagObj.ElementId });
+        //    Assert.AreEqual(1, structure.Elements.Count);
+        //}
 
     }
 }
