@@ -91,13 +91,11 @@ namespace ProductivityTools.GetTask3.App
                 if (structure == null)
                 {
                     structure = repository.GetStructure(SelectedNodeElementId);
-                    CreateViewMetadata(structure);
+                    CreateStructureMetadata(structure);
                 }
                 return structure;
             }
         }
-
-
 
         ITaskRepository repository;
 
@@ -106,12 +104,9 @@ namespace ProductivityTools.GetTask3.App
             this.repository = taskRepository;
         }
 
-        private void CreateViewMetadata(Contract.ElementView root)
+        private void CreateStructureMetadata(Contract.ElementView root)
         {
-          //  ElementMetadata View = new ElementMetadata();
-
             int taskcounter = 0;
-            //int bagcounter = 0;
             this.session.ElementOrder.Clear();
 
             Action<ElementType> fillOrder = (type) =>
@@ -120,7 +115,6 @@ namespace ProductivityTools.GetTask3.App
                 {
                     foreach (var element in root.Elements.Where(x => x.Type == type))
                     {
-
                         this.session.ElementOrder.Add(element.ElementId, new ElementMetadata()
                         {
                             ElementId = element.ElementId,

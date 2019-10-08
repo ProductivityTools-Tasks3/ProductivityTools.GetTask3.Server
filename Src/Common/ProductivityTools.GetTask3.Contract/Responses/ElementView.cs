@@ -17,7 +17,6 @@ namespace ProductivityTools.GetTask3.Contract
         public string Category { get; set; }
 
         public List<TomatoView> Tomatoes {get;set;}
-        
 
         public List<ElementView> Elements { get; set; }
     }

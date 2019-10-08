@@ -14,8 +14,8 @@ namespace ProductivityTools.GetTask3.App.Queries.Tests
         public void GetList()
         {
             var taskRepository = new TestTaskRepository();
-            Domain.Element root = new Domain.Element("Root", CoreObjects.ElementType.TaskBag,null);
-            Domain.Element element = new Domain.Element("element", CoreObjects.ElementType.Task,null);
+            Domain.Element root = new Domain.Element("Root", CoreObjects.ElementType.TaskBag, null);
+            Domain.Element element = new Domain.Element("element", CoreObjects.ElementType.Task, root.ElementId);
             root.Elements.Add(element);
 
 
@@ -25,9 +25,9 @@ namespace ProductivityTools.GetTask3.App.Queries.Tests
             });
             var mapper = mockMapper.CreateMapper();
 
-            ITaskUnitOfWork taskUnitOfWork = new TaskUnitOfWorkTest(taskRepository,null);
+            ITaskUnitOfWork taskUnitOfWork = new TaskUnitOfWorkTest(taskRepository, null);
             ITaskQueries taskCommands = new TaskQueries(taskRepository, mapper);
-            var result=taskCommands.GetTaskList();
+            var result = taskCommands.GetTaskList();
             Assert.AreEqual(result.Name, "root");
         }
     }
