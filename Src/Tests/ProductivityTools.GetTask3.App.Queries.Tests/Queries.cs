@@ -8,7 +8,7 @@ using ProductivityTools.GetTask3.Infrastructure;
 namespace ProductivityTools.GetTask3.App.Queries.Tests
 {
     [TestClass]
-    public class UnitTest1
+    public class Queries
     {
         [TestMethod]
         public void GetList()
