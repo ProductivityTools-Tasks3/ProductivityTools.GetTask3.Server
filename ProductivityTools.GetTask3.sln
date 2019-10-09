@@ -61,6 +61,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductivityTools.GetTask3"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductivityTools.GetTask3.TomatoTray", "Src\Client\TomatoTray\ProductivityTools.GetTask3.TomatoTray\ProductivityTools.GetTask3.TomatoTray.csproj", "{C0EB197B-4F21-49E3-ABCC-5A913ED29D43}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductivityTools.GetTask3.TomatoTray.EventAggregator", "Src\Client\TomatoTray\ProductivityTools.GetTask3.TomatoTray.EventAggregator\ProductivityTools.GetTask3.TomatoTray.EventAggregator.csproj", "{E3F9392D-E3F4-408F-A8D1-0D4CB1C2EA65}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductivityTools.GetTask3.Client.Calls", "Src\Client\ProductivityTools.GetTask3.Client.Repository\ProductivityTools.GetTask3.Client.Calls.csproj", "{5D54B747-F29D-403D-88F6-D1FA177F91B7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -157,6 +161,14 @@ Global
 		{C0EB197B-4F21-49E3-ABCC-5A913ED29D43}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C0EB197B-4F21-49E3-ABCC-5A913ED29D43}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C0EB197B-4F21-49E3-ABCC-5A913ED29D43}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3F9392D-E3F4-408F-A8D1-0D4CB1C2EA65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3F9392D-E3F4-408F-A8D1-0D4CB1C2EA65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3F9392D-E3F4-408F-A8D1-0D4CB1C2EA65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3F9392D-E3F4-408F-A8D1-0D4CB1C2EA65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D54B747-F29D-403D-88F6-D1FA177F91B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D54B747-F29D-403D-88F6-D1FA177F91B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D54B747-F29D-403D-88F6-D1FA177F91B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D54B747-F29D-403D-88F6-D1FA177F91B7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -186,6 +198,8 @@ Global
 		{7A1090FC-197B-4F64-8866-DCF50C0EACA2} = {8ADC382E-C527-48EC-B31B-11304CE3D8B2}
 		{F0B4D03D-3016-4589-9026-0DC131C76FBC} = {7A1090FC-197B-4F64-8866-DCF50C0EACA2}
 		{C0EB197B-4F21-49E3-ABCC-5A913ED29D43} = {B6097C9A-8E71-4CE2-A2ED-C4D08DCDF989}
+		{E3F9392D-E3F4-408F-A8D1-0D4CB1C2EA65} = {B6097C9A-8E71-4CE2-A2ED-C4D08DCDF989}
+		{5D54B747-F29D-403D-88F6-D1FA177F91B7} = {8ADC382E-C527-48EC-B31B-11304CE3D8B2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E0A3855A-2490-4366-9CB1-4EA79EF4BEDC}

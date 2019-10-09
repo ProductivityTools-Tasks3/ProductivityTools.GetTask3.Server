@@ -23,15 +23,15 @@ namespace ProductivityTools.GetTask3.Domain
             return rootElement;
         }
 
-        public async void Add(string Name, int? parentId, ElementType type)
+        public async void Add(string name, int? parentId, ElementType type)
         {
             switch (type)
             {
                 case ElementType.TaskBag:
-                    var x0 = await GetTaskHttpClient.Post2<object>("Task", "AddBag", new AddRequest() { Name = Name, ParentId = parentId }, VerboseHelper.WriteVerboseStatic);
+                    await ProductivityTools.GetTask3.Client.Calls.Task.AddBag(name, parentId);
                     break;
                 case ElementType.Task:
-                    var x1 = await GetTaskHttpClient.Post2<object>("Task", "Add", new AddRequest() { Name = Name, ParentId = parentId }, VerboseHelper.WriteVerboseStatic);
+                    await ProductivityTools.GetTask3.Client.Calls.Task.Add(name, parentId);
                     break;
                 default:
                     break;
@@ -41,22 +41,22 @@ namespace ProductivityTools.GetTask3.Domain
 
         public async void Finish(int elementId)
         {
-            await GetTaskHttpClient.Post2<object>("Task", "Finish", new FinishRequest() { ElementId = elementId }, VerboseHelper.WriteVerboseStatic);
+            await ProductivityTools.GetTask3.Client.Calls.Task.Finish(elementId);
         }
 
         public async void Undone(int elementId)
         {
-            await GetTaskHttpClient.Post2<object>("Task", "Undone", new UndoneRequest() { ElementId = elementId }, VerboseHelper.WriteVerboseStatic);
+            await ProductivityTools.GetTask3.Client.Calls.Task.Undone(elementId);
         }
 
         public async void Delay(int elementId, DateTime date)
         {
-            await GetTaskHttpClient.Post2<object>("Task", "Delay", new DelayItemRequest() { ElementId = elementId, StartDate = date }, VerboseHelper.WriteVerboseStatic);
+            await ProductivityTools.GetTask3.Client.Calls.Task.Delay(elementId, date);
         }
 
         public async void AddToTomato(int[] elementIds)
         {
-            await GetTaskHttpClient.Post2<object>("Task", Consts.AddToTomatoById, new AddToTomatoByIdRequest() { ElementItems = elementIds }, VerboseHelper.WriteVerboseStatic);
+            await ProductivityTools.GetTask3.Client.Calls.Task.AddToTomato(elementIds);
         }
     }
 }

@@ -55,6 +55,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Events\BackgroundTimerTickEvent.cs" />
+    <Compile Include="Events\BaseEvent.cs" />
+    <Compile Include="Events\ChangeTaskBarIconPicEvent.cs" />
+    <Compile Include="Events\ClearTomatoDisplayList.cs" />
+    <Compile Include="Events\CloseBalonEvent.cs" />
+    <Compile Include="Events\SetTooltipContentEvent.cs" />
+    <Compile Include="Events\ShowBalonEvent.cs" />
+    <Compile Include="Events\TomatoInfoFlyInEvent.cs" />
+    <Compile Include="Managers\BackgroundTimer.cs" />
+    <Compile Include="Managers\TomatoManager.cs" />
+    <Compile Include="Managers\TomatoStatic.cs" />
+    <Compile Include="TomatoStatus.cs" />
+    <Page Include="Balloon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -62,6 +78,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Balloon.xaml.cs">
+      <DependentUpon>Balloon.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -93,6 +112,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\TomatoDarkGray.png" />
+    <Resource Include="Images\TomatoGray.png" />
+    <Resource Include="Images\TomatoGreen.png" />
+    <Resource Include="Images\TomatoRed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ProductivityTools.GetTask3.TomatoTray.EventAggregator\ProductivityTools.GetTask3.TomatoTray.EventAggregator.csproj">
+      <Project>{e3f9392d-e3f4-408f-a8d1-0d4cb1c2ea65}</Project>
+      <Name>ProductivityTools.GetTask3.TomatoTray.EventAggregator</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

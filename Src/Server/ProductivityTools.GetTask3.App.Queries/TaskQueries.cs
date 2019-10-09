@@ -11,16 +11,19 @@ namespace ProductivityTools.GetTask3.App.Queries
     {
         ElementView GetTaskList(int? bagId = null);
         int? GetParent(int elementId);
+        TomatoView GetTomato();
     }
 
     public class TaskQueries : ITaskQueries
     {
         private readonly IMapper _mapper;
         ITaskRepository _taskRepository;
+        ITomatoRepository _tomatoRepository;
 
-        public TaskQueries(ITaskRepository taskRepository, IMapper mapper)
+        public TaskQueries(ITaskRepository taskRepository, ITomatoRepository tomatoRepository, IMapper mapper)
         {
             _taskRepository = taskRepository;
+            _tomatoRepository = tomatoRepository;
             _mapper = mapper;
         }
 
@@ -30,13 +33,6 @@ namespace ProductivityTools.GetTask3.App.Queries
         {
             Domain.Element element = _taskRepository.GetStructure(bagId);
             ElementView st = _mapper.Map<Domain.Element,ElementView>(element);
-
-            //element.Elements.ForEach(x => st.Items.Add(_mapper.Map<ItemView>(x)));
-
-            //new ItemView() {
-            //    Name = x.Name,
-            //    OrderId =(x as Domain.Element).OrderId ,
-            //Status= (x as Domain.Element).Status.ToString()}));
             return st;
         }
 
@@ -44,6 +40,13 @@ namespace ProductivityTools.GetTask3.App.Queries
         {
             var element=_taskRepository.Get(elementId);
             return element?.ParentId;
+        }
+
+        public TomatoView GetTomato()
+        {
+            var tomato = _tomatoRepository.GetCurrent();
+            TomatoView result = _mapper.Map<Domain.Tomato, TomatoView>(tomato);
+            return result;
         }
     }
 }
