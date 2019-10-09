@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProductivityTools.GetTask3.TomatoTray;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace TomatoesTray.Events
 {
     class TomatoInfoFlyInEvent : BaseEvent
     {
-        public TomatoContract.Tomato Tomato { get; set; }
+        public Tomato Tomato { get; set; }
     }
 }

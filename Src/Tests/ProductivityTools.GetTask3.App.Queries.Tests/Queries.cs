@@ -26,7 +26,7 @@ namespace ProductivityTools.GetTask3.App.Queries.Tests
             var mapper = mockMapper.CreateMapper();
 
             ITaskUnitOfWork taskUnitOfWork = new TaskUnitOfWorkTest(taskRepository, null);
-            ITaskQueries taskCommands = new TaskQueries(taskRepository, mapper);
+            ITaskQueries taskCommands = new TaskQueries(taskRepository, null, mapper);
             var result = taskCommands.GetTaskList();
             Assert.AreEqual(result.Name, "root");
         }

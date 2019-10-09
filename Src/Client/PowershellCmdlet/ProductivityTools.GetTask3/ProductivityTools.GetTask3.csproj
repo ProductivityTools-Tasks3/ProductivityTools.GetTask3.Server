@@ -120,8 +120,8 @@
       <Project>{f57ec928-1328-4f02-8c6d-48d54a7cef22}</Project>
       <Name>ProductivityTools.GetTask3.CoreObjects</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\ProductivityTools.GetTask3.Client.Repository\ProductivityTools.GetTask3.Client.Calls.csproj">
-      <Project>{5d54b747-f29d-403d-88f6-d1fa177f91b7}</Project>
+    <ProjectReference Include="..\..\ProductivityTools.GetTask3.Client.Calls\ProductivityTools.GetTask3.Client.Calls.csproj">
+      <Project>{3d32fb16-44ed-499f-9b6d-efe5598193d3}</Project>
       <Name>ProductivityTools.GetTask3.Client.Calls</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\ProductivityTools.GetTask3.Client\ProductivityTools.GetTask3.Client.csproj">

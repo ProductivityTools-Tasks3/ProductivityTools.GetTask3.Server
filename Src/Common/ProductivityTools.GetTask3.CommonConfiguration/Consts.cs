@@ -19,5 +19,9 @@ namespace ProductivityTools.GetTask3.CommonConfiguration
                 return $"{HttpAddress}api/";
             }
         }
+
+        public static TimeSpan BreakLength = TimeSpan.FromMinutes(5);
+
+        public static TimeSpan TomatoLength = TimeSpan.FromMinutes(25);
     }
 }
