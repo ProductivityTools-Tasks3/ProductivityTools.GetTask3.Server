@@ -66,6 +66,7 @@
     <Compile Include="Managers\BackgroundTimer.cs" />
     <Compile Include="Managers\TomatoManager.cs" />
     <Compile Include="Managers\TomatoStatic.cs" />
+    <Compile Include="Tomato.cs" />
     <Compile Include="TomatoStatus.cs" />
     <Page Include="Balloon.xaml">
       <SubType>Designer</SubType>
@@ -120,6 +121,10 @@
     <Resource Include="Images\TomatoRed.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\ProductivityTools.GetTask3.CommonConfiguration\ProductivityTools.GetTask3.CommonConfiguration.csproj">
+      <Project>{B6018BBD-3C5E-45EE-BAB5-099F1A1F8027}</Project>
+      <Name>ProductivityTools.GetTask3.CommonConfiguration</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProductivityTools.GetTask3.TomatoTray.EventAggregator\ProductivityTools.GetTask3.TomatoTray.EventAggregator.csproj">
       <Project>{e3f9392d-e3f4-408f-a8d1-0d4cb1c2ea65}</Project>
       <Name>ProductivityTools.GetTask3.TomatoTray.EventAggregator</Name>

@@ -14,7 +14,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TomatoesTray.Events;
-using TomatoesTray.Managers;
 
 namespace TomatoesTray
 {
@@ -101,9 +100,10 @@ namespace TomatoesTray
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            TaskManager tm = new TaskManager();
-            tm.FinishTomato();
-            this.EventAggregator.PublishEvent(new CloseBalonEvent());
+            //pw:to be done
+            //Tomatom tm = new TaskManager();
+            //tm.FinishTomato();
+            //this.EventAggregator.PublishEvent(new CloseBalonEvent());
         }
     }
 }

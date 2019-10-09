@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProductivityTools.GetTask3.CommonConfiguration;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -36,7 +37,7 @@ namespace ProductivityTools.GetTask3.TomatoTray.Managers
         }
         private List<KeyValuePair<TomatoStatus, int>> ShowedElements = new List<KeyValuePair<TomatoStatus, int>>();
 
-        public void ShowDialog(TomatoContract.Tomato tomato)
+        public void ShowDialog(Tomato tomato)
         {
 
             if (TomatoStatic.TomatoTimeLength > Consts.TomatoLength)
@@ -55,7 +56,7 @@ namespace ProductivityTools.GetTask3.TomatoTray.Managers
             return new KeyValuePair<TomatoStatus, int>(status, taskId);
         }
 
-        private void TomatoUpToDate(TomatoContract.Tomato tomato)
+        private void TomatoUpToDate(Tomato tomato)
         {
             if (ShowedElements.Contains(CreateKV(TomatoStatus.Work, tomato.TaskId)) == false)
             {
@@ -65,7 +66,7 @@ namespace ProductivityTools.GetTask3.TomatoTray.Managers
             }
         }
 
-        private void TomatoExpired(TomatoContract.Tomato tomato)
+        private void TomatoExpired(Tomato tomato)
         {
             if (ShowedElements.Contains(CreateKV(TomatoStatus.WorkExceed, tomato.TaskId)) == false)
             {
@@ -75,7 +76,12 @@ namespace ProductivityTools.GetTask3.TomatoTray.Managers
             }
         }
 
-        private void SetTooltipContent(TomatoContract.Tomato tomato)
+        private KeyValuePair<TomatoStatus, int> CreateKV(TomatoStatus workExceed, object taskId)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void SetTooltipContent(Tomato tomato)
         {
             TomatoStatic.LastTomatooReciveDate = DateTime.Now;
             TomatoStatic.TomatoTimeLength = TomatoStatic.LastTomatooReciveDate - tomato.CreatedDate;
