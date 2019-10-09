@@ -19,7 +19,7 @@ namespace ProductivityTools.GetTask3.Cmdlet
     public class GetElements
     {
         [TestMethod]
-        public void GetElementListCheckOrder()
+        public void CheckStructureOfTwoItemsOnTheSameLevel()
         {
             var structure = new Contract.ElementView();
             structure.Elements = new System.Collections.Generic.List<Contract.ElementView>();
@@ -36,6 +36,27 @@ namespace ProductivityTools.GetTask3.Cmdlet
             Assert.AreEqual(2, x.Count);
             Assert.AreEqual("First", x[0].Element.Name);
             Assert.AreEqual(1, x[1].SessionElement.Order);
+        }
+
+        [TestMethod]
+        public void CheckStructureOfBagAndChild()
+        {
+            var structure = new Contract.ElementView();
+            structure.Elements = new System.Collections.Generic.List<Contract.ElementView>();
+            structure.Elements.Add(new Contract.ElementView() { ElementId = 11, Name = "Parent", Type = CoreObjects.ElementType.TaskBag });
+            structure.Elements[0].Elements = new System.Collections.Generic.List<Contract.ElementView>();
+            structure.Elements[0].Elements.Add(new Contract.ElementView() { ElementId = 12,Name="Child", Type = CoreObjects.ElementType.Task });
+
+            ISessionMetaDataProvider sessionMetaDataProvider = new SessionMetaDataProviderTest();
+            var taskRepository = new Moq.Mock<ITaskRepository>();
+            taskRepository.Setup(i => i.GetStructure(Moq.It.IsAny<int?>())).Returns(structure);
+            var task = new App.Task(sessionMetaDataProvider, taskRepository.Object);
+
+
+            var x = task.Elements.ToList();
+            Assert.AreEqual(1, x.Count);
+            Assert.AreEqual("Parent", x[0].Element.Name);
+            Assert.AreEqual("Child", x[0].Element.Elements[0].Name);
         }
     }
 }
