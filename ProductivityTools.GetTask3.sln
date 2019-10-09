@@ -59,6 +59,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PowershellCmdlet", "Powersh
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductivityTools.GetTask3", "Src\Client\PowershellCmdlet\ProductivityTools.GetTask3\ProductivityTools.GetTask3.csproj", "{F0B4D03D-3016-4589-9026-0DC131C76FBC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductivityTools.GetTask3.TomatoTray", "Src\Client\TomatoTray\ProductivityTools.GetTask3.TomatoTray\ProductivityTools.GetTask3.TomatoTray.csproj", "{C0EB197B-4F21-49E3-ABCC-5A913ED29D43}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -151,6 +153,10 @@ Global
 		{F0B4D03D-3016-4589-9026-0DC131C76FBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F0B4D03D-3016-4589-9026-0DC131C76FBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F0B4D03D-3016-4589-9026-0DC131C76FBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0EB197B-4F21-49E3-ABCC-5A913ED29D43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0EB197B-4F21-49E3-ABCC-5A913ED29D43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0EB197B-4F21-49E3-ABCC-5A913ED29D43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0EB197B-4F21-49E3-ABCC-5A913ED29D43}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -179,6 +185,7 @@ Global
 		{B6097C9A-8E71-4CE2-A2ED-C4D08DCDF989} = {8ADC382E-C527-48EC-B31B-11304CE3D8B2}
 		{7A1090FC-197B-4F64-8866-DCF50C0EACA2} = {8ADC382E-C527-48EC-B31B-11304CE3D8B2}
 		{F0B4D03D-3016-4589-9026-0DC131C76FBC} = {7A1090FC-197B-4F64-8866-DCF50C0EACA2}
+		{C0EB197B-4F21-49E3-ABCC-5A913ED29D43} = {B6097C9A-8E71-4CE2-A2ED-C4D08DCDF989}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E0A3855A-2490-4366-9CB1-4EA79EF4BEDC}
