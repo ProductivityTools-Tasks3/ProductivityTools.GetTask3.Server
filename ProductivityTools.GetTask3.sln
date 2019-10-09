@@ -29,8 +29,6 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "ProductivityTools.GetTask3.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductivityTools.GetTask3.Configuration", "Src\Server\ProductivityTools.GetTask3.Configuration\ProductivityTools.GetTask3.Configuration.csproj", "{C08BD3CB-984E-4530-954D-6C3D441170E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductivityTools.GetTask3", "Src\Client\ProductivityTools.GetTask3\ProductivityTools.GetTask3.csproj", "{F0B4D03D-3016-4589-9026-0DC131C76FBC}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductivityTools.GetTask3.Client", "Src\Client\ProductivityTools.GetTask3.Client\ProductivityTools.GetTask3.Client.csproj", "{61497DF7-371E-4247-B0E1-74271605BAF2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{1B0FE912-A016-4C23-81FA-A486E70A3827}"
@@ -45,15 +43,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Nugets", "Nugets", "{BE1BBD
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductivityTools.ConsoleColors", "ProductivityTools.ConsoleColors\ProductivityTools.ConsoleColors.csproj", "{78913C2A-A689-42F2-94B9-11BB568418A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductivityTools.GetTask3.App.Commands.Tests", "Src\Tests\ProductivityTools.GetTask3.App.Commands.Tests\ProductivityTools.GetTask3.App.Commands.Tests.csproj", "{DD22F60A-70F4-473A-B087-7FFB5B024365}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductivityTools.GetTask3.App.Commands.Tests", "Src\Tests\ProductivityTools.GetTask3.App.Commands.Tests\ProductivityTools.GetTask3.App.Commands.Tests.csproj", "{DD22F60A-70F4-473A-B087-7FFB5B024365}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductivityTools.GetTask3.App.Queries.Tests", "Src\Tests\ProductivityTools.GetTask3.App.Queries.Tests\ProductivityTools.GetTask3.App.Queries.Tests.csproj", "{12AE7354-7054-4F19-BBD6-530DF79ED9AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductivityTools.GetTask3.App.Queries.Tests", "Src\Tests\ProductivityTools.GetTask3.App.Queries.Tests\ProductivityTools.GetTask3.App.Queries.Tests.csproj", "{12AE7354-7054-4F19-BBD6-530DF79ED9AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductivityTools.GetTask3.App.Fakes.Tests", "Src\Tests\ProductivityTools.GetTask3.App.Fakes.Tests\ProductivityTools.GetTask3.App.Fakes.Tests.csproj", "{E07800A6-CD4A-475C-B0B1-EA06E4424D20}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductivityTools.GetTask3.App.Fakes.Tests", "Src\Tests\ProductivityTools.GetTask3.App.Fakes.Tests\ProductivityTools.GetTask3.App.Fakes.Tests.csproj", "{E07800A6-CD4A-475C-B0B1-EA06E4424D20}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductivityTools.GetTask3.Infrastructure.Tests", "Src\Tests\ProductivityTools.GetTask3.Ifrastructure.Tests\ProductivityTools.GetTask3.Infrastructure.Tests.csproj", "{470B1D24-1E24-4A4A-BC11-B832856B2C1B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductivityTools.GetTask3.Infrastructure.Tests", "Src\Tests\ProductivityTools.GetTask3.Ifrastructure.Tests\ProductivityTools.GetTask3.Infrastructure.Tests.csproj", "{470B1D24-1E24-4A4A-BC11-B832856B2C1B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductivityTools.GetTask3.Cmdlet", "Src\Tests\ProductivityTools.GetTask3.Cmdlet\ProductivityTools.GetTask3.Cmdlet.csproj", "{3FAC6836-AFC2-4C7A-BC04-404E69CB761F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductivityTools.GetTask3.Cmdlet", "Src\Tests\ProductivityTools.GetTask3.Cmdlet\ProductivityTools.GetTask3.Cmdlet.csproj", "{3FAC6836-AFC2-4C7A-BC04-404E69CB761F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TomatoTray", "TomatoTray", "{B6097C9A-8E71-4CE2-A2ED-C4D08DCDF989}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PowershellCmdlet", "PowershellCmdlet", "{7A1090FC-197B-4F64-8866-DCF50C0EACA2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductivityTools.GetTask3", "Src\Client\PowershellCmdlet\ProductivityTools.GetTask3\ProductivityTools.GetTask3.csproj", "{F0B4D03D-3016-4589-9026-0DC131C76FBC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -103,10 +107,6 @@ Global
 		{C08BD3CB-984E-4530-954D-6C3D441170E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C08BD3CB-984E-4530-954D-6C3D441170E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C08BD3CB-984E-4530-954D-6C3D441170E8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F0B4D03D-3016-4589-9026-0DC131C76FBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F0B4D03D-3016-4589-9026-0DC131C76FBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F0B4D03D-3016-4589-9026-0DC131C76FBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F0B4D03D-3016-4589-9026-0DC131C76FBC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{61497DF7-371E-4247-B0E1-74271605BAF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{61497DF7-371E-4247-B0E1-74271605BAF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{61497DF7-371E-4247-B0E1-74271605BAF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -147,6 +147,10 @@ Global
 		{3FAC6836-AFC2-4C7A-BC04-404E69CB761F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3FAC6836-AFC2-4C7A-BC04-404E69CB761F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3FAC6836-AFC2-4C7A-BC04-404E69CB761F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0B4D03D-3016-4589-9026-0DC131C76FBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0B4D03D-3016-4589-9026-0DC131C76FBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0B4D03D-3016-4589-9026-0DC131C76FBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0B4D03D-3016-4589-9026-0DC131C76FBC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -162,7 +166,6 @@ Global
 		{2932729D-9A4F-4CD2-B2EB-EA54FA8FD9E9} = {0138D329-49FF-4EF6-8A94-CC4F275FBB0C}
 		{C787F3E6-911E-4D38-9AF3-7CA0F84EC641} = {CBC7822B-5456-4F41-94F0-B7F30781AC0B}
 		{C08BD3CB-984E-4530-954D-6C3D441170E8} = {CBC7822B-5456-4F41-94F0-B7F30781AC0B}
-		{F0B4D03D-3016-4589-9026-0DC131C76FBC} = {8ADC382E-C527-48EC-B31B-11304CE3D8B2}
 		{61497DF7-371E-4247-B0E1-74271605BAF2} = {8ADC382E-C527-48EC-B31B-11304CE3D8B2}
 		{F57EC928-1328-4F02-8C6D-48D54A7CEF22} = {1B0FE912-A016-4C23-81FA-A486E70A3827}
 		{B6018BBD-3C5E-45EE-BAB5-099F1A1F8027} = {1B0FE912-A016-4C23-81FA-A486E70A3827}
@@ -173,6 +176,9 @@ Global
 		{E07800A6-CD4A-475C-B0B1-EA06E4424D20} = {0138D329-49FF-4EF6-8A94-CC4F275FBB0C}
 		{470B1D24-1E24-4A4A-BC11-B832856B2C1B} = {0138D329-49FF-4EF6-8A94-CC4F275FBB0C}
 		{3FAC6836-AFC2-4C7A-BC04-404E69CB761F} = {0138D329-49FF-4EF6-8A94-CC4F275FBB0C}
+		{B6097C9A-8E71-4CE2-A2ED-C4D08DCDF989} = {8ADC382E-C527-48EC-B31B-11304CE3D8B2}
+		{7A1090FC-197B-4F64-8866-DCF50C0EACA2} = {8ADC382E-C527-48EC-B31B-11304CE3D8B2}
+		{F0B4D03D-3016-4589-9026-0DC131C76FBC} = {7A1090FC-197B-4F64-8866-DCF50C0EACA2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E0A3855A-2490-4366-9CB1-4EA79EF4BEDC}
