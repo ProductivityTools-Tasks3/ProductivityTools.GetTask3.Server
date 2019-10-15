@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.SignalR.Client;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TomatoesTray.Events;
+using ProductivityTools.GetTask3.TomatoTray.Properties;
 
 namespace ProductivityTools.GetTask3.TomatoTray
 {
@@ -23,6 +26,7 @@ namespace ProductivityTools.GetTask3.TomatoTray
         public MainWindow()
         {
             InitializeComponent();
+          
         }
     }
 }

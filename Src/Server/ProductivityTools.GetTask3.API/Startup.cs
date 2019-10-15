@@ -30,6 +30,7 @@ namespace ProductivityTools.GetTask3.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc(x => x.AllowEmptyInputInBodyModelBinding = true).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddSignalR();
             services.ConfigureServicesQueries();
             services.ConfigureServicesConfig();
             services.ConfigureServicesCommands();
@@ -38,7 +39,7 @@ namespace ProductivityTools.GetTask3.API
                          opt.AddConsole();
                          opt.AddDebug();
                      });
-
+            services.AddSingleton<TomatoHub>();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
@@ -57,6 +58,11 @@ namespace ProductivityTools.GetTask3.API
             }
 
             //app.UseHttpsRedirection();
+            app.UseCors();
+            app.UseSignalR(route =>
+            {
+                route.MapHub<TomatoHub>("/TomatoHub");
+            });
             app.UseMvc();
         }
     }
