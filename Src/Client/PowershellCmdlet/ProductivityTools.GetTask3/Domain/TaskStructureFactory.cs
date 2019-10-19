@@ -12,7 +12,7 @@ namespace ProductivityTools.GetTask3.Domain
         internal static Task Get(System.Management.Automation.PSCmdlet cmdlet)
         {
             ISessionMetaDataProvider sessionMetaDataProvider = new SessionMetaDataProvider(cmdlet);
-            return new App.Task(sessionMetaDataProvider, new TaskRepository());
+            return new App.Task(sessionMetaDataProvider, new TaskRepositoryCmd());
         }
     }
 }

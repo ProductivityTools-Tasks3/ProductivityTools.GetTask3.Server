@@ -3,6 +3,6 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <StartAction>Program</StartAction>
     <StartProgram>C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe</StartProgram>
-    <StartArguments>-noexit -command "import-module D:\GitHub\ProductivityTools.GetTask3\Src\Client\ProductivityTools.GetTask3\bin\Debug\ProductivityTools.GetTask3.dll"</StartArguments>
+    <StartArguments>-noexit -command "import-module D:\GitHub\ProductivityTools.GetTask3\Src\Client\PowershellCmdlet\ProductivityTools.GetTask3\bin\Debug\ProductivityTools.GetTask3.dll"</StartArguments>
   </PropertyGroup>
 </Project>

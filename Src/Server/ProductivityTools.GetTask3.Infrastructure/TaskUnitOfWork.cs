@@ -16,7 +16,7 @@ namespace ProductivityTools.GetTask3.Infrastructure
         public ITaskRepository TaskRepository { get; private set; }// => new TaskRepository(_dbContext);
         public ITomatoRepository TomatoRepository { get; private set; }// => new TaskRepository(_dbContext);
 
-        public TaskUnitOfWork(TaskContext taskContext, ITaskRepository repository, ITomatoRepository tomatoRepository)
+        public TaskUnitOfWork(TaskContext taskContext, ITaskRepository repository, ITomatoRepository tomatoRepository, Mediator)
         {
             _dbContext = taskContext;
             TaskRepository = repository;

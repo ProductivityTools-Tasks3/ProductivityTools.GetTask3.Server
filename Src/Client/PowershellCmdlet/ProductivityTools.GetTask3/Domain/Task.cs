@@ -97,9 +97,9 @@ namespace ProductivityTools.GetTask3.App
             }
         }
 
-        ITaskRepository repository;
+        ITaskRepositoryCmd repository;
 
-        public Task(ISessionMetaDataProvider sessionMetaDataProvider, ITaskRepository taskRepository) : base(sessionMetaDataProvider)
+        public Task(ISessionMetaDataProvider sessionMetaDataProvider, ITaskRepositoryCmd taskRepository) : base(sessionMetaDataProvider)
         {
             this.repository = taskRepository;
         }

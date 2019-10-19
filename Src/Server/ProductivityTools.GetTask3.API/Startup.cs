@@ -14,6 +14,7 @@ using Microsoft.Extensions.Options;
 using ProductivityTools.GetTask3.App.Commands;
 using ProductivityTools.GetTask3.App.Queries;
 using ProductivityTools.GetTask3.Configuration;
+using ProductivityTools.GetTask3.SignalRHubs;
 
 namespace ProductivityTools.GetTask3.API
 {
@@ -34,12 +35,12 @@ namespace ProductivityTools.GetTask3.API
             services.ConfigureServicesQueries();
             services.ConfigureServicesConfig();
             services.ConfigureServicesCommands();
+            services.ConfigureSingalRServices();
             services.AddLogging(opt =>
                      {
                          opt.AddConsole();
                          opt.AddDebug();
                      });
-            services.AddSingleton<TomatoHub>();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
@@ -59,10 +60,7 @@ namespace ProductivityTools.GetTask3.API
 
             //app.UseHttpsRedirection();
             app.UseCors();
-            app.UseSignalR(route =>
-            {
-                route.MapHub<TomatoHub>("/TomatoHub");
-            });
+            app.ConfigureSignalR();
             app.UseMvc();
         }
     }

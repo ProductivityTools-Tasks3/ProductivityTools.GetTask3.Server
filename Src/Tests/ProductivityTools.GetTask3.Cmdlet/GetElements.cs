@@ -27,7 +27,7 @@ namespace ProductivityTools.GetTask3.Cmdlet
             structure.Elements.Add(new Contract.ElementView() { ElementId = 12, Type = CoreObjects.ElementType.Task });
 
             ISessionMetaDataProvider sessionMetaDataProvider = new SessionMetaDataProviderTest();
-            var taskRepository = new Moq.Mock<ITaskRepository>();
+            var taskRepository = new Moq.Mock<ITaskRepositoryCmd>();
             taskRepository.Setup(i => i.GetStructure(Moq.It.IsAny<int?>())).Returns(structure);
             var task = new App.Task(sessionMetaDataProvider, taskRepository.Object);
 
@@ -48,7 +48,7 @@ namespace ProductivityTools.GetTask3.Cmdlet
             structure.Elements[0].Elements.Add(new Contract.ElementView() { ElementId = 12,Name="Child", Type = CoreObjects.ElementType.Task });
 
             ISessionMetaDataProvider sessionMetaDataProvider = new SessionMetaDataProviderTest();
-            var taskRepository = new Moq.Mock<ITaskRepository>();
+            var taskRepository = new Moq.Mock<ITaskRepositoryCmd>();
             taskRepository.Setup(i => i.GetStructure(Moq.It.IsAny<int?>())).Returns(structure);
             var task = new App.Task(sessionMetaDataProvider, taskRepository.Object);
 

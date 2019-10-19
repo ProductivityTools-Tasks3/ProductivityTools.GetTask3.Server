@@ -3,6 +3,7 @@ using ProductivityTools.GetTask3.CoreObjects.Tomato;
 using ProductivityTools.GetTask3.Domain;
 using ProductivityTools.GetTask3.Infrastructure;
 using ProductivityTools.GetTask3.Infrastructure.Repositories;
+using ProductivityTools.GetTask3.SignalRHubs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,11 +27,13 @@ namespace ProductivityTools.GetTask3.App.Commands
     {
         ITaskUnitOfWork _taskUnitOfWork;
         IDateTimePT _dateTime;
+        TomatoHub hub;
 
-        public TaskCommands(ITaskUnitOfWork taskUnitOfWork, IDateTimePT datetime)
+        public TaskCommands(ITaskUnitOfWork taskUnitOfWork, IDateTimePT datetime, TomatoHub hub)
         {
             _taskUnitOfWork = taskUnitOfWork;
             _dateTime = datetime;
+            this.hub = hub;
         }
 
         public void Add(string name, int? bagId)
@@ -90,6 +93,8 @@ namespace ProductivityTools.GetTask3.App.Commands
                 _taskUnitOfWork.TaskRepository.Update(x);
             });
             _taskUnitOfWork.Commit();
+
+            hub.NewTomato(elementIds.ToString());
             //pw: move to repository
             //var tomatoItems = elementIds.ToList().Select(x => new Infrastructure.TomatoElement() { ElementId = x }).ToList();
             //var tomato = new Infrastructure.Tomato() { Status = CoreObjects.Tomato.Status.New, Items = tomatoItems };

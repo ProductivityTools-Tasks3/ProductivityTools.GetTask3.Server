@@ -29,7 +29,7 @@ namespace Tests
 
                 var taskrepository = serviceProvider.GetService<ITaskUnitOfWork>();
                 var dateTime = serviceProvider.GetService<IDateTimePT>();
-                var ts = new TaskCommands(taskrepository, dateTime);
+                var ts = new TaskCommands(taskrepository, dateTime,null);
                 return ts;
             }
         }
