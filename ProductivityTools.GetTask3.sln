@@ -65,7 +65,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductivityTools.GetTask3.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductivityTools.GetTask3.Client.Calls", "Src\Client\ProductivityTools.GetTask3.Client.Calls\ProductivityTools.GetTask3.Client.Calls.csproj", "{3D32FB16-44ED-499F-9B6D-EFE5598193D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductivityTools.GetTask3.SignalRHubs", "Src\Server\ProductivityTools.GetTask3.SignalRHubs\ProductivityTools.GetTask3.SignalRHubs.csproj", "{4F55E4AE-6803-496C-B593-0744E33D2126}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductivityTools.GetTask3.SignalRHubs", "Src\Server\ProductivityTools.GetTask3.SignalRHubs\ProductivityTools.GetTask3.SignalRHubs.csproj", "{4F55E4AE-6803-496C-B593-0744E33D2126}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductivityTools.GetTask3.Handlers", "Src\Server\ProductivityTools.GetTask3.Handlers\ProductivityTools.GetTask3.Handlers.csproj", "{28E194C8-2627-4929-BEB7-3F865152F81B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -175,6 +177,10 @@ Global
 		{4F55E4AE-6803-496C-B593-0744E33D2126}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F55E4AE-6803-496C-B593-0744E33D2126}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F55E4AE-6803-496C-B593-0744E33D2126}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28E194C8-2627-4929-BEB7-3F865152F81B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28E194C8-2627-4929-BEB7-3F865152F81B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28E194C8-2627-4929-BEB7-3F865152F81B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28E194C8-2627-4929-BEB7-3F865152F81B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -207,6 +213,7 @@ Global
 		{E3F9392D-E3F4-408F-A8D1-0D4CB1C2EA65} = {B6097C9A-8E71-4CE2-A2ED-C4D08DCDF989}
 		{3D32FB16-44ED-499F-9B6D-EFE5598193D3} = {8ADC382E-C527-48EC-B31B-11304CE3D8B2}
 		{4F55E4AE-6803-496C-B593-0744E33D2126} = {CBC7822B-5456-4F41-94F0-B7F30781AC0B}
+		{28E194C8-2627-4929-BEB7-3F865152F81B} = {CBC7822B-5456-4F41-94F0-B7F30781AC0B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E0A3855A-2490-4366-9CB1-4EA79EF4BEDC}

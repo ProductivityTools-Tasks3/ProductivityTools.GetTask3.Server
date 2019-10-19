@@ -4,12 +4,13 @@ using ProductivityTools.GetTask3.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using MediatR;
 
 namespace ProductivityTools.GetTask3.App.Commands
 {
     public static class Services
     {
-        public static IServiceCollection ConfigureServicesComaandsInternal(this IServiceCollection services)
+        public static IServiceCollection ConfigureServicesComandsInternal(this IServiceCollection services)
         {
             services.AddScoped<IGTaskCommands, TaskCommands>();
             services.AddScoped<IDateTimePT, DateTimePT>();
@@ -19,7 +20,7 @@ namespace ProductivityTools.GetTask3.App.Commands
 
         public static IServiceCollection ConfigureServicesCommands(this IServiceCollection services)
         {
-            services.ConfigureServicesComaandsInternal();
+            services.ConfigureServicesComandsInternal();
             services.ConfigureInfrastructureServices();
             return services;
         }

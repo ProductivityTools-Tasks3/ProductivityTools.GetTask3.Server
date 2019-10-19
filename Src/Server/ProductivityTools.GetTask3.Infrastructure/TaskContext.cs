@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Console;
 using ProductivityTools.GetTask3.Configuration;
+using ProductivityTools.GetTask3.Infrastructure.Objects;
 using System;
 
 
@@ -11,13 +12,11 @@ namespace ProductivityTools.GetTask3.Infrastructure
 {
     public class TaskContext : DbContext
     {
-
-
         private readonly IConfiguration _configuration;
         public DbSet<Infrastructure.Element> Element { get; set; }
         public DbSet<Infrastructure.DefinedElementGroup> DefinedElementGroup { get; set; }
         public DbSet<Infrastructure.Tomato> Tomato { get; set; }
-      //  public DbSet<Infrastructure.TomatoElement> TomatoItems { get; set; }
+        //  public DbSet<Infrastructure.TomatoElement> TomatoItems { get; set; }
         //public DbSet<Domain.Tomato> Tomato { get; set; }
 
         public TaskContext(IConfiguration configuration)
@@ -60,7 +59,8 @@ namespace ProductivityTools.GetTask3.Infrastructure
             {
                 entity.HasKey(e => e.ElementId);
                 entity.Ignore(e => e.Elements);
-               // entity.Ignore(e => e.Tomato);
+                entity.Ignore(x => x.Notifications);
+                // entity.Ignore(e => e.Tomato);
             });
 
             //modelBuilder.Entity<Domain.DefinedElementGroup>(entity =>
@@ -72,6 +72,7 @@ namespace ProductivityTools.GetTask3.Infrastructure
             {
                 entity.HasKey(e => e.TomatoId);
                 entity.Property(x => x.Created).HasDefaultValue(DateTime.Now);
+                entity.Ignore(x => x.Notifications);
             });
 
             //modelBuilder.Entity<Infrastructure.TomatoElement>()

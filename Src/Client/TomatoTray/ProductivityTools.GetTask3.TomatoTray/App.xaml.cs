@@ -56,7 +56,7 @@ namespace ProductivityTools.GetTask3.TomatoTray
             }
             catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
         }
     }
