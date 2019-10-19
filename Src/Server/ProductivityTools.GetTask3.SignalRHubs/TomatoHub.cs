@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
-namespace ProductivityTools.GetTask3.API
+namespace ProductivityTools.GetTask3.SignalRHubs
 {
     public class TomatoHub : Microsoft.AspNetCore.SignalR.Hub
     {
@@ -15,9 +15,9 @@ namespace ProductivityTools.GetTask3.API
             this.context = context;
         }
 
-        public void NewTomato()
+        public void NewTomato(string tomatoName)
         {
-            Clients.All.SendAsync("NewTomato", "fdsa");
+            this.context.Clients.All.SendAsync("NewTomato", tomatoName);
         }
 
         public override Task OnConnectedAsync()

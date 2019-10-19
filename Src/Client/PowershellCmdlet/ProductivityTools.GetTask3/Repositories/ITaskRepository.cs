@@ -4,7 +4,7 @@ using ProductivityTools.GetTask3.CoreObjects;
 
 namespace ProductivityTools.GetTask3.Domain
 {
-    public interface ITaskRepository
+    public interface ITaskRepositoryCmd
     {
         void Add(string Name, int? parentId, ElementType type);
         void AddToTomato(int[] elementIds);

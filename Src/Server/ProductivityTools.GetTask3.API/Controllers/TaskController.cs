@@ -19,13 +19,13 @@ namespace ProductivityTools.GetTask3.API.Controllers
     {
         ITaskQueries Queries;
         IGTaskCommands Commands;
-        TomatoHub hub;
 
-        public TaskController(ITaskQueries gTaskAppQuery, IGTaskCommands gTaskApp, TomatoHub hub)
+
+        public TaskController(ITaskQueries gTaskAppQuery, IGTaskCommands gTaskApp)
         {
             this.Queries = gTaskAppQuery;
             this.Commands = gTaskApp;
-            this.hub = hub;
+
         }
 
         // GET api/values
@@ -33,7 +33,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
         [Route("Demo")]
         public ActionResult<IEnumerable<string>> Get()
         {
-            hub.NewTomato();
+
             return new string[] { "value1", "value2" };
             
         }

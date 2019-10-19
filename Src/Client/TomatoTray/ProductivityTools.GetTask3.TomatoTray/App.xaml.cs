@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR.Client;
+using ProductivityTools.GetTask3.CommonConfiguration;
 using ProductivityTools.GetTask3.TomatoTray.Managers;
 using System;
 using System.Collections.Generic;
@@ -38,7 +39,7 @@ namespace ProductivityTools.GetTask3.TomatoTray
         }
 
         HubConnection connection;
-        private const string URL = "http://localhost:5501/TomatoHub/";
+        private string URL = Consts.TomatoHubAddress;
         private void Connect(string uri)
         {
             try
@@ -46,7 +47,8 @@ namespace ProductivityTools.GetTask3.TomatoTray
                 connection = new HubConnectionBuilder().WithUrl(uri).Build();
                 connection.On<string>("NewTomato", update =>
                 {
-                    EventAggregator.PublishEvent(new ShowBalonEvent { Text = update, Status = TomatoStatus.Work});
+                //EventAggregator.PublishEvent(new ShowBalonEvent { Text = update, Status = TomatoStatus.Work});
+                this.EventAggregator.PublishEvent(new TomatoInfoFlyInEvent { Tomato = new Tomato() { CreatedDate = DateTime.Now, Name = update, TaskId = -1 } });
                     Console.Write("Fdsa");
                     //this.Dispatcher.Invoke(() => lblContent.Content = update);
                 });

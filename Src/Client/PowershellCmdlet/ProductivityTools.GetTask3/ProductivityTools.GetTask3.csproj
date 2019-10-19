@@ -32,10 +32,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Description, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Description.1.0.0\lib\Description.dll</HintPath>
+      <HintPath>..\..\..\..\packages\Description.1.0.0\lib\Description.dll</HintPath>
     </Reference>
     <Reference Include="ProductivityTools.PSCmdlet, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\ProductivityTools.PSCmdlet.0.0.6\lib\v4.6.1\ProductivityTools.PSCmdlet.dll</HintPath>
+      <HintPath>..\..\..\..\packages\ProductivityTools.PSCmdlet.0.0.6\lib\v4.6.1\ProductivityTools.PSCmdlet.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
