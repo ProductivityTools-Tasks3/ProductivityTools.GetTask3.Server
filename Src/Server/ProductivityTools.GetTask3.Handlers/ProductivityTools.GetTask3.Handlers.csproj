@@ -1,21 +1,20 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <OutputType>Library</OutputType>
     <TargetFramework>netcoreapp2.2</TargetFramework>
+    <ApplicationIcon />
+    <StartupObject />
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ProductivityTools.DateTimeTools" Version="0.0.5" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ProductivityTools.GetTask3.App.Queries\ProductivityTools.GetTask3.App.Queries.csproj" />
     <ProjectReference Include="..\ProductivityTools.GetTask3.Domain\ProductivityTools.GetTask3.Domain.csproj" />
-    <ProjectReference Include="..\ProductivityTools.GetTask3.Infrastructure\ProductivityTools.GetTask3.Infrastructure.csproj" />
     <ProjectReference Include="..\ProductivityTools.GetTask3.SignalRHubs\ProductivityTools.GetTask3.SignalRHubs.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Notifications\" />
   </ItemGroup>
 
 </Project>

@@ -6,6 +6,7 @@ using ProductivityTools.GetTask3.Infrastructure.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using MediatR;
 
 namespace ProductivityTools.GetTask3.Infrastructure
 {
@@ -19,6 +20,7 @@ namespace ProductivityTools.GetTask3.Infrastructure
             services.AddScoped<ITomatoRepository, TomatoRepository>();
             services.AddScoped<IDefinedTaskRepository, DefinedTaskRepository>();
             services.AddScoped<TaskContext>();
+
             //services.AddLogging(builder => builder
             //    .AddConsole()
             //    .AddFilter(DbLoggerCategory.Database.Command.Name, LogLevel.Information));

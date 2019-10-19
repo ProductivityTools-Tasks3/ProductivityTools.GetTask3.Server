@@ -115,7 +115,7 @@ namespace ProductivityTools.GetTask3.Ifrastructure.Tests
 
         private TaskContext GetTaskContextInMemory()
         {
-            var r=GetTaskContextInMemory(Guid.NewGuid().ToString());
+            var r = GetTaskContextInMemory(Guid.NewGuid().ToString());
             return r;
         }
 
@@ -151,10 +151,10 @@ namespace ProductivityTools.GetTask3.Ifrastructure.Tests
             taskContext.Tomato.Add(new Tomato() { Status = CoreObjects.Tomato.Status.New });
             taskContext.SaveChanges();
 
-           // var taskContext = GetTaskContextInMemory();
+            // var taskContext = GetTaskContextInMemory();
             TomatoRepository tomatoRepository = new TomatoRepository(taskContext, mapper);
             TaskRepository taskRepository = new TaskRepository(taskContext, mapper, new DateTimeTools.DateTimePT());
-            TaskUnitOfWork taskUnitOfWork = new TaskUnitOfWork(taskContext, taskRepository, tomatoRepository);
+            TaskUnitOfWork taskUnitOfWork = new TaskUnitOfWork(taskContext, taskRepository, tomatoRepository, null);
 
             Domain.Tomato currentTomato = taskUnitOfWork.TomatoRepository.GetCurrent();
             var element = new Domain.Element("pawel", CoreObjects.ElementType.Task, 1);
@@ -172,7 +172,7 @@ namespace ProductivityTools.GetTask3.Ifrastructure.Tests
 
             var taskContext = GetTaskContextInMemory();
             TaskRepository taskRepository = new TaskRepository(taskContext, mapper, new DateTimeTools.DateTimePT());
-            TaskUnitOfWork taskUnitOfWork = new TaskUnitOfWork(taskContext, taskRepository, null);
+            TaskUnitOfWork taskUnitOfWork = new TaskUnitOfWork(taskContext, taskRepository, null, null);
             taskUnitOfWork.TaskRepository.Add(new Domain.Element("pawelxxx", CoreObjects.ElementType.Task, 1));
             taskUnitOfWork.Commit();
 

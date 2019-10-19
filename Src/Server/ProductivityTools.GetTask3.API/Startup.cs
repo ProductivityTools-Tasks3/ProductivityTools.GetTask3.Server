@@ -14,6 +14,7 @@ using Microsoft.Extensions.Options;
 using ProductivityTools.GetTask3.App.Commands;
 using ProductivityTools.GetTask3.App.Queries;
 using ProductivityTools.GetTask3.Configuration;
+using ProductivityTools.GetTask3.Handlers;
 using ProductivityTools.GetTask3.SignalRHubs;
 
 namespace ProductivityTools.GetTask3.API
@@ -36,6 +37,8 @@ namespace ProductivityTools.GetTask3.API
             services.ConfigureServicesConfig();
             services.ConfigureServicesCommands();
             services.ConfigureSingalRServices();
+            services.ConfigureServicesHandlers();
+
             services.AddLogging(opt =>
                      {
                          opt.AddConsole();

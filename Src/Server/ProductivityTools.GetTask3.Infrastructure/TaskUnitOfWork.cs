@@ -1,6 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using ProductivityTools.GetTask3.Infrastructure.Base;
+using ProductivityTools.GetTask3.Infrastructure.Objects;
 using ProductivityTools.GetTask3.Infrastructure.Repositories;
 using System;
 using System.Collections.Generic;
@@ -15,12 +17,14 @@ namespace ProductivityTools.GetTask3.Infrastructure
 
         public ITaskRepository TaskRepository { get; private set; }// => new TaskRepository(_dbContext);
         public ITomatoRepository TomatoRepository { get; private set; }// => new TaskRepository(_dbContext);
+        public IMediator Mediator;
 
-        public TaskUnitOfWork(TaskContext taskContext, ITaskRepository repository, ITomatoRepository tomatoRepository, Mediator)
+        public TaskUnitOfWork(TaskContext taskContext, ITaskRepository repository, ITomatoRepository tomatoRepository, IMediator mediator)
         {
             _dbContext = taskContext;
             TaskRepository = repository;
             TomatoRepository = tomatoRepository;
+            Mediator = mediator;
         }
 
 
@@ -33,6 +37,14 @@ namespace ProductivityTools.GetTask3.Infrastructure
             var deletedEntities = ChangeTracker.Entries().Where(x => x.State == EntityState.Deleted).ToList();
 
             _dbContext.SaveChanges();
+
+            var notificationObjects = ChangeTracker.Entries().Select(x => x.Entity as BaseObject).Where(x => x != null && x.Notifications != null);
+            IEnumerable<INotification> notifications = notificationObjects.SelectMany(x => x.Notifications);
+            foreach (INotification notification in notifications)
+            {
+                Mediator.Publish(notification);
+            }
+
         }
 
         public void Dispose()

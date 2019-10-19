@@ -27,13 +27,12 @@ namespace ProductivityTools.GetTask3.App.Commands
     {
         ITaskUnitOfWork _taskUnitOfWork;
         IDateTimePT _dateTime;
-        TomatoHub hub;
 
-        public TaskCommands(ITaskUnitOfWork taskUnitOfWork, IDateTimePT datetime, TomatoHub hub)
+
+        public TaskCommands(ITaskUnitOfWork taskUnitOfWork, IDateTimePT datetime)
         {
             _taskUnitOfWork = taskUnitOfWork;
             _dateTime = datetime;
-            this.hub = hub;
         }
 
         public void Add(string name, int? bagId)
@@ -94,7 +93,7 @@ namespace ProductivityTools.GetTask3.App.Commands
             });
             _taskUnitOfWork.Commit();
 
-            hub.NewTomato(elementIds.ToString());
+            
             //pw: move to repository
             //var tomatoItems = elementIds.ToList().Select(x => new Infrastructure.TomatoElement() { ElementId = x }).ToList();
             //var tomato = new Infrastructure.Tomato() { Status = CoreObjects.Tomato.Status.New, Items = tomatoItems };

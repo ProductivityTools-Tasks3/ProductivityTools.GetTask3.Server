@@ -33,9 +33,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
         [Route("Demo")]
         public ActionResult<IEnumerable<string>> Get()
         {
-
             return new string[] { "value1", "value2" };
-            
         }
 
         [HttpPost]

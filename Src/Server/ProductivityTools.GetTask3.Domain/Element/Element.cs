@@ -1,5 +1,6 @@
 ﻿using ProductivityTools.GetTask3.CoreObjects;
 using ProductivityTools.GetTask3.CoreObjects.Tomato;
+using ProductivityTools.GetTask3.Domain.Events;
 using ProductivityTools.GetTask3.Domain.Policy;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Text;
 
 namespace ProductivityTools.GetTask3.Domain
 {
-    public class Element
+    public class Element :BaseEntity
     {
         public string Name { get; protected set; }
         //pw:change it to Id  
@@ -81,6 +82,7 @@ namespace ProductivityTools.GetTask3.Domain
         public void AddToTomato(Tomato currentTomato)
         {
             this.Tomatoes.Add(currentTomato);
+            base.AddNotification(new TomatoAdded());
         }
 
         private DateTime AddDeadline(DateTime? startDate)
