@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TomatoesTray.Events
+namespace ProductivityTools.GetTask3.TomatoTray.Timers
 {
-    //class ClearTomatoDisplayList :BaseEvent
-    //{
-    //}
+    class IdleTimer
+    {
+    }
 }

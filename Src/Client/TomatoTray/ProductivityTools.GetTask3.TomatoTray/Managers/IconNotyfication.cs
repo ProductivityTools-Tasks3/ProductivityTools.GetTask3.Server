@@ -15,7 +15,11 @@ using TomatoesTray.Events;
 namespace TomatoesTray
 {
 
-    class IconNotyfication : IEvent<ChangeTaskBarIconPicEvent>, IEvent<ShowBalonEvent>, IEvent<SetTooltipContentEvent>, IEvent<CloseBalonEvent>
+    class IconNotyfication :  
+        IEvent<ShowBalonEvent>,
+        IEvent<SetTooltipContentEvent>, 
+        IEvent<CloseBalonEvent>,
+        IEvent<TomatoExceedEvent> //, IEvent<ChangeTaskBarIconPicEvent>,
     {
         public TaskbarIcon TaskbarIcon { get; private set; }
         EventAggregator EventAggregator { get; set; }
@@ -37,7 +41,7 @@ namespace TomatoesTray
         {
             get
             {
-                return new DelegateCommand() { CommandAction = () => this.EventAggregator.PublishEvent(new ClearTomatoDisplayList()) };
+                return new DelegateCommand() { CommandAction = () => this.EventAggregator.PublishEvent(new ShowBalonEvent()) };
             }
         }
 
@@ -71,14 +75,10 @@ namespace TomatoesTray
             TaskbarIcon.ShowCustomBalloon(baloon, PopupAnimation.Fade, 15000);
         }
 
-        void IEvent<ChangeTaskBarIconPicEvent>.OnEvent(ChangeTaskBarIconPicEvent @event)
-        {
-            ChangeIconPic(@event.IconType);
-        }
-
         void IEvent<ShowBalonEvent>.OnEvent(ShowBalonEvent @event)
         {
             ShowBallon(@event.Text, @event.Status);
+            ChangeIconPic(@event.Status);
         }
 
         private void SetTooltipContent(TimeSpan tomatoTimeLength, TimeSpan last)
@@ -104,6 +104,11 @@ namespace TomatoesTray
         void IEvent<CloseBalonEvent>.OnEvent(CloseBalonEvent @event)
         {
             TaskbarIcon.CloseBalloon();
+        }
+
+        public void OnEvent(TomatoExceedEvent @event)
+        {
+            ShowBallon("koniec", TomatoStatus.WorkExceed);
         }
     }
 }
