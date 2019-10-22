@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using TomatoesTray;
@@ -52,6 +53,7 @@ namespace ProductivityTools.GetTask3.TomatoTray
                     Console.Write("Fdsa");
                     //this.Dispatcher.Invoke(() => lblContent.Content = update);
                 });
+                Thread.Sleep(2000);
                 connection.StartAsync();
             }
             catch (Exception ex)

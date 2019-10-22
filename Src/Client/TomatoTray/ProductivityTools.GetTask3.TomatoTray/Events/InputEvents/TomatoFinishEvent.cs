@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace TomatoesTray.Events
 {
-    class ChangeTaskBarIconPicEvent : BaseEvent
+    class TomatoFinishEvent : BaseEvent
     {
-       public TomatoStatus IconType { get; set; }
+        public Tomato Tomato { get; set; }
     }
 }

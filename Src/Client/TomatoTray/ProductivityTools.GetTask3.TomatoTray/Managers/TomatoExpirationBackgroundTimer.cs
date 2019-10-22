@@ -9,7 +9,7 @@ using E = ProductivityTools.GetTask3.TomatoTray.EventAggregator;
 
 namespace ProductivityTools.GetTask3.TomatoTray.Managers
 {
-    class TomatoExpirationBackgroundTimer
+    class BackgroundTimer
     {
         System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
         int tickCount = 0;
@@ -17,7 +17,7 @@ namespace ProductivityTools.GetTask3.TomatoTray.Managers
         E.EventAggregator EventAggregator { get; set; }
         int IdleCounter = 0;
 
-        public TomatoExpirationBackgroundTimer(E.EventAggregator eventAggregator)
+        public BackgroundTimer(E.EventAggregator eventAggregator)
         {
             this.EventAggregator = eventAggregator;
             RunServer();
@@ -25,26 +25,26 @@ namespace ProductivityTools.GetTask3.TomatoTray.Managers
         private void RunServer()
         {
             dispatcherTimer.Tick += dispatcherTimer_Tick;
-            dispatcherTimer.Interval = new TimeSpan(0, 25, 0);
-           // dispatcherTimer.Start();
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+            dispatcherTimer.Start();
         }
 
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
-            dispatcherTimer.Stop();
+            tickCount++;
             if (tickCount > 5 && baloonShowed == false)
             {
-               // EventAggregator.PublishEvent(new ChangeTaskBarIconPicEvent { IconType = TomatoStatus.WorkExceed });
+                //EventAggregator.PublishEvent(new ChangeTaskBarIconPicEvent { IconType = TomatoStatus.Idle });
                 ShowBalonIdle();
                 baloonShowed = true;
                 IdleCounter++;
             }
-            EventAggregator.PublishEvent(new BackgroundTimerTickEvent() { idleId = IdleCounter });
+           // EventAggregator.PublishEvent(new BackgroundTimerTickEvent() { idleId = IdleCounter });
         }
 
         public void ShowBalonIdle()
         {
-            EventAggregator.PublishEvent(new ShowBalonEvent { Text = Resources.IdleMessage, Status = TomatoStatus.WorkExceed });
+            EventAggregator.PublishEvent(new ShowBalonEvent { Text = Resources.IdleMessage, Status = TomatoStatus.Idle });
         }
     }
 }

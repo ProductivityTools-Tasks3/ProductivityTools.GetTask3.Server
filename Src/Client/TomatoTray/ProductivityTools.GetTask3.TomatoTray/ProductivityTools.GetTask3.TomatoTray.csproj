@@ -151,17 +151,21 @@
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="Events\BackgroundTimerTickEvent.cs" />
     <Compile Include="Events\BaseEvent.cs" />
-    <Compile Include="Events\ChangeTaskBarIconPicEvent.cs" />
     <Compile Include="Events\ClearTomatoDisplayList.cs" />
     <Compile Include="Events\CloseBalonEvent.cs" />
-    <Compile Include="Events\SetTooltipContentEvent.cs" />
-    <Compile Include="Events\ShowBalonEvent.cs" />
-    <Compile Include="Events\TomatoInfoFlyInEvent.cs" />
+    <Compile Include="Events\InputEvents\TomatoFinishEvent.cs" />
+    <Compile Include="Events\InternalEvents\TomatoExceed.cs" />
+    <Compile Include="Events\InternalEvents\SetTooltipContentEvent.cs" />
+    <Compile Include="Events\InternalEvents\ShowBalonEvent.cs" />
+    <Compile Include="Events\InputEvents\TomatoInfoFlyInEvent.cs" />
+    <Compile Include="Managers\TomatoExpirationBackgroundTimer.cs" />
     <Compile Include="Managers\BackgroundTimer.cs" />
     <Compile Include="Managers\IconNotyfication.cs" />
     <Compile Include="Managers\TaskManager.cs" />
     <Compile Include="Managers\TomatoManager.cs" />
     <Compile Include="Managers\TomatoStatic.cs" />
+    <Compile Include="Timers\IdleTimer.cs" />
+    <Compile Include="Timers\TomatoTimer.cs" />
     <Compile Include="Tomato.cs" />
     <Compile Include="TomatoStatus.cs" />
     <Page Include="Balloon.xaml">
@@ -249,5 +253,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
