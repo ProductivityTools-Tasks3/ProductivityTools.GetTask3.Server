@@ -13,7 +13,8 @@ namespace ProductivityTools.GetTask3.TomatoTray.Timers
         TimeSpan tomatoTime = TimeSpan.Zero;
         System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
         E.EventAggregator EventAggregator { get; set; }
-        int IdleCounter = 0;
+
+        
 
         public TomatoTimer(E.EventAggregator eventAggregator)
         {
@@ -23,11 +24,16 @@ namespace ProductivityTools.GetTask3.TomatoTray.Timers
 
         public void Run()
         {
+            tomatoTime = TimeSpan.Zero;
             dispatcherTimer.Tick += dispatcherTimer_Tick;
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
             dispatcherTimer.Start();
         }
 
+        public void Stop()
+        {
+            dispatcherTimer.Stop();
+        }
 
        //pw:parameter
         private void dispatcherTimer_Tick(object sender, EventArgs e)
@@ -36,7 +42,6 @@ namespace ProductivityTools.GetTask3.TomatoTray.Timers
             if (this.tomatoTime>TimeSpan.FromMinutes(1))
             {
                 EventAggregator.PublishEvent<TomatoExceedEvent>(new TomatoExceedEvent());
-                dispatcherTimer.Stop();
             }
         }
 

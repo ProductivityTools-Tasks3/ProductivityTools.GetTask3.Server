@@ -48,8 +48,17 @@ namespace ProductivityTools.GetTask3.TomatoTray
                 connection = new HubConnectionBuilder().WithUrl(uri).Build();
                 connection.On<string>("NewTomato", update =>
                 {
-                //EventAggregator.PublishEvent(new ShowBalonEvent { Text = update, Status = TomatoStatus.Work});
-                this.EventAggregator.PublishEvent(new TomatoInfoFlyInEvent { Tomato = new Tomato() { CreatedDate = DateTime.Now, Name = update, TaskId = -1 } });
+                    //EventAggregator.PublishEvent(new ShowBalonEvent { Text = update, Status = TomatoStatus.Work});
+                    //pw: update this
+                    this.EventAggregator.PublishEvent(new TomatoInfoFlyInEvent { Tomato = new Tomato() { CreatedDate = DateTime.Now, Name = update, TaskId = -1, Status = CoreObjects.Tomato.Status.New } });
+                    Console.Write("Fdsa");
+                    //this.Dispatcher.Invoke(() => lblContent.Content = update);
+                });
+
+                connection.On("FinishTomato", () =>
+                {
+                    //EventAggregator.PublishEvent(new ShowBalonEvent { Text = update, Status = TomatoStatus.Work});
+                    this.EventAggregator.PublishEvent(new TomatoFinishEvent(new Tomato() { Name = "fdsa", FinishedDate = DateTime.Now, Status = CoreObjects.Tomato.Status.Finished }));
                     Console.Write("Fdsa");
                     //this.Dispatcher.Invoke(() => lblContent.Content = update);
                 });

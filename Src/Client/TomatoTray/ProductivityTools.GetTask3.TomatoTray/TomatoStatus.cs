@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProductivityTools.GetTask3.TomatoTray
 {
-    public enum TomatoStatus
+    public enum TomatoDisplayStatus
     {
         Work,
         Idle,

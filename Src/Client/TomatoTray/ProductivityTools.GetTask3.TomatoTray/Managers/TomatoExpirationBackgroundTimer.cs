@@ -44,7 +44,7 @@ namespace ProductivityTools.GetTask3.TomatoTray.Managers
 
         public void ShowBalonIdle()
         {
-            EventAggregator.PublishEvent(new ShowBalonEvent { Text = Resources.IdleMessage, Status = TomatoStatus.Idle });
+            EventAggregator.PublishEvent(new ShowBalonEvent( Resources.IdleMessage,  TomatoDisplayStatus.Idle ));
         }
     }
 }

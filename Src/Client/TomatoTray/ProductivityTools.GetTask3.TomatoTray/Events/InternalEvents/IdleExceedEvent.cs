@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace TomatoesTray.Events
 {
-    class IdleExceedEvent
-        : BaseEvent
+    class TomatoExceedEvent : BaseEvent
     {
-        public IdleExceedEvent()
+        public TomatoExceedEvent()
         {
         }
     }

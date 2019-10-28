@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ProductivityTools.GetTask3.Domain.Events
 {
-    public class TomatoFinished : INotification
+    public class TomatoAdded : INotification
     {
     }
 }

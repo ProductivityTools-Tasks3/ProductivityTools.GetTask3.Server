@@ -154,6 +154,7 @@
     <Compile Include="Events\ClearTomatoDisplayList.cs" />
     <Compile Include="Events\CloseBalonEvent.cs" />
     <Compile Include="Events\InputEvents\TomatoFinishEvent.cs" />
+    <Compile Include="Events\InternalEvents\IdleExceedEvent.cs" />
     <Compile Include="Events\InternalEvents\TomatoExceed.cs" />
     <Compile Include="Events\InternalEvents\SetTooltipContentEvent.cs" />
     <Compile Include="Events\InternalEvents\ShowBalonEvent.cs" />
@@ -161,7 +162,6 @@
     <Compile Include="Managers\TomatoExpirationBackgroundTimer.cs" />
     <Compile Include="Managers\BackgroundTimer.cs" />
     <Compile Include="Managers\IconNotyfication.cs" />
-    <Compile Include="Managers\TaskManager.cs" />
     <Compile Include="Managers\TomatoManager.cs" />
     <Compile Include="Managers\TomatoStatic.cs" />
     <Compile Include="Timers\IdleTimer.cs" />
@@ -233,6 +233,10 @@
     <ProjectReference Include="..\..\..\Common\ProductivityTools.GetTask3.CommonConfiguration\ProductivityTools.GetTask3.CommonConfiguration.csproj">
       <Project>{B6018BBD-3C5E-45EE-BAB5-099F1A1F8027}</Project>
       <Name>ProductivityTools.GetTask3.CommonConfiguration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\ProductivityTools.GetTask3.CoreObjects\ProductivityTools.GetTask3.CoreObjects.csproj">
+      <Project>{F57EC928-1328-4F02-8C6D-48D54A7CEF22}</Project>
+      <Name>ProductivityTools.GetTask3.CoreObjects</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProductivityTools.GetTask3.TomatoTray.EventAggregator\ProductivityTools.GetTask3.TomatoTray.EventAggregator.csproj">
       <Project>{e3f9392d-e3f4-408f-a8d1-0d4cb1c2ea65}</Project>

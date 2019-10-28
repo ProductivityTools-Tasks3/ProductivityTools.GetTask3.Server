@@ -50,36 +50,36 @@ namespace TomatoesTray
             InitializeComponent();
         }
 
-        public Balloon(EventAggregator EventAggregator, string text, TomatoStatus status) : this()
+        public Balloon(EventAggregator EventAggregator, string text, TomatoDisplayStatus status) : this()
         {
             this.EventAggregator = EventAggregator;
             this.Text = text;
             ChangeIconPic(status);
         }
 
-        private void ChangeIconPic(TomatoStatus iconType)
+        private void ChangeIconPic(TomatoDisplayStatus iconType)
 
         {
             string iconPath = string.Empty;
             Color color = (Color)ColorConverter.ConvertFromString("#FFC0C0C0");
             switch (iconType)
             {
-                case TomatoStatus.Work:
+                case TomatoDisplayStatus.Work:
                     iconPath = @"pack://application:,,,/Images/TomatoGreen.png";
                     color = (Color)ColorConverter.ConvertFromString("#FFBFFF77");
                     this.FinishTomato.Visibility = Visibility.Visible;
                     break;
-                case TomatoStatus.Idle:
+                case TomatoDisplayStatus.Idle:
                     iconPath = @"pack://application:,,,/Images/TomatoGray.png";
                     color = (Color)ColorConverter.ConvertFromString("#FFC0C0C0");
                     this.FinishTomato.Visibility = Visibility.Hidden;
                     break;
-                case TomatoStatus.WorkExceed:
+                case TomatoDisplayStatus.WorkExceed:
                     iconPath = @"pack://application:,,,/Images/TomatoRed.png";
                     color = (Color)ColorConverter.ConvertFromString("#FFF0005A");
                     this.FinishTomato.Visibility = Visibility.Visible;
                     break;
-                case TomatoStatus.IdleExceed:
+                case TomatoDisplayStatus.IdleExceed:
                     iconPath = @"pack://application:,,,/Images/TomatoDarkGray.png";
                     color = (Color)ColorConverter.ConvertFromString("#FF000000");
                     this.FinishTomato.Visibility = Visibility.Hidden;
