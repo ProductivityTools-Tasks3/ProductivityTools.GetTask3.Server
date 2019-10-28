@@ -10,7 +10,7 @@ using E = ProductivityTools.GetTask3.TomatoTray.EventAggregator;
 
 namespace ProductivityTools.GetTask3.TomatoTray.Managers
 {
-    class TomatoManager : E.IEvent<TomatoInfoFlyInEvent>, E.IEvent<TomatoFinishEvent>, E.IEvent<BackgroundTimerTickEvent>///, E.IEvent<ClearTomatoDisplayList>
+    class TomatoManager : E.IEvent<TomatoInfoFlyInEvent>, E.IEvent<TomatoFinishEvent>//, E.IEvent<BackgroundTimerTickEvent>///, E.IEvent<ClearTomatoDisplayList>
     {
         E.EventAggregator EventAggregator { get; set; }
         // BaloonNotyfication BaloonNotyfication { get; set; }
@@ -27,30 +27,30 @@ namespace ProductivityTools.GetTask3.TomatoTray.Managers
             // BaloonNotyfication = new BaloonNotyfication(this.EventAggregator);
             //RunTimer();
             timer = new BackgroundTimer(eventAggregator);
-            tomatoTimer = new TomatoTimer(eventAggregator);
+            //tomatoTimer = new TomatoTimer(eventAggregator);
             this.EventAggregator.Subscribe(this);
         }
 
 
         void E.IEvent<TomatoInfoFlyInEvent>.OnEvent(TomatoInfoFlyInEvent @event)
         {
-            SetTooltipContent(@event.Tomato);
-            EventAggregator.PublishEvent(new ShowBalonEvent { Text = "fdsa", Status = TomatoStatus.Work });
+           // SetTooltipContent(@event.Tomato);
+            EventAggregator.PublishEvent(new ShowBalonEvent("fdsa", TomatoDisplayStatus.Work));
             // EventAggregator.PublishEvent(new ChangeTaskBarIconPicEvent { IconType = TomatoStatus.Work });
             // ShowedElements.Add(CreateKV(TomatoStatus.Work, tomato.TaskId));
-            tomatoTimer.Run();
+            //tomatoTimer.Run();
             this.ShowDialog(@event.Tomato);
         }
 
         void E.IEvent<TomatoFinishEvent>.OnEvent(TomatoFinishEvent @event)
         {
-            SetTooltipContent(@event.Tomato);
-            EventAggregator.PublishEvent(new ShowBalonEvent { Text = "fdsa", Status = TomatoStatus.Idle });
+            //SetTooltipContent(@event.Tomato);
+            EventAggregator.PublishEvent(new ShowBalonEvent("fdsa", TomatoDisplayStatus.Idle));
 
             this.ShowDialog(@event.Tomato);
         }
 
-        private List<KeyValuePair<TomatoStatus, int>> ShowedElements = new List<KeyValuePair<TomatoStatus, int>>();
+        private List<KeyValuePair<TomatoDisplayStatus, int>> ShowedElements = new List<KeyValuePair<TomatoDisplayStatus, int>>();
 
         public void ShowDialog(Tomato tomato)
         {
@@ -66,20 +66,15 @@ namespace ProductivityTools.GetTask3.TomatoTray.Managers
         //    return new KeyValuePair<TomatoStatus, int>(status, taskId);
         //}
 
-
+            //??
         private void TomatoExpired(Tomato tomato)
         {
-            if (ShowedElements.Contains(CreateKV(TomatoStatus.WorkExceed, tomato.TaskId)) == false)
-            {
-                EventAggregator.PublishEvent(new ShowBalonEvent { Text = tomato.Name, Status = TomatoStatus.WorkExceed });
+          //  if (ShowedElements.Contains(CreateKV(TomatoDisplayStatus.WorkExceed, tomato.TaskId)) == false)
+          //  {
+                EventAggregator.PublishEvent(new ShowBalonEvent(tomato.Name, TomatoDisplayStatus.WorkExceed));
                 // EventAggregator.PublishEvent(new ChangeTaskBarIconPicEvent { IconType = TomatoStatus.WorkExceed });
-                ShowedElements.Add(CreateKV(TomatoStatus.WorkExceed, tomato.TaskId));
-            }
-        }
-
-        private KeyValuePair<TomatoStatus, int> CreateKV(TomatoStatus workExceed, object taskId)
-        {
-            throw new NotImplementedException();
+              //  ShowedElements.Add(CreateKV(TomatoDisplayStatus.WorkExceed, tomato.TaskId));
+            //}
         }
 
         private void SetTooltipContent(Tomato tomato)
@@ -90,21 +85,21 @@ namespace ProductivityTools.GetTask3.TomatoTray.Managers
             EventAggregator.PublishEvent(new SetTooltipContentEvent(TomatoStatic.TomatoTimeLength, TomatoStatic.LastTomatooReciveLength));
         }
 
-        void E.IEvent<BackgroundTimerTickEvent>.OnEvent(BackgroundTimerTickEvent @event)
-        {
-            EventAggregator.PublishEvent(new SetTooltipContentEvent(TomatoStatic.TomatoTimeLength, TomatoStatic.LastTomatooReciveLength));
+        //void E.IEvent<BackgroundTimerTickEvent>.OnEvent(BackgroundTimerTickEvent @event)
+        //{
+        //    EventAggregator.PublishEvent(new SetTooltipContentEvent(TomatoStatic.TomatoTimeLength, TomatoStatic.LastTomatooReciveLength));
 
-            if (ShowedElements.Contains(CreateKV(TomatoStatus.IdleExceed, @event.idleId)) == false)
-            {
-                var last = TomatoStatic.LastTomatooReciveLength;
-                if (last > Consts.BreakLength)
-                {
-                    EventAggregator.PublishEvent(new ShowBalonEvent { Text = Properties.Resources.FinishIdle, Status = TomatoStatus.IdleExceed });
-                    //EventAggregator.PublishEvent(new ChangeTaskBarIconPicEvent { IconType = TomatoStatus.IdleExceed });
-                    ShowedElements.Add(CreateKV(TomatoStatus.IdleExceed, @event.idleId));
-                }
-            }
-        }
+        //    if (ShowedElements.Contains(CreateKV(TomatoDisplayStatus.IdleExceed, @event.idleId)) == false)
+        //    {
+        //        var last = TomatoStatic.LastTomatooReciveLength;
+        //        if (last > Consts.BreakLength)
+        //        {
+        //            EventAggregator.PublishEvent(new ShowBalonEvent(Properties.Resources.FinishIdle, TomatoDisplayStatus.IdleExceed));
+        //            //EventAggregator.PublishEvent(new ChangeTaskBarIconPicEvent { IconType = TomatoStatus.IdleExceed });
+        //            ShowedElements.Add(CreateKV(TomatoDisplayStatus.IdleExceed, @event.idleId));
+        //        }
+        //    }
+        //}
 
         //void E.IEvent<ClearTomatoDisplayList>.OnEvent(ClearTomatoDisplayList @event)
         //{

@@ -16,7 +16,7 @@ namespace ProductivityTools.GetTask3.TomatoTray.EventAggregator
             foreach (Type eventType in eventTypes)
             {
                 List<object> objectList;
-                if (this.EventsList.TryGetValue(eventType, out objectList))
+                if (this.EventsList.TryGetValue(eventType.GenericTypeArguments[0], out objectList))
                 {
                     objectList.Add(o);
                 }

@@ -20,6 +20,12 @@ namespace ProductivityTools.GetTask3.SignalRHubs
             this.context.Clients.All.SendAsync("NewTomato", tomatoName);
         }
 
+
+        public void FinishTomato()
+        {
+            this.context.Clients.All.SendAsync("FinishTomato");
+        }
+
         public override Task OnConnectedAsync()
         {
             return base.OnConnectedAsync();

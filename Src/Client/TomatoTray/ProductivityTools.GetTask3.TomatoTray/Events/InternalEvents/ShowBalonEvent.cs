@@ -9,8 +9,18 @@ namespace TomatoesTray.Events
 {
     class ShowBalonEvent : BaseEvent
     {
+        private ShowBalonEvent()
+        { }
+
+        public ShowBalonEvent(string text, TomatoDisplayStatus status)
+        {
+            this.Text = text;
+            this.Status = status;
+         
+        }
+
         public string Text { get; set; }
-        public TomatoStatus Status { get; set; }
+        public TomatoDisplayStatus Status { get; set; }
         public SetTooltipContentEvent time { get; set; }
     }
 }
