@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProductivityTools.GetTask3.CommonConfiguration;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,7 +30,7 @@ namespace ProductivityTools.GetTask3.TomatoTray.Timers
         //pw:parameter
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
-            if(tomatoTime> TimeSpan.FromMinutes(1))
+            if (tomatoTime > Consts.BreakLength)
             {
                 EventAggregator.PublishEvent<IdleExceedEvent>(new IdleExceedEvent());
             }

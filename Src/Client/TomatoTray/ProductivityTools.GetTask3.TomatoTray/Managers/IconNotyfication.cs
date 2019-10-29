@@ -1,4 +1,5 @@
 ﻿using Hardcodet.Wpf.TaskbarNotification;
+using ProductivityTools.GetTask3.CommonConfiguration;
 using ProductivityTools.GetTask3.CoreObjects.Tomato;
 using ProductivityTools.GetTask3.TomatoTray;
 using ProductivityTools.GetTask3.TomatoTray.EventAggregator;
@@ -24,14 +25,13 @@ namespace TomatoesTray
         IEvent<SetTooltipContentEvent>,
         IEvent<CloseBalonEvent>,
         IEvent<IdleExceedEvent>,
-        IEvent<TomatoExceedEvent> 
+        IEvent<TomatoExceedEvent>
     //, IEvent<ChangeTaskBarIconPicEvent>,
     {
         public TaskbarIcon TaskbarIcon { get; private set; }
         EventAggregator EventAggregator { get; set; }
         private Balloon baloon { get; set; }
         private Tomato Tomato { get; set; }
-        private int TomatoTime = 1;
         private TomatoTimer TomatoTimer;
         private IdleTimer IdleTimer;
 
@@ -45,25 +45,25 @@ namespace TomatoesTray
                 if (this.Tomato == null) { return TomatoDisplayStatus.Idle; }
 
                 if (Tomato.Status == Status.New
-                    &&this.Tomato.CreatedDate.AddMinutes(TomatoTime) > DateTime.Now)
+                    && this.Tomato.CreatedDate.Add(Consts.TomatoLength) > DateTime.Now)
                 {
                     return TomatoDisplayStatus.Work;
                 }
 
                 if (Tomato.Status == Status.New
-                    && this.Tomato.CreatedDate.AddMinutes(TomatoTime) < DateTime.Now)
+                    && this.Tomato.CreatedDate.Add(Consts.TomatoLength) < DateTime.Now)
                 {
                     return TomatoDisplayStatus.WorkExceed;
                 }
 
-                if (this.Tomato.Status==Status.Finished
-                    && this.Tomato.FinishedDate.AddMinutes(5)>DateTime.Now)
+                if (this.Tomato.Status == Status.Finished
+                    && this.Tomato.FinishedDate.Add(Consts.BreakLength) > DateTime.Now)
                 {
                     return TomatoDisplayStatus.Idle;
                 }
 
                 if (this.Tomato.Status == Status.Finished
-                    && this.Tomato.FinishedDate.AddMinutes(5) < DateTime.Now)
+                    && this.Tomato.FinishedDate.Add(Consts.BreakLength) < DateTime.Now)
                 {
                     return TomatoDisplayStatus.IdleExceed;
                 }
@@ -177,8 +177,8 @@ namespace TomatoesTray
             if (IdleExceedEventShowed == false)
             {
                 IdleExceedEventShowed = true;
-                ShowBallon();
                 ChangeIconPic(TomatoDisplayStatus.IdleExceed);
+                ShowBallon();
             }
         }
 
@@ -189,7 +189,6 @@ namespace TomatoesTray
             ShowBallon();
             this.IdleTimer.Run();
             this.TomatoTimer.Stop();
-            
-        }
+        }   
     }
 }
