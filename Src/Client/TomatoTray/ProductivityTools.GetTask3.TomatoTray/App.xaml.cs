@@ -19,7 +19,7 @@ namespace ProductivityTools.GetTask3.TomatoTray
     /// </summary>
     public partial class App : Application
     {
-        TomatoManager TomatoManager;
+       // TomatoManager TomatoManager;
         EventAggregator.EventAggregator EventAggregator = new EventAggregator.EventAggregator();
         IconNotyfication IconNotyfication;
 
@@ -32,7 +32,7 @@ namespace ProductivityTools.GetTask3.TomatoTray
 
             IconNotyfication.TaskbarIcon.DataContext = this;
 
-            TomatoManager = new TomatoManager(EventAggregator);
+          //  TomatoManager = new TomatoManager(EventAggregator);
             Connect(URL);
             ////this.EventAggregator.Subscribe(this);
             //WCFServer server = new WCFServer(this.EventAggregator);

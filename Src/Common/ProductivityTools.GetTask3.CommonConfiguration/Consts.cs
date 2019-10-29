@@ -29,8 +29,8 @@ namespace ProductivityTools.GetTask3.CommonConfiguration
             }
         }
 
-        public static TimeSpan BreakLength = TimeSpan.FromMinutes(5);
+        public static TimeSpan BreakLength = TimeSpan.FromSeconds(5);
 
-        public static TimeSpan TomatoLength = TimeSpan.FromMinutes(25);
+        public static TimeSpan TomatoLength = TimeSpan.FromSeconds(25);
     }
 }

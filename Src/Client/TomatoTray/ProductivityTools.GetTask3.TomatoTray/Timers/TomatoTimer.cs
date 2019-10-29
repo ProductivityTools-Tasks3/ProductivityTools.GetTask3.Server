@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProductivityTools.GetTask3.CommonConfiguration;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,7 @@ namespace ProductivityTools.GetTask3.TomatoTray.Timers
         System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
         E.EventAggregator EventAggregator { get; set; }
 
-        
+
 
         public TomatoTimer(E.EventAggregator eventAggregator)
         {
@@ -35,11 +36,11 @@ namespace ProductivityTools.GetTask3.TomatoTray.Timers
             dispatcherTimer.Stop();
         }
 
-       //pw:parameter
+        //pw:parameter
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
             SetMouseOverTooltipContent();
-            if (this.tomatoTime>TimeSpan.FromMinutes(1))
+            if (this.tomatoTime > Consts.TomatoLength)
             {
                 EventAggregator.PublishEvent<TomatoExceedEvent>(new TomatoExceedEvent());
             }
