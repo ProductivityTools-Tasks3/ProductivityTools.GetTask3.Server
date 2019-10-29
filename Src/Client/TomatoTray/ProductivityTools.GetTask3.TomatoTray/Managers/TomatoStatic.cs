@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace ProductivityTools.GetTask3.TomatoTray.Managers
 {
-    class TomatoStatic
-    {
-        public DateTime LastTomatooReciveDate { get; set; }
+    //class TomatoStatic
+    //{
+    //    public DateTime LastTomatooReciveDate { get; set; }
 
-        public TimeSpan LastTomatooReciveLength
-        {
-            get
-            {
-                return DateTime.Now - LastTomatooReciveDate;
-            }
-        }
-        public TimeSpan TomatoTimeLength { get; set; }
-    }
+    //    public TimeSpan LastTomatooReciveLength
+    //    {
+    //        get
+    //        {
+    //            return DateTime.Now - LastTomatooReciveDate;
+    //        }
+    //    }
+    //    public TimeSpan TomatoTimeLength { get; set; }
+    //}
 }

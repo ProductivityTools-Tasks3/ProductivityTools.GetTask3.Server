@@ -57,13 +57,13 @@ namespace TomatoesTray
                 }
 
                 if (this.Tomato.Status == Status.Finished
-                    && this.Tomato.FinishedDate.Add(Consts.BreakLength) > DateTime.Now)
+                    && this.Tomato.FinishedDate.Value.Add(Consts.BreakLength) > DateTime.Now)
                 {
                     return TomatoDisplayStatus.Idle;
                 }
 
                 if (this.Tomato.Status == Status.Finished
-                    && this.Tomato.FinishedDate.Add(Consts.BreakLength) < DateTime.Now)
+                    && this.Tomato.FinishedDate.Value.Add(Consts.BreakLength) < DateTime.Now)
                 {
                     return TomatoDisplayStatus.IdleExceed;
                 }
@@ -136,25 +136,30 @@ namespace TomatoesTray
             ChangeIconPic(this.TomatoStatus);
         }
 
-        private void SetTooltipContent(TimeSpan tomatoTimeLength, TimeSpan last)
+        private void SetTooltipContent()
         {
-
             string format = @"hh\:mm\:ss";
-            TaskbarIcon.ToolTipText = $"Tomato time: {tomatoTimeLength.ToString(format)} \nTomato last: {last.ToString(format)}";
+            TimeSpan @break = TimeSpan.Zero;
+            if (Tomato.FinishedDate.HasValue)
+            {
+                @break = DateTime.Now.Subtract(Tomato.FinishedDate.Value);
+            }
+
+            TaskbarIcon.ToolTipText = $"Tomato time: {Tomato.TomatoTimeLength.ToString(format)} \nBreak time: {@break.ToString(format)}";
             if (this.baloon != null)
             {
-                this.baloon.TomatoTime = $"Tomato time: {tomatoTimeLength.ToString(format)} Tomato last: {last.ToString(format)}";
+                this.baloon.TomatoTime = $"Tomato time: {Tomato.TomatoTimeLength.ToString(format)} Break time: {@break.ToString(format)}";
             }
         }
 
         void IEvent<SetTooltipContentEvent>.OnEvent(SetTooltipContentEvent @event)
         {
-            var last = @event.LastTomatooReciveLength;
+           // var last = @event.LastTomatooReciveLength;
             //if (last > Consts.BreakLength)
             //{
             //    ShowBallon(Properties.Resources.FinishIdle, TomatoStatus.Red);
             //}
-            SetTooltipContent(@event.TomatoTimeLength, last);
+            SetTooltipContent();
         }
 
         void IEvent<CloseBalonEvent>.OnEvent(CloseBalonEvent @event)
