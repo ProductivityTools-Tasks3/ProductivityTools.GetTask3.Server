@@ -164,6 +164,7 @@
     <Compile Include="Managers\IconNotyfication.cs" />
     <Compile Include="Managers\TomatoManager.cs" />
     <Compile Include="Managers\TomatoStatic.cs" />
+    <Compile Include="Timers\BaseTimer.cs" />
     <Compile Include="Timers\IdleTimer.cs" />
     <Compile Include="Timers\TomatoTimer.cs" />
     <Compile Include="Tomato.cs" />
