@@ -67,7 +67,8 @@ namespace TomatoesTray
                 case TomatoDisplayStatus.Work:
                     iconPath = @"pack://application:,,,/Images/TomatoGreen.png";
                     color = (Color)ColorConverter.ConvertFromString("#FFBFFF77");
-                    this.FinishTomato.Visibility = Visibility.Visible;
+                    //until finish from button won't be again workingk
+                    //this.FinishTomato.Visibility = Visibility.Visible;
                     break;
                 case TomatoDisplayStatus.Idle:
                     iconPath = @"pack://application:,,,/Images/TomatoGray.png";
@@ -77,7 +78,7 @@ namespace TomatoesTray
                 case TomatoDisplayStatus.WorkExceed:
                     iconPath = @"pack://application:,,,/Images/TomatoRed.png";
                     color = (Color)ColorConverter.ConvertFromString("#FFF0005A");
-                    this.FinishTomato.Visibility = Visibility.Visible;
+                   // this.FinishTomato.Visibility = Visibility.Visible;
                     break;
                 case TomatoDisplayStatus.IdleExceed:
                     iconPath = @"pack://application:,,,/Images/TomatoDarkGray.png";

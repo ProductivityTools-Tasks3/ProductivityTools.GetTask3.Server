@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR;
+using ProductivityTools.GetTask3.Contract;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,15 +16,15 @@ namespace ProductivityTools.GetTask3.SignalRHubs
             this.context = context;
         }
 
-        public void NewTomato(string tomatoName)
+        public void NewTomato(TomatoView tomato)
         {
-            this.context.Clients.All.SendAsync("NewTomato", tomatoName);
+            this.context.Clients.All.SendAsync("NewTomato", tomato);
         }
 
 
-        public void FinishTomato()
+        public void FinishTomato(TomatoView tomato)
         {
-            this.context.Clients.All.SendAsync("FinishTomato");
+            this.context.Clients.All.SendAsync("FinishTomato", tomato);
         }
 
         public override Task OnConnectedAsync()

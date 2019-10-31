@@ -10,5 +10,15 @@ namespace TomatoesTray.Events
     class TomatoInfoFlyInEvent : BaseEvent
     {
         public Tomato Tomato { get; set; }
+
+        private TomatoInfoFlyInEvent()
+        {
+
+        }
+
+        public TomatoInfoFlyInEvent(Tomato tomato)
+        {
+            this.Tomato = tomato;
+        }
     }
 }

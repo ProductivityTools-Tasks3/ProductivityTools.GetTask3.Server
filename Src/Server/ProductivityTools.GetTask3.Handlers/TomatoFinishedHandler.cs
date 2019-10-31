@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using ProductivityTools.GetTask3.App.Queries;
+using ProductivityTools.GetTask3.Contract;
 using ProductivityTools.GetTask3.Domain.Events;
 using ProductivityTools.GetTask3.SignalRHubs;
 using System;
@@ -23,7 +24,8 @@ namespace ProductivityTools.GetTask3.Handlers
 
         public Task Handle(TomatoFinished notification, CancellationToken cancellationToken)
         {
-            Hub.FinishTomato();
+            TomatoView tomato = this.Queries.GetTomato();
+            Hub.FinishTomato(tomato);
             return Task.CompletedTask;
         }
     }

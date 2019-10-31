@@ -12,7 +12,7 @@ namespace TomatoesTray.Events
         public Tomato Tomato { get; set; }
 
         private TomatoFinishEvent() { }
-        
+
         public TomatoFinishEvent(Tomato tomato)
         {
             this.Tomato = tomato;
