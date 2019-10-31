@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.SignalR.Client;
 using ProductivityTools.GetTask3.CommonConfiguration;
+using ProductivityTools.GetTask3.Contract;
 using ProductivityTools.GetTask3.TomatoTray.Managers;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,7 @@ namespace ProductivityTools.GetTask3.TomatoTray
     /// </summary>
     public partial class App : Application
     {
-       // TomatoManager TomatoManager;
+        // TomatoManager TomatoManager;
         EventAggregator.EventAggregator EventAggregator = new EventAggregator.EventAggregator();
         IconNotyfication IconNotyfication;
 
@@ -32,7 +33,7 @@ namespace ProductivityTools.GetTask3.TomatoTray
 
             IconNotyfication.TaskbarIcon.DataContext = this;
 
-          //  TomatoManager = new TomatoManager(EventAggregator);
+            //  TomatoManager = new TomatoManager(EventAggregator);
             Connect(URL);
             ////this.EventAggregator.Subscribe(this);
             //WCFServer server = new WCFServer(this.EventAggregator);
@@ -43,25 +44,30 @@ namespace ProductivityTools.GetTask3.TomatoTray
         private string URL = Consts.TomatoHubAddress;
         private void Connect(string uri)
         {
+            Func<TomatoView, Tomato> createTomato = (tomatoView) =>
+             {
+                 var tomato = new Tomato();
+                 tomato.Status = tomatoView.Status;
+                 tomato.Name = tomatoView.Elements.Select(x => x.Name).Aggregate((a, b) => a + Environment.NewLine + b);
+                 tomato.CreatedDate = tomatoView.Created;
+                 tomato.FinishedDate = tomatoView.Finished;
+                 return tomato;
+             };
+
             try
             {
                 connection = new HubConnectionBuilder().WithUrl(uri).Build();
-                connection.On<string>("NewTomato", update =>
+                connection.On<TomatoView>("NewTomato", tomatoView =>
                 {
-                    //EventAggregator.PublishEvent(new ShowBalonEvent { Text = update, Status = TomatoStatus.Work});
-                    //pw: update this
-                    this.EventAggregator.PublishEvent(new TomatoInfoFlyInEvent { Tomato = new Tomato() { CreatedDate = DateTime.Now, Name = update, TaskId = -1, Status = CoreObjects.Tomato.Status.New } });
-                    Console.Write("Fdsa");
-                    //this.Dispatcher.Invoke(() => lblContent.Content = update);
+                    var name = tomatoView.Elements.Select(x => x.Name).Aggregate((a, b) => a + Environment.NewLine + b);
+                    this.EventAggregator.PublishEvent(new TomatoInfoFlyInEvent(createTomato(tomatoView)));
                 });
 
-                connection.On("FinishTomato", () =>
+                connection.On<TomatoView>("FinishTomato", (tomatoView) =>
                 {
-                    //EventAggregator.PublishEvent(new ShowBalonEvent { Text = update, Status = TomatoStatus.Work});
-                    this.EventAggregator.PublishEvent(new TomatoFinishEvent(new Tomato() { Name = "fdsa", FinishedDate = DateTime.Now, Status = CoreObjects.Tomato.Status.Finished }));
-                    Console.Write("Fdsa");
-                    //this.Dispatcher.Invoke(() => lblContent.Content = update);
+                    this.EventAggregator.PublishEvent(new TomatoFinishEvent(createTomato(tomatoView)));
                 });
+
                 Thread.Sleep(2000);
                 connection.StartAsync();
             }

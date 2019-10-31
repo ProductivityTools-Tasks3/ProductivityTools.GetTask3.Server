@@ -25,8 +25,8 @@ namespace ProductivityTools.GetTask3.Handlers
         public Task Handle(TomatoAdded notification, CancellationToken cancellationToken)
         {
             TomatoView tomato = this.Queries.GetTomato();
-            var s = tomato.TomatoId.ToString();
-            Hub.NewTomato(s);
+          //  var s = tomato.TomatoId.ToString();
+            Hub.NewTomato(tomato);
             return Task.CompletedTask;
         }
     }

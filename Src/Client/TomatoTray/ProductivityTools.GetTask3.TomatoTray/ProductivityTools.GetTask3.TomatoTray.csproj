@@ -234,6 +234,10 @@
       <Project>{B6018BBD-3C5E-45EE-BAB5-099F1A1F8027}</Project>
       <Name>ProductivityTools.GetTask3.CommonConfiguration</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\ProductivityTools.GetTask3.Contract\ProductivityTools.GetTask3.Contract.csproj">
+      <Project>{4d0b0408-26b7-4be3-9acc-87862e542a26}</Project>
+      <Name>ProductivityTools.GetTask3.Contract</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Common\ProductivityTools.GetTask3.CoreObjects\ProductivityTools.GetTask3.CoreObjects.csproj">
       <Project>{F57EC928-1328-4F02-8C6D-48D54A7CEF22}</Project>
       <Name>ProductivityTools.GetTask3.CoreObjects</Name>
@@ -257,6 +261,8 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
