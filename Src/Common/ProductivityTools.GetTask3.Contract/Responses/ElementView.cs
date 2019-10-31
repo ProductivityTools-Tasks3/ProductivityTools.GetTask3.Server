@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace ProductivityTools.GetTask3.Contract
 {
-    public class ElementView
+    public class ElementView 
     {
         public string Name { get; set; }
         public ElementType Type { get; set; }
@@ -16,8 +16,7 @@ namespace ProductivityTools.GetTask3.Contract
         public DateTime? Finished { get; set; }
         public string Category { get; set; }
 
-        public List<TomatoView> Tomatoes {get;set;}
-
         public List<ElementView> Elements { get; set; }
+        public List<TomatoView> Tomatoes {get;set;}
     }
 }

@@ -162,7 +162,6 @@
     <Compile Include="Managers\TomatoExpirationBackgroundTimer.cs" />
     <Compile Include="Managers\BackgroundTimer.cs" />
     <Compile Include="Managers\IconNotyfication.cs" />
-    <Compile Include="Managers\TomatoManager.cs" />
     <Compile Include="Managers\TomatoStatic.cs" />
     <Compile Include="Timers\BaseTimer.cs" />
     <Compile Include="Timers\IdleTimer.cs" />

@@ -45,7 +45,7 @@ namespace ProductivityTools.GetTask3.Infrastructure.AutoMapper
         public TomatoProfie()
         {
             CreateMap<Infrastructure.Tomato, Domain.Tomato>()
-                .ForMember(x=>x.ElementsId,opt=>opt.MapFrom(x=>x.TomatoElements.Select(y=>y.ElementId)))
+                .ForMember(x => x.Elements, opt => opt.MapFrom(x => x.TomatoElements.Select(y => y.Element)))
                 .ReverseMap();
         }
     }

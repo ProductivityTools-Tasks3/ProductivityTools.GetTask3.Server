@@ -126,7 +126,7 @@ namespace ProductivityTools.GetTask3.App.Commands
 
             if (finishAlsoTask)
             {
-                List<Domain.Element> elements = _taskUnitOfWork.TaskRepository.GetElements(tomato.ElementsId);
+                List<Domain.Element> elements = _taskUnitOfWork.TaskRepository.GetElements(tomato.Elements.Select(x=>x.ElementId).ToList());
                 //pw: chage it
                 elements.ForEach(x =>
                 {
