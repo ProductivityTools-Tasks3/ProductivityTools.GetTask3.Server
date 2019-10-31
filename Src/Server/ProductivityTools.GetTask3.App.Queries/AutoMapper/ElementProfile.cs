@@ -13,6 +13,7 @@ namespace ProductivityTools.GetTask3.App.Queries.AutoMapper
 
             CreateMap<Domain.Element, ElementView>();
             CreateMap<Domain.Tomato, TomatoView>();
+            CreateMap<Domain.Element, TomatoElementView>();
             //    ForMember(dest => dest.Elements, opt => opt.MapFrom(src => src.Elements));
             //CreateMap<List<Domain.Element>, List<ItemView>>();
 

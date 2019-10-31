@@ -12,8 +12,7 @@ namespace ProductivityTools.GetTask3.Domain
         public Status Status { get; set; }
         public DateTime Created { get; set; }
         public DateTime? Finished { get; set; }
-
-        public List<int> ElementsId { get; set; }
+        public List<Element> Elements { get; protected set; }
 
         public void Finish()
         {
