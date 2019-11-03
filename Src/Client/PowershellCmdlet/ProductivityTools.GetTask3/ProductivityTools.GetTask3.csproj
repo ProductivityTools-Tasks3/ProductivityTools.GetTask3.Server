@@ -67,6 +67,9 @@
     <Compile Include="Commands\GetTask\Formatters\Order.cs" />
     <Compile Include="Commands\GetTask\Formatters\Category.cs" />
     <Compile Include="Commands\GetTask\Formatters\Tomato.cs" />
+    <Compile Include="Commands\MoveTask\MoveTaskCmdlet.cs" />
+    <Compile Include="Commands\MoveTask\MoveTaskToChild.cs" />
+    <Compile Include="Commands\MoveTask\MoveTaskToParent.cs" />
     <Compile Include="Commands\NewTomato\NewtomatoByIds.cs" />
     <Compile Include="Commands\NewTomato\NewTomatoByName.cs" />
     <Compile Include="Commands\NewTomato\NewTomatoCmdlet.cs" />

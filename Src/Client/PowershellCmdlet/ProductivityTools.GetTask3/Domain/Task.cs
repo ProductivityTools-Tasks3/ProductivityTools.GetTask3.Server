@@ -182,6 +182,18 @@ namespace ProductivityTools.GetTask3.App
             this.repository.Finish(elementId);
         }
 
+        public void MoveToParent(int[] orderElementsId)
+        {
+            var elementid = GetElementsIdByOrder(orderElementsId);
+            this.repository.Move(elementid, this.SelectedNodeElementId.Value);
+        }
+
+        public void MoveToChild(int[] orderElementsId,int target)
+        {
+            var elementid = GetElementsIdByOrder(orderElementsId);
+            this.repository.Move(elementid, target);
+        }
+
         public void Delay(int orderElementId, DateTime date)
         {
             var elementId = GetElementIdByOrder(orderElementId);
