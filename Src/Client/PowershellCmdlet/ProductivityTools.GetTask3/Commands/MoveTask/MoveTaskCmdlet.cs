@@ -21,7 +21,7 @@ namespace ProductivityTools.GetTask3.Commands.MoveTask
 
         public MoveTaskCmdlet()
         {
-            this.AddCommand(new DelayTaskToDate(this));
+            this.AddCommand(new MoveTaskToChild(this));
         }
 
         protected override void ProcessRecord()
