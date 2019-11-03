@@ -44,9 +44,9 @@
             </Rectangle.Fill>
         </Rectangle>
         <Image x:Name="image" HorizontalAlignment="Left" Height="79" VerticalAlignment="Top" Width="78" Source="Images/TomatoRed.png"/>
-        <Border BorderBrush="{x:Null}" Margin="0,0,0,32">
-            <TextBlock x:Name="BallonTextTXT"  HorizontalAlignment="Left" Margin="83,0,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Center" Width="184" Foreground="White" RenderTransformOrigin="0,0.5" Height="16"/>
-        </Border>
+        <Grid>
+            <TextBlock x:Name="BallonTextTXT"  HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="83,0,0,0" TextWrapping="Wrap" Text="TextBlock"  Width="184" Foreground="White" />
+        </Grid>
         <TextBlock x:Name="BallonTimeTXT" HorizontalAlignment="Left" Margin="83,0,0,0" TextWrapping="Wrap" Text="..." VerticalAlignment="Bottom" Width="184" Foreground="White" RenderTransformOrigin="0.5,0.5" FontSize="9"/>
         <Button Visibility="Hidden" Name="FinishTomato" Width="95" Height="18" RenderTransformOrigin="10.882,3.134" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,14" Content="Finish tomato" FontSize="9.333" Background="{x:Null}" Click="Button_Click" Foreground="White"/>
     </Grid>

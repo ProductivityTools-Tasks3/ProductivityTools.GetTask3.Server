@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using ProductivityTools.GetTask3.App.Queries;
 using ProductivityTools.GetTask3.Contract;
 using ProductivityTools.GetTask3.Domain.Events;
@@ -15,17 +16,19 @@ namespace ProductivityTools.GetTask3.Handlers
     {
         TomatoHub Hub;
         ITaskQueries Queries;
+        private readonly IMapper Mapper;
 
-        public TomatoFinishedHandler(ITaskQueries queries, TomatoHub hub)
+        public TomatoFinishedHandler(ITaskQueries queries, TomatoHub hub, IMapper mapper)
         {
             this.Queries = queries;
             this.Hub = hub;
+            this.Mapper = mapper;
         }
 
         public Task Handle(TomatoFinished notification, CancellationToken cancellationToken)
         {
-            TomatoView tomato = this.Queries.GetTomato();
-            Hub.FinishTomato(tomato);
+            TomatoView tomatoView = Mapper.Map<Domain.Tomato,TomatoView>(notification.Tomato);
+            Hub.FinishTomato(tomatoView);
             return Task.CompletedTask;
         }
     }

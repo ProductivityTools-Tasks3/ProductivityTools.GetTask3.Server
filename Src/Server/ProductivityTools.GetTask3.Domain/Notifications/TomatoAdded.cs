@@ -7,5 +7,11 @@ namespace ProductivityTools.GetTask3.Domain.Events
 {
     public class TomatoFinished : INotification
     {
+        public Tomato Tomato { get; private set; }
+
+        public TomatoFinished(Tomato tomato)
+        {
+            this.Tomato = tomato;
+        }
     }
 }

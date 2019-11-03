@@ -16,8 +16,9 @@ namespace ProductivityTools.GetTask3.Domain
 
         public void Finish()
         {
-            base.AddNotification(new TomatoFinished());
             this.Status = CoreObjects.Tomato.Status.Finished;
+            this.Finished = DateTime.Now;
+            base.AddNotification(new TomatoFinished(this));
         }
     }
 }
