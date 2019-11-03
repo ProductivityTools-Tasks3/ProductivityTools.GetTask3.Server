@@ -27,8 +27,9 @@ namespace ProductivityTools.GetTask3.Infrastructure.AutoMapper
                     foreach (var tomato in source.Tomatoes)
                     {
                         var tomatoElement = new TomatoElement();
-                        tomatoElement.TomatoId = tomato.TomatoId;
-                        tomatoElement.ElementId = source.ElementId;
+                        //if we set this values, many to many wont save
+                       // tomatoElement.TomatoId = tomato.TomatoId;
+                       // tomatoElement.ElementId = source.ElementId;
                         tomatoElement.Tomato = context.Mapper.Map<Infrastructure.Tomato>(tomato);
                         result.Add(tomatoElement);
                         tomatoElement.Element = destination;
