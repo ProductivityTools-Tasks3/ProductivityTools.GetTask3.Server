@@ -5,13 +5,14 @@ namespace ProductivityTools.GetTask3.CommonConfiguration
     public class Consts
     {
         public const string Task = "Task";
+        public const string Move = "Move";
         public const string TodayList = "TodayList";
         public const string AddToTomatoById = "AddToTomatoById";
         public const string AddToTomatoByName = "AddToTomatoByName";
         public const string FinishTomato = "FinishTomato";
         public const string GetTomato = "GetTomato";
 
-        public const string HttpAddress = @"http://localhost:5504/";
+        public const string HttpAddress = @"http://localhost:5507/";
         public static string EndpointAddress
         {
             get

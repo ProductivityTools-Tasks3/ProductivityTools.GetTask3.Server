@@ -85,6 +85,11 @@ namespace ProductivityTools.GetTask3.Domain
             base.AddNotification(new TomatoAdded());
         }
 
+        public void ChangeParent(int parentId)
+        {
+            this.ParentId = parentId;
+        }
+
         private DateTime AddDeadline(DateTime? startDate)
         {
             if (startDate.HasValue == false)

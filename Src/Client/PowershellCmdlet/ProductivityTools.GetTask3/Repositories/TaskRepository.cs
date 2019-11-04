@@ -36,12 +36,16 @@ namespace ProductivityTools.GetTask3.Domain
                 default:
                     break;
             }
-
         }
 
         public async void Finish(int elementId)
         {
             await ProductivityTools.GetTask3.Client.Calls.Task.Finish(elementId);
+        }
+
+        public async void Move(int[] elementIds, int target)
+        {
+            await ProductivityTools.GetTask3.Client.Calls.Task.Move(elementIds, target);
         }
 
         public async void Undone(int elementId)
