@@ -131,9 +131,10 @@ namespace TomatoesTray
         void IEvent<TomatoInfoFlyInEvent>.OnEvent(TomatoInfoFlyInEvent @event)
         {
             this.Tomato = @event.Tomato;
+            ChangeIconPic(this.TomatoStatus);
             ShowBallon();
             this.TomatoTimer.Run();
-            ChangeIconPic(this.TomatoStatus);
+            TomatoExceedEventShowed = false;
         }
 
         private void SetTooltipContent()
@@ -171,8 +172,8 @@ namespace TomatoesTray
         {
             if (TomatoExceedEventShowed == false)
             {
-                ShowBallon();
                 ChangeIconPic(TomatoDisplayStatus.WorkExceed);
+                ShowBallon();
                 TomatoExceedEventShowed = true;
             }
         }
