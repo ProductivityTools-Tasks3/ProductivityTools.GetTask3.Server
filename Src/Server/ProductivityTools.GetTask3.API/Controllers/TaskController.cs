@@ -111,13 +111,19 @@ namespace ProductivityTools.GetTask3.API.Controllers
             Commands.FinishTomato(request.FinishAlsoTasks);
         }
 
-
         [HttpPost]
         [Route(Consts.GetTomato)]
         public TomatoView GetTomato()
         {
             var r=Queries.GetTomato();
             return r;
+        }
+
+        [HttpPost]
+        [Route(Consts.Move)]
+        public void Move(MoveRequest moveRequest)
+        {
+            Commands.Move(moveRequest.ElementIds, moveRequest.Target);
         }
     }
 }
