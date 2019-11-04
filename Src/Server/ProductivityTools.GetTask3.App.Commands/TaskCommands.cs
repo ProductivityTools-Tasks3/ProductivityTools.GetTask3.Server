@@ -20,6 +20,7 @@ namespace ProductivityTools.GetTask3.App.Commands
         void AddToTomato(List<int> elementIds);
         void AddToTomato(string name, int parentId);
         void FinishTomato(bool finishAlsoTasks);
+        void Move(int[] elementIds, int target);
     }
 
 
@@ -93,7 +94,7 @@ namespace ProductivityTools.GetTask3.App.Commands
             });
             _taskUnitOfWork.Commit();
 
-            
+
             //pw: move to repository
             //var tomatoItems = elementIds.ToList().Select(x => new Infrastructure.TomatoElement() { ElementId = x }).ToList();
             //var tomato = new Infrastructure.Tomato() { Status = CoreObjects.Tomato.Status.New, Items = tomatoItems };
@@ -114,7 +115,7 @@ namespace ProductivityTools.GetTask3.App.Commands
             element.AddToTomato(curentTomato);
 
             _taskUnitOfWork.TaskRepository.Add(element);
-           // _taskUnitOfWork.TomatoRepository.Update(curentTomato);
+            // _taskUnitOfWork.TomatoRepository.Update(curentTomato);
             _taskUnitOfWork.Commit();
         }
 
@@ -126,7 +127,7 @@ namespace ProductivityTools.GetTask3.App.Commands
 
             if (finishAlsoTask)
             {
-                List<Domain.Element> elements = _taskUnitOfWork.TaskRepository.GetElements(tomato.Elements.Select(x=>x.ElementId).ToList());
+                List<Domain.Element> elements = _taskUnitOfWork.TaskRepository.GetElements(tomato.Elements.Select(x => x.ElementId).ToList());
                 //pw: chage it
                 elements.ForEach(x =>
                 {
@@ -138,6 +139,17 @@ namespace ProductivityTools.GetTask3.App.Commands
             _taskUnitOfWork.Commit();
         }
 
+        public void Move(int[] elementIds, int target)
+        {
+            var elements=_taskUnitOfWork.TaskRepository.GetElements(elementIds.ToList());
+            foreach (Domain.Element element in elements)
+            {
+                element.ChangeParent(target);
+                _taskUnitOfWork.TaskRepository.Update(element);
+            }
 
+            _taskUnitOfWork.Commit();
+
+        }
     }
 }

@@ -190,8 +190,9 @@ namespace ProductivityTools.GetTask3.App
 
         public void MoveToChild(int[] orderElementsId,int target)
         {
-            var elementid = GetElementsIdByOrder(orderElementsId);
-            this.repository.Move(elementid, target);
+            var elementIds = GetElementsIdByOrder(orderElementsId);
+            var targetId = GetElementIdByOrder(target);
+            this.repository.Move(elementIds, targetId);
         }
 
         public void Delay(int orderElementId, DateTime date)
