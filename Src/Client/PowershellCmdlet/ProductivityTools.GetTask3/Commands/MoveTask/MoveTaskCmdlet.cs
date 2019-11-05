@@ -22,6 +22,7 @@ namespace ProductivityTools.GetTask3.Commands.MoveTask
         public MoveTaskCmdlet()
         {
             this.AddCommand(new MoveTaskToChild(this));
+            this.AddCommand(new MoveTaskToParent(this));
         }
 
         protected override void ProcessRecord()
