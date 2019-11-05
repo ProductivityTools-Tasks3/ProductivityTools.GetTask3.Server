@@ -23,7 +23,7 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
 
     public class TaskRepository : Repository<Domain.Element, Infrastructure.Element>, ITaskRepository
     {
-       
+
         private readonly IDateTimePT _dateTimePT;
 
         public TaskRepository(TaskContext context, IMapper mapper, IDateTimePT dateTime) : base(context, mapper)
@@ -31,44 +31,17 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
             _dateTimePT = dateTime;
         }
 
-        //pw: this is poor, should be rewritten to take whole element with tomato
-        //private Domain.Tomato GetTomato(List<int> elementsId)
-        //{
-        //    var tomatoes = from t in _taskContext.TomatoItem
-        //                   where elementsId.Contains(t.ElementId)
-        //                   select t;
-
-        //    //pw: remove when  many-to-many
-        //    //var xxx = (from t in _taskContext.Tomato
-        //    //           join ti in _taskContext.TomatoItem
-        //    //           on t.TomatoId equals ti.TomatoId
-
-
-        //    //           where elementsId.Contains(ti.ElementId)
-        //    //           select t).Include(x => x.Items).ToList();
-
-
-        //    var z = _taskContext.Tomato.Include(t => t.Items).SingleOrDefault(t => t.Status != CoreObjects.Tomato.Status.Finished);
-        //    return z;
-        //}
-
         //pw: make it nice repository
         public Domain.Element GetStructure(int? rootId)
         {
             var result = GetInternal(rootId);
             if (result == null) return null;
 
-            List<Element> childElements = GetElementsInfrastructure(result.ElementId);
-            //get tomato
-            //pw: change it to mapping
-            //Tomato tomato = GetTomato(childElements.Select(x => x.ElementId).ToList());
-
-            //if (tomato != null)
-            //{
-            //    FillWithtomato(childElements, tomato);
-            //}
+            //we take all parents id to know where recursion should be called. Not all parents id will be retriven, as some maybe in wrong date, or have different status
+            var parentIds = _taskContext.Element.Where(x => x.ParentId != null).Select(x => x.ParentId.Value).Distinct().ToList();
+            List<Element> childElements = GetElementsInfrastructure(parentIds, result.ElementId);
             result.Elements = childElements;
-            var r= _mapper.Map<Domain.Element>(result);
+            var r = _mapper.Map<Domain.Element>(result);
             return r;
         }
 
@@ -129,7 +102,7 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
             }
         }
 
-        private List<Element> GetElementsInfrastructure(int? rootId = null)
+        private List<Element> GetElementsInfrastructure(List<int> allParentsIds, int? rootId = null)
         {
             List<Element> result = new List<Element>();
             var elements = _taskContext.Element.Where(l =>
@@ -140,23 +113,15 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
             .Include(x => x.TomatoElements).ThenInclude(i => i.Tomato)
             .ToList();
 
-            for (int i = 0; i < elements.Count(); i++)
+            foreach (var element in elements)
             {
-                Element element = elements[i];// new Domain.Element(x[i].ElementId, x[i].Type, x[i].Name, i, x[i].Status);
-                if (element.Type == CoreObjects.ElementType.TaskBag)
+                if (allParentsIds.Contains(element.ElementId))
                 {
-                    element.Elements = GetElementsInfrastructure(elements[i].ElementId);
+                    element.Elements = GetElementsInfrastructure(allParentsIds, element.ElementId);
                 }
                 result.Add(element);
             }
             return result;
-        }
-
-        private List<Domain.Element> GetElements(int? rootId = null)
-        {
-            var result = GetElementsInfrastructure(rootId);
-            var r = _mapper.Map<List<Domain.Element>>(result);
-            return r;
         }
     }
 }
