@@ -21,8 +21,13 @@ namespace ProductivityTools.GetTask3.Commands.MoveTask
 
         protected override void Invoke()
         {
+            var element = this.TaskStructure.CurrentElement;
             var ids = this.Cmdlet.Id.GetIds();
-            this.TaskStructure.MoveToParent(ids);
+            if (element.ParentId.HasValue==false)
+            {
+                throw new Exception("Cannot move element to Core of the tree");
+            }
+            this.TaskStructure.Move(ids,element.ParentId.Value);
         }
     }
 }

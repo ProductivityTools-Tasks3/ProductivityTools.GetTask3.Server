@@ -26,7 +26,7 @@ namespace ProductivityTools.GetTask3.Commands.MoveTask
             {
                 throw new Exception("Target cannot be the same as source");
             }
-            this.TaskStructure.MoveToChild(ids, this.Cmdlet.Target.Value);
+            this.TaskStructure.Move(ids, this.Cmdlet.Target.Value);
         }
     }
 }
