@@ -1,4 +1,5 @@
-﻿using ProductivityTools.GetTask3.Infrastructure.Repositories;
+﻿using ProductivityTools.GetTask3.Domain;
+using ProductivityTools.GetTask3.Infrastructure.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -23,6 +24,11 @@ namespace ProductivityTools.GetTask3.App.Fakes.Tests
         public List<Domain.Element> GetElements(List<int> elementids)
         {
             return ElementsTeset;
+        }
+
+        public Element GetNode(int? node)
+        {
+            throw new NotImplementedException();
         }
 
         public Domain.Element GetStructure(int? root = null)

@@ -28,8 +28,8 @@ namespace ProductivityTools.GetTask3.Cmdlet
 
             ISessionMetaDataProvider sessionMetaDataProvider = new SessionMetaDataProviderTest();
             var taskRepository = new Moq.Mock<ITaskRepositoryCmd>();
-            taskRepository.Setup(i => i.GetStructure(Moq.It.IsAny<int?>())).Returns(structure);
-            var task = new App.Task(sessionMetaDataProvider, taskRepository.Object);
+            taskRepository.Setup(i => i.GetStructure(Moq.It.IsAny<int?>(),string.Empty)).Returns(structure);
+            var task = new App.Task(sessionMetaDataProvider, taskRepository.Object,string.Empty);
 
 
             var x = task.Elements.ToList();
@@ -49,8 +49,8 @@ namespace ProductivityTools.GetTask3.Cmdlet
 
             ISessionMetaDataProvider sessionMetaDataProvider = new SessionMetaDataProviderTest();
             var taskRepository = new Moq.Mock<ITaskRepositoryCmd>();
-            taskRepository.Setup(i => i.GetStructure(Moq.It.IsAny<int?>())).Returns(structure);
-            var task = new App.Task(sessionMetaDataProvider, taskRepository.Object);
+            taskRepository.Setup(i => i.GetStructure(Moq.It.IsAny<int?>(),string.Empty)).Returns(structure);
+            var task = new App.Task(sessionMetaDataProvider, taskRepository.Object,string.Empty);
 
 
             var x = task.Elements.ToList();

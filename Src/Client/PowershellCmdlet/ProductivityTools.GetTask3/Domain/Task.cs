@@ -15,6 +15,8 @@ namespace ProductivityTools.GetTask3.App
 {
     public class Task : DomainBase
     {
+        ITaskRepositoryCmd Repository;
+        string From;
 
         internal void GetPredefinedTask()
         {
@@ -90,18 +92,16 @@ namespace ProductivityTools.GetTask3.App
             {
                 if (structure == null)
                 {
-                    structure = repository.GetStructure(SelectedNodeElementId);
+                    structure = Repository.GetStructure(SelectedNodeElementId, From);
                     CreateStructureMetadata(structure);
                 }
                 return structure;
             }
         }
 
-        ITaskRepositoryCmd repository;
-
-        public Task(ISessionMetaDataProvider sessionMetaDataProvider, ITaskRepositoryCmd taskRepository) : base(sessionMetaDataProvider)
+        public Task(ISessionMetaDataProvider sessionMetaDataProvider, ITaskRepositoryCmd taskRepository, string from) : base(sessionMetaDataProvider)
         {
-            this.repository = taskRepository;
+            this.Repository = taskRepository;
         }
 
         private void CreateStructureMetadata(Contract.ElementView root)
@@ -154,7 +154,7 @@ namespace ProductivityTools.GetTask3.App
 
         public void Add(string name, ElementType type)
         {
-            this.repository.Add(name, this.SelectedNodeElementId, type);
+            this.Repository.Add(name, this.SelectedNodeElementId, type);
         }
 
         public void AddToTomato(int[] orderElementIds)
@@ -167,7 +167,7 @@ namespace ProductivityTools.GetTask3.App
         public void AddToTomato(string tomatoName)
         {
             TomatoRepository TomatoRepository = new TomatoRepository();
-            TomatoRepository.AddToTomato(tomatoName,this.SelectedNodeElementId.Value);
+            TomatoRepository.AddToTomato(tomatoName, this.SelectedNodeElementId.Value);
         }
 
         public void FinishTomato(bool finishAlsoTasks)
@@ -179,25 +179,25 @@ namespace ProductivityTools.GetTask3.App
         public void Finish(int orderElementId)
         {
             var elementId = GetElementIdByOrder(orderElementId);
-            this.repository.Finish(elementId);
+            this.Repository.Finish(elementId);
         }
 
-        public void Move(int[] orderElementsId,int targetId)
+        public void Move(int[] orderElementsId, int targetId)
         {
             var elementIds = GetElementsIdByOrder(orderElementsId);
-            this.repository.Move(elementIds, targetId);
+            this.Repository.Move(elementIds, targetId);
         }
 
         public void Delay(int orderElementId, DateTime date)
         {
             var elementId = GetElementIdByOrder(orderElementId);
-            this.repository.Delay(elementId, date);
+            this.Repository.Delay(elementId, date);
         }
 
         public void Undone(int orderElementId)
         {
             var elementId = GetElementIdByOrder(orderElementId);
-            this.repository.Undone(elementId);
+            this.Repository.Undone(elementId);
         }
 
         public void SelectNodeByElementId(int? value)

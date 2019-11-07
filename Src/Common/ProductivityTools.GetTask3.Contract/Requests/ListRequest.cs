@@ -7,6 +7,7 @@ namespace ProductivityTools.GetTask3.Contract
 {
     public class ListRequest
     {
-        public int? ParentId { get; set; }
+        public int? ElementID { get; set; }
+        public string Path { get; set; }
     }
 }

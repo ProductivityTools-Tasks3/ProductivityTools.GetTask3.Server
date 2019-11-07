@@ -11,7 +11,7 @@ namespace ProductivityTools.GetTask3.Domain
         void Delay(int elementId, DateTime date);
         void Finish(int elementId);
         void Move(int[] elementsIds, int target);
-        ElementView GetStructure(int? currentNode);
+        ElementView GetStructure(int? currentNode, string path);
         void Undone(int elementId);
     }
 }

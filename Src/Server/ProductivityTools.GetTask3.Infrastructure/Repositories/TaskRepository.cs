@@ -14,6 +14,7 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
     public interface ITaskRepository : IRepository<Domain.Element, Infrastructure.Element>
     {
         Domain.Element GetStructure(int? root = null);
+        Domain.Element GetNode(int? node);
         List<Domain.Element> GetElements(List<int> elementids);
         //void AddItem(string name);
 
@@ -29,6 +30,14 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
         public TaskRepository(TaskContext context, IMapper mapper, IDateTimePT dateTime) : base(context, mapper)
         {
             _dateTimePT = dateTime;
+        }
+
+        public Domain.Element GetNode(int? nodeId)
+        {
+            var result = GetInternal(nodeId);
+            result.Elements = GetChildElements(result.ElementId);
+            var r = _mapper.Map<Domain.Element>(result);
+            return r;
         }
 
         //pw: make it nice repository
@@ -102,16 +111,22 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
             }
         }
 
+        private List<Element> GetChildElements(int? rootId)
+        {
+            var elements = _taskContext.Element.Where(l =>
+           (l.ParentId == rootId && l.Status != Status.Finished && l.Start <= _dateTimePT.Now.AddDays(1).Date.AddSeconds(-1)) ||
+           (l.ParentId == rootId && l.Status == Status.Finished && l.Finished.Value.Date == _dateTimePT.Now.Date)
+
+           )
+           .Include(x => x.TomatoElements).ThenInclude(i => i.Tomato)
+           .ToList();
+            return elements;
+        }
+
         private List<Element> GetElementsInfrastructure(List<int> allParentsIds, int? rootId = null)
         {
             List<Element> result = new List<Element>();
-            var elements = _taskContext.Element.Where(l =>
-            (l.ParentId == rootId && l.Status != Status.Finished && l.Start <= _dateTimePT.Now.AddDays(1).Date.AddSeconds(-1)) ||
-            (l.ParentId == rootId && l.Status == Status.Finished && l.Finished.Value.Date == _dateTimePT.Now.Date)
-
-            )
-            .Include(x => x.TomatoElements).ThenInclude(i => i.Tomato)
-            .ToList();
+            var elements = GetChildElements(rootId);
 
             foreach (var element in elements)
             {
