@@ -41,7 +41,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
         public ElementView GetTasks([FromBody]ListRequest request = null)
         {
             //pw: perform mapping in this layer
-            var x = Queries.GetTaskList(request?.ParentId);
+            var x = Queries.GetTaskList(request?.ElementID, request.Path);
             return x;
         }
 
@@ -115,7 +115,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
         [Route(Consts.GetTomato)]
         public TomatoView GetTomato()
         {
-            var r=Queries.GetTomato();
+            var r = Queries.GetTomato();
             return r;
         }
 

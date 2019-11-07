@@ -15,10 +15,10 @@ namespace ProductivityTools.GetTask3.Domain
 {
     class TaskRepositoryCmd : ITaskRepositoryCmd
     {
-        public ElementView GetStructure(int? currentNode)
+        public ElementView GetStructure(int? currentNode, string path)
         {
             VerboseHelper.WriteVerboseStatic("Calling GetStructure");
-            var rootElement = GetTaskHttpClient.Post2<ElementView>("Task", Consts.TodayList, new ListRequest() { ParentId = currentNode }, VerboseHelper.WriteVerboseStatic).Result;
+            var rootElement = GetTaskHttpClient.Post2<ElementView>("Task", Consts.TodayList, new ListRequest() { ElementID = currentNode, Path = path }, VerboseHelper.WriteVerboseStatic).Result;
             return rootElement;
         }
 

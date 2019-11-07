@@ -10,13 +10,19 @@ using System.Threading.Tasks;
 namespace ProductivityTools.GetTask3
 {
     [Cmdlet(VerbsCommon.Get, "Task3")]
-    public class GetTask3Cmdlet : GT3CmldetsBase
+    public class GetTask3Cmdlet : GT3CmldetsBase, IFromElementPath
     {
+        [Parameter]
+        public string From { get; set; }
 
         public GetTask3Cmdlet()
         {
-            
             this.AddCommand(new GetTaskList(this));
+        }
+
+        protected override void BeginProcessing()
+        {
+            base.BeginProcessing();
         }
 
         protected override void ProcessRecord()
