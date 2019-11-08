@@ -21,7 +21,6 @@ namespace ProductivityTools.GetTask3.SingleCommands
 
         protected override void ProcessRecord()
         {
-            TaskStructure.GetPredefinedTask();
             base.ProcessRecord();
         }
     }

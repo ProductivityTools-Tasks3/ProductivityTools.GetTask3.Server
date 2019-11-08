@@ -17,7 +17,7 @@ namespace ProductivityTools.GetTask3
 
         public GetTask3Cmdlet()
         {
-            this.AddCommand(new GetTaskList(this));
+            
         }
 
         protected override void BeginProcessing()
@@ -27,6 +27,7 @@ namespace ProductivityTools.GetTask3
 
         protected override void ProcessRecord()
         {
+            this.AddCommand(new GetTaskList(this));
             base.ProcessCommands();
         }
     }
