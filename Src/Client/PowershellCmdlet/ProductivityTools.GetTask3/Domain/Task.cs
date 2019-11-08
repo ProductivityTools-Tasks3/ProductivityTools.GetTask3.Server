@@ -18,53 +18,10 @@ namespace ProductivityTools.GetTask3.App
         ITaskRepositoryCmd Repository;
         string From;
 
-        internal void GetPredefinedTask()
+        public Task(ISessionMetaDataProvider sessionMetaDataProvider, ITaskRepositoryCmd taskRepository, string from) : base(sessionMetaDataProvider)
         {
-
-        }
-
-        //private Dictionary<int, SessionElementMetadata> ItemOrder
-        //{
-        //    get
-        //    {
-        //        var r = cmdlet.SessionState.PSVariable.Get(_sesisonKey);
-        //        if (r == null)
-        //        {
-        //            cmdlet.SessionState.PSVariable.Set(_sesisonKey, new Dictionary<int, SessionElementMetadata>());
-        //            r = cmdlet.SessionState.PSVariable.Get(_sesisonKey);
-        //        }
-        //        return (Dictionary<int, SessionElementMetadata>)r.Value;
-        //    }
-        //}
-
-        public int? CurentNodeElementId
-        {
-            get
-            {
-                //if (_sessionMetadata.SelectedNodeOrder.HasValue)
-                //{
-                //    var orderElement = _sessionMetadata.ItemOrder.Single(x => x.Value.Order == _sessionMetadata.SelectedNodeOrder);
-                //    return orderElement.Key;
-                //}
-                throw new Exception();
-            }
-        }
-
-        private int[] GetElementsIdByOrder(int[] elementsOrderId)
-        {
-            int[] result = new int[elementsOrderId.Length];
-            for (int i = 0; i < elementsOrderId.Length; i++)
-            {
-                result[i] = GetElementIdByOrder(elementsOrderId[i]);
-            }
-            return result;
-        }
-
-        private int GetElementIdByOrder(int? elementOrderId)
-        {
-            var currentElement = this.session.ElementOrder.SingleOrDefault(x => x.Value.Order == elementOrderId);
-            return currentElement.Key;
-
+            this.Repository = taskRepository;
+            this.From = from;
         }
 
         private int _selectedNodeElementId { get; set; }
@@ -83,52 +40,6 @@ namespace ProductivityTools.GetTask3.App
                 }
                 return null;
             }
-        }
-
-        private ElementView structure;
-        private ElementView Structure
-        {
-            get
-            {
-                if (structure == null)
-                {
-                    structure = Repository.GetStructure(SelectedNodeElementId, From);
-                    CreateStructureMetadata(structure);
-                }
-                return structure;
-            }
-        }
-
-        public Task(ISessionMetaDataProvider sessionMetaDataProvider, ITaskRepositoryCmd taskRepository, string from) : base(sessionMetaDataProvider)
-        {
-            this.Repository = taskRepository;
-        }
-
-        private void CreateStructureMetadata(Contract.ElementView root)
-        {
-            int taskcounter = 0;
-            this.session.ElementOrder.Clear();
-
-            Action<ElementType> fillOrder = (type) =>
-            {
-                if (root != null)
-                {
-                    foreach (var element in root.Elements.Where(x => x.Type == type))
-                    {
-                        this.session.ElementOrder.Add(element.ElementId, new ElementMetadata()
-                        {
-                            ElementId = element.ElementId,
-                            Order = taskcounter,
-                            ChildCount = element.ChildElementsAmount()
-                        });
-                        taskcounter++;
-                    }
-                }
-            };
-            SelectNodeByElementId(root?.ElementId);
-
-            fillOrder(ElementType.TaskBag);
-            fillOrder(ElementType.Task);
         }
 
         public Contract.ElementView CurrentElement
@@ -151,6 +62,72 @@ namespace ProductivityTools.GetTask3.App
                 }
             }
         }
+
+        private int[] GetElementsIdByOrder(int[] elementsOrderId)
+        {
+            int[] result = new int[elementsOrderId.Length];
+            for (int i = 0; i < elementsOrderId.Length; i++)
+            {
+                result[i] = GetElementIdByOrder(elementsOrderId[i]);
+            }
+            return result;
+        }
+
+        private int GetElementIdByOrder(int? elementOrderId)
+        {
+            var currentElement = this.session.ElementOrder.SingleOrDefault(x => x.Value.Order == elementOrderId);
+            return currentElement.Key;
+        }
+
+        private ElementView structure;
+        private ElementView Structure
+        {
+            get
+            {
+                if (structure == null)
+                {
+                    structure = Repository.GetStructure(SelectedNodeElementId, From);
+
+                    CreateStructureMetadata(structure);
+                }
+                return structure;
+            }
+        }
+
+
+        private void CreateStructureMetadata(Contract.ElementView root)
+        {
+            int taskcounter = 0;
+            this.session.ElementOrder.Clear();
+
+            Action<ElementType> fillOrder = (type) =>
+            {
+                if (root != null)
+                {
+                    foreach (var element in root.Elements.Where(x => x.Type == type))
+                    {
+                        this.session.ElementOrder.Add(element.ElementId, new ElementMetadata()
+                        {
+                            ElementId = element.ElementId,
+                            Order = taskcounter,
+                            ChildCount = element.ChildElementsAmount()
+                        });
+                        taskcounter++;
+                    }
+                }
+            };
+
+            if (string.IsNullOrWhiteSpace(this.From))
+            {
+                SelectNodeByElementId(root?.ElementId);
+            }
+
+            fillOrder(ElementType.TaskBag);
+            fillOrder(ElementType.Task);
+        }
+
+
+
 
         public void Add(string name, ElementType type)
         {
