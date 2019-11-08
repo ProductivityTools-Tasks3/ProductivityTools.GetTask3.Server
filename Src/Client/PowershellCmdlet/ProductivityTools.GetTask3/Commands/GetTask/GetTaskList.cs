@@ -23,7 +23,6 @@ namespace ProductivityTools.GetTask3.Commands.GetTask
 
         public GetTaskList(GetTask3Cmdlet cmdlet) : base(cmdlet)
         {
-            
             this.TaskStructure = TaskStructureFactory.Get(cmdlet);
         }
 
@@ -57,12 +56,9 @@ namespace ProductivityTools.GetTask3.Commands.GetTask
             else
             {
                 WriteOutput($"+[{TaskStructure.CurrentElement.Name}]");
-                DisplayList(CoreObjects.ElementType.TaskBag);
-                DisplayList(CoreObjects.ElementType.Task);
+                DisplayList(TaskStructure.Elements,CoreObjects.ElementType.TaskBag);
+                DisplayList(TaskStructure.Elements,CoreObjects.ElementType.Task);
             }
-            //root.Elements
-
-            // var z = GetTaskHttpClient.Get<ElementView>("Add", "{Name: \"XXX\",ParentId: 3 }");
         }
 
         private void Setcolor(ElementView element)
@@ -88,7 +84,6 @@ namespace ProductivityTools.GetTask3.Commands.GetTask
 
         private void WriteToScreen(PSElementView element)
         {
-            //Setcolor(element.Element);
             var colorString = FormatRow(element);
             ConsoleColor.WriteInColor(colorString);
             ResetColor();
@@ -106,14 +101,12 @@ namespace ProductivityTools.GetTask3.Commands.GetTask
             }
         }
 
-        private void DisplayList(CoreObjects.ElementType type)
+        private void DisplayList(IEnumerable<PSElementView> elements, CoreObjects.ElementType type)
         {
-            foreach (var element in TaskStructure.Elements.Where(x => x.Element.Type == type))
+            foreach (var element in elements.Where(x => x.Element.Type == type))
             {
                 WriteToScreen(element);
             }
-        }
-
- 
+        } 
     }
 }
