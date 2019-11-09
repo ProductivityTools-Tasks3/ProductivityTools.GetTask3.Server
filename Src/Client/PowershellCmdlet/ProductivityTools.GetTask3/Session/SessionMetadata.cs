@@ -15,7 +15,7 @@ namespace ProductivityTools.GetTask3.View
             this.ElementOrder = new Dictionary<int, ElementMetadata>();
         }
 
-        public int? SelectedNodeOrder { get; set; }
+        //public int? SelectedNodeOrder { get; set; }
         public int? SelectedNodeElementId { get; set; }
     }
 }

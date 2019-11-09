@@ -24,16 +24,10 @@ namespace ProductivityTools.GetTask3.App
             this.From = from;
         }
 
-        private int _selectedNodeElementId { get; set; }
         public int? SelectedNodeElementId
         {
             get
             {
-                if (session.SelectedNodeOrder.HasValue)
-                {
-                    var x = GetElementIdByOrder(session.SelectedNodeOrder);
-                    return x;
-                }
                 if (session.SelectedNodeElementId.HasValue)
                 {
                     return session.SelectedNodeElementId.Value;
@@ -126,9 +120,6 @@ namespace ProductivityTools.GetTask3.App
             fillOrder(ElementType.Task);
         }
 
-
-
-
         public void Add(string name, ElementType type)
         {
             this.Repository.Add(name, this.SelectedNodeElementId, type);
@@ -179,14 +170,12 @@ namespace ProductivityTools.GetTask3.App
 
         public void SelectNodeByElementId(int? value)
         {
-            session.SelectedNodeOrder = null;
             session.SelectedNodeElementId = value;
         }
 
         public void SelectNodeByOrder(int value)
         {
-            session.SelectedNodeOrder = value;
-            session.SelectedNodeElementId = null;
+            session.SelectedNodeElementId = GetElementIdByOrder(value);
         }
     }
 }
