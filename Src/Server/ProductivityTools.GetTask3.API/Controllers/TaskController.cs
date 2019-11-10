@@ -25,7 +25,6 @@ namespace ProductivityTools.GetTask3.API.Controllers
         {
             this.Queries = gTaskAppQuery;
             this.Commands = gTaskApp;
-
         }
 
         // GET api/values
@@ -41,7 +40,14 @@ namespace ProductivityTools.GetTask3.API.Controllers
         public ElementView GetTasks([FromBody]ListRequest request = null)
         {
             //pw: perform mapping in this layer
-            var x = Queries.GetTaskList(request?.ElementID, request.Path);
+            var x = Queries.GetTaskList(request?.ElementId, request.Path);
+            return x;
+        }
+        [HttpPost]
+        [Route(Consts.GetRoot)]
+        public int? GetRoot([FromBody]GetRootRequest request)
+        {
+            var x = Queries.GetRootRequest(request.ElementId, request.Path);
             return x;
         }
 
@@ -95,14 +101,12 @@ namespace ProductivityTools.GetTask3.API.Controllers
             Commands.AddToTomato(request.ElementItems.ToList());
         }
 
-
         [HttpPost]
         [Route(Consts.AddToTomatoByName)]
         public void AddToTomatoByName([FromBody] AddToTomatoByNameRequest request)
         {
             Commands.AddToTomato(request.TaskName, request.ParentId);
         }
-
 
         [HttpPost]
         [Route(Consts.FinishTomato)]

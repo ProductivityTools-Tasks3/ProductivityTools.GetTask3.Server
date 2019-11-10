@@ -14,6 +14,7 @@ namespace ProductivityTools.GetTask3.App.Queries
         ElementView GetTaskList(int? bagId, string path);
         int? GetParent(int elementId);
         TomatoView GetTomato();
+        int? GetRootRequest(int? elementId, string path);
     }
 
     public class TaskQueries : ITaskQueries
@@ -29,7 +30,6 @@ namespace ProductivityTools.GetTask3.App.Queries
             _mapper = mapper;
         }
 
-
         //pw:change it to handlers
         public ElementView GetTaskList(int? bagId, string path)
         {
@@ -41,6 +41,12 @@ namespace ProductivityTools.GetTask3.App.Queries
             Domain.Element element = _taskRepository.GetStructure(bagId);
             ElementView st = _mapper.Map<Domain.Element, ElementView>(element);
             return st;
+        }
+
+        public int? GetRootRequest(int? elementId, string path)
+        {
+            var result = FindCorrectRoot(elementId, path);
+            return result;
         }
 
         private int? FindCorrectRoot(int? elementId, string path)
@@ -57,7 +63,6 @@ namespace ProductivityTools.GetTask3.App.Queries
             }
 
             throw new Exception("This won't happen");
-
         }
 
         private int FindRelative(int? bagId, string path)
@@ -98,5 +103,7 @@ namespace ProductivityTools.GetTask3.App.Queries
             TomatoView result = _mapper.Map<Domain.Tomato, TomatoView>(tomato);
             return result;
         }
+
+
     }
 }

@@ -12,6 +12,7 @@ namespace ProductivityTools.GetTask3.Domain
         void Finish(int elementId);
         void Move(int[] elementsIds, int target);
         ElementView GetStructure(int? currentNode, string path);
+        int? GetRoot(int? currentNode, string path);
         void Undone(int elementId);
     }
 }

@@ -18,7 +18,14 @@ namespace ProductivityTools.GetTask3.Domain
         public ElementView GetStructure(int? currentNode, string path)
         {
             VerboseHelper.WriteVerboseStatic("Calling GetStructure");
-            var rootElement = GetTaskHttpClient.Post2<ElementView>("Task", Consts.TodayList, new ListRequest() { ElementID = currentNode, Path = path }, VerboseHelper.WriteVerboseStatic).Result;
+            var rootElement = GetTaskHttpClient.Post2<ElementView>(Consts.Task, Consts.TodayList, new ListRequest() { ElementId = currentNode, Path = path }, VerboseHelper.WriteVerboseStatic).Result;
+            return rootElement;
+        }
+
+        public int? GetRoot(int? currentNode, string path)
+        {
+            VerboseHelper.WriteVerboseStatic("Calling GetRoot");
+            var rootElement = GetTaskHttpClient.Post2<int?>(Consts.Task, Consts.GetRoot, new GetRootRequest() { ElementId = currentNode, Path = path }, VerboseHelper.WriteVerboseStatic).Result;
             return rootElement;
         }
 

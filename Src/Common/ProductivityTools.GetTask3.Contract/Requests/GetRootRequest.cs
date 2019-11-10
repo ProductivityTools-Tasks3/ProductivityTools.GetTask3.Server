@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace ProductivityTools.GetTask3.Contract
+namespace ProductivityTools.GetTask3.Contract.Requests
 {
-    public class ListRequest
+    public class GetRootRequest
     {
         public int? ElementId { get; set; }
         public string Path { get; set; }

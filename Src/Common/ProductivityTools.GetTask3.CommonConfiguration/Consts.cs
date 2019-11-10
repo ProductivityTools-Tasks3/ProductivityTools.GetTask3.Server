@@ -7,6 +7,7 @@ namespace ProductivityTools.GetTask3.CommonConfiguration
         public const string Task = "Task";
         public const string Move = "Move";
         public const string TodayList = "TodayList";
+        public const string GetRoot = "GetRoot";
         public const string AddToTomatoById = "AddToTomatoById";
         public const string AddToTomatoByName = "AddToTomatoByName";
         public const string FinishTomato = "FinishTomato";
