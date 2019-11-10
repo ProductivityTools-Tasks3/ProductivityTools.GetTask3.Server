@@ -13,7 +13,7 @@ namespace ProductivityTools.GetTask3
     public class GetTask3Cmdlet : GT3CmldetsBase, IFromElementPath
     {
         [Parameter]
-        public string From { get; set; }
+        public string Path { get; set; }
 
         public GetTask3Cmdlet()
         {

@@ -18,7 +18,7 @@ namespace ProductivityTools.GetTask3.Commands.AddTask
         public ElementType Type { get; set; }
 
         [Parameter(Position = 2)]
-        public string From { get; set; }
+        public string Path { get; set; }
 
         public AddTaskCmdlet()
         {

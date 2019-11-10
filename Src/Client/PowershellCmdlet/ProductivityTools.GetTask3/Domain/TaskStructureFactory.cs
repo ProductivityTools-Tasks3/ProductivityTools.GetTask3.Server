@@ -20,7 +20,7 @@ namespace ProductivityTools.GetTask3.Domain
             }
             else
             {
-                return new App.Task(sessionMetaDataProvider, new TaskRepositoryCmd(), fromElementPath.From);
+                return new App.Task(sessionMetaDataProvider, new TaskRepositoryCmd(), fromElementPath.Path);
             }
         }
     }
