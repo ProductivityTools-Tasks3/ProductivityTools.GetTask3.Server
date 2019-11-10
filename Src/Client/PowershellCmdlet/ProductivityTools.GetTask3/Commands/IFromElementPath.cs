@@ -8,6 +8,6 @@ namespace ProductivityTools.GetTask3.Commands
 {
     interface IFromElementPath
     {
-        string From { get; set; }
+        string Path { get; set; }
     }
 }
