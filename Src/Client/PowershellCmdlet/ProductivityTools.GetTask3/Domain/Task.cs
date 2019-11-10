@@ -122,7 +122,16 @@ namespace ProductivityTools.GetTask3.App
 
         public void Add(string name, ElementType type)
         {
-            this.Repository.Add(name, this.SelectedNodeElementId, type);
+            int? targetElement = null;
+            if (string.IsNullOrEmpty(From))
+            {
+                targetElement = this.SelectedNodeElementId;
+            }
+            else
+            {
+                targetElement = this.Repository.GetRoot(this.SelectedNodeElementId, this.From);
+            }
+            this.Repository.Add(name, targetElement, type);
         }
 
         public void AddToTomato(int[] orderElementIds)
