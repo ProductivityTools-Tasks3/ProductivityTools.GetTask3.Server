@@ -9,18 +9,17 @@ namespace ProductivityTools.GetTask3.Commands.FinishTomato
 {
     class FinishSingleTomato : PSCmdlet.PSCommandPT<FinishTomatoCmdlet>
     {
-        Task TaskStructure;
-
         public FinishSingleTomato(FinishTomatoCmdlet cmdletType) : base(cmdletType)
         {
-            this.TaskStructure = TaskStructureFactory.Get(cmdletType);
+            
         }
 
         protected override bool Condition => true;
 
         protected override void Invoke()
         {
-            this.TaskStructure.FinishTomato(this.Cmdlet.FinishAlsoTasks); 
+            Task TaskStructure = TaskStructureFactory.Get(this.Cmdlet);
+            TaskStructure.FinishTomato(this.Cmdlet.FinishAlsoTasks); 
         }
     }
 }

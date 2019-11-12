@@ -1,4 +1,5 @@
 ﻿using ProductivityTools.GetTask3.App;
+using ProductivityTools.GetTask3.Commands;
 using ProductivityTools.GetTask3.Domain;
 using ProductivityTools.GetTask3.Extensions;
 using System;
@@ -11,16 +12,19 @@ using System.Threading.Tasks;
 namespace ProductivityTools.GetTask3.SingleCommands
 {
     [Cmdlet("Finish", "Task3")]
-    public class FinishTask : SingleCommandsBase
+    public class FinishTask : SingleCommandsBase, IFromElementPath
     {
+        App.Task TaskStructure { get; set; }
+
         [Parameter(HelpMessage = "Id or Ids space separated which should be finished", Position = 0)]
         public string Id { get; set; }
 
-        App.Task TaskStructure { get; set; }
+        [Parameter]
+        public string Path { get; set; }
 
         public FinishTask()
         {
-            
+
             TaskStructure = TaskStructureFactory.Get(this);
         }
 
