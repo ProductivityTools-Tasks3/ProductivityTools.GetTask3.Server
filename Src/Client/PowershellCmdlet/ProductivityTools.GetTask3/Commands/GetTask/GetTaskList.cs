@@ -26,17 +26,6 @@ namespace ProductivityTools.GetTask3.Commands.GetTask
             this.TaskStructure = TaskStructureFactory.Get(cmdlet);
         }
 
-        private ColorString FormatRow(PSElementView element)
-        {
-            var result = new ColorString();
-            new Order().Format(result, element);
-            new Category().Format(result, element);
-            new Tomato().Format(result, element);
-            new ItemName().Format(result, element);
-            new ChildCount().Format(result, element);
-            return result;
-        }
-
         private int GetTomatoTime(DateTime dt)
         {
             //pw:change it to provider
@@ -56,31 +45,20 @@ namespace ProductivityTools.GetTask3.Commands.GetTask
             else
             {
                 WriteOutput($"+[{TaskStructure.CurrentElement.Name}]");
-                DisplayList(TaskStructure.Elements,CoreObjects.ElementType.TaskBag);
-                DisplayList(TaskStructure.Elements,CoreObjects.ElementType.Task);
+                DisplayList(TaskStructure.Elements, CoreObjects.ElementType.TaskBag);
+                DisplayList(TaskStructure.Elements, CoreObjects.ElementType.Task);
             }
         }
 
-        private void Setcolor(ElementView element)
+
+
+        public void DisplayList(IEnumerable<PSElementView> elements, CoreObjects.ElementType type)
         {
-            if (element.Type != ElementType.TaskBag)
+            foreach (var element in elements.Where(x => x.Element.Type == type))
             {
-                if (element.Delayed())
-                {
-                    Console.ForegroundColor = System.ConsoleColor.Red;
-                }
-                if (element.Finished.HasValue)
-                {
-                    Console.ForegroundColor = System.ConsoleColor.DarkGray;
-                }
+                WriteToScreen(element);
             }
         }
-
-        private void ResetColor()
-        {
-            Console.ResetColor();
-        }
-
 
         private void WriteToScreen(PSElementView element)
         {
@@ -89,24 +67,20 @@ namespace ProductivityTools.GetTask3.Commands.GetTask
             ResetColor();
         }
 
-        private void DisplayBags()
+        private void ResetColor()
         {
-            WriteOutput($"+[{TaskStructure.CurrentElement.Name}]");
-            foreach (var element in TaskStructure.Elements)
-            {
-                if (element.Element.Type == CoreObjects.ElementType.TaskBag)
-                {
-                    WriteToScreen(element);
-                }
-            }
+            Console.ResetColor();
         }
 
-        private void DisplayList(IEnumerable<PSElementView> elements, CoreObjects.ElementType type)
+        private ColorString FormatRow(PSElementView element)
         {
-            foreach (var element in elements.Where(x => x.Element.Type == type))
-            {
-                WriteToScreen(element);
-            }
-        } 
+            var result = new ColorString();
+            new Order().Format(result, element);
+            new Category().Format(result, element.Element);
+            new Tomato().Format(result, element.Element);
+            new ItemName().Format(result, element.Element);
+            new ChildCount().Format(result, element);
+            return result;
+        }
     }
 }

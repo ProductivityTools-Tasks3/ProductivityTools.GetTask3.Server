@@ -1,4 +1,5 @@
 ﻿using ProductivityTools.ConsoleColors;
+using ProductivityTools.GetTask3.Contract;
 using ProductivityTools.GetTask3.View;
 using System;
 using System.Collections.Generic;
@@ -10,11 +11,10 @@ namespace ProductivityTools.GetTask3.Commands.GetTask.Formatters
 {
     public class ItemName
     {
-        internal void Format(ColorString input, PSElementView element)
+        internal void Format(ColorString input, ElementView element)
         {
             var part = new ColorStringItem();
-            var domain = element.Element;
-            ElementMetadata viewMetadata = element.SessionElement;// this.View.ItemOrder[element.ElementId];
+            var domain = element;
             switch (domain.Type)
             {
                 case CoreObjects.ElementType.Task:

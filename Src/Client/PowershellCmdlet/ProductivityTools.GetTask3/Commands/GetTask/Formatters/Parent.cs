@@ -10,14 +10,14 @@ using System.Threading.Tasks;
 namespace ProductivityTools.GetTask3.Commands.GetTask.Formatters
 {
 
-    public class Category
+    public class Parent
     {
-        internal void Format(ColorString input, ElementView element)
+        internal void Format(ColorString input, string parent)
         {
             var part = new ColorStringItem();
-            if (!string.IsNullOrEmpty(element.Category))
+            if (!string.IsNullOrEmpty(parent))
             {
-                part.Value = $"[{element.Category}] ";
+                part.Value = $"{parent} ";
                 part.Color = 70;
                 input.Add(part);
             }

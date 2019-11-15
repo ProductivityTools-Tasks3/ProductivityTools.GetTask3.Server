@@ -1,4 +1,5 @@
 ﻿using ProductivityTools.ConsoleColors;
+using ProductivityTools.GetTask3.Contract;
 using ProductivityTools.GetTask3.View;
 using System;
 using System.Collections.Generic;
@@ -11,13 +12,13 @@ namespace ProductivityTools.GetTask3.Commands.GetTask.Formatters
 
     public class Tomato
     {
-        internal void Format(ColorString input, PSElementView element)
+        internal void Format(ColorString input, ElementView element)
         {
            
             string tomatoInfo = string.Empty;
-            if (element.Element.Tomatoes != null && element.Element.Tomatoes.Count > 0)
+            if (element.Tomatoes != null && element.Tomatoes.Count > 0)
             {
-                var tomatoes = element.Element.Tomatoes;
+                var tomatoes = element.Tomatoes;
                 foreach (var tomato in tomatoes)
                 {
                     tomatoInfo = $"|{DateTime.Now.Subtract(tomato.Created).ToString(@"hh\:mm")}| ";

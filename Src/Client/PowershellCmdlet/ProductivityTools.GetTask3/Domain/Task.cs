@@ -74,7 +74,7 @@ namespace ProductivityTools.GetTask3.App
         }
 
         private ElementView structure;
-        private ElementView Structure
+        public ElementView Structure
         {
             get
             {
