@@ -94,7 +94,7 @@ namespace TomatoesTray
         {
             get
             {
-                return new DelegateCommand() { CommandAction = () => ShowBallon() };
+                return new DelegateCommand() { CommandAction = () => ShowBallon("DoubleClick") };
             }
         }
 
@@ -122,9 +122,9 @@ namespace TomatoesTray
             TaskbarIcon.Icon = new System.Drawing.Icon(iconPath);
         }
 
-        private void ShowBallon()
+        private void ShowBallon(string @incomeevent)
         {
-            this.baloon = new Balloon(this.EventAggregator, this.Tomato.Name, this.TomatoStatus);
+            this.baloon = new Balloon(this.EventAggregator, this.Tomato.Name + @incomeevent, this.TomatoStatus);
             TaskbarIcon.ShowCustomBalloon(baloon, PopupAnimation.Fade, 15000);
         }
 
@@ -132,7 +132,7 @@ namespace TomatoesTray
         {
             this.Tomato = @event.Tomato;
             ChangeIconPic(this.TomatoStatus);
-            ShowBallon();
+            ShowBallon("TomatoInfoFlyInEvent");
             this.TomatoTimer.Run();
             TomatoExceedEventShowed = false;
         }
@@ -155,7 +155,7 @@ namespace TomatoesTray
 
         void IEvent<SetTooltipContentEvent>.OnEvent(SetTooltipContentEvent @event)
         {
-           // var last = @event.LastTomatooReciveLength;
+            // var last = @event.LastTomatooReciveLength;
             //if (last > Consts.BreakLength)
             //{
             //    ShowBallon(Properties.Resources.FinishIdle, TomatoStatus.Red);
@@ -173,7 +173,7 @@ namespace TomatoesTray
             if (TomatoExceedEventShowed == false)
             {
                 ChangeIconPic(TomatoDisplayStatus.WorkExceed);
-                ShowBallon();
+                ShowBallon("TomatoExceedEvent");
                 TomatoExceedEventShowed = true;
             }
         }
@@ -184,7 +184,7 @@ namespace TomatoesTray
             {
                 IdleExceedEventShowed = true;
                 ChangeIconPic(TomatoDisplayStatus.IdleExceed);
-                ShowBallon();
+                ShowBallon("IdleExceedEvent");
             }
         }
 
@@ -192,9 +192,9 @@ namespace TomatoesTray
         {
             this.Tomato = @event.Tomato;
             ChangeIconPic(TomatoDisplayStatus.Idle);
-            ShowBallon();
+            ShowBallon("TomatoFinishEvent");
             this.IdleTimer.Run();
             this.TomatoTimer.Stop();
-        }   
+        }
     }
 }
