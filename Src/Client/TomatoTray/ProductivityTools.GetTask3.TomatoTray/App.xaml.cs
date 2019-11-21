@@ -68,6 +68,8 @@ namespace ProductivityTools.GetTask3.TomatoTray
                     this.EventAggregator.PublishEvent(new TomatoFinishEvent(createTomato(tomatoView)));
                 });
 
+                connection.Closed += Connection_Closed;
+
                 Thread.Sleep(2000);
                 connection.StartAsync();
             }
@@ -75,6 +77,11 @@ namespace ProductivityTools.GetTask3.TomatoTray
             {
                 throw ex;
             }
+        }
+
+        private Task Connection_Closed(Exception arg)
+        {
+            throw new NotImplementedException();
         }
     }
 }

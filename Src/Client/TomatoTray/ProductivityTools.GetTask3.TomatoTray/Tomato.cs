@@ -21,5 +21,20 @@ namespace ProductivityTools.GetTask3.TomatoTray
                 return DateTime.Now.Subtract(CreatedDate);
             }
         }
+
+        public TimeSpan? TomatoIdle
+        {
+            get
+            {
+                if (FinishedDate.HasValue)
+                {
+                    return DateTime.Now.Subtract(this.FinishedDate.Value);
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
     }
 }
