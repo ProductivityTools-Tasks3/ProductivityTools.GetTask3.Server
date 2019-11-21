@@ -18,7 +18,7 @@ namespace ProductivityTools.GetTask3.TomatoTray.Timers
 
         protected override void Tick()
         {
-            if (tomatoTime > Consts.BreakLength)
+            if (this.Tomato.TomatoIdle> Consts.BreakLength)
             {
                 EventAggregator.PublishEvent<IdleExceedEvent>(new IdleExceedEvent());
             }
@@ -28,8 +28,7 @@ namespace ProductivityTools.GetTask3.TomatoTray.Timers
 
         private void SetMouseOverTooltipContent()
         {
-            tomatoTime = tomatoTime.Add(TimeSpan.FromSeconds(1));
-            EventAggregator.PublishEvent(new SetTooltipContentEvent(TimeSpan.MinValue, tomatoTime));
+            EventAggregator.PublishEvent(new SetTooltipContentEvent(TimeSpan.MinValue, this.Tomato.TomatoTimeLength));
         }
     }
 }

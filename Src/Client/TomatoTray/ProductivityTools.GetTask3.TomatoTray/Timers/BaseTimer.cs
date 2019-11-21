@@ -11,7 +11,7 @@ namespace ProductivityTools.GetTask3.TomatoTray.Timers
 {
     abstract class BaseTimer
     {
-        protected TimeSpan tomatoTime = TimeSpan.Zero;
+        protected Tomato Tomato;
         System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
         protected E.EventAggregator EventAggregator { get; set; }
 
@@ -20,9 +20,17 @@ namespace ProductivityTools.GetTask3.TomatoTray.Timers
             this.EventAggregator = eventAggregator;
         }
 
-        public void Run()
+        //public void Run()
+        //{
+        //    tomatoTime = TimeSpan.Zero;
+        //    dispatcherTimer.Tick += dispatcherTimer_Tick;
+        //    dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+        //    dispatcherTimer.Start();
+        //}
+
+        public void Run(Tomato tomato)
         {
-            tomatoTime = TimeSpan.Zero;
+            Tomato = tomato;
             dispatcherTimer.Tick += dispatcherTimer_Tick;
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
             dispatcherTimer.Start();

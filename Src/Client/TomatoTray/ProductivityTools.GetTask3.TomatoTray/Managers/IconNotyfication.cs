@@ -133,7 +133,9 @@ namespace TomatoesTray
             this.Tomato = @event.Tomato;
             ChangeIconPic(this.TomatoStatus);
             ShowBallon("TomatoInfoFlyInEvent");
-            this.TomatoTimer.Run();
+            this.TomatoTimer.Run(this.Tomato);
+
+            this.IdleTimer.Stop();
             TomatoExceedEventShowed = false;
         }
 
@@ -193,8 +195,9 @@ namespace TomatoesTray
             this.Tomato = @event.Tomato;
             ChangeIconPic(TomatoDisplayStatus.Idle);
             ShowBallon("TomatoFinishEvent");
-            this.IdleTimer.Run();
+            this.IdleTimer.Run(@event.Tomato);
             this.TomatoTimer.Stop();
+            IdleExceedEventShowed = false;
         }
     }
 }
