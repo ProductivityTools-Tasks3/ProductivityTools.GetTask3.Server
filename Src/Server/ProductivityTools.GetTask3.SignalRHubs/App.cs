@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Builder;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.AspNetCore.Builder;
 using ProductivityTools.GetTask3.CommonConfiguration;
 
 namespace ProductivityTools.GetTask3.SignalRHubs
@@ -10,10 +10,11 @@ namespace ProductivityTools.GetTask3.SignalRHubs
     {
         public static void ConfigureSignalR(this IApplicationBuilder app)
         {
-            app.UseSignalR(route =>
-            {
-                route.MapHub<TomatoHub>(Consts.TomatoHubEndLocation);
-            });
+            //pw: singalr
+            //app.UseSignalR(route =>
+            //{
+            //    route.MapHub<TomatoHub>(Consts.TomatoHubEndLocation);
+            //});
         }
     }
 }

@@ -31,7 +31,7 @@ namespace ProductivityTools.GetTask3.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc(x => x.AllowEmptyInputInBodyModelBinding = true).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc(x => x.AllowEmptyInputInBodyModelBinding = true).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             services.AddSignalR();
             services.ConfigureServicesQueries();
             services.ConfigureServicesConfig();
@@ -49,7 +49,7 @@ namespace ProductivityTools.GetTask3.API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -60,11 +60,19 @@ namespace ProductivityTools.GetTask3.API
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseRouting();
+
 
             //app.UseHttpsRedirection();
             app.UseCors();
-            app.ConfigureSignalR();
-            app.UseMvc();
+            //pw: signalR
+            //app.ConfigureSignalR();
+
+            app.UseEndpoints(endpoints =>
+            {
+                //endpoints.MapHub<ChatHub>("/chat");
+                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+            });
         }
     }
 }
