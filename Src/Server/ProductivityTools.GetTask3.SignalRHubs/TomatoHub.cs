@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ProductivityTools.GetTask3.SignalRHubs
 {
-    public class TomatoHub : Microsoft.AspNetCore.SignalR.Hub
+    public class TomatoHub : Hub
     {
         IHubContext<TomatoHub> context;
 

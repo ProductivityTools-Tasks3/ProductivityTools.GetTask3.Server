@@ -6,11 +6,6 @@ by editing this MSBuild file. In order to learn more about this please visit htt
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <_PublishTargetUrl>D:\GitHub\ProductivityTools.GetTask3\Src\Server\ProductivityTools.GetTask3.API\bin\Debug\netcoreapp2.2\publish\</_PublishTargetUrl>
+    <_PublishTargetUrl>D:\GitHub\ProductivityTools.GetTask3\Src\Server\ProductivityTools.GetTask3.API\bin\Debug\netcoreapp3.0\publish\</_PublishTargetUrl>
   </PropertyGroup>
-  <ItemGroup>
-    <DestinationConnectionStrings Include="GetTask3">
-      <Value>Server=.\sql2017%3bDatabase=GetTask3%3bIntegrated Security=True</Value>
-    </DestinationConnectionStrings>
-  </ItemGroup>
 </Project>
