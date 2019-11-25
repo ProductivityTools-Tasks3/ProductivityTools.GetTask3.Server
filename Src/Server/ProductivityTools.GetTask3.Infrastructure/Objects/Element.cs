@@ -18,7 +18,8 @@ namespace ProductivityTools.GetTask3.Infrastructure
         public Status Status { get; protected set; }
         public DateTime Created { get; protected set; }
         //pw:change to started
-        public DateTime? Start { get; protected set; }
+        public DateTime? Initialization { get; protected set; }
+        public DateTime? Started { get; protected set; }
         public DateTime? Finished { get; protected set; }
         public string Category { get; protected set; }
         public bool Cleared { get; protected set; }
