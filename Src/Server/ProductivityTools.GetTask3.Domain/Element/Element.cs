@@ -18,7 +18,7 @@ namespace ProductivityTools.GetTask3.Domain
         public Status Status { get; protected set; }
         public DateTime Created { get; protected set; }
         //pw:change to started
-        public DateTime? Start { get; protected set; }
+        public DateTime? Initialization { get; protected set; }
         public DateTime? Finished { get; protected set; }
         public string Category { get; protected set; }
         public bool Cleared { get; protected set; }
@@ -36,7 +36,7 @@ namespace ProductivityTools.GetTask3.Domain
             this.ParentId = parentId;
             //pw: change this dates
             Created = DateTime.Now;
-            Start = DateTime.Now;
+            Initialization = DateTime.Now;
             Status = Status.New;
 
             this.Elements = new List<Element>();
@@ -74,9 +74,9 @@ namespace ProductivityTools.GetTask3.Domain
             Finished = null;
         }
 
-        public void Delay(DateTime startDate)
+        public void Delay(DateTime initializationDate)
         {
-            Start = startDate;
+            Initialization = initializationDate;
         }
 
         public void AddToTomato(Tomato currentTomato)

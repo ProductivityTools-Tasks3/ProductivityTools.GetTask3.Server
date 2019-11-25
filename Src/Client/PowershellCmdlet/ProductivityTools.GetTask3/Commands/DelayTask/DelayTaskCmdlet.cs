@@ -10,14 +10,14 @@ namespace ProductivityTools.GetTask3.Commands.DelayTask
     [Cmdlet("Delay", "Task")]
     public class DelayTaskCmdlet : GT3CmldetsBase
     {
-        [Parameter(HelpMessage ="It will dealay task to tommorow")]
-        public SwitchParameter Tommorow { get; set; }
+        [Parameter(Position = 0)]
+        public string Id { get; set; }
 
-        [Parameter]
+        [Parameter(Position = 1)]
         public DateTime Date { get; set; }
 
-        [Parameter]
-        public string Id { get; set; }
+        [Parameter(HelpMessage = "It will dealay task to tommorow")]
+        public SwitchParameter Tommorow { get; set; }
 
         public DelayTaskCmdlet()
         {

@@ -79,5 +79,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="bin\Debug\ProductivityTools.GetTask3.DB.publish.xml" />
+    <None Include="ProductivityTools.GetTask3.DB.publish.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>
