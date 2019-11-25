@@ -72,6 +72,14 @@ namespace ProductivityTools.GetTask3.API.Controllers
             Commands.Finish(request.ElementId);
         }
 
+
+        [HttpPost]
+        [Route("Start")]
+        public void Start([FromBody] StartRequest request)
+        {
+            Commands.Finish(request.ElementId);
+        }
+
         [HttpPost]
         [Route("Undone")]
         public void Undone([FromBody] UndoneRequest request)
@@ -80,10 +88,10 @@ namespace ProductivityTools.GetTask3.API.Controllers
         }
 
         [HttpPost]
-        [Route("Delay")]
+        [Route(Consts.Delay)]
         public void Delay([FromBody] DelayItemRequest delayItem)
         {
-            Commands.Delay(delayItem.ElementId, delayItem.StartDate);
+            Commands.Delay(delayItem.ElementId, delayItem.InitializationDate);
         }
 
         [HttpPost]
