@@ -19,6 +19,7 @@ namespace ProductivityTools.GetTask3.Domain
         public DateTime Created { get; protected set; }
         //pw:change to started
         public DateTime? Initialization { get; protected set; }
+        public DateTime? Started { get; protected set; }
         public DateTime? Finished { get; protected set; }
         public string Category { get; protected set; }
         public bool Cleared { get; protected set; }
@@ -66,6 +67,12 @@ namespace ProductivityTools.GetTask3.Domain
         {
             Status = Status.Finished;
             Finished = finishDate;
+        }
+
+        public void Start(DateTime startDate)
+        {
+            Status = Status.InProgress;
+            Started = startDate;
         }
 
         public void Undone()
