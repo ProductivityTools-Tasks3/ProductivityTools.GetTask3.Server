@@ -10,6 +10,7 @@ namespace ProductivityTools.GetTask3.Domain
         void AddToTomato(int[] elementIds);
         void Delay(int elementId, DateTime date);
         void Finish(int elementId);
+        void Start(int elementId);
         void Move(int[] elementsIds, int target);
         ElementView GetStructure(int? currentNode, string path);
         int? GetRoot(int? currentNode, string path);

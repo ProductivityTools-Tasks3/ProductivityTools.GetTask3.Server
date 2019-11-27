@@ -77,6 +77,8 @@
     <Compile Include="Commands\NewTomato\NewtomatoByIds.cs" />
     <Compile Include="Commands\NewTomato\NewTomatoByName.cs" />
     <Compile Include="Commands\NewTomato\NewTomatoCmdlet.cs" />
+    <Compile Include="Commands\StartTask\Start.cs" />
+    <Compile Include="Commands\StartTask\StartTaskCmdlet.cs" />
     <Compile Include="Domain\DefinedTask.cs" />
     <Compile Include="Domain\ISessionMetaDataProvider.cs" />
     <Compile Include="Domain\SessionMetaDataProvider.cs" />

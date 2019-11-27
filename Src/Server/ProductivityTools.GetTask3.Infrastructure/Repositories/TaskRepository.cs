@@ -114,7 +114,7 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
         private List<Element> GetChildElements(int? rootId)
         {
             var elements = _taskContext.Element.Where(l =>
-           (l.ParentId == rootId && l.Status != Status.Finished && l.Start <= _dateTimePT.Now.AddDays(1).Date.AddSeconds(-1)) ||
+           (l.ParentId == rootId && l.Status != Status.Finished && l.Initialization <= _dateTimePT.Now.AddDays(1).Date.AddSeconds(-1)) ||
            (l.ParentId == rootId && l.Status == Status.Finished && l.Finished.Value.Date == _dateTimePT.Now.Date)
 
            )

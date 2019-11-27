@@ -1,0 +1,2 @@
+﻿  update [GetTask3Test].[gt].[Element] set [Status]=10 where [Status] =1
+  update [GetTask3Test].[gt].[Element] set [Status]=30 where [Status] =2

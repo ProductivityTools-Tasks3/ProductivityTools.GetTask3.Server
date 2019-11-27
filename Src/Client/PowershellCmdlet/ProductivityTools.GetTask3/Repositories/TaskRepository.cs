@@ -49,6 +49,11 @@ namespace ProductivityTools.GetTask3.Domain
             await ProductivityTools.GetTask3.Client.Calls.Task.Finish(elementId);
         }
 
+        public async void Start(int elementId)
+        {
+            await ProductivityTools.GetTask3.Client.Calls.Task.Start(elementId);
+        }
+
         public async void Move(int[] elementIds, int target)
         {
             await ProductivityTools.GetTask3.Client.Calls.Task.Move(elementIds, target);
