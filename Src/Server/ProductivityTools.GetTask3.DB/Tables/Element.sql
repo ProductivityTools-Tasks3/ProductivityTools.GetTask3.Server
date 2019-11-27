@@ -8,7 +8,8 @@
     [Type] INT NOT NULL, 
     [Status] INT NOT NULL, 
     [Created] DATETIME2 NOT NULL, 
-	[Start] DATETIME2 NULL,
+	[Initialization] DATETIME2 NULL,
+	[Started] DATETIME2 NULL,
     [Finished] DATETIME2 NULL, 
 	[Cleared] BIT DEFAULT(0) NOT NULL,
 

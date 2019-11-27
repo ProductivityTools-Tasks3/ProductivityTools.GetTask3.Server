@@ -15,6 +15,7 @@ namespace ProductivityTools.GetTask3.App.Commands
         void Add(string name, int? bagId);
         void AddBag(string bagName, int? bagId);
         void Finish(int elementId);
+        void Start(int elementId);
         void Undone(int elementId);
         void Delay(int elementId, DateTime dateTime);
         void AddToTomato(List<int> elementIds);
@@ -62,6 +63,14 @@ namespace ProductivityTools.GetTask3.App.Commands
             _taskUnitOfWork.Commit();
         }
 
+        public void Start(int elementId)
+        {
+            var element = _taskUnitOfWork.TaskRepository.Get(elementId);
+            element.Start(_dateTime.Now);
+            _taskUnitOfWork.TaskRepository.Update(element);
+            _taskUnitOfWork.Commit();
+        }
+
         public void Undone(int elementId)
         {
             var element = _taskUnitOfWork.TaskRepository.Get(elementId);
@@ -69,10 +78,10 @@ namespace ProductivityTools.GetTask3.App.Commands
             _taskUnitOfWork.Commit();
         }
 
-        public void Delay(int elementId, DateTime startDate)
+        public void Delay(int elementId, DateTime initializationDate)
         {
             var element = _taskUnitOfWork.TaskRepository.Get(elementId);
-            element.Delay(startDate);
+            element.Delay(initializationDate);
             _taskUnitOfWork.TaskRepository.Update(element);
             _taskUnitOfWork.Commit();
         }

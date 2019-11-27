@@ -29,7 +29,12 @@ namespace ProductivityTools.GetTask3.Client.Calls
 
         public async static Task<object> Finish(int elementId)
         {
-            return await GetTaskHttpClient.Post2<object>(Consts.Task, "Finish", new FinishRequest() { ElementId = elementId }, (s) => Console.WriteLine(s));
+            return await GetTaskHttpClient.Post2<object>(Consts.Task, Consts.Finish, new FinishRequest() { ElementId = elementId }, (s) => Console.WriteLine(s));
+        }
+
+        public async static Task<object> Start(int elementId)
+        {
+            return await GetTaskHttpClient.Post2<object>(Consts.Task, Consts.Start, new StartRequest() { ElementId = elementId }, (s) => Console.WriteLine(s));
         }
 
         public async static Task<object> Undone(int elementId)
@@ -39,7 +44,7 @@ namespace ProductivityTools.GetTask3.Client.Calls
 
         public async static Task<object> Delay(int elementId, DateTime date)
         {
-            return await GetTaskHttpClient.Post2<object>(Consts.Task, "Delay", new DelayItemRequest() { ElementId = elementId, StartDate = date }, (s) => Console.WriteLine(s));
+            return await GetTaskHttpClient.Post2<object>(Consts.Task, "Delay", new DelayItemRequest() { ElementId = elementId, InitializationDate = date }, (s) => Console.WriteLine(s));
         }
 
         public async static Task<object> AddToTomato(int[] elementIds)

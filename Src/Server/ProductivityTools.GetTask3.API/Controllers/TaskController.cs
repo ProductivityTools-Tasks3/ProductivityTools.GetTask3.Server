@@ -66,10 +66,18 @@ namespace ProductivityTools.GetTask3.API.Controllers
         }
 
         [HttpPost]
-        [Route("Finish")]
+        [Route(Consts.Finish)]
         public void Finish([FromBody] FinishRequest request)
         {
             Commands.Finish(request.ElementId);
+        }
+
+
+        [HttpPost]
+        [Route(Consts.Start)]
+        public void Start([FromBody] StartRequest request)
+        {
+            Commands.Start(request.ElementId);
         }
 
         [HttpPost]
@@ -80,10 +88,10 @@ namespace ProductivityTools.GetTask3.API.Controllers
         }
 
         [HttpPost]
-        [Route("Delay")]
+        [Route(Consts.Delay)]
         public void Delay([FromBody] DelayItemRequest delayItem)
         {
-            Commands.Delay(delayItem.ElementId, delayItem.StartDate);
+            Commands.Delay(delayItem.ElementId, delayItem.InitializationDate);
         }
 
         [HttpPost]

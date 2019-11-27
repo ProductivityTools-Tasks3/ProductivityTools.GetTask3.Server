@@ -5,7 +5,10 @@ namespace ProductivityTools.GetTask3.CommonConfiguration
     public class Consts
     {
         public const string Task = "Task";
+        public const string Finish = "Finish";
+        public const string Start = "Start";
         public const string Move = "Move";
+        public const string Delay = "Delay";
         public const string TodayList = "TodayList";
         public const string GetRoot = "GetRoot";
         public const string AddToTomatoById = "AddToTomatoById";

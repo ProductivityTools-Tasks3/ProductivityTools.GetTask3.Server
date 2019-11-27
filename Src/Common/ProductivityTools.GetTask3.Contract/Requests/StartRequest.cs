@@ -4,9 +4,8 @@ using System.Text;
 
 namespace ProductivityTools.GetTask3.Contract.Requests
 {
-    public class DelayItemRequest
+    public class StartRequest
     {
         public int ElementId { get; set; }
-        public DateTime InitializationDate { get; set; }
     }
 }
