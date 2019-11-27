@@ -66,7 +66,7 @@ namespace ProductivityTools.GetTask3.App.Commands
         public void Start(int elementId)
         {
             var element = _taskUnitOfWork.TaskRepository.Get(elementId);
-            element.Finish(_dateTime.Now);
+            element.Start(_dateTime.Now);
             _taskUnitOfWork.TaskRepository.Update(element);
             _taskUnitOfWork.Commit();
         }

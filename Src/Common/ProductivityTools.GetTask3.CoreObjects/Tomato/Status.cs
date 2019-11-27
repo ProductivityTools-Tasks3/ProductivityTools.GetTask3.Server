@@ -7,7 +7,8 @@ namespace ProductivityTools.GetTask3.CoreObjects.Tomato
     public enum Status
     {
         NotDefined=0,
-        New=1,
-        Finished=2
+        New=10,
+        InProgress=20,
+        Finished=30
     }
 }

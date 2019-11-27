@@ -66,7 +66,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
         }
 
         [HttpPost]
-        [Route("Finish")]
+        [Route(Consts.Finish)]
         public void Finish([FromBody] FinishRequest request)
         {
             Commands.Finish(request.ElementId);
@@ -74,10 +74,10 @@ namespace ProductivityTools.GetTask3.API.Controllers
 
 
         [HttpPost]
-        [Route("Start")]
+        [Route(Consts.Start)]
         public void Start([FromBody] StartRequest request)
         {
-            Commands.Finish(request.ElementId);
+            Commands.Start(request.ElementId);
         }
 
         [HttpPost]
