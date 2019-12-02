@@ -50,7 +50,7 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
 
         public DefinedElementGroup GetWithDetails(int definedElementGroupId)
         {
-            var result = _taskContext.DefinedElementGroup
+            var result = _taskContext.DefinedElementGroup.AsNoTracking()
                 .Include(x => x.Items)
                 .FirstOrDefault(x => x.DefinedElementGroupId == definedElementGroupId);
 

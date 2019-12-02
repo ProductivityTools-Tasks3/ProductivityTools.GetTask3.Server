@@ -12,7 +12,8 @@ namespace ProductivityTools.GetTask3.Contract
         public int? ParentId { get; set; }
         public string Status { get; set; }
         public DateTime Created { get; set; }
-        public DateTime Start { get; set; }
+        public DateTime Initialization { get; set; }
+        public DateTime Started { get; set; }
         public DateTime? Finished { get; set; }
         public string Category { get; set; }
 
