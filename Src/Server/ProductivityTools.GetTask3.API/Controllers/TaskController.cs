@@ -95,7 +95,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
         }
 
         [HttpPost]
-        [Route("GetParent")]
+        [Route(Consts.GetParent)]
         public int? GetParent([FromBody] int elementId)
         {
             var r = Queries.GetParent(elementId);
