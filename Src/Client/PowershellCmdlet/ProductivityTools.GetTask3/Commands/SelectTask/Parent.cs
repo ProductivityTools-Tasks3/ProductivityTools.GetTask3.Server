@@ -1,5 +1,6 @@
 ﻿using ProductivityTools.GetTask3.App;
 using ProductivityTools.GetTask3.Client;
+using ProductivityTools.GetTask3.CommonConfiguration;
 using ProductivityTools.GetTask3.Domain;
 using ProductivityTools.GetTask3.SingleCommands;
 using ProductivityTools.GetTask3.View;
@@ -23,11 +24,11 @@ namespace ProductivityTools.GetTask3.Commands.SelectCurrentRoot
 
         protected override void Invoke()
         {
-            //get parent for id
+            //get parent for idis
             var currentNode = TaskStructure.SelectedNodeElementId;
-            var parent = GetTaskHttpClient.Post2<int>("Task","GetParent", currentNode.ToString(), VerboseHelper.WriteVerboseStatic);
+            var parent = GetTaskHttpClient.Post2<int>(Consts.Task, Consts.GetParent, currentNode.ToString(), VerboseHelper.WriteVerboseStatic);
 
-            
+
             TaskStructure.SelectNodeByElementId(parent.Result);
         }
     }

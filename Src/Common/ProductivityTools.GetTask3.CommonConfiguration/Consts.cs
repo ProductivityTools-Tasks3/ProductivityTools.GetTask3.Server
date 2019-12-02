@@ -11,12 +11,13 @@ namespace ProductivityTools.GetTask3.CommonConfiguration
         public const string Delay = "Delay";
         public const string TodayList = "TodayList";
         public const string GetRoot = "GetRoot";
+        public const string GetParent = "GetParent";
         public const string AddToTomatoById = "AddToTomatoById";
         public const string AddToTomatoByName = "AddToTomatoByName";
         public const string FinishTomato = "FinishTomato";
         public const string GetTomato = "GetTomato";
 
-        public const string HttpAddress = @"http://localhost:5507/";
+        public const string HttpAddress = @"http://localhost:5508/";
         public static string EndpointAddress
         {
             get
