@@ -29,6 +29,8 @@ namespace ProductivityTools.GetTask3.Commands.GetTask.Formatters
             colormap.Add(() => true, 15);
             colormap.Add(() => domain.Type == CoreObjects.ElementType.TaskBag, 15);
             colormap.Add(() => domain.Type != CoreObjects.ElementType.TaskBag && domain.Delayed(), 9);
+            //pw: correct status
+            colormap.Add(() => domain.Type != CoreObjects.ElementType.TaskBag && domain.Status == "InProgress", 40);
             colormap.Add(() => domain.Type != CoreObjects.ElementType.TaskBag && domain.Finished.HasValue, 8);
 
             foreach (var item in colormap)
