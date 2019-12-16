@@ -95,6 +95,13 @@ namespace ProductivityTools.GetTask3.API.Controllers
         }
 
         [HttpPost]
+        [Route(Consts.Delete)]
+        public void Delay([FromBody] int elementId)
+        {
+            Commands.Delete(elementId);
+        }
+
+        [HttpPost]
         [Route(Consts.GetParent)]
         public int? GetParent([FromBody] int elementId)
         {

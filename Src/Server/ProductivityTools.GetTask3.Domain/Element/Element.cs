@@ -86,6 +86,11 @@ namespace ProductivityTools.GetTask3.Domain
             Initialization = initializationDate;
         }
 
+        public void Delete()
+        {
+            this.Status = Status.Deleted;
+        }
+
         public void AddToTomato(Tomato currentTomato)
         {
             this.Tomatoes.Add(currentTomato);

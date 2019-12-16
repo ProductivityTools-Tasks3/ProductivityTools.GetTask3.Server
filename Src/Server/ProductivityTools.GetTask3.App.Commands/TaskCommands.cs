@@ -18,6 +18,7 @@ namespace ProductivityTools.GetTask3.App.Commands
         void Start(int elementId);
         void Undone(int elementId);
         void Delay(int elementId, DateTime dateTime);
+        void Delete(int elementId);
         void AddToTomato(List<int> elementIds);
         void AddToTomato(string name, int parentId);
         void FinishTomato(bool finishAlsoTasks);
@@ -82,6 +83,14 @@ namespace ProductivityTools.GetTask3.App.Commands
         {
             var element = _taskUnitOfWork.TaskRepository.Get(elementId);
             element.Delay(initializationDate);
+            _taskUnitOfWork.TaskRepository.Update(element);
+            _taskUnitOfWork.Commit();
+        }
+
+        public void Delete(int elementId)
+        {
+            var element = _taskUnitOfWork.TaskRepository.Get(elementId);
+            element.Delete();
             _taskUnitOfWork.TaskRepository.Update(element);
             _taskUnitOfWork.Commit();
         }

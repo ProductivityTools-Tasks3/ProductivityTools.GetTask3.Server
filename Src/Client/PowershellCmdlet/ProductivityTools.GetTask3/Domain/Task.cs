@@ -177,6 +177,12 @@ namespace ProductivityTools.GetTask3.App
             this.Repository.Delay(elementId, date);
         }
 
+        public void Delete(int orderElementId)
+        {
+            var elementId = GetElementIdByOrder(orderElementId);
+            this.Repository.Delete(elementId);
+        }
+
         public void Undone(int orderElementId)
         {
             var elementId = GetElementIdByOrder(orderElementId);

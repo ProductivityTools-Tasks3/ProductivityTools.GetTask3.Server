@@ -26,7 +26,7 @@ namespace ProductivityTools.GetTask3.Commands.SelectCurrentRoot
         {
             //get parent for idis
             var currentNode = TaskStructure.SelectedNodeElementId;
-            var parent = GetTaskHttpClient.Post2<int>(Consts.Task, Consts.GetParent, currentNode.ToString(), VerboseHelper.WriteVerboseStatic);
+            var parent = GetTaskHttpClient.Post2<int>(Consts.Task, Consts.GetParent, currentNode, VerboseHelper.WriteVerboseStatic);
 
 
             TaskStructure.SelectNodeByElementId(parent.Result);

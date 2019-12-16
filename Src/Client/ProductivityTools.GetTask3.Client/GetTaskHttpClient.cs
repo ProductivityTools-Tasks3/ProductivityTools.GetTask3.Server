@@ -22,7 +22,7 @@ namespace ProductivityTools.GetTask3.Client
         public static async Task<T> Post2<T>(string controller, string action, object obj,Action<string> log)
         {
             log($"Performing Post under address {URL}");
-            HttpClient client = new HttpClient();
+            HttpClient client = new HttpClient(new LoggingHandler(new HttpClientHandler()));
             client.BaseAddress = new Uri(URL+controller+"/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -38,34 +38,34 @@ namespace ProductivityTools.GetTask3.Client
 
         }
 
-        private static T Post<T>(string action, string jsonContent)
-        {
-            HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri(URL);
+        //private static T Post<T>(string action, string jsonContent)
+        //{
+        //    HttpClient client = new HttpClient();
+        //    client.BaseAddress = new Uri(URL);
 
-            // Add an Accept header for JSON format.
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        //    // Add an Accept header for JSON format.
+        //    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
 
-            //HttpContent content = new StringContent("{Name: \"TaskOnSecondLevel2\",ParentId: 3 }", Encoding.UTF8, "application/json"); 
-            HttpContent content = new StringContent(jsonContent, Encoding.UTF8, "application/json"); 
-            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+        //    //HttpContent content = new StringContent("{Name: \"TaskOnSecondLevel2\",ParentId: 3 }", Encoding.UTF8, "application/json"); 
+        //    HttpContent content = new StringContent(jsonContent, Encoding.UTF8, "application/json"); 
+        //    content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-            // List data response.
-            //HttpResponseMessage response = client.PostAsync("Add",content).Result;  // Blocking call! Program will wait here until a response is received or a timeout occurs.
-            HttpResponseMessage response = client.PostAsync(action, content).Result;  // Blocking call! Program will wait here until a 
-            if (response.IsSuccessStatusCode)
-            {
-                // Parse the response body.
-                var dataObjects = response.Content.ReadAsAsync<T>().Result;  //Make sure to add a reference to System.Net.Http.Formatting.dll
-                client.Dispose();
-                return dataObjects;
-            }
-            else
-            {
-                client.Dispose();
-                throw new Exception(string.Format("{0} ({1})", (int)response.StatusCode, response.ReasonPhrase));
-            }
-        }
+        //    // List data response.
+        //    //HttpResponseMessage response = client.PostAsync("Add",content).Result;  // Blocking call! Program will wait here until a response is received or a timeout occurs.
+        //    HttpResponseMessage response = client.PostAsync(action, content).Result;  // Blocking call! Program will wait here until a 
+        //    if (response.IsSuccessStatusCode)
+        //    {
+        //        // Parse the response body.
+        //        var dataObjects = response.Content.ReadAsAsync<T>().Result;  //Make sure to add a reference to System.Net.Http.Formatting.dll
+        //        client.Dispose();
+        //        return dataObjects;
+        //    }
+        //    else
+        //    {
+        //        client.Dispose();
+        //        throw new Exception(string.Format("{0} ({1})", (int)response.StatusCode, response.ReasonPhrase));
+        //    }
+        //}
     }
 }

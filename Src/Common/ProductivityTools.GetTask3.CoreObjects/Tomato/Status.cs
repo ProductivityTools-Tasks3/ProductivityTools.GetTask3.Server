@@ -9,6 +9,7 @@ namespace ProductivityTools.GetTask3.CoreObjects.Tomato
         NotDefined=0,
         New=10,
         InProgress=20,
-        Finished=30
+        Finished=30,
+        Deleted=40
     }
 }

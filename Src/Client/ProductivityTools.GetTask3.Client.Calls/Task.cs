@@ -44,7 +44,12 @@ namespace ProductivityTools.GetTask3.Client.Calls
 
         public async static Task<object> Delay(int elementId, DateTime date)
         {
-            return await GetTaskHttpClient.Post2<object>(Consts.Task, "Delay", new DelayItemRequest() { ElementId = elementId, InitializationDate = date }, (s) => Console.WriteLine(s));
+            return await GetTaskHttpClient.Post2<object>(Consts.Task, Consts.Delay, new DelayItemRequest() { ElementId = elementId, InitializationDate = date }, (s) => Console.WriteLine(s));
+        }
+
+        public async static Task<object> Delete(int elementId)
+        {
+            return await GetTaskHttpClient.Post2<int>(Consts.Task, Consts.Delete, elementId, (s) => Console.WriteLine(s));
         }
 
         public async static Task<object> AddToTomato(int[] elementIds)

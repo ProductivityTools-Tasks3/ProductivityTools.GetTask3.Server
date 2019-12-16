@@ -9,6 +9,7 @@ namespace ProductivityTools.GetTask3.CommonConfiguration
         public const string Start = "Start";
         public const string Move = "Move";
         public const string Delay = "Delay";
+        public const string Delete = "Delete";
         public const string TodayList = "TodayList";
         public const string GetRoot = "GetRoot";
         public const string GetParent = "GetParent";
