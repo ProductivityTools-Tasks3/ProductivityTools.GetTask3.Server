@@ -57,6 +57,8 @@
     <Compile Include="Commands\AddTask\AddTaskCmdlet.cs" />
     <Compile Include="Commands\DelayTask\DelayTaskCmdlet.cs" />
     <Compile Include="Commands\DelayTask\DelayTaskToDate.cs" />
+    <Compile Include="Commands\DeleteTask\Delete.cs" />
+    <Compile Include="Commands\DeleteTask\DeleteTaskCmdlet.cs" />
     <Compile Include="Commands\FinishTomato\FinishSingleTomato.cs" />
     <Compile Include="Commands\FinishTomato\FinishTomatoCmdlet.cs" />
     <Compile Include="Commands\GetDefinedTask\GetDefinedTaskCmdlet.cs" />

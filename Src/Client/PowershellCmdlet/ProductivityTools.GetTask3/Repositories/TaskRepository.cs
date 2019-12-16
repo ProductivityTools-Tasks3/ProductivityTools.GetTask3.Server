@@ -69,6 +69,11 @@ namespace ProductivityTools.GetTask3.Domain
             await ProductivityTools.GetTask3.Client.Calls.Task.Delay(elementId, date);
         }
 
+        public async void Delete(int elementId)
+        {
+            await ProductivityTools.GetTask3.Client.Calls.Task.Delete(elementId);
+        }
+
         public async void AddToTomato(int[] elementIds)
         {
             await ProductivityTools.GetTask3.Client.Calls.Task.AddToTomato(elementIds);
