@@ -22,7 +22,7 @@ namespace ProductivityTools.GetTask3.Client
         public static async Task<T> Post2<T>(string controller, string action, object obj,Action<string> log)
         {
             log($"Performing Post under address {URL}");
-            HttpClient client = new HttpClient(new LoggingHandler(new HttpClientHandler()));
+            HttpClient client = new HttpClient(new LoggingHandler(new HttpClientHandler(),log));
             client.BaseAddress = new Uri(URL+controller+"/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));

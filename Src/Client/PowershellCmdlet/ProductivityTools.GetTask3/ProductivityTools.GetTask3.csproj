@@ -104,6 +104,7 @@
     <Compile Include="SingleCommands\GetPredefinedTask.cs" />
     <Compile Include="SingleCommands\SingleCommandsBase.cs" />
     <Compile Include="SingleCommands\UndoneTask.cs" />
+    <Compile Include="Verbose.cs" />
     <Compile Include="View\ElementViewExtensions.cs" />
     <Compile Include="View\SessionManager.cs" />
     <Compile Include="Session\SessionElementMetadata.cs" />
