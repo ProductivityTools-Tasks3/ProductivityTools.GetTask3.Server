@@ -10,9 +10,26 @@ namespace ProductivityTools.GetTask3.View
     {
         static VerboseHelper()
         {
-            WriteVerboseStatic = (s) => Console.WriteLine(s);
+            WriteVerboseStatic = (s) =>
+            {
+                if (IsVerbose)
+                {
+                     Console.WriteLine(s);
+                }
+               
+            };
+
+
         }
 
         public static Action<String> WriteVerboseStatic;
+
+        public static bool IsVerbose { get; set; }
+
+        public static void SetVerbose(bool b)
+        {
+            IsVerbose = b;
+        }
     }
 }
+

@@ -30,6 +30,7 @@ namespace ProductivityTools.GetTask3.SingleCommands
 
         protected override void ProcessRecord()
         {
+            
             int[] orderIds = Id.GetIds();
             foreach (var id in orderIds)
             {

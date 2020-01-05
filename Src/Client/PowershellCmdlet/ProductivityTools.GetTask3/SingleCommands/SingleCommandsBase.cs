@@ -14,5 +14,11 @@ namespace ProductivityTools.GetTask3.SingleCommands
         {
             _sessionManager = new SessionManager(this);
         }
+        protected override void BeginProcessing()
+        {
+            VerboseHelper.SetVerbose(this.MyInvocation.BoundParameters.ContainsKey("Verbose"));
+
+            base.BeginProcessing();
+        }
     }
 }

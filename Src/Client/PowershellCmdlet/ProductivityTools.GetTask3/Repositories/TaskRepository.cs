@@ -34,10 +34,10 @@ namespace ProductivityTools.GetTask3.Domain
             switch (type)
             {
                 case ElementType.TaskBag:
-                    await ProductivityTools.GetTask3.Client.Calls.Task.AddBag(name, parentId);
+                    await ProductivityTools.GetTask3.Client.Calls.Task.AddBag(name, parentId,VerboseHelper.WriteVerboseStatic);
                     break;
                 case ElementType.Task:
-                    await ProductivityTools.GetTask3.Client.Calls.Task.Add(name, parentId);
+                    await ProductivityTools.GetTask3.Client.Calls.Task.Add(name, parentId, VerboseHelper.WriteVerboseStatic);
                     break;
                 default:
                     break;
@@ -46,37 +46,37 @@ namespace ProductivityTools.GetTask3.Domain
 
         public async void Finish(int elementId)
         {
-            await ProductivityTools.GetTask3.Client.Calls.Task.Finish(elementId);
+            await ProductivityTools.GetTask3.Client.Calls.Task.Finish(elementId, VerboseHelper.WriteVerboseStatic);
         }
 
         public async void Start(int elementId)
         {
-            await ProductivityTools.GetTask3.Client.Calls.Task.Start(elementId);
+            await ProductivityTools.GetTask3.Client.Calls.Task.Start(elementId, VerboseHelper.WriteVerboseStatic);
         }
 
         public async void Move(int[] elementIds, int target)
         {
-            await ProductivityTools.GetTask3.Client.Calls.Task.Move(elementIds, target);
+            await ProductivityTools.GetTask3.Client.Calls.Task.Move(elementIds, target, VerboseHelper.WriteVerboseStatic);
         }
 
         public async void Undone(int elementId)
         {
-            await ProductivityTools.GetTask3.Client.Calls.Task.Undone(elementId);
+            await ProductivityTools.GetTask3.Client.Calls.Task.Undone(elementId, VerboseHelper.WriteVerboseStatic);
         }
 
         public async void Delay(int elementId, DateTime date)
         {
-            await ProductivityTools.GetTask3.Client.Calls.Task.Delay(elementId, date);
+            await ProductivityTools.GetTask3.Client.Calls.Task.Delay(elementId, date, VerboseHelper.WriteVerboseStatic);
         }
 
         public async void Delete(int elementId)
         {
-            await ProductivityTools.GetTask3.Client.Calls.Task.Delete(elementId);
+            await ProductivityTools.GetTask3.Client.Calls.Task.Delete(elementId, VerboseHelper.WriteVerboseStatic);
         }
 
         public async void AddToTomato(int[] elementIds)
         {
-            await ProductivityTools.GetTask3.Client.Calls.Task.AddToTomato(elementIds);
+            await ProductivityTools.GetTask3.Client.Calls.Task.AddToTomato(elementIds, VerboseHelper.WriteVerboseStatic);
         }
     }
 }
