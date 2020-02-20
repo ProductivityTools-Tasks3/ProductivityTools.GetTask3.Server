@@ -1,0 +1,297 @@
+{
+	"info": {
+		"_postman_id": "0e26500c-35a5-4951-ad28-9d0996da07a8",
+		"name": "GetTask3",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Demo",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Copy",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Defined Task list",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:44317/api/DefinedTask/List",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44317",
+					"path": [
+						"api",
+						"DefinedTask",
+						"List"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{Name: \"pawel2\"}"
+				},
+				"url": {
+					"raw": "https://localhost:44317/api/Task/Add",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44317",
+					"path": [
+						"api",
+						"Task",
+						"Add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddToBag",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{Name: \"pawel2\",\n\tBagId:2\n}"
+				},
+				"url": {
+					"raw": "https://localhost:44317/api/Task/Add",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44317",
+					"path": [
+						"api",
+						"Task",
+						"Add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddBag",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{Name: \"TreeCore2\", ParentId: 2}"
+				},
+				"url": {
+					"raw": "https://localhost:44317/api/Task/AddBag",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44317",
+					"path": [
+						"api",
+						"Task",
+						"AddBag"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddRoot",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{Name: \"Root\"}"
+				},
+				"url": {
+					"raw": "https://localhost:44317/api/Task/AddBag",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44317",
+					"path": [
+						"api",
+						"Task",
+						"AddBag"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Finish",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ElementId: 4}"
+				},
+				"url": {
+					"raw": "https://localhost:44317/api/Task/Finish",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44317",
+					"path": [
+						"api",
+						"Task",
+						"Finish"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Undone",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{Name: \"TreeCore2\", ParentId: 2}"
+				},
+				"url": {
+					"raw": "https://localhost:44317/api/Task/Finish",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44317",
+					"path": [
+						"api",
+						"Task",
+						"Finish"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delay",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ElementId: 2, StartDate: '2019.07.01'}"
+				},
+				"url": {
+					"raw": "https://localhost:44317/api/Task/Delay",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44317",
+					"path": [
+						"api",
+						"Task",
+						"Delay"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -23,14 +23,14 @@ namespace Tests
         {
 
             var config = ServiceProvider.GetService<IConfig>();
-            Snapshot.CreateSnapshot(config.ConnectionString);
+            //Snapshot.CreateSnapshot(config.ConnectionString);
         }
 
         [TearDown]
         public void TearDown()
         {
             var config = ServiceProvider.GetService<IConfig>();
-            Snapshot.RestoreFromSnapshot(config.ConnectionString);
+        //    Snapshot.RestoreFromSnapshot(config.ConnectionString);
         }
 
 
