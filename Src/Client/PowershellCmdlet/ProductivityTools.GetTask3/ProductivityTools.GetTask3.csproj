@@ -72,6 +72,8 @@
     <Compile Include="Commands\GetTask\Formatters\Order.cs" />
     <Compile Include="Commands\GetTask\Formatters\Category.cs" />
     <Compile Include="Commands\GetTask\Formatters\Tomato.cs" />
+    <Compile Include="Commands\GetTomatoReport\GetTomatoReportCmdlet.cs" />
+    <Compile Include="Commands\GetTomatoReport\Report.cs" />
     <Compile Include="Commands\IFromElementPath.cs" />
     <Compile Include="Commands\MoveTask\MoveTaskCmdlet.cs" />
     <Compile Include="Commands\MoveTask\MoveTaskToChild.cs" />

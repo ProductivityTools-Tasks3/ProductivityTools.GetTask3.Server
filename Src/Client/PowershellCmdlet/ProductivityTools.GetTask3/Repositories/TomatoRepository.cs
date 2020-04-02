@@ -26,11 +26,16 @@ namespace ProductivityTools.GetTask3.Repositories
             var rootElement = GetTaskHttpClient.Post2<object>(Consts.Task, Consts.AddToTomatoByName, new AddToTomatoByNameRequest { TaskName = name , ParentId=parentId }, VerboseHelper.WriteVerboseStatic).Result;
         }
 
-        public async void Finish(bool finishAlsoTasks)
+        public async Task Finish(bool finishAlsoTasks)
         {
             var request = new FinishTomatoRequest();
             request.FinishAlsoTasks = finishAlsoTasks;
             await GetTaskHttpClient.Post2<object>(Consts.Task, Consts.FinishTomato, request, VerboseHelper.WriteVerboseStatic);
+        }
+
+        public async Task GetTomatoReport()
+        {
+
         }
     }
 }
