@@ -1,5 +1,6 @@
 ﻿using ProductivityTools.GetTask3.Client;
 using ProductivityTools.GetTask3.Contract;
+using ProductivityTools.GetTask3.Contract.Responses;
 using ProductivityTools.GetTask3.CoreObjects;
 using ProductivityTools.GetTask3.Domain;
 using ProductivityTools.GetTask3.Repositories;
@@ -147,10 +148,17 @@ namespace ProductivityTools.GetTask3.App
             TomatoRepository.AddToTomato(tomatoName, this.SelectedNodeElementId.Value);
         }
 
-        public void FinishTomato(bool finishAlsoTasks)
+        public async void FinishTomato(bool finishAlsoTasks)
         {
             TomatoRepository TomatoRepository = new TomatoRepository();
-            TomatoRepository.Finish(finishAlsoTasks);
+            await TomatoRepository.Finish(finishAlsoTasks);
+        }
+
+        public async Task<TomatoReportView> GetTomatoReport()
+        {
+            TomatoRepository TomatoRepository = new TomatoRepository();
+            var r=await TomatoRepository.GetTomatoReport();
+            return r;
         }
 
         public void Finish(int orderElementId)

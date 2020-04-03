@@ -11,6 +11,7 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
     public interface ITomatoRepository : IRepository<Domain.Tomato, Infrastructure.Tomato>
     {
         Domain.Tomato GetCurrent();
+        List<Domain.Tomato> GetTomatoReport(DateTime date);
     }
 
     public class TomatoRepository : Repository<Domain.Tomato, Infrastructure.Tomato>, ITomatoRepository
@@ -23,6 +24,15 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
                 .Include(x=>x.TomatoElements).ThenInclude(x=>x.Element)
                 .SingleOrDefault(x=>x.Status==CoreObjects.Tomato.Status.New);
             Domain.Tomato result = _mapper.Map<Domain.Tomato>(z);
+            return result;
+        }
+
+        public List<Domain.Tomato> GetTomatoReport(DateTime date)
+        {
+            var q = _taskContext.Tomato.AsNoTracking()
+                .Include(x => x.TomatoElements).ThenInclude(x => x.Element)
+                .Where(x => x.Created > date.Date);
+            List<Domain.Tomato> result = _mapper.Map<List<Domain.Tomato>>(q);
             return result;
         }
 

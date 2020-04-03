@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using ProductivityTools.GetTask3.Contract;
+using ProductivityTools.GetTask3.Contract.Responses;
 using System;
 using System.Collections.Generic;
 using System.Text;

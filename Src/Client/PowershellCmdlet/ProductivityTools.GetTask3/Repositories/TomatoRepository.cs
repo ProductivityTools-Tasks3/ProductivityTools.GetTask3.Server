@@ -1,11 +1,9 @@
 ﻿using ProductivityTools.GetTask3.Client;
 using ProductivityTools.GetTask3.CommonConfiguration;
 using ProductivityTools.GetTask3.Contract.Requests;
+using ProductivityTools.GetTask3.Contract.Responses;
 using ProductivityTools.GetTask3.View;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ProductivityTools.GetTask3.Repositories
@@ -23,7 +21,7 @@ namespace ProductivityTools.GetTask3.Repositories
         {
             VerboseHelper.WriteVerboseStatic("Calling AddToTomato");
             // var rootElement = GetTaskHttpClient.Post<Contract.ElementView>("List", currentNode.ToString());
-            var rootElement = GetTaskHttpClient.Post2<object>(Consts.Task, Consts.AddToTomatoByName, new AddToTomatoByNameRequest { TaskName = name , ParentId=parentId }, VerboseHelper.WriteVerboseStatic).Result;
+            var rootElement = GetTaskHttpClient.Post2<object>(Consts.Task, Consts.AddToTomatoByName, new AddToTomatoByNameRequest { TaskName = name, ParentId = parentId }, VerboseHelper.WriteVerboseStatic).Result;
         }
 
         public async Task Finish(bool finishAlsoTasks)
@@ -33,9 +31,9 @@ namespace ProductivityTools.GetTask3.Repositories
             await GetTaskHttpClient.Post2<object>(Consts.Task, Consts.FinishTomato, request, VerboseHelper.WriteVerboseStatic);
         }
 
-        public async Task GetTomatoReport()
+        public async Task<TomatoReportView> GetTomatoReport()
         {
-
+            return await GetTaskHttpClient.Post2<TomatoReportView>(Consts.Task, Consts.GetTomatoReport, null, s => Console.WriteLine(s));
         }
     }
 }

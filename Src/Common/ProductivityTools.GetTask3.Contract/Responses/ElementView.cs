@@ -1,4 +1,5 @@
-﻿using ProductivityTools.GetTask3.CoreObjects;
+﻿using ProductivityTools.GetTask3.Contract.Responses;
+using ProductivityTools.GetTask3.CoreObjects;
 using System;
 using System.Collections.Generic;
 
