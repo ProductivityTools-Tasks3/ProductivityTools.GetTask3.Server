@@ -17,8 +17,9 @@ namespace ProductivityTools.GetTask3.CommonConfiguration
         public const string AddToTomatoByName = "AddToTomatoByName";
         public const string FinishTomato = "FinishTomato";
         public const string GetTomato = "GetTomato";
+        public const string GetTomatoReport = "GetTomatoReport";
 
-        public const string HttpAddress = @"http://localhost:5510/";
+        public const string HttpAddress = @"http://localhost:5513/";
         public static string EndpointAddress
         {
             get

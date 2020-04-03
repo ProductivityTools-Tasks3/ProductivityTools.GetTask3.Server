@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ProductivityTools.GetTask3.Commands.GetTomatoReport
 {
-     [Cmdlet(VerbsCommon.Get, "TaskReport")]
+     [Cmdlet(VerbsCommon.Get, "TomatoReport")]
     public class GetTomatoReportCmdlet : GT3CmldetsBase, IFromElementPath
     {
         [Parameter]
@@ -15,7 +15,7 @@ namespace ProductivityTools.GetTask3.Commands.GetTomatoReport
 
         protected override void ProcessRecord()
         {
-            this.AddCommand(new MultiLevel(this));
+            this.AddCommand(new Report(this));
             base.ProcessCommands();
             base.ProcessRecord();
         }

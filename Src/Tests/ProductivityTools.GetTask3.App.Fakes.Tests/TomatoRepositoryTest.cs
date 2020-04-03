@@ -25,6 +25,11 @@ namespace ProductivityTools.GetTask3.App.Fakes.Tests
             return CurrentTestTomato;
         }
 
+        public List<Tomato> GetTomatoReport(DateTime date)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update(Tomato entity)
         {
             throw new NotImplementedException();

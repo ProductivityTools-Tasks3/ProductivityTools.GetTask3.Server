@@ -2,6 +2,7 @@
 using MediatR;
 using ProductivityTools.GetTask3.App.Queries;
 using ProductivityTools.GetTask3.Contract;
+using ProductivityTools.GetTask3.Contract.Responses;
 using ProductivityTools.GetTask3.Domain.Events;
 using ProductivityTools.GetTask3.SignalRHubs;
 using System;
