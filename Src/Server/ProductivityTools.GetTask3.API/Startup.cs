@@ -66,7 +66,7 @@ namespace ProductivityTools.GetTask3.API
             //app.UseHttpsRedirection();
             app.UseCors();
             //pw: signalR
-            //app.ConfigureSignalR();
+            app.ConfigureSignalR();
 
             app.UseEndpoints(endpoints =>
             {

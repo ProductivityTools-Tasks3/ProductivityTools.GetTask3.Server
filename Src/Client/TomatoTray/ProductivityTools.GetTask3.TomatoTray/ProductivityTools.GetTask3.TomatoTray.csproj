@@ -163,6 +163,7 @@
     <Compile Include="Managers\BackgroundTimer.cs" />
     <Compile Include="Managers\IconNotyfication.cs" />
     <Compile Include="Managers\TomatoStatic.cs" />
+    <Compile Include="SingnalRConnector.cs" />
     <Compile Include="Timers\BaseTimer.cs" />
     <Compile Include="Timers\IdleTimer.cs" />
     <Compile Include="Timers\TomatoTimer.cs" />

@@ -28,5 +28,20 @@ namespace ProductivityTools.GetTask3.TomatoTray
             InitializeComponent();
           
         }
+
+        private void FillLabel(string s)
+        {
+            this.LogLabel.Content += s;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            SingnalRConnector.Connect(FillLabel);
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            this.LogLabel.Content+= SingnalRConnector.GetConnectionState();
+        }
     }
 }
