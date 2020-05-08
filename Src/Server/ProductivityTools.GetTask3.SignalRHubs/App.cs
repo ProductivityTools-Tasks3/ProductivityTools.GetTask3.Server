@@ -11,10 +11,12 @@ namespace ProductivityTools.GetTask3.SignalRHubs
         public static void ConfigureSignalR(this IApplicationBuilder app)
         {
             //pw: singalr
-            app.UseSignalR(route =>
-            {
-                route.MapHub<TomatoHub>(Consts.TomatoHubEndLocation);
-            });
+
+
+            //app.UseEndpoints(route =>
+            //{
+            //    route.MapHub<TomatoHub>(Consts.TomatoHubEndLocation);
+            //});
         }
     }
 }
