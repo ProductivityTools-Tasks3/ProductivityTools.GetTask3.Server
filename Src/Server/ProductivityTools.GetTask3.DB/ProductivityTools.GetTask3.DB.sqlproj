@@ -75,6 +75,7 @@
     <Build Include="Tables\Tomato.sql" />
     <Build Include="Tables\TomatoElement.sql" />
     <None Include="DataMigrations.txt" />
+    <Build Include="Tables\ElementDetails.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="ProductivityTools.GetTask3.DB.refactorlog" />

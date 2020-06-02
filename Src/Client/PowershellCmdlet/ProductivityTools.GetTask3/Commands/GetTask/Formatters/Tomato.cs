@@ -21,7 +21,8 @@ namespace ProductivityTools.GetTask3.Commands.GetTask.Formatters
                 var tomatoes = element.Tomatoes;
                 foreach (var tomato in tomatoes)
                 {
-                    tomatoInfo = $"|{DateTime.Now.Subtract(tomato.Created).ToString(@"hh\:mm")}| ";
+                    var finishDate = tomato.Finished.HasValue ? tomato.Finished.Value : DateTime.Now;
+                    tomatoInfo = $"|{finishDate.Subtract(tomato.Created).ToString(@"hh\:mm")}| ";
                     var part = new ColorStringItem();
                     part.Value = tomatoInfo;
                     if (tomato.Status == CoreObjects.Tomato.Status.Finished)
