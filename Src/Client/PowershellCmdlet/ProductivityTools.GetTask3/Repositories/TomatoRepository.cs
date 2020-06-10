@@ -31,9 +31,9 @@ namespace ProductivityTools.GetTask3.Repositories
             await GetTaskHttpClient.Post2<object>(Consts.Task, Consts.FinishTomato, request, VerboseHelper.WriteVerboseStatic);
         }
 
-        public async Task<TomatoReportView> GetTomatoReport()
+        public async Task<TomatoReportView> GetTomatoReport(DateTime date)
         {
-            return await GetTaskHttpClient.Post2<TomatoReportView>(Consts.Task, Consts.GetTomatoReport, null, s => Console.WriteLine(s));
+            return await GetTaskHttpClient.Post2<TomatoReportView>(Consts.Task, Consts.GetTomatoReport, new GetTomatoReportRequest() { Date = date }, s => Console.WriteLine(s));
         }
     }
 }

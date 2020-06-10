@@ -13,6 +13,9 @@ namespace ProductivityTools.GetTask3.Commands.GetTomatoReport
         [Parameter]
         public string Path { get; set; }
 
+        [Parameter]
+        public int Ago { get; set; }
+
         protected override void ProcessRecord()
         {
             this.AddCommand(new Report(this));

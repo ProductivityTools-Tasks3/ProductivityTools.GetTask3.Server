@@ -154,10 +154,10 @@ namespace ProductivityTools.GetTask3.App
             await TomatoRepository.Finish(finishAlsoTasks);
         }
 
-        public async Task<TomatoReportView> GetTomatoReport()
+        public async Task<TomatoReportView> GetTomatoReport(DateTime date)
         {
             TomatoRepository TomatoRepository = new TomatoRepository();
-            var r=await TomatoRepository.GetTomatoReport();
+            var r=await TomatoRepository.GetTomatoReport(date);
             return r;
         }
 

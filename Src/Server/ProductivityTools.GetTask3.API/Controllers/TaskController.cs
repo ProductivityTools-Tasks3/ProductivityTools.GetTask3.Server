@@ -141,9 +141,9 @@ namespace ProductivityTools.GetTask3.API.Controllers
 
         [HttpPost]
         [Route(Consts.GetTomatoReport)]
-        public TomatoReportView TomatoReport()
+        public TomatoReportView TomatoReport(GetTomatoReportRequest request)
         {
-            TomatoReportView r = Queries.GetTomatoReport(DateTime.Now);
+            TomatoReportView r = Queries.GetTomatoReport(request.Date);
             //r.Tomatoes = new List<TomatoView>();
             //r.Tomatoes.Add(new TomatoView() { Created = DateTime.Now.AddMinutes(-20), Finished = DateTime.Now });
             //r.Tomatoes.Add(new TomatoView() { Created = DateTime.Now.AddMinutes(-40), Finished = DateTime.Now.AddMinutes(-20) });

@@ -20,7 +20,7 @@ namespace ProductivityTools.GetTask3.Commands.GetTomatoReport
         protected override void Invoke()
         {
             var task = TaskStructureFactory.Get(this.Cmdlet);
-            var result = task.GetTomatoReport();
+            var result = task.GetTomatoReport(DateTime.Now.AddDays(-1 * this.Cmdlet.Ago));
             TimeSpan allTomatoTime = TimeSpan.Zero;
             foreach (var r in result.Result.Tomatoes)
             {
