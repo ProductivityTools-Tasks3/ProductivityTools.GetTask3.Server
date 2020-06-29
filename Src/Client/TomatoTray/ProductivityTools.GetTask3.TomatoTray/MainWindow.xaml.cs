@@ -31,7 +31,7 @@ namespace ProductivityTools.GetTask3.TomatoTray
 
         private void FillLabel(string s)
         {
-            this.LogLabel.Content += s;
+            this.LogLabel.Text+= s+Environment.NewLine;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -41,7 +41,7 @@ namespace ProductivityTools.GetTask3.TomatoTray
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            this.LogLabel.Content+= SingnalRConnector.GetConnectionState();
+            this.LogLabel.Text += SingnalRConnector.GetConnectionState() + Environment.NewLine; 
         }
     }
 }

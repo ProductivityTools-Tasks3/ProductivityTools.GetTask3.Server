@@ -27,7 +27,7 @@ namespace ProductivityTools.GetTask3.Commands.MoveTask
             {
                 throw new Exception("Cannot move element to Core of the tree");
             }
-            this.TaskStructure.Move(ids,element.ParentId.Value);
+            this.TaskStructure.MoveWithTaretId(ids,element.ParentId.Value);
         }
     }
 }

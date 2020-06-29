@@ -173,9 +173,16 @@ namespace ProductivityTools.GetTask3.App
             this.Repository.Start(elementId);
         }
 
-        public void Move(int[] orderElementsId, int targetId)
+        public void MoveWithTaretId(int[] orderElementsId, int targetId)
         {
             var elementIds = GetElementsIdByOrder(orderElementsId);
+            this.Repository.Move(elementIds, targetId);
+        }
+
+        public void Move(int[] orderElementsId, int targetOrderedId)
+        {
+            var elementIds = GetElementsIdByOrder(orderElementsId);
+            var targetId = GetElementIdByOrder(targetOrderedId);
             this.Repository.Move(elementIds, targetId);
         }
 
