@@ -1,4 +1,4 @@
-﻿using ProductivityTools.ConsoleColors;
+﻿using ProductivityTools.ConsoleColor;
 using ProductivityTools.GetTask3.Contract;
 using ProductivityTools.GetTask3.View;
 using System;
@@ -14,11 +14,9 @@ namespace ProductivityTools.GetTask3.Commands.GetTask.Formatters
     {
         internal void Format(ColorString input, ElementView element)
         {
-            var part = new ColorStringItem();
             if (!string.IsNullOrEmpty(element.Category))
             {
-                part.Value = $"[{element.Category}] ";
-                part.Color = 70;
+                var part = new ColorStringItem($"[{element.Category}] ",70);
                 input.Add(part);
             }
         }

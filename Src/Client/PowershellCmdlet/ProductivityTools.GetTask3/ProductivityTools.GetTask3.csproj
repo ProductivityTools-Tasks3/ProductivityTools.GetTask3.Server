@@ -9,9 +9,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ProductivityTools.GetTask3</RootNamespace>
     <AssemblyName>ProductivityTools.GetTask3</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -33,6 +34,9 @@
   <ItemGroup>
     <Reference Include="Description, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\packages\Description.1.0.0\lib\Description.dll</HintPath>
+    </Reference>
+    <Reference Include="ProductivityTools.ConsoleColors, Version=0.0.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\ProductivityTools.ConsoleColors.0.0.6\lib\netstandard2.0\ProductivityTools.ConsoleColors.dll</HintPath>
     </Reference>
     <Reference Include="ProductivityTools.PSCmdlet, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\packages\ProductivityTools.PSCmdlet.0.0.6\lib\v4.6.1\ProductivityTools.PSCmdlet.dll</HintPath>
@@ -115,13 +119,10 @@
     <Compile Include="View\VerboseHelper.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\ProductivityTools.ConsoleColors\ProductivityTools.ConsoleColors.csproj">
-      <Project>{78913C2A-A689-42F2-94B9-11BB568418A0}</Project>
-      <Name>ProductivityTools.ConsoleColors</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\Common\ProductivityTools.GetTask3.CommonConfiguration\ProductivityTools.GetTask3.CommonConfiguration.csproj">
       <Project>{B6018BBD-3C5E-45EE-BAB5-099F1A1F8027}</Project>
       <Name>ProductivityTools.GetTask3.CommonConfiguration</Name>

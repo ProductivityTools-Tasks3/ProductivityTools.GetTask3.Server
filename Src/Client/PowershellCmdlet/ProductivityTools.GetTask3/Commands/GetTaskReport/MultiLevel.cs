@@ -1,4 +1,4 @@
-﻿using ProductivityTools.ConsoleColors;
+﻿using ProductivityTools.ConsoleColor;
 using ProductivityTools.GetTask3.Commands.GetTask.Formatters;
 using ProductivityTools.GetTask3.Contract;
 using ProductivityTools.GetTask3.Domain;
@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ConsoleColor = ProductivityTools.ConsoleColors.ConsoleColor;
+
 
 namespace ProductivityTools.GetTask3.Commands.GetTaskReport
 {
@@ -58,7 +58,7 @@ namespace ProductivityTools.GetTask3.Commands.GetTaskReport
         private static void WriteToScreen(string parentPath, ElementView element)
         {
             var colorString = FormatRow(parentPath, element);
-            ConsoleColor.WriteInColor(colorString);
+            ConsoleColors.WriteInColor(colorString);
             ResetColor();
         }
 

@@ -1,4 +1,4 @@
-﻿using ProductivityTools.ConsoleColors;
+﻿using ProductivityTools.ConsoleColor;
 using ProductivityTools.GetTask3.View;
 using System;
 using System.Collections.Generic;

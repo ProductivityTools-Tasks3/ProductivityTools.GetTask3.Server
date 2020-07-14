@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace ProductivityTools.ConsoleColors
 {
-    public class ColorStringItem
-    {
-        public string Value { get; set; }
-        public byte? Color { get; set; }
-    }
+    //public class ColorStringItem
+    //{
+    //    public string Value { get; set; }
+    //    public byte? Color { get; set; }
+    //}
 }
