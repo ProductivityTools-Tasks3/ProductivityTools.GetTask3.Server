@@ -29,7 +29,7 @@ pipeline {
 		}
         stage('build') {
             steps {
-                bat(script: "dotnet publish ProductivityTools.GetTask3.Server.sln.sln -c Release", returnStdout: true)
+                bat(script: "dotnet publish ProductivityTools.GetTask3.Server.sln -c Release", returnStdout: true)
             }
         }
         stage('stopMeetingsOnIis') {
