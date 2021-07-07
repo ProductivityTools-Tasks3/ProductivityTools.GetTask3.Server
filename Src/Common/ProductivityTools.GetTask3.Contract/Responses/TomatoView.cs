@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ProductivityTools.GetTask3.Contract
+namespace ProductivityTools.GetTask3.Contract.Responses
 {
     public class TomatoElementView
     {

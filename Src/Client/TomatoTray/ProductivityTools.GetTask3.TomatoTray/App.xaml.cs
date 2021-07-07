@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.SignalR.Client;
 using ProductivityTools.GetTask3.CommonConfiguration;
 using ProductivityTools.GetTask3.Contract;
+using ProductivityTools.GetTask3.Contract.Responses;
 using ProductivityTools.GetTask3.TomatoTray.Managers;
 using System;
 using System.Collections.Generic;

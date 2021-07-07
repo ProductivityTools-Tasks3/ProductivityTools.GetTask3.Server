@@ -9,6 +9,7 @@ using ProductivityTools.GetTask3.App.Queries;
 using ProductivityTools.GetTask3.CommonConfiguration;
 using ProductivityTools.GetTask3.Contract;
 using ProductivityTools.GetTask3.Contract.Requests;
+using ProductivityTools.GetTask3.Contract.Responses;
 using ProductivityTools.GetTask3.CoreObjects;
 
 namespace ProductivityTools.GetTask3.API.Controllers
@@ -137,6 +138,19 @@ namespace ProductivityTools.GetTask3.API.Controllers
             var r = Queries.GetTomato();
             return r;
         }
+
+        [HttpPost]
+        [Route(Consts.GetTomatoReport)]
+        public TomatoReportView TomatoReport()
+        {
+            TomatoReportView r = Queries.GetTomatoReport(DateTime.Now);
+            //r.Tomatoes = new List<TomatoView>();
+            //r.Tomatoes.Add(new TomatoView() { Created = DateTime.Now.AddMinutes(-20), Finished = DateTime.Now });
+            //r.Tomatoes.Add(new TomatoView() { Created = DateTime.Now.AddMinutes(-40), Finished = DateTime.Now.AddMinutes(-20) });
+
+            return r;
+        }
+
 
         [HttpPost]
         [Route(Consts.Move)]

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ProductivityTools.GetTask3.Contract;
+using ProductivityTools.GetTask3.Contract.Responses;
 using ProductivityTools.GetTask3.Domain;
 using ProductivityTools.GetTask3.Infrastructure;
 using ProductivityTools.GetTask3.Infrastructure.Repositories;
@@ -15,18 +16,19 @@ namespace ProductivityTools.GetTask3.App.Queries
         int? GetParent(int elementId);
         TomatoView GetTomato();
         int? GetRootRequest(int? elementId, string path);
+        TomatoReportView GetTomatoReport(DateTime date);
     }
 
     public class TaskQueries : ITaskQueries
     {
         private readonly IMapper _mapper;
         ITaskRepository _taskRepository;
-        ITomatoRepository _tomatoRepository;
+        ITomatoRepository tomatoRepository;
 
         public TaskQueries(ITaskRepository taskRepository, ITomatoRepository tomatoRepository, IMapper mapper)
         {
             _taskRepository = taskRepository;
-            _tomatoRepository = tomatoRepository;
+            this.tomatoRepository = tomatoRepository;
             _mapper = mapper;
         }
 
@@ -99,11 +101,18 @@ namespace ProductivityTools.GetTask3.App.Queries
 
         public TomatoView GetTomato()
         {
-            var tomato = _tomatoRepository.GetCurrent();
+            var tomato = tomatoRepository.GetCurrent();
             TomatoView result = _mapper.Map<Domain.Tomato, TomatoView>(tomato);
             return result;
         }
 
+        public TomatoReportView GetTomatoReport(DateTime date)
+        {
+            List<Domain.Tomato> tomatoList = tomatoRepository.GetTomatoReport(date);
+            var result = new TomatoReportView();
+            result.Tomatoes = _mapper.Map<List<Domain.Tomato>, List<TomatoView>>(tomatoList);
+            return result;
+        }
 
     }
 }
