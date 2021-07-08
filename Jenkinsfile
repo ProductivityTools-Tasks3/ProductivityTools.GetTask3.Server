@@ -28,7 +28,7 @@ pipeline {
 				echo 'starting build'
 			}
             steps {
-                bat(script: "dotnet publish ProductivityTools.GetTask3.Server.sln -c Release", returnStdout: true)
+                bat(dotnet publish ProductivityTools.GetTask3.Server.sln -c Release)
             }
         }
         stage('deleteDbMigratorDir') {
