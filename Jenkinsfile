@@ -26,7 +26,7 @@ pipeline {
         stage('build') {
 			steps{
 				echo 'starting bddduild'
-			}
+			},
             steps {
                 bat('dotnet publish ProductivityTools.GetTask3.Server.sln -c Release')
             }
