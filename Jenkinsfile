@@ -24,6 +24,9 @@ pipeline {
             }
         }
         stage('build') {
+			steps{
+				echo 'starting build'
+			}
             steps {
                 bat(script: "dotnet publish ProductivityTools.GetTask3.Server.sln -c Release", returnStdout: true)
             }
