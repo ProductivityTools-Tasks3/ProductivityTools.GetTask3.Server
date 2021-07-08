@@ -6,10 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="MediatR" Version="7.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\Common\ProductivityTools.GetTask3.CoreObjects\ProductivityTools.GetTask3.CoreObjects.csproj" />
+    <PackageReference Include="ProductivityTools.GetTask3.CoreObjects" Version="0.0.1" />
   </ItemGroup>
 
 </Project>

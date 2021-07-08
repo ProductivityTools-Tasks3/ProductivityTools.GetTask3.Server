@@ -6,7 +6,7 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using ProductivityTools.GetTask3.CommonConfiguration;
+using ProductivityTools.GetTask3.Contract;
 
 namespace ProductivityTools.GetTask3.API
 {

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.AspNetCore.Builder;
-using ProductivityTools.GetTask3.CommonConfiguration;
 
 namespace ProductivityTools.GetTask3.SignalRHubs
 {

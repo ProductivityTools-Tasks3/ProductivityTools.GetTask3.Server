@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProductivityTools.GetTask3.App.Commands;
 using ProductivityTools.GetTask3.App.Queries;
-using ProductivityTools.GetTask3.CommonConfiguration;
 using ProductivityTools.GetTask3.Contract;
 using ProductivityTools.GetTask3.Contract.Requests;
 using ProductivityTools.GetTask3.Contract.Responses;

@@ -8,11 +8,11 @@
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Core" Version="1.1.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.0.0" />
+    <PackageReference Include="ProductivityTools.GetTask3.Contract" Version="0.0.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Common\ProductivityTools.GetTask3.CommonConfiguration\ProductivityTools.GetTask3.CommonConfiguration.csproj" />
-    <ProjectReference Include="..\..\Common\ProductivityTools.GetTask3.Contract\ProductivityTools.GetTask3.Contract.csproj" />
   </ItemGroup>
 
 </Project>
