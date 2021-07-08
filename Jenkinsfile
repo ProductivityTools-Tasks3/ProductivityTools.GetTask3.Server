@@ -53,28 +53,27 @@ pipeline {
 
         stage('stopMeetingsOnIis') {
             steps {
-                bat('%windir%\\system32\\inetsrv\\appcmd stop site /site.name:meetings')
+                bat('%windir%\\system32\\inetsrv\\appcmd stop site /site.name:GetTask3')
             }
         }
 
         stage('deleteIisDir') {
             steps {
                 retry(5) {
-                    bat('if exist "C:\\Bin\\Meetings" RMDIR /Q/S "C:\\Bin\\Meetings"')
+                    bat('if exist "C:\\Bin\\GetTask3" RMDIR /Q/S "C:\\Bin\\GetTask3"')
                 }
 
             }
         }
         stage('copyIisFiles') {
             steps {
-                bat('xcopy "C:\\Program Files (x86)\\Jenkins\\workspace\\Meetings\\src\\Server\\ProductivityTools.Meetings.WebApi\\bin\\Release\\netcoreapp3.1\\publish" "C:\\Bin\\Meetings\\" /O /X /E /H /K')
-				                      
+                bat('xcopy "ProductivityTools.GetTask3.API\\bin\\Release\\netcoreapp3.0\\publish\\" "C:\\Bin\\GetTask3\\" /O /X /E /H /K')				              
             }
         }
 
         stage('startMeetingsOnIis') {
             steps {
-                bat('%windir%\\system32\\inetsrv\\appcmd start site /site.name:meetings')
+                bat('%windir%\\system32\\inetsrv\\appcmd start site /site.name:GetTask3')
             }
         }
         stage('byebye') {
