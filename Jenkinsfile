@@ -10,6 +10,11 @@ pipeline {
                 echo 'hello'
             }
         }
+		stage('workplacePath'){
+			steps{
+				echo "${env.WORKSPACE}"
+			}
+		}
         stage('deleteWorkspace') {
             steps {
                 deleteDir()
@@ -36,7 +41,7 @@ pipeline {
         }
         stage('copyDbMigratorFiles') {
             steps {
-                bat('xcopy "C:\\Program Files (x86)\\Jenkins\\workspace\\Meetings\\src\\Server\\ProductivityTools.GetTask3.DatabaseMigrations\\bin\\Release\\netcoreapp3.1\\publish" "C:\\Bin\\MeetingsDdbMigration\\" /O /X /E /H /K')
+                bat('xcopy "GetTask3\ProductivityTools.GetTask3.Server.DbUp\bin\Release\netcoreapp3.1\publish\" "C:\\Bin\\MeetingsDdbMigration\\" /O /X /E /H /K')
             }
         }
 
