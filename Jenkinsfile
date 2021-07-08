@@ -20,12 +20,12 @@ pipeline {
             steps {
                 // Get some code from a GitHub repository
                 git branch: 'master',
-                url: 'https://github.com/ProductivityTools-Tasks3/ProductivityTools.GetTask3.Server.git'
+                url: 'https://github.com/ProductivityTools-Tasks3/ProductivityTools.GetTask3.Server'
             }
         }
         stage('build') {
             steps {
-                bat(script: "dotnet publish ProductivityTools.GetTask3.Server.sln -c Release ", returnStdout: true)
+                bat(script: "dotnet publish ProductivityTools.GetTask3.Server.sln -c Release", returnStdout: true)
             }
         }
         stage('deleteDbMigratorDir') {
