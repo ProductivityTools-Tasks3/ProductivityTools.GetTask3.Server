@@ -11,7 +11,7 @@ namespace ProductivityTools.GetTask3.Server.DbUp
         {
             var connectionString =
           args.FirstOrDefault()
-          ?? "Server=.\\SQL2019; Database=GetTask3_delete; Trusted_connection=true";
+          ?? "Server=.\\SQL2019; Database=GetTask3; Trusted_connection=true";
             EnsureDatabase.For.SqlDatabase(connectionString);
 
             var upgrader =
