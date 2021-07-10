@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProductivityTools.GetTask3.App.Commands;
@@ -36,6 +37,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [Route(Consts.TodayList)]
         public ElementView GetTasks([FromBody]ListRequest request = null)
         {
