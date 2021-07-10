@@ -47,6 +47,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
         }
         [HttpPost]
         [Route(Consts.GetRoot)]
+        [Authorize]
         public int? GetRoot([FromBody]GetRootRequest request)
         {
             var x = Queries.GetRootRequest(request.ElementId, request.Path);
@@ -55,6 +56,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
 
         [HttpPost]
         [Route("Add")]
+        [Authorize]
         public void Add([FromBody] AddRequest request)
         {
             Commands.Add(request.Name, request.ParentId);
@@ -62,6 +64,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
 
         [HttpPost]
         [Route("AddBag")]
+        [Authorize]
         public void AddBag([FromBody] AddRequest request)
         {
             Commands.AddBag(request.Name, request.ParentId);
@@ -69,6 +72,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
 
         [HttpPost]
         [Route(Consts.Finish)]
+        [Authorize]
         public void Finish([FromBody] FinishRequest request)
         {
             Commands.Finish(request.ElementId);
@@ -77,6 +81,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
 
         [HttpPost]
         [Route(Consts.Start)]
+        [Authorize]
         public void Start([FromBody] StartRequest request)
         {
             Commands.Start(request.ElementId);
@@ -84,6 +89,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
 
         [HttpPost]
         [Route("Undone")]
+        [Authorize]
         public void Undone([FromBody] UndoneRequest request)
         {
             Commands.Undone(request.ElementId);
@@ -91,12 +97,14 @@ namespace ProductivityTools.GetTask3.API.Controllers
 
         [HttpPost]
         [Route(Consts.Delay)]
+        [Authorize]
         public void Delay([FromBody] DelayItemRequest delayItem)
         {
             Commands.Delay(delayItem.ElementId, delayItem.InitializationDate);
         }
 
         [HttpPost]
+        [Authorize]
         [Route(Consts.Delete)]
         public void Delay([FromBody] int elementId)
         {
@@ -105,6 +113,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
 
         [HttpPost]
         [Route(Consts.GetParent)]
+        [Authorize]
         public int? GetParent([FromBody] int elementId)
         {
             var r = Queries.GetParent(elementId);
@@ -113,6 +122,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
 
         [HttpPost]
         [Route(Consts.AddToTomatoById)]
+        [Authorize]
         public void AddToTomato([FromBody] AddToTomatoByIdRequest request)
         {
             Commands.AddToTomato(request.ElementItems.ToList());
@@ -120,6 +130,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
 
         [HttpPost]
         [Route(Consts.AddToTomatoByName)]
+        [Authorize]
         public void AddToTomatoByName([FromBody] AddToTomatoByNameRequest request)
         {
             Commands.AddToTomato(request.TaskName, request.ParentId);
@@ -127,6 +138,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
 
         [HttpPost]
         [Route(Consts.FinishTomato)]
+        [Authorize]
         public void FinishTomato([FromBody] FinishTomatoRequest request)
         {
             Commands.FinishTomato(request.FinishAlsoTasks);
@@ -134,6 +146,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
 
         [HttpPost]
         [Route(Consts.GetTomato)]
+        [Authorize]
         public TomatoView GetTomato()
         {
             var r = Queries.GetTomato();
@@ -142,6 +155,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
 
         [HttpPost]
         [Route(Consts.GetTomatoReport)]
+        [Authorize]
         public TomatoReportView TomatoReport()
         {
             TomatoReportView r = Queries.GetTomatoReport(DateTime.Now);
@@ -155,6 +169,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
 
         [HttpPost]
         [Route(Consts.Move)]
+        [Authorize]
         public void Move(MoveRequest moveRequest)
         {
             Commands.Move(moveRequest.ElementIds, moveRequest.Target);
