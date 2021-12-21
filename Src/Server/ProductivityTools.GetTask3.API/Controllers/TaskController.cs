@@ -36,6 +36,14 @@ namespace ProductivityTools.GetTask3.API.Controllers
             return new string[] { "value1", "value2" };
         }
 
+
+        [HttpPost]
+        [Route("Date")]
+        public string GetTasks()
+        {
+            return DateTime.Now.ToString();
+        }
+
         [HttpPost]
         [Authorize]
         [Route(Consts.TodayList)]
