@@ -23,6 +23,8 @@ namespace ProductivityTools.GetTask3.API
 {
     public class Startup
     {
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -46,6 +48,16 @@ namespace ProductivityTools.GetTask3.API
             });
 
             services.AddMvc(x => x.AllowEmptyInputInBodyModelBinding = true).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(MyAllowSpecificOrigins,
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:3000");
+                    });
+            });
+
             services.AddSignalR();
             services.ConfigureServicesQueries();
             services.ConfigureServicesConfig();
@@ -82,7 +94,7 @@ namespace ProductivityTools.GetTask3.API
 
 
             //app.UseHttpsRedirection();
-            app.UseCors();
+            app.UseCors(MyAllowSpecificOrigins);
             //pw: signalR
             app.ConfigureSignalR();
 
