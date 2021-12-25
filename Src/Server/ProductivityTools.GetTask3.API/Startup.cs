@@ -54,7 +54,7 @@ namespace ProductivityTools.GetTask3.API
                 options.AddPolicy(MyAllowSpecificOrigins,
                     builder =>
                     {
-                        builder.WithOrigins("http://localhost:3000");
+                        builder.WithOrigins("http://localhost:3000").AllowAnyMethod().AllowAnyHeader();
                     });
             });
 
