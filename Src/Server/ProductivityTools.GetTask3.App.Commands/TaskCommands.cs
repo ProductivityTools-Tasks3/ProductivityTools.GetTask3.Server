@@ -31,6 +31,7 @@ namespace ProductivityTools.GetTask3.App.Commands
         ITaskUnitOfWork _taskUnitOfWork;
         IDateTimePT _dateTime;
 
+        
 
         public TaskCommands(ITaskUnitOfWork taskUnitOfWork, IDateTimePT datetime)
         {
@@ -51,7 +52,12 @@ namespace ProductivityTools.GetTask3.App.Commands
         private void AddElement(string name, CoreObjects.ElementType type, int? parentId, bool finished)
         {
 
-            Domain.Element e = new Domain.Element(name, type, parentId, finished ? Status.Finished : Status.New);
+            Domain.Element e = new Domain.Element(name, type, parentId);
+
+            if (finished)
+            {
+                e.Finish(_dateTime.Now);
+            }
 
             _taskUnitOfWork.TaskRepository.Add(e);
             _taskUnitOfWork.Commit();
