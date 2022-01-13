@@ -44,6 +44,11 @@ namespace ProductivityTools.GetTask3.Domain
             this.Tomatoes = new List<Tomato>();
         }
 
+        public Element(string name, ElementType type, int? parentId, Status status) : this(name, type, parentId)
+        {
+            this.Status = status;
+        }
+
         public Element(string name, ElementType type, int? parentId, string category) : this(name, type, parentId)
         {
             this.Category = category;

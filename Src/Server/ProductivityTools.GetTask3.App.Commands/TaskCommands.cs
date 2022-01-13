@@ -12,7 +12,7 @@ namespace ProductivityTools.GetTask3.App.Commands
 {
     public interface IGTaskCommands
     {
-        void Add(string name, int? bagId);
+        void Add(string name, int? bagId, bool finished);
         void AddBag(string bagName, int? bagId);
         void Finish(int elementId);
         void Start(int elementId);
@@ -38,19 +38,20 @@ namespace ProductivityTools.GetTask3.App.Commands
             _dateTime = datetime;
         }
 
-        public void Add(string name, int? bagId)
+        public void Add(string name, int? bagId, bool finished)
         {
-            AddElement(name, CoreObjects.ElementType.Task, bagId);
+            AddElement(name, CoreObjects.ElementType.Task, bagId, finished);
         }
 
         public void AddBag(string bagName, int? bagId)
         {
-            AddElement(bagName, CoreObjects.ElementType.TaskBag, bagId);
+            AddElement(bagName, CoreObjects.ElementType.TaskBag, bagId, false);
         }
 
-        private void AddElement(string name, CoreObjects.ElementType type, int? parentId)
+        private void AddElement(string name, CoreObjects.ElementType type, int? parentId, bool finished)
         {
-            Domain.Element e = new Domain.Element(name, type, parentId);
+
+            Domain.Element e = new Domain.Element(name, type, parentId, finished ? Status.Finished : Status.New);
 
             _taskUnitOfWork.TaskRepository.Add(e);
             _taskUnitOfWork.Commit();
@@ -159,7 +160,7 @@ namespace ProductivityTools.GetTask3.App.Commands
 
         public void Move(int[] elementIds, int target)
         {
-            var elements=_taskUnitOfWork.TaskRepository.GetElements(elementIds.ToList());
+            var elements = _taskUnitOfWork.TaskRepository.GetElements(elementIds.ToList());
             foreach (Domain.Element element in elements)
             {
                 element.ChangeParent(target);

@@ -67,7 +67,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
         [Authorize]
         public void Add([FromBody] AddRequest request)
         {
-            Commands.Add(request.Name, request.ParentId);
+            Commands.Add(request.Name, request.ParentId, request.Finished);
         }
 
         [HttpPost]

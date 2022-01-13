@@ -15,20 +15,20 @@ namespace ProductivityTools.GetTask3.App.Commands.Tests
         [TestMethod]
         public void AddTask()
         {
-            ITaskUnitOfWork taskUnitOfWork = new TaskUnitOfWorkTest(new TestTaskRepository(),null);
+            ITaskUnitOfWork taskUnitOfWork = new TaskUnitOfWorkTest(new TestTaskRepository(), null);
             TaskCommands taskCommands = new TaskCommands(taskUnitOfWork, new DateTimeTools.DateTimePT());
-            taskCommands.Add("Test1", 0);
+            taskCommands.Add("Test1", 0, false);
             Assert.AreEqual((taskUnitOfWork.TaskRepository as TestTaskRepository).Element.Elements.Count, 1);
         }
 
         [TestMethod]
         public void AddTomatoById()
         {
-            var testTomatoRepository= new TomatoRepositoryTest();
+            var testTomatoRepository = new TomatoRepositoryTest();
             var testTaskRepository = new TestTaskRepository();
 
             testTaskRepository.ElementsTeset.Add(new Domain.Element("core", CoreObjects.ElementType.TaskBag, null));
-            testTaskRepository.ElementsTeset.Add(new Domain.Element("jeden",CoreObjects.ElementType.Task,0));
+            testTaskRepository.ElementsTeset.Add(new Domain.Element("jeden", CoreObjects.ElementType.Task, 0));
             testTaskRepository.ElementsTeset.Add(new Domain.Element("dwa", CoreObjects.ElementType.Task, 0));
             ITaskUnitOfWork taskUnitOfWork = new TaskUnitOfWorkTest(testTaskRepository, testTomatoRepository);
 
@@ -48,8 +48,8 @@ namespace ProductivityTools.GetTask3.App.Commands.Tests
 
             TaskCommands taskCommands = new TaskCommands(taskUnitOfWork, new DateTimeTools.DateTimePT());
             Assert.IsTrue(testTaskRepository.Element.Elements.Count == 0);
-            taskCommands.AddToTomato("XXX",0);
-            Assert.IsTrue(testTaskRepository.Element.Elements.Count ==1);
+            taskCommands.AddToTomato("XXX", 0);
+            Assert.IsTrue(testTaskRepository.Element.Elements.Count == 1);
             Assert.IsTrue(testTaskRepository.Element.Elements[0].Tomatoes.Count > 0);
         }
 
