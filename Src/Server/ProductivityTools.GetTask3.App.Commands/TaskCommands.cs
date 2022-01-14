@@ -83,6 +83,7 @@ namespace ProductivityTools.GetTask3.App.Commands
         {
             var element = _taskUnitOfWork.TaskRepository.Get(elementId);
             element.Undone();
+            _taskUnitOfWork.TaskRepository.Update(element);
             _taskUnitOfWork.Commit();
         }
 
