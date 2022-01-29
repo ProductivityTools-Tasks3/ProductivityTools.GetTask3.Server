@@ -189,7 +189,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
         [Authorize]
         public void Update(UpdateRequest update)
         {
-
+            Commands.Update(update.ElementId, update.Name);
         }
     }
 }

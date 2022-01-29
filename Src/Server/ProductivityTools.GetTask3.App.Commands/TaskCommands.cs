@@ -24,6 +24,8 @@ namespace ProductivityTools.GetTask3.App.Commands
         void AddToTomato(string name, int parentId);
         void FinishTomato(bool finishAlsoTasks);
         void Move(int[] elementIds, int target);
+
+        void Update(int elementId, string name);
     }
 
 
@@ -177,6 +179,14 @@ namespace ProductivityTools.GetTask3.App.Commands
 
             _taskUnitOfWork.Commit();
 
+        }
+
+        public void Update(int elementId, string name)
+        {
+            Domain.Element element = _taskUnitOfWork.TaskRepository.GetElements(new List<int> { elementId }).Single(); ;
+            element.ChangeName(name);
+            _taskUnitOfWork.TaskRepository.Update(element);
+            _taskUnitOfWork.Commit();
         }
     }
 }
