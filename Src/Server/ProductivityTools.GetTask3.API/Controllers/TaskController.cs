@@ -182,5 +182,14 @@ namespace ProductivityTools.GetTask3.API.Controllers
         {
             Commands.Move(moveRequest.ElementIds, moveRequest.Target);
         }
+
+
+        [HttpPost]
+        [Route(Consts.Update)]
+        [Authorize]
+        public void Update(UpdateRequest update)
+        {
+
+        }
     }
 }
