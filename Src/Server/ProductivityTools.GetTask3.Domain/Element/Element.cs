@@ -107,9 +107,10 @@ namespace ProductivityTools.GetTask3.Domain
             this.ParentId = parentId;
         }
 
-        public void ChangeName(string name)
+        public void Update(int parentId, string name)
         {
             this.Name = name;
+            this.ParentId = parentId;
         }
 
         private DateTime AddDeadline(DateTime? startDate)

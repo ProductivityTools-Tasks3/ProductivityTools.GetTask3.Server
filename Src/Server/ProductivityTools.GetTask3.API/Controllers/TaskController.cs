@@ -185,11 +185,11 @@ namespace ProductivityTools.GetTask3.API.Controllers
 
 
         [HttpPost]
-        [Route(Consts.Update)]
+        [Route("Update")]
         [Authorize]
-        public void Update(UpdateRequest update)
+        public void Save(UpdateRequest update)
         {
-            Commands.Update(update.ElementId, update.Name);
+            Commands.Save(update.ParentId,update.ElementId, update.Name);
         }
     }
 }

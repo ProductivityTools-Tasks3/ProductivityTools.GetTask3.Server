@@ -25,7 +25,7 @@ namespace ProductivityTools.GetTask3.App.Commands
         void FinishTomato(bool finishAlsoTasks);
         void Move(int[] elementIds, int target);
 
-        void Update(int elementId, string name);
+        void Save(int parentId, int elementId, string name);
     }
 
 
@@ -34,7 +34,7 @@ namespace ProductivityTools.GetTask3.App.Commands
         ITaskUnitOfWork _taskUnitOfWork;
         IDateTimePT _dateTime;
 
-        
+
 
         public TaskCommands(ITaskUnitOfWork taskUnitOfWork, IDateTimePT datetime)
         {
@@ -181,10 +181,12 @@ namespace ProductivityTools.GetTask3.App.Commands
 
         }
 
-        public void Update(int elementId, string name)
+        public void Save(int parentId, int elementId, string name)
         {
+
             Domain.Element element = _taskUnitOfWork.TaskRepository.GetElements(new List<int> { elementId }).Single(); ;
-            element.ChangeName(name);
+
+            element.Update(parentId, name);
             _taskUnitOfWork.TaskRepository.Update(element);
             _taskUnitOfWork.Commit();
         }
