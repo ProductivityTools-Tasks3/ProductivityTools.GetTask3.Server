@@ -7,7 +7,7 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="11.0.0" />
     <PackageReference Include="AutoMapper.Contrib.Autofac.DependencyInjection" Version="6.0.0" />
-    <PackageReference Include="ProductivityTools.GetTask3.Contract" Version="0.0.10" />
+    <PackageReference Include="ProductivityTools.GetTask3.Contract" Version="0.0.11" />
   </ItemGroup>
 
   <ItemGroup>
