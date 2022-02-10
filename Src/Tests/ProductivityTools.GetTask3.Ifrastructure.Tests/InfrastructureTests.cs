@@ -157,7 +157,7 @@ namespace ProductivityTools.GetTask3.Ifrastructure.Tests
             TaskUnitOfWork taskUnitOfWork = new TaskUnitOfWork(taskContext, taskRepository, tomatoRepository, null);
 
             Domain.Tomato currentTomato = taskUnitOfWork.TomatoRepository.GetCurrent();
-            var element = new Domain.Element("pawel", CoreObjects.ElementType.Task, 1);
+            var element = new Domain.Element("pawel", "Details", CoreObjects.ElementType.Task, 1);
 
             element.Tomatoes.Add(currentTomato);
             taskUnitOfWork.TaskRepository.Add(element);
@@ -173,7 +173,7 @@ namespace ProductivityTools.GetTask3.Ifrastructure.Tests
             var taskContext = GetTaskContextInMemory();
             TaskRepository taskRepository = new TaskRepository(taskContext, mapper, new DateTimeTools.DateTimePT());
             TaskUnitOfWork taskUnitOfWork = new TaskUnitOfWork(taskContext, taskRepository, null, null);
-            taskUnitOfWork.TaskRepository.Add(new Domain.Element("pawelxxx", CoreObjects.ElementType.Task, 1));
+            taskUnitOfWork.TaskRepository.Add(new Domain.Element("pawelxxx", "Details", CoreObjects.ElementType.Task, 1));
             taskUnitOfWork.Commit();
 
             var element = taskContext.Element.Single();

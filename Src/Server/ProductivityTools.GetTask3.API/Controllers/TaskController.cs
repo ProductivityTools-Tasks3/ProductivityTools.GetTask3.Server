@@ -67,7 +67,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
         [Authorize]
         public void Add([FromBody] AddRequest request)
         {
-            Commands.Add(request.Name, request.ParentId, request.Finished);
+            Commands.Add(request.Name,request.Details, request.ParentId, request.Finished);
         }
 
         [HttpPost]
@@ -75,7 +75,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
         [Authorize]
         public void AddBag([FromBody] AddRequest request)
         {
-            Commands.AddBag(request.Name, request.ParentId);
+            Commands.AddBag(request.Name,request.Details, request.ParentId);
         }
 
         [HttpPost]
@@ -141,7 +141,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
         [Authorize]
         public void AddToTomatoByName([FromBody] AddToTomatoByNameRequest request)
         {
-            Commands.AddToTomato(request.TaskName, request.ParentId);
+            Commands.AddToTomato(request.TaskName,request.Details,  request.ParentId);
         }
 
         [HttpPost]

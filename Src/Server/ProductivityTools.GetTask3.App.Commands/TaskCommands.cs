@@ -13,18 +13,18 @@ namespace ProductivityTools.GetTask3.App.Commands
 {
     public interface IGTaskCommands
     {
-        void Add(string name, int? bagId, bool finished);
-        void AddBag(string bagName, int? bagId);
+        void Add(string name, string details, int? bagId, bool finished);
+        void AddBag(string bagName, string details, int? bagId);
         void Finish(int elementId);
         void Start(int elementId);
         void Undone(int elementId);
         void Delay(int elementId, DateTime dateTime);
         void Delete(int elementId);
         void AddToTomato(List<int> elementIds);
-        void AddToTomato(string name, int parentId);
+        void AddToTomato(string name, string details, int parentId);
         void FinishTomato(bool finishAlsoTasks);
         void Move(int[] elementIds, int target);
-
+         
         void Save(int parentId, int elementId, string name);
     }
 
@@ -42,20 +42,20 @@ namespace ProductivityTools.GetTask3.App.Commands
             _dateTime = datetime;
         }
 
-        public void Add(string name, int? bagId, bool finished)
+        public void Add(string name, string details, int? bagId, bool finished)
         {
-            AddElement(name, CoreObjects.ElementType.Task, bagId, finished);
+            AddElement(name, details, CoreObjects.ElementType.Task, bagId, finished);
         }
 
-        public void AddBag(string bagName, int? bagId)
+        public void AddBag(string bagName, string details, int? bagId)
         {
-            AddElement(bagName, CoreObjects.ElementType.TaskBag, bagId, false);
+            AddElement(bagName, details, CoreObjects.ElementType.TaskBag, bagId, false);
         }
 
-        private void AddElement(string name, CoreObjects.ElementType type, int? parentId, bool finished)
+        private void AddElement(string name, string details, CoreObjects.ElementType type, int? parentId, bool finished)
         {
 
-            Domain.Element e = new Domain.Element(name, type, parentId);
+            Domain.Element e = new Domain.Element(name, details, type, parentId);
 
             if (finished)
             {
@@ -131,7 +131,7 @@ namespace ProductivityTools.GetTask3.App.Commands
             //_taskUnitOfWork.Commit();
         }
 
-        public void AddToTomato(string name, int parentId)
+        public void AddToTomato(string name, string details, int parentId)
         {
             Domain.Tomato curentTomato = _taskUnitOfWork.TomatoRepository.GetCurrent();
             if (curentTomato == null)
@@ -140,7 +140,7 @@ namespace ProductivityTools.GetTask3.App.Commands
                 curentTomato.Status = Status.New;
             }
 
-            var element = new Domain.Element(name, CoreObjects.ElementType.Task, parentId);
+            var element = new Domain.Element(name, details, CoreObjects.ElementType.Task, parentId);
             element.AddToTomato(curentTomato);
 
             _taskUnitOfWork.TaskRepository.Add(element);

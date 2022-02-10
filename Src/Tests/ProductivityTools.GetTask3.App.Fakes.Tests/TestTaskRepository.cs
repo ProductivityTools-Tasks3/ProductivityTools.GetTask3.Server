@@ -8,7 +8,7 @@ namespace ProductivityTools.GetTask3.App.Fakes.Tests
 {
     public class TestTaskRepository : ITaskRepository
     {
-        public Domain.Element Element = new Domain.Element("root", CoreObjects.ElementType.TaskBag, null);
+        public Domain.Element Element = new Domain.Element("root", "Details", CoreObjects.ElementType.TaskBag, null);
         public List<Domain.Element> ElementsTeset = new List<Domain.Element>();
 
         public void Add(Domain.Element entity)

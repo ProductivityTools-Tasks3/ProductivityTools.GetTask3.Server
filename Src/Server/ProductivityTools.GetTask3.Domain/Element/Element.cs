@@ -11,6 +11,7 @@ namespace ProductivityTools.GetTask3.Domain
     public class Element :BaseEntity
     {
         public string Name { get; protected set; }
+        public string Details { get; protected set; }
         //pw:change it to Id  
         public int ElementId { get; protected set; }
         public int? ParentId { get; protected set; }
@@ -29,10 +30,11 @@ namespace ProductivityTools.GetTask3.Domain
 
         public List<Element> Elements { get; protected set; }
 
-        public Element(string name, ElementType type, int? parentId)
+        public Element(string name, string details, ElementType type, int? parentId)
         {
             new OneCoreInTree().Evaluate(parentId, type);
             this.Name = name;
+            this.Details = details;
             this.Type = type;
             this.ParentId = parentId;
             //pw: change this dates
@@ -49,7 +51,7 @@ namespace ProductivityTools.GetTask3.Domain
         //    this.Status = status;
         //}
 
-        public Element(string name, ElementType type, int? parentId, string category) : this(name, type, parentId)
+        public Element(string name, string details, ElementType type, int? parentId, string category) : this(name, details, type, parentId)
         {
             this.Category = category;
         }
