@@ -12,7 +12,8 @@ namespace ProductivityTools.GetTask3.Infrastructure
     {
         public int ElementId { get;  set; }
 
-        public string Name { get; set; }        
+        public string Name { get; set; }    
+        public string Details { get; set; }
         public int? ParentId { get; protected set; }
         public ElementType Type { get; protected set; }
         public Status Status { get; protected set; }
