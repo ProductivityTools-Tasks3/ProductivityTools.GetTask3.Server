@@ -8,10 +8,12 @@ using System.Text;
 
 namespace ProductivityTools.GetTask3.Domain
 {
-    public class Element :BaseEntity
+    public class Element : BaseEntity
     {
         public string Name { get; protected set; }
         public string Details { get; protected set; }
+
+        public string DetailsType { get; protected set; }
         //pw:change it to Id  
         public int ElementId { get; protected set; }
         public int? ParentId { get; protected set; }
@@ -30,11 +32,12 @@ namespace ProductivityTools.GetTask3.Domain
 
         public List<Element> Elements { get; protected set; }
 
-        public Element(string name, string details, ElementType type, int? parentId)
+        public Element(string name, string details, string detailsType, ElementType type, int? parentId)
         {
             new OneCoreInTree().Evaluate(parentId, type);
             this.Name = name;
             this.Details = details;
+            this.DetailsType = detailsType;
             this.Type = type;
             this.ParentId = parentId;
             //pw: change this dates
@@ -51,7 +54,7 @@ namespace ProductivityTools.GetTask3.Domain
         //    this.Status = status;
         //}
 
-        public Element(string name, string details, ElementType type, int? parentId, string category) : this(name, details, type, parentId)
+        public Element(string name, string details,string detailsType, ElementType type, int? parentId, string category) : this(name, details,detailsType, type, parentId)
         {
             this.Category = category;
         }
@@ -66,7 +69,7 @@ namespace ProductivityTools.GetTask3.Domain
 
         //public void Update(ElementType type)
         //{
-        
+
         //    Type = type;
         //}
 
@@ -109,10 +112,12 @@ namespace ProductivityTools.GetTask3.Domain
             this.ParentId = parentId;
         }
 
-        public void Update(int parentId, string name)
+        public void Update(int parentId, string name, string details, string detailsType)
         {
             this.Name = name;
             this.ParentId = parentId;
+            this.Details = details;
+            this.DetailsType = detailsType;
         }
 
         private DateTime AddDeadline(DateTime? startDate)

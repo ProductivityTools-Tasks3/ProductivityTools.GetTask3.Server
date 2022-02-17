@@ -67,7 +67,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
         [Authorize]
         public void Add([FromBody] AddRequest request)
         {
-            Commands.Add(request.Name,request.Details, request.ParentId, request.Finished);
+            Commands.Add(request.Name,request.Details, request.DetailsType, request.ParentId, request.Finished);
         }
 
         [HttpPost]
@@ -75,7 +75,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
         [Authorize]
         public void AddBag([FromBody] AddRequest request)
         {
-            Commands.AddBag(request.Name,request.Details, request.ParentId);
+            Commands.AddBag(request.Name,request.Details, request.DetailsType, request.ParentId);
         }
 
         [HttpPost]
@@ -189,7 +189,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
         [Authorize]
         public void Save(UpdateRequest update)
         {
-            Commands.Save(update.ParentId,update.ElementId, update.Name);
+            Commands.Save(update.ParentId,update.ElementId, update.Name, update.Details,"");
         }
     }
 }
