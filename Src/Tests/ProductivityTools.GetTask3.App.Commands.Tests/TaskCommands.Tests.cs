@@ -17,7 +17,7 @@ namespace ProductivityTools.GetTask3.App.Commands.Tests
         {
             ITaskUnitOfWork taskUnitOfWork = new TaskUnitOfWorkTest(new TestTaskRepository(), null);
             TaskCommands taskCommands = new TaskCommands(taskUnitOfWork, new DateTimeTools.DateTimePT());
-            taskCommands.Add("Test1", "Details", 0, false);
+            taskCommands.Add("Test1", "Details","", 0, false);
             Assert.AreEqual((taskUnitOfWork.TaskRepository as TestTaskRepository).Element.Elements.Count, 1);
         }
 
@@ -27,9 +27,9 @@ namespace ProductivityTools.GetTask3.App.Commands.Tests
             var testTomatoRepository = new TomatoRepositoryTest();
             var testTaskRepository = new TestTaskRepository();
 
-            testTaskRepository.ElementsTeset.Add(new Domain.Element("core", "Details", CoreObjects.ElementType.TaskBag, null));
-            testTaskRepository.ElementsTeset.Add(new Domain.Element("jeden", "Details", CoreObjects.ElementType.Task, 0));
-            testTaskRepository.ElementsTeset.Add(new Domain.Element("dwa", "Details", CoreObjects.ElementType.Task, 0));
+            testTaskRepository.ElementsTeset.Add(new Domain.Element("core", "Details", "", CoreObjects.ElementType.TaskBag, null));
+            testTaskRepository.ElementsTeset.Add(new Domain.Element("jeden", "Details", "", CoreObjects.ElementType.Task, 0));
+            testTaskRepository.ElementsTeset.Add(new Domain.Element("dwa", "Details", "", CoreObjects.ElementType.Task, 0));
             ITaskUnitOfWork taskUnitOfWork = new TaskUnitOfWorkTest(testTaskRepository, testTomatoRepository);
 
             TaskCommands taskCommands = new TaskCommands(taskUnitOfWork, new DateTimeTools.DateTimePT());

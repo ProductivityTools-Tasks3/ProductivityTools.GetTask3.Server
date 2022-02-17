@@ -14,10 +14,10 @@ namespace ProductivityTools.GetTask3.App.Queries.Tests
         public void GetList()
         {
             var taskRepository = new TestTaskRepository();
-            Domain.Element root = new Domain.Element("Root", "Details", CoreObjects.ElementType.TaskBag, null);
-            Domain.Element elementLevel1 = new Domain.Element("Level1", "Details", CoreObjects.ElementType.Task, root.ElementId);
+            Domain.Element root = new Domain.Element("Root", "Details","", CoreObjects.ElementType.TaskBag, null);
+            Domain.Element elementLevel1 = new Domain.Element("Level1", "Details","", CoreObjects.ElementType.Task, root.ElementId);
             root.Elements.Add(elementLevel1);
-            Domain.Element elementLevel2 = new Domain.Element("Level2", "Details", CoreObjects.ElementType.Task, root.ElementId);
+            Domain.Element elementLevel2 = new Domain.Element("Level2", "Details", "", CoreObjects.ElementType.Task, root.ElementId);
             elementLevel1.Elements.Add(elementLevel2);
 
 

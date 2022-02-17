@@ -13,15 +13,15 @@ namespace ProductivityTools.GetTask3.App.Commands
 {
     public interface IGTaskCommands
     {
-        void Add(string name, string details, int? bagId, bool finished);
-        void AddBag(string bagName, string details, int? bagId);
+        void Add(string name, string details, string detailsType, int? bagId, bool finished);
+        void AddBag(string bagName, string details, string detailsType,int? bagId);
         void Finish(int elementId);
         void Start(int elementId);
         void Undone(int elementId);
         void Delay(int elementId, DateTime dateTime);
         void Delete(int elementId);
         void AddToTomato(List<int> elementIds);
-        void AddToTomato(string name, string details, string detailsType, int parentId);
+        void AddToTomato(string name, string details, int parentId);
         void FinishTomato(bool finishAlsoTasks);
         void Move(int[] elementIds, int target);
 

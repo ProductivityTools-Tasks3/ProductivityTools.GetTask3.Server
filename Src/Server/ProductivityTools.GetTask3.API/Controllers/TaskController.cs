@@ -47,7 +47,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
         [HttpPost]
         [Authorize]
         [Route(Consts.TodayList)]
-        public ElementView GetTasks([FromBody]ListRequest request = null)
+        public ElementView GetTasks([FromBody] ListRequest request = null)
         {
             //pw: perform mapping in this layer
             var x = Queries.GetTaskList(request?.ElementId, request.Path);
@@ -56,7 +56,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
         [HttpPost]
         [Route(Consts.GetRoot)]
         [Authorize]
-        public int? GetRoot([FromBody]GetRootRequest request)
+        public int? GetRoot([FromBody] GetRootRequest request)
         {
             var x = Queries.GetRootRequest(request.ElementId, request.Path);
             return x;
@@ -67,7 +67,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
         [Authorize]
         public void Add([FromBody] AddRequest request)
         {
-            Commands.Add(request.Name,request.Details, request.DetailsType, request.ParentId, request.Finished);
+            Commands.Add(request.Name, request.Details, request.DetailsType, request.ParentId, request.Finished);
         }
 
         [HttpPost]
@@ -75,7 +75,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
         [Authorize]
         public void AddBag([FromBody] AddRequest request)
         {
-            Commands.AddBag(request.Name,request.Details, request.DetailsType, request.ParentId);
+            Commands.AddBag(request.Name, request.Details, request.DetailsType, request.ParentId);
         }
 
         [HttpPost]
@@ -141,7 +141,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
         [Authorize]
         public void AddToTomatoByName([FromBody] AddToTomatoByNameRequest request)
         {
-            Commands.AddToTomato(request.TaskName,request.Details,  request.ParentId);
+            Commands.AddToTomato(request.TaskName, request.Details, request.ParentId);
         }
 
         [HttpPost]
@@ -189,7 +189,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
         [Authorize]
         public void Save(UpdateRequest update)
         {
-            Commands.Save(update.ParentId,update.ElementId, update.Name, update.Details,"");
+            Commands.Save(update.ParentId, update.ElementId, update.Name, update.Details, update.DetailsType);
         }
     }
 }
