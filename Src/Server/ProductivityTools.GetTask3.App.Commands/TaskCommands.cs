@@ -1,4 +1,5 @@
-﻿using ProductivityTools.DateTimeTools;
+﻿using AutoMapper;
+using ProductivityTools.DateTimeTools;
 using ProductivityTools.GetTask3.CoreObjects.Tomato;
 using ProductivityTools.GetTask3.Domain;
 using ProductivityTools.GetTask3.Infrastructure;
@@ -13,8 +14,8 @@ namespace ProductivityTools.GetTask3.App.Commands
 {
     public interface IGTaskCommands
     {
-        void Add(string name, string details, string detailsType, int? bagId, bool finished);
-        void AddBag(string bagName, string details, string detailsType,int? bagId);
+        int Add(string name, string details, string detailsType, int? bagId, bool finished);
+        void AddBag(string bagName, string details, string detailsType, int? bagId);
         void Finish(int elementId);
         void Start(int elementId);
         void Undone(int elementId);
@@ -33,7 +34,7 @@ namespace ProductivityTools.GetTask3.App.Commands
     {
         ITaskUnitOfWork _taskUnitOfWork;
         IDateTimePT _dateTime;
-
+        protected readonly IMapper _mapper;
 
 
         public TaskCommands(ITaskUnitOfWork taskUnitOfWork, IDateTimePT datetime)
@@ -42,9 +43,10 @@ namespace ProductivityTools.GetTask3.App.Commands
             _dateTime = datetime;
         }
 
-        public void Add(string name, string details, string detailsType, int? bagId, bool finished)
+        public int Add(string name, string details, string detailsType, int? bagId, bool finished)
         {
-            AddElement(name, details, detailsType, CoreObjects.ElementType.Task, bagId, finished);
+            var r = AddElement(name, details, detailsType, CoreObjects.ElementType.Task, bagId, finished);
+            return r;
         }
 
         public void AddBag(string bagName, string detailsType, string details, int? bagId)
@@ -52,7 +54,7 @@ namespace ProductivityTools.GetTask3.App.Commands
             AddElement(bagName, details, detailsType, CoreObjects.ElementType.TaskBag, bagId, false);
         }
 
-        private void AddElement(string name, string details, string detailsType, CoreObjects.ElementType type, int? parentId, bool finished)
+        private int AddElement(string name, string details, string detailsType, CoreObjects.ElementType type, int? parentId, bool finished)
         {
 
             Domain.Element e = new Domain.Element(name, details, detailsType, type, parentId);
@@ -62,8 +64,10 @@ namespace ProductivityTools.GetTask3.App.Commands
                 e.Finish(_dateTime.Now);
             }
 
-            _taskUnitOfWork.TaskRepository.Add(e);
+            Infrastructure.Element d = _mapper.Map<Infrastructure.Element>(e);
+            _taskUnitOfWork.TaskRepository.Add(d);
             _taskUnitOfWork.Commit();
+            return e.ElementId;
         }
 
         public void Finish(int elementId)
@@ -77,7 +81,11 @@ namespace ProductivityTools.GetTask3.App.Commands
         public void Start(int elementId)
         {
             var element = _taskUnitOfWork.TaskRepository.Get(elementId);
-            element.Start(_dateTime.Now);
+            Domain.Element d = _mapper.Map<Domain.Element>(element);
+
+            d.Start(_dateTime.Now);
+            element = _mapper.Map<Infrastructure.Element>(d);
+
             _taskUnitOfWork.TaskRepository.Update(element);
             _taskUnitOfWork.Commit();
         }
@@ -85,7 +93,9 @@ namespace ProductivityTools.GetTask3.App.Commands
         public void Undone(int elementId)
         {
             var element = _taskUnitOfWork.TaskRepository.Get(elementId);
-            element.Undone();
+            Domain.Element d = _mapper.Map<Domain.Element>(element);
+            d.Undone();
+            element = _mapper.Map<Infrastructure.Element>(d);
             _taskUnitOfWork.TaskRepository.Update(element);
             _taskUnitOfWork.Commit();
         }
@@ -93,7 +103,11 @@ namespace ProductivityTools.GetTask3.App.Commands
         public void Delay(int elementId, DateTime initializationDate)
         {
             var element = _taskUnitOfWork.TaskRepository.Get(elementId);
-            element.Delay(initializationDate);
+            Domain.Element d = _mapper.Map<Domain.Element>(element);
+
+            d.Delay(initializationDate);
+            element = _mapper.Map<Infrastructure.Element>(d);
+
             _taskUnitOfWork.TaskRepository.Update(element);
             _taskUnitOfWork.Commit();
         }
@@ -101,7 +115,11 @@ namespace ProductivityTools.GetTask3.App.Commands
         public void Delete(int elementId)
         {
             var element = _taskUnitOfWork.TaskRepository.Get(elementId);
-            element.Delete();
+            Domain.Element d = _mapper.Map<Domain.Element>(element);
+
+            d.Delete();
+            element = _mapper.Map<Infrastructure.Element>(d);
+
             _taskUnitOfWork.TaskRepository.Update(element);
             _taskUnitOfWork.Commit();
         }
@@ -119,7 +137,8 @@ namespace ProductivityTools.GetTask3.App.Commands
             elements.ForEach(x =>
             {
                 x.AddToTomato(curentTomato);
-                _taskUnitOfWork.TaskRepository.Update(x);
+                Infrastructure.Element d = _mapper.Map<Infrastructure.Element>(x);
+                _taskUnitOfWork.TaskRepository.Update(d);
             });
             _taskUnitOfWork.Commit();
 
@@ -142,8 +161,9 @@ namespace ProductivityTools.GetTask3.App.Commands
 
             var element = new Domain.Element(name, details, "", CoreObjects.ElementType.Task, parentId);
             element.AddToTomato(curentTomato);
+            Infrastructure.Element d = _mapper.Map<Infrastructure.Element>(element);
 
-            _taskUnitOfWork.TaskRepository.Add(element);
+            _taskUnitOfWork.TaskRepository.Add(d);
             // _taskUnitOfWork.TomatoRepository.Update(curentTomato);
             _taskUnitOfWork.Commit();
         }
@@ -152,7 +172,8 @@ namespace ProductivityTools.GetTask3.App.Commands
         {
             Domain.Tomato tomato = _taskUnitOfWork.TomatoRepository.GetCurrent();
             tomato.Finish();
-            _taskUnitOfWork.TomatoRepository.Update(tomato);
+            Infrastructure.Tomato d = _mapper.Map<Infrastructure.Tomato>(tomato);
+            _taskUnitOfWork.TomatoRepository.Update(d);
 
             if (finishAlsoTask)
             {
@@ -161,7 +182,8 @@ namespace ProductivityTools.GetTask3.App.Commands
                 elements.ForEach(x =>
                 {
                     x.Finish(DateTime.Now);
-                    _taskUnitOfWork.TaskRepository.Update(x);
+                    Infrastructure.Element d = _mapper.Map<Infrastructure.Element>(x);
+                    _taskUnitOfWork.TaskRepository.Update(d);
                 });
             }
 
@@ -187,7 +209,8 @@ namespace ProductivityTools.GetTask3.App.Commands
             Domain.Element element = _taskUnitOfWork.TaskRepository.GetElements(new List<int> { elementId }).Single(); ;
 
             element.Update(parentId, name, details, detailsType);
-            _taskUnitOfWork.TaskRepository.Update(element);
+            Infrastructure.Element d = _mapper.Map<Infrastructure.Element>(element);
+            _taskUnitOfWork.TaskRepository.Update(d);
             _taskUnitOfWork.Commit();
         }
     }

@@ -4,11 +4,11 @@ using System.Text;
 
 namespace ProductivityTools.GetTask3.Infrastructure.Base
 {
-    public interface IRepository<DomainElement,InfrastructureElement>
+    public interface IRepository<InfrastructureElement>
     {
-        void Add(DomainElement entity);
-        DomainElement Get(int? id);
+        void Add(InfrastructureElement entity);
+        InfrastructureElement Get(int? id);
 
-        void Update(DomainElement entity);
+        void Update(InfrastructureElement entity);
     }
 }

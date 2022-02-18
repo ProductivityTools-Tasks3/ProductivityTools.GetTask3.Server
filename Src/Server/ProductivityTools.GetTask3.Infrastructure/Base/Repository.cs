@@ -7,8 +7,7 @@ using System.Text;
 
 namespace ProductivityTools.GetTask3.Infrastructure.Base
 {
-    public class Repository<DomainObject, InfrastructureObject> : IRepository<DomainObject, InfrastructureObject>
-        where DomainObject : class
+    public class Repository<InfrastructureObject> : IRepository<InfrastructureObject>
         where InfrastructureObject : class
     {
         protected readonly TaskContext _taskContext;
@@ -23,7 +22,7 @@ namespace ProductivityTools.GetTask3.Infrastructure.Base
             _mapper = mapper;
         }
 
-        public void Add(DomainObject entity)
+        public void Add(InfrastructureObject entity)
         {
             InfrastructureObject ifrastructure = _mapper.Map<InfrastructureObject>(entity);
             //pw: here test are failing if add chosen
@@ -31,16 +30,16 @@ namespace ProductivityTools.GetTask3.Infrastructure.Base
            // _dbSet.Add(ifrastructure);
         }
 
-        public DomainObject Get(int? id)
+        public InfrastructureObject Get(int? id)
         {
             var x = _dbSet.Find(id);
             _taskContext.Entry(x).State = EntityState.Detached;
-            DomainObject d = _mapper.Map<DomainObject>(x);
-            return d;
+            // domain element DomainObject d = _mapper.Map<DomainObject>(x);
+            return x;
         }
 
         //pw: change this id to interface on domain object
-        public void Update(DomainObject @object)
+        public void Update(InfrastructureObject @object)
         {
             InfrastructureObject ifra = _mapper.Map<InfrastructureObject>(@object);
             //_taskContext.Entry(ifra).State = EntityState.Detached;

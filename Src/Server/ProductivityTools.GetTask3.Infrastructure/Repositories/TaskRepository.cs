@@ -11,7 +11,7 @@ using System.Text;
 
 namespace ProductivityTools.GetTask3.Infrastructure.Repositories
 {
-    public interface ITaskRepository : IRepository<Domain.Element, Infrastructure.Element>
+    public interface ITaskRepository : IRepository<Infrastructure.Element>
     {
         Domain.Element GetStructure(int? root = null);
         Domain.Element GetNode(int? node);
@@ -22,7 +22,7 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
         List<Element> GetTaskBags(int? rootId);
     }
 
-    public class TaskRepository : Repository<Domain.Element, Infrastructure.Element>, ITaskRepository
+    public class TaskRepository : Repository<Infrastructure.Element>, ITaskRepository
     {
 
         private readonly IDateTimePT _dateTimePT;
