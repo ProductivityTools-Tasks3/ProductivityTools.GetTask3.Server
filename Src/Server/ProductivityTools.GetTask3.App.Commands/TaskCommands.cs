@@ -68,7 +68,7 @@ namespace ProductivityTools.GetTask3.App.Commands
             Infrastructure.Element d = _mapper.Map<Infrastructure.Element>(e);
             _taskUnitOfWork.TaskRepository.Add(d);
             _taskUnitOfWork.Commit();
-            return e.ElementId;
+            return d.ElementId;
         }
 
         public void Finish(int elementId)

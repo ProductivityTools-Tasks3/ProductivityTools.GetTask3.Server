@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29709.97
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Server", "Server", "{CBC7822B-5456-4F41-94F0-B7F30781AC0B}"
 EndProject
@@ -38,6 +38,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductivityTools.GetTask3.Handlers", "Src\Server\ProductivityTools.GetTask3.Handlers\ProductivityTools.GetTask3.Handlers.csproj", "{28E194C8-2627-4929-BEB7-3F865152F81B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductivityTools.GetTask3.Server.DbUp", "ProductivityTools.GetTask3.Server.DbUp\ProductivityTools.GetTask3.Server.DbUp.csproj", "{438DEACF-A056-47F0-9E86-85D2C7197B65}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductivityTools.GetTasks3.Integration.Tests", "ProductivityTools.GetTasks3.Integration.Tests\ProductivityTools.GetTasks3.Integration.Tests.csproj", "{178FC313-B9F5-4EB8-8F06-B99FAD81AADE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -109,6 +111,10 @@ Global
 		{438DEACF-A056-47F0-9E86-85D2C7197B65}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{438DEACF-A056-47F0-9E86-85D2C7197B65}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{438DEACF-A056-47F0-9E86-85D2C7197B65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{178FC313-B9F5-4EB8-8F06-B99FAD81AADE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{178FC313-B9F5-4EB8-8F06-B99FAD81AADE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{178FC313-B9F5-4EB8-8F06-B99FAD81AADE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{178FC313-B9F5-4EB8-8F06-B99FAD81AADE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -130,6 +136,7 @@ Global
 		{4F55E4AE-6803-496C-B593-0744E33D2126} = {CBC7822B-5456-4F41-94F0-B7F30781AC0B}
 		{28E194C8-2627-4929-BEB7-3F865152F81B} = {CBC7822B-5456-4F41-94F0-B7F30781AC0B}
 		{438DEACF-A056-47F0-9E86-85D2C7197B65} = {CBC7822B-5456-4F41-94F0-B7F30781AC0B}
+		{178FC313-B9F5-4EB8-8F06-B99FAD81AADE} = {0138D329-49FF-4EF6-8A94-CC4F275FBB0C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E0A3855A-2490-4366-9CB1-4EA79EF4BEDC}

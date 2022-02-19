@@ -1,0 +1,11 @@
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Warning"
+    }
+  },
+  "ConnectionStrings": {
+    "GetTask3": "Server=.\\sql2019;Database=GetTask3;Integrated Security=True"
+  },
+  "AllowedHosts": "*"
+}
