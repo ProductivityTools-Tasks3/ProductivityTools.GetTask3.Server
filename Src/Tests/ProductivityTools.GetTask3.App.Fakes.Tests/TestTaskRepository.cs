@@ -8,7 +8,7 @@ namespace ProductivityTools.GetTask3.App.Fakes.Tests
 {
     public class TestTaskRepository : ITaskRepository
     {
-        public Element Element = new Infrastructure.Element();//"root", "Details", "",CoreObjects.ElementType.TaskBag, null);
+        public Element Element = new Infrastructure.Element { Name = "root", ElementId = 0 };
         public List<Element> ElementsTeset = new List<Infrastructure.Element>();
 
         public void Add(Element entity)
@@ -26,14 +26,44 @@ namespace ProductivityTools.GetTask3.App.Fakes.Tests
             return ElementsTeset;
         }
 
+        private Element GetNodeRecurse(Element element, int value)
+        {
+            if (element.ElementId == value)
+            {
+                return element;
+            }
+            else
+            {
+                foreach (var el in element.Elements)
+                {
+                   return GetNodeRecurse(el, value);
+                }
+                throw new Exception("Elmenent not found");
+            }
+        }
+
         public Element GetNode(int? node)
         {
-            throw new NotImplementedException();
+            if (node.HasValue == false)
+            {
+                return this.Element;
+            }
+            else
+            {
+                return GetNodeRecurse(this.Element, node.Value);
+            }
         }
 
         public Infrastructure.Element GetStructure(int? root = null)
         {
-            return this.Element;
+            if (root.HasValue == false)
+            {
+                return this.Element;
+            }
+            else
+            {
+                return GetNodeRecurse(this.Element, root.Value);
+            }
         }
 
         public List<Infrastructure.Element> GetTaskBags(int? rootId)
