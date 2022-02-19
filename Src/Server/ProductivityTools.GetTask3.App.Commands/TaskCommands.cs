@@ -37,10 +37,11 @@ namespace ProductivityTools.GetTask3.App.Commands
         protected readonly IMapper _mapper;
 
 
-        public TaskCommands(ITaskUnitOfWork taskUnitOfWork, IDateTimePT datetime)
+        public TaskCommands(ITaskUnitOfWork taskUnitOfWork, IDateTimePT datetime, IMapper mapper)
         {
             _taskUnitOfWork = taskUnitOfWork;
             _dateTime = datetime;
+            _mapper = mapper;
         }
 
         public int Add(string name, string details, string detailsType, int? bagId, bool finished)

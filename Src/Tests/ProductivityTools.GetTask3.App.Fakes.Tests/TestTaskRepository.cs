@@ -8,7 +8,8 @@ namespace ProductivityTools.GetTask3.App.Fakes.Tests
 {
     public class TestTaskRepository : ITaskRepository
     {
-        public Element Element = new Infrastructure.Element { Name = "root", ElementId = 0 };
+        public Element Element = new Infrastructure.Element { Name = "root", ElementId = 0, Elements = new List<Element>() };
+
         public List<Element> ElementsTeset = new List<Infrastructure.Element>();
 
         public void Add(Element entity)
@@ -36,7 +37,7 @@ namespace ProductivityTools.GetTask3.App.Fakes.Tests
             {
                 foreach (var el in element.Elements)
                 {
-                   return GetNodeRecurse(el, value);
+                    return GetNodeRecurse(el, value);
                 }
                 throw new Exception("Elmenent not found");
             }
