@@ -35,6 +35,7 @@ namespace ProductivityTools.GetTask3.App.Commands.Tests
         }
 
         [TestMethod]
+        [Ignore]//currently tomatos are nott used
         public void AddTomatoById()
         {
             var testTomatoRepository = new TomatoRepositoryTest();
@@ -54,6 +55,8 @@ namespace ProductivityTools.GetTask3.App.Commands.Tests
         }
 
         [TestMethod]
+        [Ignore]//currently tomatos are nott used
+
         public void AddTomatoByName()
         {
             var testTomatoRepository = new TomatoRepositoryTest();
