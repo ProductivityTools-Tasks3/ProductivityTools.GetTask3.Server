@@ -40,8 +40,8 @@ namespace ProductivityTools.GetTask3.App.Queries
                 bagId = FindCorrectRoot(bagId, path);
             }
 
-            Domain.Element element = _taskRepository.GetStructure(bagId);
-            ElementView st = _mapper.Map<Domain.Element, ElementView>(element);
+            Infrastructure.Element element = _taskRepository.GetStructure(bagId);
+            ElementView st = _mapper.Map<Infrastructure.Element, ElementView>(element);
             return st;
         }
 
@@ -102,15 +102,15 @@ namespace ProductivityTools.GetTask3.App.Queries
         public TomatoView GetTomato()
         {
             var tomato = tomatoRepository.GetCurrent();
-            TomatoView result = _mapper.Map<Domain.Tomato, TomatoView>(tomato);
+            TomatoView result = _mapper.Map<Infrastructure.Tomato, TomatoView>(tomato);
             return result;
         }
 
         public TomatoReportView GetTomatoReport(DateTime date)
         {
-            List<Domain.Tomato> tomatoList = tomatoRepository.GetTomatoReport(date);
+            List<Infrastructure.Tomato> tomatoList = tomatoRepository.GetTomatoReport(date);
             var result = new TomatoReportView();
-            result.Tomatoes = _mapper.Map<List<Domain.Tomato>, List<TomatoView>>(tomatoList);
+            result.Tomatoes = _mapper.Map<List<Infrastructure.Tomato>, List<TomatoView>>(tomatoList);
             return result;
         }
 

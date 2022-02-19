@@ -12,7 +12,7 @@ namespace ProductivityTools.GetTask3.App.Queries.AutoMapper
         public ElementProfile()
         {
 
-            CreateMap<Domain.Element, ElementView>();
+            CreateMap<Infrastructure.Element, ElementView>();
             CreateMap<Domain.Tomato, TomatoView>();
             CreateMap<Domain.Element, TomatoElementView>();
             //    ForMember(dest => dest.Elements, opt => opt.MapFrom(src => src.Elements));

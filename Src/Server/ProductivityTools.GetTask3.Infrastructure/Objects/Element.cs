@@ -1,6 +1,5 @@
 ﻿using ProductivityTools.GetTask3.CoreObjects;
 using ProductivityTools.GetTask3.CoreObjects.Tomato;
-using ProductivityTools.GetTask3.Domain;
 using ProductivityTools.GetTask3.Infrastructure.Objects;
 using System;
 using System.Collections.Generic;

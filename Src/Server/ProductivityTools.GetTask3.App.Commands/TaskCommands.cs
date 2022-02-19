@@ -73,7 +73,9 @@ namespace ProductivityTools.GetTask3.App.Commands
         public void Finish(int elementId)
         {
             var element = _taskUnitOfWork.TaskRepository.Get(elementId);
-            element.Finish(_dateTime.Now);
+            var domain = _mapper.Map<Domain.Element>(element);
+            domain.Finish(_dateTime.Now);
+            element = _mapper.Map<Infrastructure.Element>(domain);
             _taskUnitOfWork.TaskRepository.Update(element);
             _taskUnitOfWork.Commit();
         }
@@ -126,19 +128,20 @@ namespace ProductivityTools.GetTask3.App.Commands
 
         public void AddToTomato(List<int> elementIds)
         {
-            Domain.Tomato curentTomato = _taskUnitOfWork.TomatoRepository.GetCurrent();
+            Infrastructure.Tomato curentTomato = _taskUnitOfWork.TomatoRepository.GetCurrent();
             if (curentTomato == null)
             {
-                curentTomato = new Domain.Tomato();
+                curentTomato = new Infrastructure.Tomato();
                 curentTomato.Status = Status.New;
             }
 
-            List<Domain.Element> elements = _taskUnitOfWork.TaskRepository.GetElements(elementIds);
+            List<Infrastructure.Element> elements = _taskUnitOfWork.TaskRepository.GetElements(elementIds);
             elements.ForEach(x =>
             {
-                x.AddToTomato(curentTomato);
-                Infrastructure.Element d = _mapper.Map<Infrastructure.Element>(x);
-                _taskUnitOfWork.TaskRepository.Update(d);
+                //I removed this functionality for now
+                //x.AddToTomato(curentTomato);
+                //Infrastructure.Element d = _mapper.Map<Infrastructure.Element>(x);
+                //_taskUnitOfWork.TaskRepository.Update(d);
             });
             _taskUnitOfWork.Commit();
 
@@ -152,7 +155,9 @@ namespace ProductivityTools.GetTask3.App.Commands
 
         public void AddToTomato(string name, string details, int parentId)
         {
-            Domain.Tomato curentTomato = _taskUnitOfWork.TomatoRepository.GetCurrent();
+            Infrastructure.Tomato infrastructure = _taskUnitOfWork.TomatoRepository.GetCurrent();
+            var curentTomato = _mapper.Map<Domain.Tomato>(infrastructure);
+
             if (curentTomato == null)
             {
                 curentTomato = new Domain.Tomato();
@@ -170,14 +175,17 @@ namespace ProductivityTools.GetTask3.App.Commands
 
         public void FinishTomato(bool finishAlsoTask)
         {
-            Domain.Tomato tomato = _taskUnitOfWork.TomatoRepository.GetCurrent();
+            Infrastructure.Tomato itomato = _taskUnitOfWork.TomatoRepository.GetCurrent();
+            var tomato = _mapper.Map<Domain.Tomato>(itomato);
+
             tomato.Finish();
             Infrastructure.Tomato d = _mapper.Map<Infrastructure.Tomato>(tomato);
             _taskUnitOfWork.TomatoRepository.Update(d);
 
             if (finishAlsoTask)
             {
-                List<Domain.Element> elements = _taskUnitOfWork.TaskRepository.GetElements(tomato.Elements.Select(x => x.ElementId).ToList());
+                List<Infrastructure.Element> ielements = _taskUnitOfWork.TaskRepository.GetElements(tomato.Elements.Select(x => x.ElementId).ToList());
+                List<Domain.Element> elements = _mapper.Map<List<Domain.Element>>(ielements);
                 //pw: chage it
                 elements.ForEach(x =>
                 {
@@ -193,10 +201,12 @@ namespace ProductivityTools.GetTask3.App.Commands
         public void Move(int[] elementIds, int target)
         {
             var elements = _taskUnitOfWork.TaskRepository.GetElements(elementIds.ToList());
-            foreach (Domain.Element element in elements)
+            foreach (Infrastructure.Element element in elements)
             {
-                element.ChangeParent(target);
-                _taskUnitOfWork.TaskRepository.Update(element);
+                var domain = _mapper.Map<Domain.Element>(element);
+                domain.ChangeParent(target);
+                var dbupdate = _mapper.Map<Infrastructure.Element>(domain);
+                _taskUnitOfWork.TaskRepository.Update(dbupdate);
             }
 
             _taskUnitOfWork.Commit();
@@ -206,9 +216,10 @@ namespace ProductivityTools.GetTask3.App.Commands
         public void Save(int parentId, int elementId, string name, string details, string detailsType)
         {
 
-            Domain.Element element = _taskUnitOfWork.TaskRepository.GetElements(new List<int> { elementId }).Single(); ;
-
-            element.Update(parentId, name, details, detailsType);
+            Infrastructure.Element element = _taskUnitOfWork.TaskRepository.GetElements(new List<int> { elementId }).Single(); ;
+            Domain.Element el = _mapper.Map<Domain.Element>(elementId);
+            el.Update(parentId, name, details, detailsType);
+            element = _mapper.Map<Infrastructure.Element>(el);
             Infrastructure.Element d = _mapper.Map<Infrastructure.Element>(element);
             _taskUnitOfWork.TaskRepository.Update(d);
             _taskUnitOfWork.Commit();

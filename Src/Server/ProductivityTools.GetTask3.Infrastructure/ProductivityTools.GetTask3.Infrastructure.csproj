@@ -6,17 +6,18 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="11.0.0" />
+    <PackageReference Include="MediatR" Version="10.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.0.1" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.2.0" />
     <PackageReference Include="ProductivityTools.DateTimeTools" Version="0.0.5" />
+    <PackageReference Include="ProductivityTools.GetTask3.CoreObjects" Version="0.0.1" />
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\ProductivityTools.GetTask3.Configuration\ProductivityTools.GetTask3.Configuration.csproj" />
-    <ProjectReference Include="..\ProductivityTools.GetTask3.Domain\ProductivityTools.GetTask3.Domain.csproj" />
   </ItemGroup>
 
 </Project>

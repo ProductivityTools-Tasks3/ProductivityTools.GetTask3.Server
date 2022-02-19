@@ -1,4 +1,4 @@
-﻿using ProductivityTools.GetTask3.Domain;
+﻿using ProductivityTools.GetTask3.Infrastructure;
 using ProductivityTools.GetTask3.Infrastructure.Repositories;
 using System;
 using System.Collections.Generic;
@@ -8,20 +8,20 @@ namespace ProductivityTools.GetTask3.App.Fakes.Tests
 {
     public class TestTaskRepository : ITaskRepository
     {
-        public Domain.Element Element = new Domain.Element("root", "Details", "",CoreObjects.ElementType.TaskBag, null);
-        public List<Domain.Element> ElementsTeset = new List<Domain.Element>();
+        public Element Element = new Infrastructure.Element();//"root", "Details", "",CoreObjects.ElementType.TaskBag, null);
+        public List<Element> ElementsTeset = new List<Infrastructure.Element>();
 
-        public void Add(Domain.Element entity)
+        public void Add(Element entity)
         {
             this.Element.Elements.Add(entity);
         }
 
-        public Domain.Element Get(int? id)
+        public Element Get(int? id)
         {
             throw new System.NotImplementedException();
         }
 
-        public List<Domain.Element> GetElements(List<int> elementids)
+        public List<Element> GetElements(List<int> elementids)
         {
             return ElementsTeset;
         }
@@ -31,7 +31,7 @@ namespace ProductivityTools.GetTask3.App.Fakes.Tests
             throw new NotImplementedException();
         }
 
-        public Domain.Element GetStructure(int? root = null)
+        public Infrastructure.Element GetStructure(int? root = null)
         {
             return this.Element;
         }
@@ -41,7 +41,7 @@ namespace ProductivityTools.GetTask3.App.Fakes.Tests
             throw new System.NotImplementedException();
         }
 
-        public void Update(Domain.Element entity)
+        public void Update(Infrastructure.Element entity)
         {
 
         }

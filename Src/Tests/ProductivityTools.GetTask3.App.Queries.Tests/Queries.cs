@@ -23,7 +23,7 @@ namespace ProductivityTools.GetTask3.App.Queries.Tests
 
             var mockMapper = new MapperConfiguration(cfg =>
             {
-                cfg.AddProfile(new ElementProfile());
+                cfg.AddProfile(new ProductivityTools.GetTask3.App.Queries.AutoMapper.ElementProfile());
             });
             var mapper = mockMapper.CreateMapper();
 

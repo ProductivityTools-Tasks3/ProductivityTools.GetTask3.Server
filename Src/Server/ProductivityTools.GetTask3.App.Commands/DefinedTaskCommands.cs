@@ -1,4 +1,5 @@
-﻿using ProductivityTools.GetTask3.Infrastructure;
+﻿using AutoMapper;
+using ProductivityTools.GetTask3.Infrastructure;
 using ProductivityTools.GetTask3.Infrastructure.Repositories;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ namespace ProductivityTools.GetTask3.App.Commands
     {
         private readonly ITaskUnitOfWork _taskUnitOfWork;
         private readonly IDefinedTaskRepository _definedTaskRepository;
+        protected readonly IMapper _mapper;
         // private readonly ITaskRepository _taskRepository;
 
         //IDateTimePT _dateTime;
@@ -29,13 +31,13 @@ namespace ProductivityTools.GetTask3.App.Commands
         public void AddDefinedTask(int definedTaskId)
         {
             var definedTaskGroup = _definedTaskRepository.GetWithDetails(definedTaskId);
-            Domain.Element e = _taskUnitOfWork.TaskRepository.Get(definedTaskGroup.BagId);
+            Infrastructure.Element e = _taskUnitOfWork.TaskRepository.Get(definedTaskGroup.BagId);
             foreach (var definedElement in definedTaskGroup.Items)
             {
                 Domain.Element newElement = new Domain.Element(definedElement.Name,string.Empty,string.Empty, CoreObjects.ElementType.Task, e.ElementId, definedTaskGroup.Name);
                 //newElement.Update(CoreObjects.ElementType.Task);
-
-                _taskUnitOfWork.TaskRepository.Add(newElement);
+                var infra=_mapper.Map<Infrastructure.Element>(newElement);
+                _taskUnitOfWork.TaskRepository.Add(infra);
             }
             _taskUnitOfWork.Commit();
         }

@@ -1,10 +1,11 @@
 ﻿using AutoMapper;
+using ProductivityTools.GetTask3.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ProductivityTools.GetTask3.Infrastructure.AutoMapper
+namespace ProductivityTools.GetTask3.App.Commands
 {
     public class ElementProfile : Profile
     {
@@ -28,8 +29,8 @@ namespace ProductivityTools.GetTask3.Infrastructure.AutoMapper
                     {
                         var tomatoElement = new TomatoElement();
                         //if we set this values, many to many wont save
-                       // tomatoElement.TomatoId = tomato.TomatoId;
-                       // tomatoElement.ElementId = source.ElementId;
+                        // tomatoElement.TomatoId = tomato.TomatoId;
+                        // tomatoElement.ElementId = source.ElementId;
                         tomatoElement.Tomato = context.Mapper.Map<Infrastructure.Tomato>(tomato);
                         result.Add(tomatoElement);
                         tomatoElement.Element = destination;

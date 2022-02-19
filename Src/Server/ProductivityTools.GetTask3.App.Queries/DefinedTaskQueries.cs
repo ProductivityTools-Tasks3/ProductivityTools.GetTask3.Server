@@ -32,7 +32,8 @@ namespace ProductivityTools.GetTask3.App.Queries
             foreach (var bag in childbags)
             {
                 var definedTask = _definedTaskRepository.GetForBag(bag.ElementId, includeDetails);
-                result.AddRange(definedTask);
+                var d =_mapper.Map<IEnumerable<Domain.DefinedElementGroup>>(definedTask);
+                result.AddRange(d);
             }
             return result;
         }
@@ -40,7 +41,8 @@ namespace ProductivityTools.GetTask3.App.Queries
         public Domain.DefinedElementGroup GetDefinedTaskGroup(int bagid, string definedTaskGroupName)
         {
             var r = _definedTaskRepository.GetByName(bagid, definedTaskGroupName);
-            return r;
+            var result = _mapper.Map<Domain.DefinedElementGroup>(r);
+            return result;
         }
     }
 }

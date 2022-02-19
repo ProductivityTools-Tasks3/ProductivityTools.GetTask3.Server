@@ -1,5 +1,4 @@
-﻿using ProductivityTools.GetTask3.Domain;
-using ProductivityTools.GetTask3.Infrastructure.Repositories;
+﻿using ProductivityTools.GetTask3.Infrastructure.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,29 +7,29 @@ namespace ProductivityTools.GetTask3.App.Fakes.Tests
 {
     public class TomatoRepositoryTest : ITomatoRepository
     {
-        public Tomato CurrentTestTomato { get; set; }
+        public Infrastructure.Tomato CurrentTestTomato { get; set; }
 
-        public void Add(Tomato entity)
+        public void Add(Infrastructure.Tomato entity)
         {
             throw new NotImplementedException();
         }
 
-        public Tomato Get(int? id)
+        public Infrastructure.Tomato Get(int? id)
         {
             throw new NotImplementedException();
         }
 
-        public Tomato GetCurrent()
+        public Infrastructure.Tomato GetCurrent()
         {
             return CurrentTestTomato;
         }
 
-        public List<Tomato> GetTomatoReport(DateTime date)
+        public List<Infrastructure.Tomato> GetTomatoReport(DateTime date)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(Tomato entity)
+        public void Update(Infrastructure.Tomato entity)
         {
             throw new NotImplementedException();
         }

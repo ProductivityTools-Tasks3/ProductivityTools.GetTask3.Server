@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using ProductivityTools.DateTimeTools;
 using ProductivityTools.GetTask3.CoreObjects.Tomato;
-using ProductivityTools.GetTask3.Domain;
 using ProductivityTools.GetTask3.Infrastructure.Base;
 using System;
 using System.Collections.Generic;
@@ -13,9 +12,9 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
 {
     public interface ITaskRepository : IRepository<Infrastructure.Element>
     {
-        Domain.Element GetStructure(int? root = null);
-        Domain.Element GetNode(int? node);
-        List<Domain.Element> GetElements(List<int> elementids);
+        Infrastructure.Element GetStructure(int? root = null);
+        Infrastructure.Element GetNode(int? node);
+        List<Infrastructure.Element> GetElements(List<int> elementids);
         //void AddItem(string name);
 
 
@@ -32,16 +31,16 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
             _dateTimePT = dateTime;
         }
 
-        public Domain.Element GetNode(int? nodeId)
+        public Infrastructure.Element GetNode(int? nodeId)
         {
             var result = GetInternal(nodeId);
             result.Elements = GetChildElements(result.ElementId);
-            var r = _mapper.Map<Domain.Element>(result);
-            return r;
+            //var r = _mapper.Map<Domain.Element>(result);
+            return result;
         }
 
         //pw: make it nice repository
-        public Domain.Element GetStructure(int? rootId)
+        public Infrastructure.Element GetStructure(int? rootId)
         {
             var result = GetInternal(rootId);
             if (result == null) return null;
@@ -50,16 +49,16 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
             var parentIds = _taskContext.Element.Where(x => x.ParentId != null).Select(x => x.ParentId.Value).Distinct().ToList();
             List<Element> childElements = GetElementsInfrastructure(parentIds, result.ElementId);
             result.Elements = childElements;
-            var r = _mapper.Map<Domain.Element>(result);
-            return r;
+            //var r = _mapper.Map<Domain.Element>(result);
+            return result;
         }
 
-        public List<Domain.Element> GetElements(List<int> elementids)
+        public List<Infrastructure.Element> GetElements(List<int> elementids)
         {
             var elements = _dbSet.Where(x => elementids.Contains(x.ElementId)).ToList();
             elements.ForEach(x => { _taskContext.Entry(x).State = EntityState.Detached; });
-            var r = _mapper.Map<List<Domain.Element>>(elements);
-            return r;
+            //var r = _mapper.Map<List<Domain.Element>>(elements);
+            return elements;
         }
 
         //private void FillWithtomato(List<Element> childElements, Tomato tomato)

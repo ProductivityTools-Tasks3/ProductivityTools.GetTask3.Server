@@ -6,11 +6,11 @@ using Microsoft.Extensions.Primitives;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ProductivityTools.GetTask3.Configuration;
 using ProductivityTools.GetTask3.Infrastructure;
-using ProductivityTools.GetTask3.Infrastructure.AutoMapper;
 using ProductivityTools.GetTask3.Infrastructure.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
+using ProductivityTools.GetTask3.App.Commands;
 
 namespace ProductivityTools.GetTask3.Ifrastructure.Tests
 {
@@ -145,23 +145,23 @@ namespace ProductivityTools.GetTask3.Ifrastructure.Tests
         [TestMethod]
         public void AddElementForExistingTomatoTest()
         {
-            IMapper mapper = GetMapper();
+            //IMapper mapper = GetMapper();
 
-            var taskContext = GetTaskContextInMemory();
-            taskContext.Tomato.Add(new Tomato() { Status = CoreObjects.Tomato.Status.New });
-            taskContext.SaveChanges();
+            //var taskContext = GetTaskContextInMemory();
+            //taskContext.Tomato.Add(new Tomato() { Status = CoreObjects.Tomato.Status.New });
+            //taskContext.SaveChanges();
 
-            // var taskContext = GetTaskContextInMemory();
-            TomatoRepository tomatoRepository = new TomatoRepository(taskContext, mapper);
-            TaskRepository taskRepository = new TaskRepository(taskContext, mapper, new DateTimeTools.DateTimePT());
-            TaskUnitOfWork taskUnitOfWork = new TaskUnitOfWork(taskContext, taskRepository, tomatoRepository, null);
+            //// var taskContext = GetTaskContextInMemory();
+            //TomatoRepository tomatoRepository = new TomatoRepository(taskContext, mapper);
+            //TaskRepository taskRepository = new TaskRepository(taskContext, mapper, new DateTimeTools.DateTimePT());
+            //TaskUnitOfWork taskUnitOfWork = new TaskUnitOfWork(taskContext, taskRepository, tomatoRepository, null);
 
-            Domain.Tomato currentTomato = taskUnitOfWork.TomatoRepository.GetCurrent();
-            var element = new Domain.Element("pawel", "Details","", CoreObjects.ElementType.Task, 1);
+            //var currentTomato = taskUnitOfWork.TomatoRepository.GetCurrent();
+            //var element = new Domain.Element("pawel", "Details","", CoreObjects.ElementType.Task, 1);
 
-            element.Tomatoes.Add(currentTomato);
-            taskUnitOfWork.TaskRepository.Add(element);
-            taskUnitOfWork.Commit();
+            //element.Tomatoes.Add(currentTomato);
+            //taskUnitOfWork.TaskRepository.Add(element);
+            //taskUnitOfWork.Commit();
         }
 
 
@@ -173,7 +173,7 @@ namespace ProductivityTools.GetTask3.Ifrastructure.Tests
             var taskContext = GetTaskContextInMemory();
             TaskRepository taskRepository = new TaskRepository(taskContext, mapper, new DateTimeTools.DateTimePT());
             TaskUnitOfWork taskUnitOfWork = new TaskUnitOfWork(taskContext, taskRepository, null, null);
-            taskUnitOfWork.TaskRepository.Add(new Domain.Element("pawelxxx", "Details","", CoreObjects.ElementType.Task, 1));
+            taskUnitOfWork.TaskRepository.Add(new Infrastructure.Element());
             taskUnitOfWork.Commit();
 
             var element = taskContext.Element.Single();

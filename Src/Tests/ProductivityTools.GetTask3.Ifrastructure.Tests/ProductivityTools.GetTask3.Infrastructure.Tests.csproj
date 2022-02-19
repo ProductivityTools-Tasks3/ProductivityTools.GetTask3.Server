@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Server\ProductivityTools.GetTask3.App.Commands\ProductivityTools.GetTask3.App.Commands.csproj" />
     <ProjectReference Include="..\..\Server\ProductivityTools.GetTask3.Infrastructure\ProductivityTools.GetTask3.Infrastructure.csproj" />
   </ItemGroup>
 
