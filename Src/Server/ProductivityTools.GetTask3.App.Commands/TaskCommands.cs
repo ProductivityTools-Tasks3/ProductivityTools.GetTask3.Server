@@ -218,7 +218,7 @@ namespace ProductivityTools.GetTask3.App.Commands
         {
 
             Infrastructure.Element element = _taskUnitOfWork.TaskRepository.GetElements(new List<int> { elementId }).Single(); ;
-            Domain.Element el = _mapper.Map<Domain.Element>(elementId);
+            Domain.Element el = _mapper.Map<Domain.Element>(element);
             el.Update(parentId, name, details, detailsType);
             element = _mapper.Map<Infrastructure.Element>(el);
             Infrastructure.Element d = _mapper.Map<Infrastructure.Element>(element);
