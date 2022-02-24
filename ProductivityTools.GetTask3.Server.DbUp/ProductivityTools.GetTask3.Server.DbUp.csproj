@@ -14,9 +14,11 @@
     <None Remove="Scripts\006.TomatoElement.sql" />
     <None Remove="Scripts\007.ElementDetails.sql" />
     <None Remove="Scripts\008.DetailsType.sql" />
+    <None Remove="Scripts\009.InitElements.sql" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Scripts\009.InitElements.sql" />
     <EmbeddedResource Include="Scripts\008.DetailsType.sql" />
     <EmbeddedResource Include="Scripts\007.ElementDetails.sql" />
     <EmbeddedResource Include="Scripts\001.Element.sql" />
