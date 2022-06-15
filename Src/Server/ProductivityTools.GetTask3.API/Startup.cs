@@ -38,10 +38,10 @@ namespace ProductivityTools.GetTask3.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            string masterconfpath = Environment.GetEnvironmentVariable("MasterConfigurationPath");
             FirebaseApp.Create(new AppOptions()
             {
-                Credential = GoogleCredential.FromFile(@"D:\Bitbucket\all.configuration\ProductivityTools.GetTask3.ServiceAccount.json"),
+                Credential = GoogleCredential.FromFile($"{masterconfpath}\\ProductivityTools.GetTask3.ServiceAccount.json"),
             });
             services
              .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
