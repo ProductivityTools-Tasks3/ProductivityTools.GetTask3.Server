@@ -12,8 +12,8 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
 {
     public interface ITaskRepository : IRepository<Infrastructure.Element>
     {
-        Infrastructure.Element GetStructure(int? root = null);
-        Infrastructure.Element GetNode(int? node);
+        Infrastructure.Element GetStructure(Func<Element, int?, IDateTimePT, bool> searchCondition, int? root = null);
+        Infrastructure.Element GetNode(Func<Element, int?, IDateTimePT, bool> searchCondition, int? node);
         List<Infrastructure.Element> GetElements(List<int> elementids);
         //void AddItem(string name);
 
@@ -31,23 +31,23 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
             _dateTimePT = dateTime;
         }
 
-        public Infrastructure.Element GetNode(int? nodeId)
+        public Infrastructure.Element GetNode(Func<Element, int?, IDateTimePT, bool> searchCondition, int? nodeId)
         {
             var result = GetInternal(nodeId);
-            result.Elements = GetChildElements(result.ElementId);
+            result.Elements = GetChildElements(result.ElementId, searchCondition);
             //var r = _mapper.Map<Domain.Element>(result);
             return result;
         }
 
         //pw: make it nice repository
-        public Infrastructure.Element GetStructure(int? rootId)
+        public Infrastructure.Element GetStructure(Func<Element, int?, IDateTimePT, bool> searchCondition, int? rootId)
         {
             var result = GetInternal(rootId);
             if (result == null) return null;
 
             //we take all parents id to know where recursion should be called. Not all parents id will be retriven, as some maybe in wrong date, or have different status
             var parentIds = _taskContext.Element.Where(x => x.ParentId != null).Select(x => x.ParentId.Value).Distinct().ToList();
-            List<Element> childElements = GetElementsInfrastructure(parentIds, result.ElementId);
+            List<Element> childElements = GetElementsInfrastructure(parentIds, searchCondition, result.ElementId);
             result.Elements = childElements;
             //var r = _mapper.Map<Domain.Element>(result);
             return result;
@@ -110,34 +110,28 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
             }
         }
 
-        private List<Element> GetChildElements(int? rootId)
+        private List<Element> GetChildElements(int? rootId, Func<Element, int?, IDateTimePT, bool> searchCondition)
         {
-            var elements = _taskContext.Element.Where(l =>
-            l.Status != Status.Deleted &&
-            (
-                (l.ParentId == rootId && l.Status != Status.Finished && l.Initialization <= _dateTimePT.Now.AddDays(1).Date.AddSeconds(-1)) ||
-                (l.ParentId == rootId && l.Status == Status.Finished && l.Finished.Value.Date == _dateTimePT.Now.Date)
-            )
-           )
+            var elements = _taskContext.Element.Where(x => searchCondition(x, rootId, _dateTimePT))
            .Include(x => x.TomatoElements).ThenInclude(i => i.Tomato)
            .ToList();
             return elements;
         }
 
-        private List<Element> GetElementsInfrastructure(List<int> allParentsIds, int? rootId = null)
+        private List<Element> GetElementsInfrastructure(List<int> allParentsIds, Func<Element, int?, IDateTimePT, bool> searchCondition, int? rootId = null)
         {
             List<Element> result = new List<Element>();
-            var elements = GetChildElements(rootId);
+            var elements = GetChildElements(rootId, searchCondition);
 
             foreach (var element in elements)
             {
                 if (allParentsIds.Contains(element.ElementId))
                 {
-                    element.Elements = GetElementsInfrastructure(allParentsIds, element.ElementId);
+                    element.Elements = GetElementsInfrastructure(allParentsIds, searchCondition, element.ElementId);
                 }
                 result.Add(element);
             }
             return result;
         }
     }
-}   
+}

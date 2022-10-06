@@ -53,6 +53,17 @@ namespace ProductivityTools.GetTask3.API.Controllers
             var x = Queries.GetTaskList(request?.ElementId, request.Path);
             return x;
         }
+
+        [HttpPost]
+        [Authorize]
+        [Route(Consts.ThisWeekFinishedList)]
+        public ElementView GetTasksFinishedThisWeek([FromBody] ListRequest request = null)
+        {
+            //pw: perform mapping in this layer
+            var x = Queries.GetTaskListFinishedThisWeek(request?.ElementId, request.Path);
+            return x;
+        }
+
         [HttpPost]
         [Route(Consts.GetRoot)]
         [Authorize]

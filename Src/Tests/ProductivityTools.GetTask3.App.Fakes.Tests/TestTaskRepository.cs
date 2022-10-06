@@ -1,4 +1,5 @@
-﻿using ProductivityTools.GetTask3.Infrastructure;
+﻿using ProductivityTools.DateTimeTools;
+using ProductivityTools.GetTask3.Infrastructure;
 using ProductivityTools.GetTask3.Infrastructure.Repositories;
 using System;
 using System.Collections.Generic;
@@ -43,7 +44,7 @@ namespace ProductivityTools.GetTask3.App.Fakes.Tests
             }
         }
 
-        public Element GetNode(int? node)
+        public Element GetNode(Func<Element, int?, IDateTimePT, bool> searchCondition, int? node)
         {
             if (node.HasValue == false)
             {
@@ -55,7 +56,7 @@ namespace ProductivityTools.GetTask3.App.Fakes.Tests
             }
         }
 
-        public Infrastructure.Element GetStructure(int? root = null)
+        public Infrastructure.Element GetStructure(Func<Element, int?, IDateTimePT, bool> searchCondition,int? root = null)
         {
             if (root.HasValue == false)
             {

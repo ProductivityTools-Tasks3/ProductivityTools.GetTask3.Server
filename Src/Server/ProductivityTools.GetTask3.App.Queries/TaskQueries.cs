@@ -13,6 +13,7 @@ namespace ProductivityTools.GetTask3.App.Queries
     public interface ITaskQueries
     {
         ElementView GetTaskList(int? bagId, string path);
+        ElementView GetTaskListFinishedThisWeek(int? bagId, string path);
         int? GetParent(int elementId);
         TomatoView GetTomato();
         int? GetRootRequest(int? elementId, string path);
@@ -40,7 +41,19 @@ namespace ProductivityTools.GetTask3.App.Queries
                 bagId = FindCorrectRoot(bagId, path);
             }
 
-            Infrastructure.Element element = _taskRepository.GetStructure(bagId);
+            Infrastructure.Element element = _taskRepository.GetStructure(SearchConditions.GetTodaysList, bagId);
+            ElementView st = _mapper.Map<Infrastructure.Element, ElementView>(element);
+            return st;
+        }
+
+        public ElementView GetTaskListFinishedThisWeek(int? bagId, string path)
+        {
+            if (!string.IsNullOrEmpty(path))
+            {
+                bagId = FindCorrectRoot(bagId, path);
+            }
+
+            Infrastructure.Element element = _taskRepository.GetStructure(SearchConditions.GetFinshedThisWeek, bagId);
             ElementView st = _mapper.Map<Infrastructure.Element, ElementView>(element);
             return st;
         }
@@ -69,19 +82,19 @@ namespace ProductivityTools.GetTask3.App.Queries
 
         private int FindRelative(int? bagId, string path)
         {
-            var element = _taskRepository.GetNode(bagId);
+            var element = _taskRepository.GetNode(SearchConditions.GetTodaysList,bagId);
             string[] parts = path.Split("\\");
             foreach (var part in parts)
             {
                 if (part == "..")
                 {
-                    element = _taskRepository.GetNode(element.ParentId);
+                    element = _taskRepository.GetNode(SearchConditions.GetTodaysList, element.ParentId);
                 }
                 else
                 {
                     //pw: add returning errors;
                     element = element.Elements.SingleOrDefault(x => x.Name == part);
-                    element = _taskRepository.GetNode(element.ElementId);
+                    element = _taskRepository.GetNode(SearchConditions.GetTodaysList, element.ElementId);
                 }
             }
 
