@@ -6,20 +6,28 @@ using System.Text;
 
 namespace ProductivityTools.GetTask3.Infrastructure.Repositories
 {
-    public static class SearchConditions
+    public class SearchConditions
     {
-        public static Func<Element, int?, IDateTimePT, bool> GetTodaysList = (l, rootId, _dateTimePT) =>
+        public static string GetTodaysList = "GetTodaysList";
+        public static string GetFinshedThisWeek = "GetFinshedThisWeek";
+        static int rootId { get; set; }
+        public SearchConditions(int rootId)
+        {
+            SearchConditions.rootId= rootId;
+        }
+
+        public  Func<Element, bool> GetTodaysList2 = (l) =>
              l.Status != Status.Deleted &&
                 (
-                    (l.ParentId == rootId && l.Status != Status.Finished && l.Initialization <= _dateTimePT.Now.AddDays(1).Date.AddSeconds(-1)) ||
-                    (l.ParentId == rootId && l.Status == Status.Finished && l.Finished.Value.Date == _dateTimePT.Now.Date)
+                    (l.ParentId == rootId && l.Status != Status.Finished && l.Initialization <= DateTime.Now.AddDays(1).Date.AddSeconds(-1)) ||
+                    (l.ParentId == rootId && l.Status == Status.Finished && l.Finished.Value.Date == DateTime.Now.Date)
                 );
 
-        public static Func<Element, int?, IDateTimePT, bool> GetFinshedThisWeek = (l, rootId, _dateTimePT) =>
+        public Func<Element, bool> GetFinshedThisWeek2 = (l) =>
             l.Status != Status.Deleted &&
                  (
-                     (l.ParentId == rootId && l.Status != Status.Finished && l.Initialization <= _dateTimePT.Now.AddDays(1).Date.AddSeconds(-1)) ||
-                     (l.ParentId == rootId && l.Status == Status.Finished && _dateTimePT.Now.AddDays(-1 * _dateTimePT.Now.DayOfYear).Date < l.Finished.Value.Date)
+                     (l.ParentId == rootId && l.Status != Status.Finished && l.Initialization <= DateTime.Now.AddDays(1).Date.AddSeconds(-1)) ||
+                     (l.ParentId == rootId && l.Status == Status.Finished && DateTime.Now.AddDays(-1 * DateTime.Now.DayOfYear).Date < l.Finished.Value.Date)
                  );
 
     }
