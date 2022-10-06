@@ -77,6 +77,7 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
             Element element = null;
             if (id == null)
             {
+                var x = _taskContext.Element.AsNoTracking().ToList();
                 element = _taskContext.Element.AsNoTracking().SingleOrDefault(x => x.ParentId == null);
             }
             else
