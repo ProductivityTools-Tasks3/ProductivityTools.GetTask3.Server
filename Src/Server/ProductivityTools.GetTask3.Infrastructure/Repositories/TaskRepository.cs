@@ -126,10 +126,12 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
 
             if (filter == SearchConditions.GetFinshedThisWeek)
             {
+                int days = ((int)DateTime.Now.DayOfWeek);
+                var date = DateTime.Now.SubtrackDays(days).Date;
                 var elements = _taskContext.Element.Where(l => l.Status != Status.Deleted &&
                  (
-                     (l.ParentId == rootId && l.Status != Status.Finished && l.Initialization <= DateTime.Now.AddDays(1).Date.AddSeconds(-1)) ||
-                     (l.ParentId == rootId && l.Status == Status.Finished && DateTime.Now.AddDays(-1 * DateTime.Now.DayOfYear).Date < l.Finished.Value.Date)
+                     (l.ParentId == rootId && l.Status != Status.Finished  )||
+                     (l.ParentId == rootId && l.Status == Status.Finished && date < l.Finished.Value.Date)
                  )).ToList();
                 return elements;
             }
