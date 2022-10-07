@@ -34,7 +34,7 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
         public Infrastructure.Element GetNode(string filter, int? nodeId)
         {
             var result = GetInternal(nodeId);
-            result.Elements = GetChildElements(filter, result.ElementId);
+            result.Elements = GetChildElements(filter,result.ElementId);
             //var r = _mapper.Map<Domain.Element>(result);
             return result;
         }
@@ -128,12 +128,11 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
             {
                 int days = ((int)DateTime.Now.DayOfWeek);
                 var date = DateTime.Now.SubtrackDays(days).Date;
-                var elements = _taskContext.Element.Where(l =>
-                l.Status != Status.Deleted &&
-                l.ParentId == rootId &&
-                l.Status == Status.Finished &&
-                l.Finished.Value.Date > date)
-                .ToList();
+                var elements = _taskContext.Element.Where(l => l.Status != Status.Deleted &&
+                 (
+                     (l.ParentId == rootId && l.Status != Status.Finished && l.Initialization <= _dateTimePT.Now.AddDays(1).Date.AddSeconds(-1)) ||
+                     (l.ParentId == rootId && l.Status == Status.Finished && date < l.Finished.Value.Date)
+                 )).ToList();
                 return elements;
             }
             throw new Exception();
@@ -142,7 +141,7 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
         private List<Element> GetElementsInfrastructure(List<int> allParentsIds, string filter, int? rootId = null)
         {
             List<Element> result = new List<Element>();
-            var elements = GetChildElements(filter, rootId);
+            var elements = GetChildElements(filter,rootId);
 
             foreach (var element in elements)
             {
