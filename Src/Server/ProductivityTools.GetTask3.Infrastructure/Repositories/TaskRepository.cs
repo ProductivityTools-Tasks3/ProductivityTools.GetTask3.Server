@@ -128,8 +128,11 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
             {
                 int days = ((int)DateTime.Now.DayOfWeek);
                 var date = DateTime.Now.SubtrackDays(days).Date;
-                var elements = _taskContext.Element.Where(l => l.Status != Status.Deleted &&
-                (l.ParentId == rootId && l.Status == Status.Finished && date < l.Finished.Value.Date))
+                var elements = _taskContext.Element.Where(l =>
+                l.Status != Status.Deleted &&
+                l.ParentId == rootId &&
+                l.Status == Status.Finished &&
+                l.Finished.Value.Date > date)
                 .ToList();
                 return elements;
             }
