@@ -45,7 +45,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        //[Authorize]
         [Route(Consts.TodayList)]
         public ElementView GetTasks([FromBody] ListRequest request = null)
         {
@@ -75,7 +75,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
 
         [HttpPost]
         [Route("Add")]
-        //[Authorize]
+        [Authorize]
         //returns elementId
         public int Add([FromBody] AddRequest request)
         {
