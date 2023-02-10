@@ -77,7 +77,8 @@ namespace ProductivityTools.GetTask3.API
                 options.AddPolicy(MyAllowSpecificOrigins,
                     builder =>
                     {
-                        builder.WithOrigins("http://localhost:3000", "https://task3web.z13.web.core.windows.net").AllowAnyMethod().AllowAnyHeader();
+                        //builder.WithOrigins("http://localhost:3000", "https://task3web.z13.web.core.windows.net").AllowAnyMethod().AllowAnyHeader();
+                        builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
                     });
             });
 
