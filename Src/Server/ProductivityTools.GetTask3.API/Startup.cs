@@ -114,7 +114,7 @@ namespace ProductivityTools.GetTask3.API
             app.UseAuthentication();
             app.UseRouting();
             app.UseAuthorization();
-
+            IdentityModelEventSource.ShowPII = true;
 
 
             //app.UseHttpsRedirection();
