@@ -17,5 +17,14 @@ namespace ProductivityTools.GetTask3.API.Controllers
             string customToken=await FirebaseAuth.DefaultInstance.CreateCustomTokenAsync(uid);
             return customToken;
         }
+
+        [HttpGet]
+        [Route("GetGAS")]
+        public async Task<string> GetTokenGAS()
+        {
+            var uid = "GAS";
+            string customToken = await FirebaseAuth.DefaultInstance.CreateCustomTokenAsync(uid);
+            return customToken;
+        }
     }
 }
