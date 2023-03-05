@@ -12,8 +12,8 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
 {
     public interface ITaskRepository : IRepository<Infrastructure.Element>
     {
-        Infrastructure.Element GetStructure(string filter, int? root = null);
-        Infrastructure.Element GetNode(string filter, int? node);
+        Infrastructure.Element GetStructure(string filter, int root = null);
+        Infrastructure.Element GetNode(string filter, int node);
         List<Infrastructure.Element> GetElements(List<int> elementids);
         //void AddItem(string name);
 
@@ -31,7 +31,7 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
             _dateTimePT = dateTime;
         }
 
-        public Infrastructure.Element GetNode(string filter, int? nodeId)
+        public Infrastructure.Element GetNode(string filter, int nodeId)
         {
             var result = GetInternal(nodeId);
             result.Elements = GetChildElements(filter,result.ElementId);
@@ -40,7 +40,7 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
         }
 
         //pw: make it nice repository
-        public Infrastructure.Element GetStructure(string filter, int? rootId)
+        public Infrastructure.Element GetStructure(string filter, int rootId)
         {
             var result = GetInternal(rootId);
             if (result == null) return null;

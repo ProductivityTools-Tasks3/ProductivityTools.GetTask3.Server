@@ -12,11 +12,11 @@ namespace ProductivityTools.GetTask3.App.Queries
 {
     public interface ITaskQueries
     {
-        ElementView GetTaskList(int? bagId, string path);
-        ElementView GetTaskListFinishedThisWeek(int? bagId, string path);
+        ElementView GetTaskList(int bagId, string path);
+        ElementView GetTaskListFinishedThisWeek(int bagId, string path);
         int? GetParent(int elementId);
         TomatoView GetTomato();
-        int? GetRootRequest(int? elementId, string path);
+        int GetRootRequest(int elementId, string path);
         TomatoReportView GetTomatoReport(DateTime date);
     }
 
@@ -34,19 +34,26 @@ namespace ProductivityTools.GetTask3.App.Queries
         }
 
         //pw:change it to handlers
-        public ElementView GetTaskList(int? bagId, string path)
+        public ElementView GetTaskList(int? bagId, string path, string userName)
         {
-            if (!string.IsNullOrEmpty(path))
+            if (bagId.HasValue && !string.IsNullOrEmpty(path))
             {
-                bagId = FindCorrectRoot(bagId, path);
+                bagId = FindCorrectRoot(bagId.Value, path);
+            }else if(bagId.HasValue==false)
+            {
+                //get root of the user
+            }
+            else
+            {
+                
             }
 
-            Infrastructure.Element element = _taskRepository.GetStructure(SearchConditions.GetTodaysList, bagId);
+            Infrastructure.Element element = _taskRepository.GetStructure(SearchConditions.GetTodaysList, bagId.Value);
             ElementView st = _mapper.Map<Infrastructure.Element, ElementView>(element);
             return st;
         }
 
-        public ElementView GetTaskListFinishedThisWeek(int? bagId, string path)
+        public ElementView GetTaskListFinishedThisWeek(int bagId, string path)
         {
             if (!string.IsNullOrEmpty(path))
             {
@@ -58,13 +65,13 @@ namespace ProductivityTools.GetTask3.App.Queries
             return st;
         }
 
-        public int? GetRootRequest(int? elementId, string path)
+        public int GetRootRequest(int elementId, string path)
         {
             var result = FindCorrectRoot(elementId, path);
             return result;
         }
 
-        private int? FindCorrectRoot(int? elementId, string path)
+        private int FindCorrectRoot(int elementId, string path)
         {
             if (path.StartsWith("\\"))
             {
@@ -80,7 +87,7 @@ namespace ProductivityTools.GetTask3.App.Queries
             throw new Exception("This won't happen");
         }
 
-        private int FindRelative(int? bagId, string path)
+        private int FindRelative(int bagId, string path)
         {
             var element = _taskRepository.GetNode(SearchConditions.GetTodaysList,bagId);
             string[] parts = path.Split("\\");
@@ -88,7 +95,7 @@ namespace ProductivityTools.GetTask3.App.Queries
             {
                 if (part == "..")
                 {
-                    element = _taskRepository.GetNode(SearchConditions.GetTodaysList, element.ParentId);
+                    element = _taskRepository.GetNode(SearchConditions.GetTodaysList, element.ParentId.Value);
                 }
                 else
                 {

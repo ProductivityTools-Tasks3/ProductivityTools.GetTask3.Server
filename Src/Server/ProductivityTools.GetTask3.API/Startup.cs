@@ -111,9 +111,9 @@ namespace ProductivityTools.GetTask3.API
                 app.UseHsts();
             }
 
-            app.UseAuthentication();
+           // app.UseAuthentication();
             app.UseRouting();
-            app.UseAuthorization();
+            //app.UseAuthorization();
 
 
             //app.UseHttpsRedirection();

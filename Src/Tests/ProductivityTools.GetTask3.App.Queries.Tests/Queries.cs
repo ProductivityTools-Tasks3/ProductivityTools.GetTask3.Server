@@ -32,13 +32,13 @@ namespace ProductivityTools.GetTask3.App.Queries.Tests
 
             ITaskUnitOfWork taskUnitOfWork = new TaskUnitOfWorkTest(taskRepository, null);
             ITaskQueries taskCommands = new TaskQueries(taskRepository, null, mapper);
-            var result = taskCommands.GetTaskList(null, string.Empty);
+            var result = taskCommands.GetTaskList(1, string.Empty);
             Assert.AreEqual(result.Name, "root");
 
-            result = taskCommands.GetTaskList(null, "Level1");
+            result = taskCommands.GetTaskList(1, "Level1");
             Assert.AreEqual(result.Name, "Level1");
 
-            result = taskCommands.GetTaskList(null, "Level1\\Level2");
+            result = taskCommands.GetTaskList(1, "Level1\\Level2");
             Assert.AreEqual(result.Name, "Level2");
 
         }

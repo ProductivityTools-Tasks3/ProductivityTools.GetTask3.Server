@@ -45,12 +45,12 @@ namespace ProductivityTools.GetTask3.API.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        //[Authorize]
         [Route(Consts.TodayList)]
         public ElementView GetTasks([FromBody] ListRequest request = null)
         {
             //pw: perform mapping in this layer
-            var x = Queries.GetTaskList(request?.ElementId, request.Path);
+            var x = Queries.GetTaskList(request.ElementId, request.Path);
             return x;
         }
 
