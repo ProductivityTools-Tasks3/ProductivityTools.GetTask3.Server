@@ -49,8 +49,9 @@ namespace ProductivityTools.GetTask3.API.Controllers
         [Route(Consts.TodayList)]
         public ElementView GetTasks([FromBody] ListRequest request = null)
         {
+            string userName = "pwujczyk";
             //pw: perform mapping in this layer
-            var x = Queries.GetTaskList(request.ElementId, request.Path);
+            var x = Queries.GetTaskList(request?.ElementId, request.Path,userName);
             return x;
         }
 

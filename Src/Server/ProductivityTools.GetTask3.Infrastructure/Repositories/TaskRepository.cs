@@ -12,8 +12,9 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
 {
     public interface ITaskRepository : IRepository<Infrastructure.Element>
     {
-        Infrastructure.Element GetStructure(string filter, int root = null);
+        Infrastructure.Element GetStructure(string filter, int root);
         Infrastructure.Element GetNode(string filter, int node);
+        Infrastructure.Element GetRootForUser(string userName);
         List<Infrastructure.Element> GetElements(List<int> elementids);
         //void AddItem(string name);
 
@@ -29,6 +30,16 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
         public TaskRepository(TaskContext context, IMapper mapper, IDateTimePT dateTime) : base(context, mapper)
         {
             _dateTimePT = dateTime;
+        }
+
+        public Infrastructure.Element GetRootForUser(string userName)
+        {
+            var userElement = _taskContext.Element.AsNoTracking().Where(l => l.Name == userName && l.Type == CoreObjects.ElementType.User).SingleOrDefault();
+            if (userElement == null)
+            {
+                throw new Exception("Missing user");
+            }
+            else return userElement;
         }
 
         public Infrastructure.Element GetNode(string filter, int nodeId)
@@ -110,6 +121,8 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
                 GetTaskBagsRecurse(elements, childBag.ElementId);
             }
         }
+
+
 
         private List<Element> GetChildElements(string filter, int? rootId)
         {

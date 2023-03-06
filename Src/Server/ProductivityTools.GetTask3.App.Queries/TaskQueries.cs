@@ -12,8 +12,8 @@ namespace ProductivityTools.GetTask3.App.Queries
 {
     public interface ITaskQueries
     {
-        ElementView GetTaskList(int bagId, string path);
-        ElementView GetTaskListFinishedThisWeek(int bagId, string path);
+        ElementView GetTaskList(int? bagId, string path, string userName);
+        ElementView GetTaskListFinishedThisWeek(int? bagId, string path);
         int? GetParent(int elementId);
         TomatoView GetTomato();
         int GetRootRequest(int elementId, string path);
@@ -39,13 +39,16 @@ namespace ProductivityTools.GetTask3.App.Queries
             if (bagId.HasValue && !string.IsNullOrEmpty(path))
             {
                 bagId = FindCorrectRoot(bagId.Value, path);
-            }else if(bagId.HasValue==false)
+            }
+            else if (bagId.HasValue == false)
             {
                 //get root of the user
+                var userRootElement = _taskRepository.GetRootForUser(userName);
+                bagId = userRootElement.ElementId;
             }
-            else
+            else if(bagId.HasValue && string.IsNullOrEmpty(path))
             {
-                
+
             }
 
             Infrastructure.Element element = _taskRepository.GetStructure(SearchConditions.GetTodaysList, bagId.Value);
@@ -53,7 +56,7 @@ namespace ProductivityTools.GetTask3.App.Queries
             return st;
         }
 
-        public ElementView GetTaskListFinishedThisWeek(int bagId, string path)
+        public ElementView GetTaskListFinishedThisWeek(int? bagId, string path)
         {
             if (!string.IsNullOrEmpty(path))
             {
@@ -89,7 +92,7 @@ namespace ProductivityTools.GetTask3.App.Queries
 
         private int FindRelative(int bagId, string path)
         {
-            var element = _taskRepository.GetNode(SearchConditions.GetTodaysList,bagId);
+            var element = _taskRepository.GetNode(SearchConditions.GetTodaysList, bagId);
             string[] parts = path.Split("\\");
             foreach (var part in parts)
             {
