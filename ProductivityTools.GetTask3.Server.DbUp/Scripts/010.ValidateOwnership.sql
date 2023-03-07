@@ -1,27 +1,20 @@
-﻿USE [PTMeetings]
-GO
-
-/****** Object:  UserDefinedFunction [jl].[GetTreePath]    Script Date: 06.03.2023 18:26:25 ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE FUNCTION [gt].[ValidateOwnership] (@TreeId INT, @Name VARCHAR(100))
+﻿CREATE FUNCTION [gt].[ValidateOwnership] (@TreeId INT, @Name VARCHAR(100))
     RETURNS BOOL AS
     BEGIN
 	    DECLARE @ParentId INT
-	    
-        SELECT [ElementId],[ParentId],[Name],[Type] 
+	    DECLARE @PartResult BIT
+		DECLARE @RootId INT
+
+		SELECT @RootId=ElementId FROM [gt].[Element] WHERE Name='Root'
+
+        SELECT [ElementId],@ParentId=[ParentId],[Name],[Type] 
         FROM [GetTask3].[gt].[Element] where ElementId=@TreeId
 
-        
-
-
-	                            RETURN TRUE
-                            END
-                            
+		IF @ParentId =@RootId
+			RETURN TRUE
+		ELSE
+			@PartResult=gt.[ValidateOwnership](@ParentId, @Name)
+		
+     RETURN TRUE
+    END                        
 GO
-
-
