@@ -1,20 +1,27 @@
-﻿CREATE FUNCTION [gt].[ValidateOwnership] (@TreeId INT, @Name VARCHAR(100))
-    RETURNS BOOL AS
+﻿CREATE FUNCTION [gt].[ValidateOwnership] (@TreeId INT, @User VARCHAR(100))
+    RETURNS BIT AS
     BEGIN
 	    DECLARE @ParentId INT
+		DECLARE @Name VARCHAR(100)
 	    DECLARE @PartResult BIT
 		DECLARE @RootId INT
 
 		SELECT @RootId=ElementId FROM [gt].[Element] WHERE Name='Root'
 
-        SELECT [ElementId],@ParentId=[ParentId],[Name],[Type] 
-        FROM [GetTask3].[gt].[Element] where ElementId=@TreeId
+        SELECT @ParentId=[ParentId],@Name=[Name]
+        FROM [GetTask3].[gt].[Element] where ElementId=@TreeId and Type=3
 
-		IF @ParentId =@RootId
-			RETURN TRUE
+		If @ParentId IS NULL
+			RETURN 0
+
+		IF @ParentId = @RootId AND @Name=@User
+			RETURN 1
 		ELSE
-			@PartResult=gt.[ValidateOwnership](@ParentId, @Name)
+			BEGIN
+				SELECT @PartResult = gt.[ValidateOwnership](@ParentId, @Name)
+				RETURN @PartResult
+			END
 		
-     RETURN TRUE
+		RETURN 0
     END                        
 GO
