@@ -6,7 +6,10 @@
 	    DECLARE @PartResult BIT
 		DECLARE @RootId INT
 
+		exec xp_cmdshell 'echo "START">>d:\debug.txt'
+		--PRINT @TreeId
 		SELECT @RootId=ElementId FROM [gt].[Element] WHERE Name='Root'
+		--PRINT 'ROOT SELECTED'
 
         SELECT @ParentId=[ParentId],@Name=[Name]
         FROM [GetTask3].[gt].[Element] where ElementId=@TreeId and Type=3
@@ -25,3 +28,12 @@
 		RETURN 0
     END                        
 GO
+
+--EXECUTE sp_configure 'show advanced options', 1
+--GO
+--RECONFIGURE
+
+--EXECUTE sp_configure 'xp_cmdshell', 1
+--GO
+--RECONFIGURE
+--GO
