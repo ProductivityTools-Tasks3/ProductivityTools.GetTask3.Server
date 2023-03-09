@@ -1,23 +1,31 @@
-﻿CREATE FUNCTION [gt].[ValidateOwnership] (@TreeId INT, @User VARCHAR(100))
+﻿DROP FUNCTION [gt].[ValidateOwnership] 
+go
+CREATE FUNCTION [gt].[ValidateOwnership] (@TreeId INT, @User VARCHAR(100))
     RETURNS BIT AS
     BEGIN
 	    DECLARE @ParentId INT
 		DECLARE @Name VARCHAR(100)
 	    DECLARE @PartResult BIT
 		DECLARE @RootId INT
+		DECLARE @Type INT 
 
 		exec xp_cmdshell 'echo "START">>d:\debug.txt'
-		--PRINT @TreeId
-		SELECT @RootId=ElementId FROM [gt].[Element] WHERE Name='Root'
-		--PRINT 'ROOT SELECTED'
 
-        SELECT @ParentId=[ParentId],@Name=[Name]
-        FROM [GetTask3].[gt].[Element] where ElementId=@TreeId and Type=3
+		declare @log varchar(100)
+		select @log = 'echo "Endered function with TreeId:'+CAST(@TreeId AS VARCHAR)+'">>d:\debug.txt'
+		exec xp_cmdshell @log
+		SELECT @RootId=ElementId FROM [gt].[Element] WHERE Name='Root'
+
+		select @log = 'echo "Selected RootId:'+CAST(@RootId AS VARCHAR)+'">>d:\debug.txt'
+		exec xp_cmdshell @log
+
+        SELECT @ParentId=[ParentId],@Name=[Name],@Type=[Type]
+        FROM [gt].[Element] where ElementId=@TreeId 
 
 		If @ParentId IS NULL
 			RETURN 0
 
-		IF @ParentId = @RootId AND @Name=@User
+		IF @ParentId = @RootId AND @Name=@User AND @Type=3
 			RETURN 1
 		ELSE
 			BEGIN
