@@ -6,19 +6,14 @@ CREATE FUNCTION [gt].[ValidateOwnershipWithRoot] (@TreeId INT,@RootId INT, @User
 	    DECLARE @ParentId INT
 		DECLARE @Name VARCHAR(100)
 	    DECLARE @PartResult BIT
-		DECLARE @RootId INT
 		DECLARE @Type INT 
 
 		exec xp_cmdshell 'echo "START">>d:\debug.txt'
 
 		declare @log varchar(100)
-		select @log = 'echo "Entered function with TreeId:'+CAST(@TreeId AS VARCHAR)+'">>d:\debug.txt'
+		select @log = 'echo "Entered [ValidateOwnershipWithRoot] function with TreeId:'+CAST(@TreeId AS VARCHAR)+'">>d:\debug.txt'
 		exec xp_cmdshell @log
-		SELECT @RootId=ElementId FROM [gt].[Element] WHERE Name='Root'
-
-		select @log = 'echo "Selected RootId:'+CAST(@RootId AS VARCHAR)+'">>d:\debug.txt'
-		exec xp_cmdshell @log
-
+	
         SELECT @ParentId=[ParentId],@Name=[Name],@Type=[Type]
         FROM [gt].[Element] where ElementId=@TreeId 
 
@@ -29,7 +24,7 @@ CREATE FUNCTION [gt].[ValidateOwnershipWithRoot] (@TreeId INT,@RootId INT, @User
 			RETURN 1
 		ELSE
 			BEGIN
-				SELECT @PartResult = gt.[ValidateOwnership](@ParentId, @Name)
+				SELECT @PartResult = gt.[ValidateOwnershipWithRoot](@ParentId,@RootId, @Name)
 				RETURN @PartResult
 			END
 		
@@ -52,7 +47,7 @@ CREATE FUNCTION [gt].[ValidateOwnership] (@TreeId INT, @User VARCHAR(100))
 		exec xp_cmdshell 'echo "START">>d:\debug.txt'
 
 		declare @log varchar(100)
-		select @log = 'echo "Entered function with TreeId:'+CAST(@TreeId AS VARCHAR)+'">>d:\debug.txt'
+		select @log = 'echo "Entered [ValidateOwnership] function with TreeId:'+CAST(@TreeId AS VARCHAR)+'">>d:\debug.txt'
 		exec xp_cmdshell @log
 		SELECT @RootId=ElementId FROM [gt].[Element] WHERE Name='Root'
 
@@ -60,7 +55,7 @@ CREATE FUNCTION [gt].[ValidateOwnership] (@TreeId INT, @User VARCHAR(100))
 		exec xp_cmdshell @log
 
         DECLARE @Result BIT
-		SELECT @Result=gt.ValidateOwnershipWithRoot(@TeeId,@RootId,@User)
+		SELECT @Result=gt.ValidateOwnershipWithRoot(@TreeId,@RootId,@User)
 		RETURN @Result
     END                        
 GO
