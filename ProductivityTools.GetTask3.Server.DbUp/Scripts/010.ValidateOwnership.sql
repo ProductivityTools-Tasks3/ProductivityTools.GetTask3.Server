@@ -11,20 +11,31 @@ CREATE FUNCTION [gt].[ValidateOwnershipWithRoot] (@TreeId INT,@RootId INT, @User
 		exec xp_cmdshell 'echo "START">>d:\debug.txt'
 
 		declare @log varchar(100)
-		select @log = 'echo "Entered [ValidateOwnershipWithRoot] function with TreeId:'+CAST(@TreeId AS VARCHAR)+'">>d:\debug.txt'
+		select @log = 'echo "Entered [ValidateOwnershipWithRoot1] function with TreeId:'+CAST(@TreeId AS VARCHAR)+'">>d:\debug.txt'
 		exec xp_cmdshell @log
+
+		declare @log3 varchar(100)
+		select @log3 = 'echo "Entered [ValidateOwnershipWithRoot1] function with User:'+@User+'">>d:\debug.txt'
+		exec xp_cmdshell @log3
 	
         SELECT @ParentId=[ParentId],@Name=[Name],@Type=[Type]
         FROM [gt].[Element] where ElementId=@TreeId 
 
+		
+		--select @log = 'echo "[ValidateOwnershipWithRoot] ParentId,RootId,Name,@User,Type:'+CAST(@ParentId AS VARCHAR)+','+CAST(@RootId AS VARCHAR)+','+CAST(@Name AS VARCHAR)+','+CAST(@User AS VARCHAR)+','+CAST(@Type AS VARCHAR)+'">>d:\debug.txt'
+		declare @log2 varchar(100)
+		--select @log2 = 'echo "[ValidateOwnershipWithRoot] ParentId,RootId,Name,@User,Type:'+CAST(@ParentId AS VARCHAR)+','+CAST(@RootId AS VARCHAR)+','+CAST(@Name AS VARCHAR)+','+CAST(@User AS VARCHAR)+','+CAST(@Type AS VARCHAR)+'">>d:\debug.txt'
+		select @log2 = 'echo "[ValidateOwnershipWithRoot] TreeId:'+CAST(@TreeId AS VARCHAR)+' ParentId'+CAST(@ParentId AS VARCHAR)+' RootId:'+CAST(@RootId AS VARCHAR)+',Name:'+CAST(@Name AS VARCHAR)+',Type:">>d:\debug.txt'
+		exec xp_cmdshell @log2
+
 		If @ParentId IS NULL
 			RETURN 0
 
-		IF @ParentId = @RootId AND @Name=@User AND @Type=3
+		IF @ParentId = @RootId AND @Name=@User AND @Type=4
 			RETURN 1
 		ELSE
 			BEGIN
-				SELECT @PartResult = gt.[ValidateOwnershipWithRoot](@ParentId,@RootId, @Name)
+				SELECT @PartResult = gt.[ValidateOwnershipWithRoot](@ParentId,@RootId, @User)
 				RETURN @PartResult
 			END
 		
@@ -52,6 +63,10 @@ CREATE FUNCTION [gt].[ValidateOwnership] (@TreeId INT, @User VARCHAR(100))
 		SELECT @RootId=ElementId FROM [gt].[Element] WHERE Name='Root'
 
 		select @log = 'echo "Selected RootId:'+CAST(@RootId AS VARCHAR)+'">>d:\debug.txt'
+		exec xp_cmdshell @log
+
+		
+		select @log = 'echo "User'+@User+'">>d:\debug.txt'
 		exec xp_cmdshell @log
 
         DECLARE @Result BIT
