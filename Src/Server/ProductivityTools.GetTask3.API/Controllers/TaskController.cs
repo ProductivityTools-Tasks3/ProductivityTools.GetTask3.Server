@@ -61,7 +61,8 @@ namespace ProductivityTools.GetTask3.API.Controllers
         public ElementView GetTasksFinishedThisWeek([FromBody] ListRequest request = null)
         {
             //pw: perform mapping in this layer
-            var x = Queries.GetTaskListFinishedThisWeek(request?.ElementId, request.Path);
+            string userName = "pwujczyk";
+            var x = Queries.GetTaskListFinishedThisWeek(request.ElementId.Value, request.Path);
             return x;
         }
 
@@ -70,7 +71,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
         [Authorize]
         public int? GetRoot([FromBody] GetRootRequest request)
         {
-            var x = Queries.GetRootRequest(request.ElementId, request.Path);
+            var x = Queries.GetRootRequest(request.ElementId.Value, request.Path);
             return x;
         }
 

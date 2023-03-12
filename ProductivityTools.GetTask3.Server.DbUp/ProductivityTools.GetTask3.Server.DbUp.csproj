@@ -15,9 +15,11 @@
     <None Remove="Scripts\007.ElementDetails.sql" />
     <None Remove="Scripts\008.DetailsType.sql" />
     <None Remove="Scripts\009.InitElements.sql" />
+    <None Remove="Scripts\010.ValidateOwnership.sql" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Scripts\010.ValidateOwnership.sql" />
     <EmbeddedResource Include="Scripts\009.InitElements.sql" />
     <EmbeddedResource Include="Scripts\008.DetailsType.sql" />
     <EmbeddedResource Include="Scripts\007.ElementDetails.sql" />
