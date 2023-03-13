@@ -13,7 +13,7 @@ namespace ProductivityTools.GetTask3.App.Queries
     public interface ITaskQueries
     {
         ElementView GetTaskList(int? bagId, string path, string userName);
-        ElementView GetTaskListFinishedThisWeek(int bagId, string path);
+        ElementView GetTaskListFinishedThisWeek(int bagId, string path, string userName);
         int? GetParent(int elementId);
         TomatoView GetTomato();
         int GetRootRequest(int elementId, string path);
@@ -51,19 +51,19 @@ namespace ProductivityTools.GetTask3.App.Queries
 
             }
 
-            Infrastructure.Element element = _taskRepository.GetStructure(SearchConditions.GetTodaysList, bagId.Value);
+            Infrastructure.Element element = _taskRepository.GetStructure(SearchConditions.GetTodaysList, bagId.Value, userName);
             ElementView st = _mapper.Map<Infrastructure.Element, ElementView>(element);
             return st;
         }
 
-        public ElementView GetTaskListFinishedThisWeek(int bagId, string path)
+        public ElementView GetTaskListFinishedThisWeek(int bagId, string path, string userName)
         {
             if (!string.IsNullOrEmpty(path))
             {
                 bagId = FindCorrectRoot(bagId, path);
             }
 
-            Infrastructure.Element element = _taskRepository.GetStructure(SearchConditions.GetFinshedThisWeek, bagId);
+            Infrastructure.Element element = _taskRepository.GetStructure(SearchConditions.GetFinshedThisWeek, bagId, userName);
             ElementView st = _mapper.Map<Infrastructure.Element, ElementView>(element);
             return st;
         }

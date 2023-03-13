@@ -12,7 +12,7 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
 {
     public interface ITaskRepository : IRepository<Infrastructure.Element>
     {
-        Infrastructure.Element GetStructure(string filter, int root);
+        Infrastructure.Element GetStructure(string filter, int root, string userName);
         Infrastructure.Element GetNode(string filter, int node);
         Infrastructure.Element GetRootForUser(string userName);
         List<Infrastructure.Element> GetElements(List<int> elementids);
@@ -51,8 +51,9 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
         }
 
         //pw: make it nice repository
-        public Infrastructure.Element GetStructure(string filter, int rootId)
+        public Infrastructure.Element GetStructure(string filter, int rootId, string userName)
         {
+            var x = TaskContext.ValidateOwnership(rootId, userName);
             var result = GetInternal(rootId);
             if (result == null) return null;
 

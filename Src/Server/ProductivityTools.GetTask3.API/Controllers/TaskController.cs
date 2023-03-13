@@ -62,7 +62,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
         {
             //pw: perform mapping in this layer
             string userName = "pwujczyk";
-            var x = Queries.GetTaskListFinishedThisWeek(request.ElementId.Value, request.Path);
+            var x = Queries.GetTaskListFinishedThisWeek(request.ElementId.Value, request.Path, userName);
             return x;
         }
 

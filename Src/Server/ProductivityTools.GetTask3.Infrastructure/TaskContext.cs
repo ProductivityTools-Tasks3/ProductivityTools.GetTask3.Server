@@ -19,6 +19,9 @@ namespace ProductivityTools.GetTask3.Infrastructure
         //  public DbSet<Infrastructure.TomatoElement> TomatoItems { get; set; }
         //public DbSet<Domain.Tomato> Tomato { get; set; }
 
+        [DbFunction(Name = "ValidateOwnership", Schema = "gt")]
+        public static bool ValidateOwnership(int treeId, string userName) => throw new NotSupportedException();
+
         public TaskContext(IConfiguration configuration)
         {
             _configuration = configuration;
@@ -81,6 +84,8 @@ namespace ProductivityTools.GetTask3.Infrastructure
             //    .HasOne(x => x.Tomato).WithMany(x => x.TomatoElements).HasForeignKey(x => x.ElementId);
             //modelBuilder.Entity<Infrastructure.TomatoElement>()
             //    .HasOne(x => x.Element).WithMany(x => x.TomatoElements).HasForeignKey(x => x.TomatoId);
+
+            //modelBuilder.HasDbFunction(typeof(TaskContext).GetMethod(nameof(ValidateOwnership), new[] { typeof(int), typeof(string) })).HasName("ValidateOwnership");
         }
     }
 }
