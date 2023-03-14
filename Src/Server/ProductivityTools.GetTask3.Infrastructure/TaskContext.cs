@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -6,7 +7,10 @@ using Microsoft.Extensions.Logging.Console;
 using ProductivityTools.GetTask3.Configuration;
 using ProductivityTools.GetTask3.Infrastructure.Objects;
 using System;
-
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
+using static ProductivityTools.GetTask3.Infrastructure.TaskContext;
 
 namespace ProductivityTools.GetTask3.Infrastructure
 {
@@ -16,11 +20,27 @@ namespace ProductivityTools.GetTask3.Infrastructure
         public DbSet<Infrastructure.Element> Element { get; set; }
         public DbSet<Infrastructure.DefinedElementGroup> DefinedElementGroup { get; set; }
         public DbSet<Infrastructure.Tomato> Tomato { get; set; }
+        public DbSet<MySequence> MySequence2 { get; set; }
         //  public DbSet<Infrastructure.TomatoElement> TomatoItems { get; set; }
         //public DbSet<Domain.Tomato> Tomato { get; set; }
+        public class MySequence
+        {
+            public bool MyValue { get; set; }
+        }
 
-        [DbFunction(Name = "ValidateOwnership", Schema = "gt")]
-        public static bool ValidateOwnership(int treeId, string userName) => throw new NotSupportedException();
+
+        public void ValidateOwnership2()
+        {
+           
+        }
+        public bool ValidateOwnership(int treeId, string userName)
+        {
+            var r = this.MySequence2
+               .FromSqlRaw("select gt.ValidateOwnership(3,'pwujcz8yk@gmail.com') AS MyValue").First();
+
+            //var r = await this.Database.SqlQuery<string>($"select gt.ValidateOwnership(3,'pwujczyk@gmail.com') as x").SingleAsync();
+            return r.MyValue;
+        }
 
         public TaskContext(IConfiguration configuration)
         {
@@ -53,7 +73,7 @@ namespace ProductivityTools.GetTask3.Infrastructure
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("gt");
-
+            modelBuilder.Entity<MySequence>().HasNoKey();
             modelBuilder.Entity<TomatoElement>().HasKey(x => new { x.TomatoId, x.ElementId });
 
             //modelBuilder.Entity<Element>().ToTable("Element");
@@ -86,6 +106,8 @@ namespace ProductivityTools.GetTask3.Infrastructure
             //    .HasOne(x => x.Element).WithMany(x => x.TomatoElements).HasForeignKey(x => x.TomatoId);
 
             //modelBuilder.HasDbFunction(typeof(TaskContext).GetMethod(nameof(ValidateOwnership), new[] { typeof(int), typeof(string) })).HasName("ValidateOwnership");
+            //modelBuilder
+            //    .HasDbFunction(typeof(TaskContext).GetMethod(nameof(ValidateOwnership), new[] { typeof(int), typeof(string) })).HasSchema("gt").HasName("ValidateOwnership");
         }
     }
 }

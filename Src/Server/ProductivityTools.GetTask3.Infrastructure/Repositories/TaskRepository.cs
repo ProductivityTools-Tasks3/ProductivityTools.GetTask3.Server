@@ -53,7 +53,7 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
         //pw: make it nice repository
         public Infrastructure.Element GetStructure(string filter, int rootId, string userName)
         {
-            var x = TaskContext.ValidateOwnership(rootId, userName);
+            var x = _taskContext.ValidateOwnership(rootId, userName);
             var result = GetInternal(rootId);
             if (result == null) return null;
 
