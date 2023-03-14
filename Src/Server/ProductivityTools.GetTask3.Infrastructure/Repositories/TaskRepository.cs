@@ -45,7 +45,7 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
         public Infrastructure.Element GetNode(string filter, int nodeId)
         {
             var result = GetInternal(nodeId);
-            result.Elements = GetChildElements(filter,result.ElementId);
+            result.Elements = GetChildElements(filter, result.ElementId);
             //var r = _mapper.Map<Domain.Element>(result);
             return result;
         }
@@ -155,7 +155,7 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
         private List<Element> GetElementsInfrastructure(List<int> allParentsIds, string filter, int? rootId = null)
         {
             List<Element> result = new List<Element>();
-            var elements = GetChildElements(filter,rootId);
+            var elements = GetChildElements(filter, rootId);
 
             foreach (var element in elements)
             {
