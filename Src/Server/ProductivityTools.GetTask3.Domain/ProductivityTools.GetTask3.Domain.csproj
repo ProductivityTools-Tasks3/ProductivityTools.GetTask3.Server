@@ -1,11 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MediatR" Version="11.0.0" />
+    <PackageReference Include="MediatR" Version="12.0.1" />
     <PackageReference Include="ProductivityTools.GetTask3.CoreObjects" Version="0.0.1" />
   </ItemGroup>
 

@@ -10,7 +10,7 @@ namespace ProductivityTools.GetTask3.Handlers
     {
         public static IServiceCollection ConfigureServicesHandlers(this IServiceCollection services)
         {
-            services.AddMediatR(System.Reflection.Assembly.GetAssembly(typeof(Services)));
+            //services.AddMediatR();
             return services;
         }
     }
