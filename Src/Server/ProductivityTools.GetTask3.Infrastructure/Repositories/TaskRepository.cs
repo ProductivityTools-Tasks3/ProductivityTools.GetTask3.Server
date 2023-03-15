@@ -50,10 +50,19 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
             return result;
         }
 
+        private void ValidateOwnership(int rootId, string userName)
+        {
+            var x = _taskContext.ValidateOwnership(rootId, userName);
+            if (x == false)
+            {
+                throw new UnauthorizedAccessException($"{userName} does not have access to the tree node:{rootId}");
+            }
+        }
+
         //pw: make it nice repository
         public Infrastructure.Element GetStructure(string filter, int rootId, string userName)
         {
-            var x = _taskContext.ValidateOwnership(rootId, userName);
+            ValidateOwnership(rootId, userName);
             var result = GetInternal(rootId);
             if (result == null) return null;
 

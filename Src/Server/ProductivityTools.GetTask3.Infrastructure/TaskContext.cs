@@ -20,26 +20,15 @@ namespace ProductivityTools.GetTask3.Infrastructure
         public DbSet<Infrastructure.Element> Element { get; set; }
         public DbSet<Infrastructure.DefinedElementGroup> DefinedElementGroup { get; set; }
         public DbSet<Infrastructure.Tomato> Tomato { get; set; }
-        public DbSet<MySequence> MySequence2 { get; set; }
+        private DbSet<Ownership> Ownership { get; set; }
         //  public DbSet<Infrastructure.TomatoElement> TomatoItems { get; set; }
         //public DbSet<Domain.Tomato> Tomato { get; set; }
-        public class MySequence
-        {
-            public bool MyValue { get; set; }
-        }
 
 
-        public void ValidateOwnership2()
-        {
-           
-        }
         public bool ValidateOwnership(int treeId, string userName)
         {
-            var r = this.MySequence2
-               .FromSqlRaw("select gt.ValidateOwnership(3,'pwujcz8yk@gmail.com') AS MyValue").First();
-
-            //var r = await this.Database.SqlQuery<string>($"select gt.ValidateOwnership(3,'pwujczyk@gmail.com') as x").SingleAsync();
-            return r.MyValue;
+            var r = this.Ownership.FromSqlRaw($"select gt.ValidateOwnership({treeId},'{userName}') AS HasAccess").First();
+            return r.HasAccess;
         }
 
         public TaskContext(IConfiguration configuration)
@@ -73,7 +62,7 @@ namespace ProductivityTools.GetTask3.Infrastructure
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("gt");
-            modelBuilder.Entity<MySequence>().HasNoKey();
+            modelBuilder.Entity<Ownership>().HasNoKey();
             modelBuilder.Entity<TomatoElement>().HasKey(x => new { x.TomatoId, x.ElementId });
 
             //modelBuilder.Entity<Element>().ToTable("Element");
