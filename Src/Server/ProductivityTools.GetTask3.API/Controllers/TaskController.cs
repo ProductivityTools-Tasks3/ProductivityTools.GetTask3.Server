@@ -16,7 +16,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TaskController : ControllerBase
+    public class TaskController : GTController
     {
         ITaskQueries Queries;
         IGTaskCommands Commands;
@@ -51,7 +51,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
         {
             string userName = "pwujczyk@google.com";
             //pw: perform mapping in this layer
-            var x = Queries.GetTaskList(request?.ElementId, request.Path,userName);
+            var x = Queries.GetTaskList(request?.ElementId, request.Path,base.UserEmail);
             return x;
         }
 
