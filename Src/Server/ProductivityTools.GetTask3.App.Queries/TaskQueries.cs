@@ -16,7 +16,7 @@ namespace ProductivityTools.GetTask3.App.Queries
         ElementView GetTaskListFinishedThisWeek(int bagId, string path, string userName);
         int? GetParent(int elementId);
         TomatoView GetTomato();
-        int GetRootRequest(int elementId, string path);
+        int GetRootRequest(int elementId, string path, string userName);
         TomatoReportView GetTomatoReport(DateTime date);
     }
 
@@ -38,7 +38,7 @@ namespace ProductivityTools.GetTask3.App.Queries
         {
             if (bagId.HasValue && !string.IsNullOrEmpty(path))
             {
-                bagId = FindCorrectRoot(bagId.Value, path);
+                bagId = FindCorrectRoot(bagId.Value, path, userName);
             }
             else if (bagId.HasValue == false)
             {
@@ -60,7 +60,7 @@ namespace ProductivityTools.GetTask3.App.Queries
         {
             if (!string.IsNullOrEmpty(path))
             {
-                bagId = FindCorrectRoot(bagId, path);
+                bagId = FindCorrectRoot(bagId, path, userName);
             }
 
             Infrastructure.Element element = _taskRepository.GetStructure(SearchConditions.GetFinshedThisWeek, bagId, userName);
@@ -68,13 +68,13 @@ namespace ProductivityTools.GetTask3.App.Queries
             return st;
         }
 
-        public int GetRootRequest(int elementId, string path)
+        public int GetRootRequest(int elementId, string path, string userName)
         {
-            var result = FindCorrectRoot(elementId, path);
+            var result = FindCorrectRoot(elementId, path, userName);
             return result;
         }
 
-        private int FindCorrectRoot(int elementId, string path)
+        private int FindCorrectRoot(int elementId, string path, string userName)
         {
             if (path.StartsWith("\\"))
             {
@@ -83,28 +83,28 @@ namespace ProductivityTools.GetTask3.App.Queries
             }
             if (!path.StartsWith("\\"))
             {
-                var r = FindRelative(elementId, path);
+                var r = FindRelative(elementId, path, userName);
                 return r;
             }
 
             throw new Exception("This won't happen");
         }
 
-        private int FindRelative(int bagId, string path)
+        private int FindRelative(int bagId, string path,string userName)
         {
-            var element = _taskRepository.GetNode(SearchConditions.GetTodaysList, bagId);
+            var element = _taskRepository.GetNode(SearchConditions.GetTodaysList, bagId, userName);
             string[] parts = path.Split("\\");
             foreach (var part in parts)
             {
                 if (part == "..")
                 {
-                    element = _taskRepository.GetNode(SearchConditions.GetTodaysList, element.ParentId.Value);
+                    element = _taskRepository.GetNode(SearchConditions.GetTodaysList, element.ParentId.Value,userName);
                 }
                 else
                 {
                     //pw: add returning errors;
                     element = element.Elements.SingleOrDefault(x => x.Name == part);
-                    element = _taskRepository.GetNode(SearchConditions.GetTodaysList, element.ElementId);
+                    element = _taskRepository.GetNode(SearchConditions.GetTodaysList, element.ElementId, userName);
                 }
             }
 

@@ -21,12 +21,12 @@ namespace ProductivityTools.GetTask3.App.Commands
         void Undone(int elementId);
         void Delay(int elementId, DateTime dateTime);
         void Delete(int elementId);
-        void AddToTomato(List<int> elementIds);
+        void AddToTomato(List<int> elementIds, string userName);
         void AddToTomato(string name, string details, int parentId);
-        void FinishTomato(bool finishAlsoTasks);
-        void Move(int[] elementIds, int target);
+        void FinishTomato(bool finishAlsoTasks, string userName);
+        void Move(int[] elementIds, int target, string userName);
 
-        void Save(int parentId, int elementId, string name, string details, string detailsType);
+        void Save(int parentId, int elementId, string name, string details, string detailsType, string userName);
     }
 
 
@@ -127,7 +127,7 @@ namespace ProductivityTools.GetTask3.App.Commands
             _taskUnitOfWork.Commit();
         }
 
-        public void AddToTomato(List<int> elementIds)
+        public void AddToTomato(List<int> elementIds, string userName)
         {
             Infrastructure.Tomato curentTomato = _taskUnitOfWork.TomatoRepository.GetCurrent();
             if (curentTomato == null)
@@ -136,7 +136,7 @@ namespace ProductivityTools.GetTask3.App.Commands
                 curentTomato.Status = Status.New;
             }
 
-            List<Infrastructure.Element> elements = _taskUnitOfWork.TaskRepository.GetElements(elementIds);
+            List<Infrastructure.Element> elements = _taskUnitOfWork.TaskRepository.GetElements(elementIds,userName);
             elements.ForEach(x =>
             {
                 //I removed this functionality for now
@@ -174,7 +174,7 @@ namespace ProductivityTools.GetTask3.App.Commands
             _taskUnitOfWork.Commit();
         }
 
-        public void FinishTomato(bool finishAlsoTask)
+        public void FinishTomato(bool finishAlsoTask, string userName)
         {
             Infrastructure.Tomato itomato = _taskUnitOfWork.TomatoRepository.GetCurrent();
             var tomato = _mapper.Map<Domain.Tomato>(itomato);
@@ -185,7 +185,7 @@ namespace ProductivityTools.GetTask3.App.Commands
 
             if (finishAlsoTask)
             {
-                List<Infrastructure.Element> ielements = _taskUnitOfWork.TaskRepository.GetElements(tomato.Elements.Select(x => x.ElementId).ToList());
+                List<Infrastructure.Element> ielements = _taskUnitOfWork.TaskRepository.GetElements(tomato.Elements.Select(x => x.ElementId).ToList(), userName);
                 List<Domain.Element> elements = _mapper.Map<List<Domain.Element>>(ielements);
                 //pw: chage it
                 elements.ForEach(x =>
@@ -199,9 +199,9 @@ namespace ProductivityTools.GetTask3.App.Commands
             _taskUnitOfWork.Commit();
         }
 
-        public void Move(int[] elementIds, int target)
+        public void Move(int[] elementIds, int target, string userName)
         {
-            var elements = _taskUnitOfWork.TaskRepository.GetElements(elementIds.ToList());
+            var elements = _taskUnitOfWork.TaskRepository.GetElements(elementIds.ToList(), userName);
             foreach (Infrastructure.Element element in elements)
             {
                 var domain = _mapper.Map<Domain.Element>(element);
@@ -214,10 +214,10 @@ namespace ProductivityTools.GetTask3.App.Commands
 
         }
 
-        public void Save(int parentId, int elementId, string name, string details, string detailsType)
+        public void Save(int parentId, int elementId, string name, string details, string detailsType, string userName)
         {
 
-            Infrastructure.Element element = _taskUnitOfWork.TaskRepository.GetElements(new List<int> { elementId }).Single(); ;
+            Infrastructure.Element element = _taskUnitOfWork.TaskRepository.GetElements(new List<int> { elementId }, userName).Single(); ;
             Domain.Element el = _mapper.Map<Domain.Element>(element);
             el.Update(parentId, name, details, detailsType);
             element = _mapper.Map<Infrastructure.Element>(el);

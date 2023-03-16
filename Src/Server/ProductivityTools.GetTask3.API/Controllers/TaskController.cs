@@ -51,7 +51,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
         {
             string userName = "pwujczyk@google.com";
             //pw: perform mapping in this layer
-            var x = Queries.GetTaskList(request?.ElementId, request.Path,base.UserEmail);
+            var x = Queries.GetTaskList(request?.ElementId, request.Path, base.UserEmail);
             return x;
         }
 
@@ -71,7 +71,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
         [Authorize]
         public int? GetRoot([FromBody] GetRootRequest request)
         {
-            var x = Queries.GetRootRequest(request.ElementId.Value, request.Path);
+            var x = Queries.GetRootRequest(request.ElementId.Value, request.Path,base.UserEmail);
             return x;
         }
 
@@ -81,7 +81,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
         //returns elementId
         public int Add([FromBody] AddRequest request)
         {
-            var r=Commands.Add(request.Name, request.Details, request.DetailsType, request.ParentId, request.Finished);
+            var r = Commands.Add(request.Name, request.Details, request.DetailsType, request.ParentId, request.Finished);
             return r;
         }
 
@@ -148,7 +148,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
         [Authorize]
         public void AddToTomato([FromBody] AddToTomatoByIdRequest request)
         {
-            Commands.AddToTomato(request.ElementItems.ToList());
+            Commands.AddToTomato(request.ElementItems.ToList(), base.UserEmail);
         }
 
         [HttpPost]
@@ -164,7 +164,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
         [Authorize]
         public void FinishTomato([FromBody] FinishTomatoRequest request)
         {
-            Commands.FinishTomato(request.FinishAlsoTasks);
+            Commands.FinishTomato(request.FinishAlsoTasks, base.UserEmail);
         }
 
         [HttpPost]
@@ -195,7 +195,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
         [Authorize]
         public void Move(MoveRequest moveRequest)
         {
-            Commands.Move(moveRequest.ElementIds, moveRequest.Target);
+            Commands.Move(moveRequest.ElementIds, moveRequest.Target, base.UserEmail);
         }
 
 
@@ -204,7 +204,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
         [Authorize]
         public void Save(UpdateRequest update)
         {
-            Commands.Save(update.ParentId, update.ElementId, update.Name, update.Details, update.DetailsType);
+            Commands.Save(update.ParentId, update.ElementId, update.Name, update.Details, update.DetailsType, base.UserEmail);
         }
     }
 }

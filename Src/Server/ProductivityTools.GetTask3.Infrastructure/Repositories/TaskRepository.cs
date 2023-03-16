@@ -12,13 +12,14 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
 {
     public interface ITaskRepository : IRepository<Infrastructure.Element>
     {
+        //Returns tree object with the tasks
         Infrastructure.Element GetStructure(string filter, int root, string userName);
-        Infrastructure.Element GetNode(string filter, int node);
+        //Used to find correct root when using path. It allows to go up and down if used ..\directory
+        Infrastructure.Element GetNode(string filter, int nodeId, string userName);
         Infrastructure.Element GetRootForUser(string userName);
-        List<Infrastructure.Element> GetElements(List<int> elementids);
-        //void AddItem(string name);
-
-
+        //used to Tomato. We take elements and add them to the tomato. It is also used to perform save. Then we use only one element in the list
+        List<Infrastructure.Element> GetElements(List<int> elementids, string userName);
+        //used in defined tasks
         List<Element> GetTaskBags(int? rootId);
     }
 
@@ -31,6 +32,14 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
         {
             _dateTimePT = dateTime;
         }
+        private void ValidateOwnership(int nodeId, string userName)
+        {
+            var x = _taskContext.ValidateOwnership(nodeId, userName);
+            if (x == false)
+            {
+                throw new UnauthorizedAccessException($"{userName} does not have access to the tree node:{nodeId}");
+            }
+        }
 
         public Infrastructure.Element GetRootForUser(string userName)
         {
@@ -42,22 +51,16 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
             else return userElement;
         }
 
-        public Infrastructure.Element GetNode(string filter, int nodeId)
+        public Infrastructure.Element GetNode(string filter, int nodeId, string userName)
         {
+            ValidateOwnership(nodeId, userName);
             var result = GetInternal(nodeId);
             result.Elements = GetChildElements(filter, result.ElementId);
             //var r = _mapper.Map<Domain.Element>(result);
             return result;
         }
 
-        private void ValidateOwnership(int rootId, string userName)
-        {
-            var x = _taskContext.ValidateOwnership(rootId, userName);
-            if (x == false)
-            {
-                throw new UnauthorizedAccessException($"{userName} does not have access to the tree node:{rootId}");
-            }
-        }
+
 
         //pw: make it nice repository
         public Infrastructure.Element GetStructure(string filter, int rootId, string userName)
@@ -74,8 +77,9 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
             return result;
         }
 
-        public List<Infrastructure.Element> GetElements(List<int> elementids)
+        public List<Infrastructure.Element> GetElements(List<int> elementids,string userName)
         {
+            elementids.ForEach(x => ValidateOwnership(x, userName));
             var elements = _dbSet.Where(x => elementids.Contains(x.ElementId)).ToList();
             elements.ForEach(x => { _taskContext.Entry(x).State = EntityState.Detached; });
             //var r = _mapper.Map<List<Domain.Element>>(elements);
