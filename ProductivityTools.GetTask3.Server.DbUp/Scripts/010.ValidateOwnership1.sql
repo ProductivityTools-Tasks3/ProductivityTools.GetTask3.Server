@@ -12,7 +12,7 @@ CREATE FUNCTION [gt].[ValidateOwnershipWithRoot] (@TreeId INT,@RootId INT, @User
 	    DECLARE @PartResult BIT
 		DECLARE @Type INT 
 
-		exec xp_cmdshell 'echo "START">>d:\debug.txt'
+		--exec xp_cmdshell 'echo "START">>d:\debug.txt'
 
 		--declare @log varchar(100)
 		--select @log = 'echo "Entered [ValidateOwnershipWithRoot1] function with TreeId:'+CAST(@TreeId AS VARCHAR)+'">>d:\debug.txt'
