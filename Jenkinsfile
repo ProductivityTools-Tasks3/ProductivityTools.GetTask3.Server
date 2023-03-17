@@ -41,7 +41,7 @@ pipeline {
         }
         stage('copyDbMigratorFiles') {
             steps {
-                bat('xcopy "ProductivityTools.GetTask3.Server.DbUp\\bin\\Release\\net6.0\\publish\\" "C:\\Bin\\GetTask3DdbMigration\\" /O /X /E /H /K')
+                bat('xcopy "ProductivityTools.GetTask3.Server.DbUp\\bin\\Release\\net7.0\\publish\\" "C:\\Bin\\GetTask3DdbMigration\\" /O /X /E /H /K')
             }
         }
 
@@ -67,7 +67,7 @@ pipeline {
         }
         stage('copyIisFiles') {
             steps {
-                bat('xcopy "Src\\Server\\ProductivityTools.GetTask3.API\\bin\\Release\\net6.0\\publish\\" "C:\\Bin\\GetTask3\\" /O /X /E /H /K')				              
+                bat('xcopy "Src\\Server\\ProductivityTools.GetTask3.API\\bin\\Release\\net7.0\\publish\\" "C:\\Bin\\GetTask3\\" /O /X /E /H /K')				              
             }
         }
 
