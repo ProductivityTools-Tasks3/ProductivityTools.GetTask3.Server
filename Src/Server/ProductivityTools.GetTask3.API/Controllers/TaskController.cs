@@ -57,6 +57,16 @@ namespace ProductivityTools.GetTask3.API.Controllers
 
         [HttpPost]
         [Authorize]
+        [Route("TodayListForUser")]
+        public ElementView GetTasksForUser([FromBody] ListRequest request = null)
+        {
+            //pw: perform mapping in this layer
+            var x = Queries.GetTaskList(request?.ElementId, request.Path, request.UserEmail);
+            return x;
+        }
+
+        [HttpPost]
+        [Authorize]
         [Route(Consts.ThisWeekFinishedList)]
         public ElementView GetTasksFinishedThisWeek([FromBody] ListRequest request = null)
         {
