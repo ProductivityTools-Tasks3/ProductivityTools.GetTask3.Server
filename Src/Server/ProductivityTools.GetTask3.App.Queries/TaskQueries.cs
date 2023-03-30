@@ -13,7 +13,7 @@ namespace ProductivityTools.GetTask3.App.Queries
     public interface ITaskQueries
     {
         ElementView GetTaskList(int? bagId, string path, string userName);
-        ElementView GetTaskListFinishedThisWeek(int bagId, string path, string userName);
+        ElementView GetTaskListFinishedThisWeek(int? bagId, string path, string userName);
         int? GetParent(int elementId);
         TomatoView GetTomato();
         int GetRootRequest(int elementId, string path, string userName);
@@ -33,8 +33,21 @@ namespace ProductivityTools.GetTask3.App.Queries
             _mapper = mapper;
         }
 
-        //pw:change it to handlers
+
         public ElementView GetTaskList(int? bagId, string path, string userName)
+        {
+            var r = GetTaskListInternal(bagId, path, userName, SearchConditions.GetTodaysList);
+            return r;
+        }
+
+        public ElementView GetTaskListFinishedThisWeek(int? bagId, string path, string userName)
+        {
+            var r = GetTaskListInternal(bagId, path, userName, SearchConditions.GetFinshedThisWeek);
+            return r;
+        }
+
+        //pw:change it to handlers
+        private ElementView GetTaskListInternal(int? bagId, string path, string userName, string searchConditions)
         {
             if (bagId.HasValue && !string.IsNullOrEmpty(path))
             {
@@ -51,22 +64,33 @@ namespace ProductivityTools.GetTask3.App.Queries
 
             }
 
-            Infrastructure.Element element = _taskRepository.GetStructure(SearchConditions.GetTodaysList, bagId.Value, userName);
+            Infrastructure.Element element = _taskRepository.GetStructure(searchConditions, bagId.Value, userName);
             ElementView st = _mapper.Map<Infrastructure.Element, ElementView>(element);
             return st;
         }
 
-        public ElementView GetTaskListFinishedThisWeek(int bagId, string path, string userName)
-        {
-            if (!string.IsNullOrEmpty(path))
-            {
-                bagId = FindCorrectRoot(bagId, path, userName);
-            }
+        //public ElementView GetTaskListFinishedThisWeek(int? bagId, string path, string userName)
+        //{
 
-            Infrastructure.Element element = _taskRepository.GetStructure(SearchConditions.GetFinshedThisWeek, bagId, userName);
-            ElementView st = _mapper.Map<Infrastructure.Element, ElementView>(element);
-            return st;
-        }
+        //    if (bagId.HasValue && !string.IsNullOrEmpty(path))
+        //    {
+        //        bagId = FindCorrectRoot(bagId.Value, path, userName);
+        //    }
+        //    else if (bagId.HasValue == false)
+        //    {
+        //        //get root of the user
+        //        var userRootElement = _taskRepository.GetRootForUser(userName);
+        //        bagId = userRootElement.ElementId;
+        //    }
+        //    else if (bagId.HasValue && string.IsNullOrEmpty(path))
+        //    {
+
+        //    }
+
+        //    Infrastructure.Element element = _taskRepository.GetStructure(SearchConditions.GetFinshedThisWeek, bagId.Value, userName);
+        //    ElementView st = _mapper.Map<Infrastructure.Element, ElementView>(element);
+        //    return st;
+        //}
 
         public int GetRootRequest(int elementId, string path, string userName)
         {

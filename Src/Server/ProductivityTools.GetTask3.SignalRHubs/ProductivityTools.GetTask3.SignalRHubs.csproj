@@ -8,7 +8,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Core" Version="1.1.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
-    <PackageReference Include="ProductivityTools.GetTask3.Contract" Version="0.0.20" />
+    <PackageReference Include="ProductivityTools.GetTask3.Contract" Version="0.0.21" />
   </ItemGroup>
 
 </Project>
