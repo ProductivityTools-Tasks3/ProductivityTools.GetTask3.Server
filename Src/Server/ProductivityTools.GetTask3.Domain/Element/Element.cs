@@ -85,6 +85,11 @@ namespace ProductivityTools.GetTask3.Domain
             Started = startDate;
         }
 
+        public void ChangeType(ElementType type)
+        {
+            this.Type= type;
+        }
+
         public void Undone()
         {
             Status = Status.New;

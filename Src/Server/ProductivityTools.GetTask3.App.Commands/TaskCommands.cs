@@ -18,6 +18,8 @@ namespace ProductivityTools.GetTask3.App.Commands
         void AddBag(string bagName, string details, string detailsType, int? bagId);
         void Finish(int elementId);
         void Start(int elementId);
+        void ChangeType(int elementId, CoreObjects.ElementType type);
+
         void Undone(int elementId);
         void Delay(int elementId, DateTime dateTime);
         void Delete(int elementId);
@@ -87,6 +89,17 @@ namespace ProductivityTools.GetTask3.App.Commands
             Domain.Element d = _mapper.Map<Domain.Element>(element);
 
             d.Start(_dateTime.Now);
+            element = _mapper.Map<Infrastructure.Element>(d);
+
+            _taskUnitOfWork.TaskRepository.Update(element);
+            _taskUnitOfWork.Commit();
+        }
+
+        public void ChangeType(int elementId, CoreObjects.ElementType elementType)
+        {
+            var element = _taskUnitOfWork.TaskRepository.Get(elementId);
+            Domain.Element d = _mapper.Map<Domain.Element>(element);
+            d.ChangeType(elementType);
             element = _mapper.Map<Infrastructure.Element>(d);
 
             _taskUnitOfWork.TaskRepository.Update(element);
