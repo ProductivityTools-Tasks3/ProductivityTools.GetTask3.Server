@@ -124,10 +124,11 @@ namespace ProductivityTools.GetTask3.API.Controllers
         [HttpPost]
         [Route(Consts.ChangeType)]
         [Authorize]
-        public void ChangeType([FromBody] ChangeTypeRequest request)
+        public bool ChangeType([FromBody] ChangeTypeRequest request)
         {
             ElementType type=(ElementType)Enum.Parse(typeof(ElementType), request.Type);
             Commands.ChangeType(request.ElementId, type);
+            return true;
         }
 
 
