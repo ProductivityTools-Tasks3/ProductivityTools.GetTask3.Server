@@ -15,11 +15,13 @@
     <None Remove="Scripts\007.ElementDetails.sql" />
     <None Remove="Scripts\008.DetailsType.sql" />
     <None Remove="Scripts\009.InitElements.sql" />
-    <None Remove="Scripts\010.ValidateOwnership1.sql" />
+    <None Remove="Scripts\201.DataMigration-Function.sql" />
+    <None Remove="Scripts\202.DataMigrationSlate2Plate.sql" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Scripts\010.ValidateOwnership1.sql" />
+    <EmbeddedResource Include="Scripts\201.DataMigration-Function.sql" />
+    <EmbeddedResource Include="Scripts\202.DataMigrationSlate2Plate.sql" />
     <EmbeddedResource Include="Scripts\009.InitElements.sql" />
     <EmbeddedResource Include="Scripts\008.DetailsType.sql" />
     <EmbeddedResource Include="Scripts\007.ElementDetails.sql" />

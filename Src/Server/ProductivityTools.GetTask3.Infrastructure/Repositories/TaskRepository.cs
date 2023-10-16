@@ -153,7 +153,7 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
 
             if (filter == SearchConditions.GetFinshedThisWeek)
             {
-                int days = ((int)DateTime.Now.DayOfWeek);
+                int days = ((int)DateTime.Now.DayOfWeek)+7;
                 var date = DateTime.Now.SubtrackDays(days).Date;
                 var elements = _taskContext.Element.Where(l => l.Status != Status.Deleted &&
                  (
