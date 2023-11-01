@@ -11,7 +11,7 @@ namespace ProductivityTools.GetTask3.Server.DbUp
         {
             var connectionString =
           args.FirstOrDefault()
-          ?? "Server=.\\SQL2019; Database=GetTask3;Integrated Security=True;Encrypt=False";
+          ?? "Server=.\\SQL2019; Database=PTTasks3;Integrated Security=True;Encrypt=False";
             EnsureDatabase.For.SqlDatabase(connectionString);
 
             var upgrader =
