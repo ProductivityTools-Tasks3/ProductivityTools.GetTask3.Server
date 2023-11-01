@@ -60,7 +60,7 @@ pipeline {
         stage('deleteIisDir') {
             steps {
                 retry(5) {
-                    bat('if exist "C:\\Bin\\PTTasks3" RMDIR /Q/S "C:\\Bin\\PTTasks3"')
+                    bat('if exist "C:\\Bin\\IIS\\PTTasks3" RMDIR /Q/S "C:\\Bin\\IIS\\PTTasks3"')
                 }
 
             }
