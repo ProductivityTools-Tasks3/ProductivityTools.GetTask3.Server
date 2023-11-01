@@ -53,27 +53,27 @@ pipeline {
 
         stage('stopMeetingsOnIis') {
             steps {
-                bat('%windir%\\system32\\inetsrv\\appcmd stop site /site.name:PTTask3')
+                bat('%windir%\\system32\\inetsrv\\appcmd stop site /site.name:PTTasks3')
             }
         }
 
         stage('deleteIisDir') {
             steps {
                 retry(5) {
-                    bat('if exist "C:\\Bin\\PTTask3" RMDIR /Q/S "C:\\Bin\\PTTask3"')
+                    bat('if exist "C:\\Bin\\PTTasks3" RMDIR /Q/S "C:\\Bin\\PTTasks3"')
                 }
 
             }
         }
         stage('copyIisFiles') {
             steps {
-                bat('xcopy "Src\\Server\\ProductivityTools.GetTask3.API\\bin\\Release\\net7.0\\publish\\" "C:\\Bin\\GetTask3\\" /O /X /E /H /K')				              
+                bat('xcopy "Src\\Server\\ProductivityTools.GetTask3.API\\bin\\Release\\net7.0\\publish\\" "C:\\Bin\\IIS\\PTTasks3\\" /O /X /E /H /K')				              
             }
         }
 
         stage('startMeetingsOnIis') {
             steps {
-                bat('%windir%\\system32\\inetsrv\\appcmd start site /site.name:PTTask3')
+                bat('%windir%\\system32\\inetsrv\\appcmd start site /site.name:PTTasks3')
             }
         }
         stage('byebye') {
