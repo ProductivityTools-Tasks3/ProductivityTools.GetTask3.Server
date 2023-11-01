@@ -56,6 +56,13 @@ pipeline {
                 bat('%windir%\\system32\\inetsrv\\appcmd stop site /site.name:PTTasks3')
             }
         }
+		
+		stage('StopAppPool') {
+            steps {
+                bat('%windir%\\system32\\inetsrv\\appcmd stop apppool /apppool.name:"PTTasks3"')
+            }
+        }
+		
 		stage('Sleep') {
 			steps {
 				script {
