@@ -8,7 +8,7 @@ namespace ProductivityTools.GetTask3.Configuration
         {
             get
             {
-                return @"Server=.\sql2017;Database=GetTask3;Integrated Security=True";
+                return @"Server=.\sql2017;Database=PTTasks3;Integrated Security=True";
             }
         }
     }
