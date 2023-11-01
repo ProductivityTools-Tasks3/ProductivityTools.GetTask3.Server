@@ -24,7 +24,7 @@ pipeline {
         stage('clone') {
             steps {
                 // Get some code from a GitHub repository
-                git branch: 'master',
+                git branch: 'main',
                 url: 'https://github.com/ProductivityTools-Tasks3/ProductivityTools.GetTask3.Server'
             }
         }
@@ -53,14 +53,14 @@ pipeline {
 
         stage('stopMeetingsOnIis') {
             steps {
-                bat('%windir%\\system32\\inetsrv\\appcmd stop site /site.name:GetTask3')
+                bat('%windir%\\system32\\inetsrv\\appcmd stop site /site.name:PTTask3')
             }
         }
 
         stage('deleteIisDir') {
             steps {
                 retry(5) {
-                    bat('if exist "C:\\Bin\\GetTask3" RMDIR /Q/S "C:\\Bin\\GetTask3"')
+                    bat('if exist "C:\\Bin\\PTTask3" RMDIR /Q/S "C:\\Bin\\PTTask3"')
                 }
 
             }
@@ -73,7 +73,7 @@ pipeline {
 
         stage('startMeetingsOnIis') {
             steps {
-                bat('%windir%\\system32\\inetsrv\\appcmd start site /site.name:GetTask3')
+                bat('%windir%\\system32\\inetsrv\\appcmd start site /site.name:PTTask3')
             }
         }
         stage('byebye') {
