@@ -36,6 +36,13 @@ namespace ProductivityTools.GetTask3.API.Controllers
             return new string[] { "value1", "value2" };
         }
 
+        [HttpGet]
+        [Route("Echo")]
+        public string Echo(string name)
+        {
+            return $"Welcome request performed at {DateTime.Now} with param {name} on server {System.Environment.MachineName} to Application Transfers";
+        }
+
 
         [HttpPost]
         [Route("Date")]
