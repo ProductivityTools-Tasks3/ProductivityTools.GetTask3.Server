@@ -7,7 +7,7 @@ pipeline {
         stage('hello') {
             steps {
                 // Get some code from a GitHub repository
-                echo 'hello1'
+                echo 'hello1!'
             }
         }
 		stage('workplacePath'){
