@@ -51,11 +51,19 @@ pipeline {
             }
         }
 
-        stage('stopMeetingsOnIis') {
+        stage('stopPTTask3OnIis') {
             steps {
                 bat('%windir%\\system32\\inetsrv\\appcmd stop site /site.name:PTTasks3')
             }
         }
+		stage('Sleep') {
+			steps {
+				script {
+					print('I am sleeping for a while!')
+					sleep(30)    
+				}
+			}
+		}
 		stage('deleteIisDirFiles') {
             steps {
                 retry(5) {
