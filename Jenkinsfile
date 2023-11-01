@@ -92,6 +92,13 @@ pipeline {
                 bat('xcopy "Src\\Server\\ProductivityTools.GetTask3.API\\bin\\Release\\net7.0\\publish\\" "C:\\Bin\\IIS\\PTTasks3\\" /O /X /E /H /K')				              
             }
         }
+		
+		stage('Start AppPool') {
+            steps {
+                bat('%windir%\\system32\\inetsrv\\appcmd start apppool /apppool.name:"PTTasks3"')
+            }
+        }
+		
 
         stage('startMeetingsOnIis') {
             steps {
