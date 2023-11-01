@@ -56,7 +56,14 @@ pipeline {
                 bat('%windir%\\system32\\inetsrv\\appcmd stop site /site.name:PTTasks3')
             }
         }
+		stage('deleteIisDirFiles') {
+            steps {
+                retry(5) {
+                    bat('if exist "C:\\Bin\\IIS\\PTTasks3" del /q "C:\\Bin\\IIS\\PTTasks3\\*"')
+                }
 
+            }
+        }
         stage('deleteIisDir') {
             steps {
                 retry(5) {
