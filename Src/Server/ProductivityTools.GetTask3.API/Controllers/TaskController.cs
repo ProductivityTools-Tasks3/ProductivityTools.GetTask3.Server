@@ -157,10 +157,10 @@ namespace ProductivityTools.GetTask3.API.Controllers
 
         [HttpPost]
         [Authorize]
-        [Route(Consts.Delete)]
-        public void Delay([FromBody] int elementId)
+        [Route(Consts.Remove)]
+        public void Remove([FromBody] RemoveRequest removeRequest)
         {
-            Commands.Delete(elementId);
+            Commands.Remove(removeRequest.ElementId);
         }
 
         [HttpPost]

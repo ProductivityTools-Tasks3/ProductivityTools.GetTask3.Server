@@ -22,7 +22,7 @@ namespace ProductivityTools.GetTask3.App.Commands
 
         void Undone(int elementId);
         void Delay(int elementId, DateTime dateTime);
-        void Delete(int elementId);
+        void Remove(int elementId);
         void AddToTomato(List<int> elementIds, string userName);
         void AddToTomato(string name, string details, int parentId);
         void FinishTomato(bool finishAlsoTasks, string userName);
@@ -128,7 +128,7 @@ namespace ProductivityTools.GetTask3.App.Commands
             _taskUnitOfWork.Commit();
         }
 
-        public void Delete(int elementId)
+        public void Remove(int elementId)
         {
             var element = _taskUnitOfWork.TaskRepository.Get(elementId);
             Domain.Element d = _mapper.Map<Domain.Element>(element);
