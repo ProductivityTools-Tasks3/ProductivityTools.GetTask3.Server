@@ -158,9 +158,10 @@ namespace ProductivityTools.GetTask3.API.Controllers
         [HttpPost]
         [Authorize]
         [Route(Consts.Remove)]
-        public void Remove([FromBody] RemoveRequest removeRequest)
+        public IActionResult Remove([FromBody] RemoveRequest removeRequest)
         {
             Commands.Remove(removeRequest.ElementId);
+            return Ok();
         }
 
         [HttpPost]
