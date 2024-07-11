@@ -46,6 +46,12 @@ namespace ProductivityTools.GetTask3.App.Queries
             return r;
         }
 
+        public ElementView GetTaskListFinishedLast7Days(int? bagId, string path, string userName)
+        {
+            var r = GetTaskListInternal(bagId, path, userName, SearchConditions.GetFinshedLast7Days);
+            return r;
+        }
+
         //pw:change it to handlers
         private ElementView GetTaskListInternal(int? bagId, string path, string userName, string searchConditions)
         {

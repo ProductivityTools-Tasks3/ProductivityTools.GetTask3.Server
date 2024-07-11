@@ -10,6 +10,7 @@ namespace ProductivityTools.GetTask3.Infrastructure.Repositories
     {
         public static string GetTodaysList = "GetTodaysList";
         public static string GetFinshedThisWeek = "GetFinshedThisWeek";
+        public static string GetFinshedLast7Days = "GetFinshedLast7Days";
         static int rootId { get; set; }
         public SearchConditions(int rootId)
         {
