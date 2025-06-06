@@ -116,7 +116,7 @@ pipeline {
 
         stage('Start website on IIS') {
             steps {
-                bat('%windir%\\system32\\inetsrv\\appcmd start site /site.name:PTTasks3')
+                bat('%windir%\\system32\\inetsrv\\appcmd start site /site.name:PTTasks')
             }
         }
         stage('Create Login PTTask on SQL2022') {
