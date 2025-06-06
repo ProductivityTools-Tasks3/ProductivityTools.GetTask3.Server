@@ -19,6 +19,7 @@ namespace ProductivityTools.GetTask3.Infrastructure
             services.AddScoped<ITaskRepository, TaskRepository>();
             services.AddScoped<ITomatoRepository, TomatoRepository>();
             services.AddScoped<IDefinedTaskRepository, DefinedTaskRepository>();
+            services.AddScoped<IDebugRepository, DebugRepository>();
             services.AddScoped<TaskContext>();
 
             //services.AddLogging(builder => builder

@@ -166,6 +166,5 @@ namespace ProductivityTools.GetTask3.App.Queries
             result.Tomatoes = _mapper.Map<List<Infrastructure.Tomato>, List<TomatoView>>(tomatoList);
             return result;
         }
-
     }
 }
