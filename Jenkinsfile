@@ -90,10 +90,10 @@ pipeline {
         stage('Delete PTTask IIS directory') {
             steps {
               powershell('''
-                if ( Test-Path "C:\\Bin\\IIS\\PTTask")
+                if ( Test-Path "C:\\Bin\\IIS\\PTTasks")
                 {
                     while($true) {
-                        if ( (Remove-Item "C:\\Bin\\IIS\\PTTask" -Recurse *>&1) -ne $null)
+                        if ( (Remove-Item "C:\\Bin\\IIS\\PTTasks" -Recurse *>&1) -ne $null)
                         {  
                             write-output "Removing failed we should wait"
                         }
