@@ -77,17 +77,17 @@ pipeline {
 
                     }
                 }
-                Create "PTTasks" "*:8009"  "C:\\Bin\\IIS\\PTTask"                
+                Create "PTTasks" "*:8009"  "C:\\Bin\\IIS\\PTTasks"                
                 ''')
             }
         }
-        stage('Stop PTJournal on IIS') {
+        stage('Stop PTTasks on IIS') {
             steps {
                 bat('%windir%\\system32\\inetsrv\\appcmd stop site /site.name:PTTasks')
             }
         }
 
-        stage('Delete PTTask IIS directory') {
+        stage('Delete PTTasks IIS directory') {
             steps {
               powershell('''
                 if ( Test-Path "C:\\Bin\\IIS\\PTTasks")
@@ -119,21 +119,21 @@ pipeline {
                 bat('%windir%\\system32\\inetsrv\\appcmd start site /site.name:PTTasks')
             }
         }
-        stage('Create Login PTTask on SQL2022') {
+        stage('Create Login PTTasks on SQL2022') {
              steps {
-                 bat('sqlcmd -S ".\\SQL2022" -q "CREATE LOGIN [IIS APPPOOL\\PTTask] FROM WINDOWS WITH DEFAULT_DATABASE=[PTTask];"')
+                 bat('sqlcmd -S ".\\SQL2022" -q "CREATE LOGIN [IIS APPPOOL\\PTTasks] FROM WINDOWS WITH DEFAULT_DATABASE=[PTTasks];"')
              }
         }
 
-        stage('Create User PTTask on SQL2022') {
+        stage('Create User PTTasks on SQL2022') {
              steps {
-                 bat('sqlcmd -S ".\\SQL2022" -q "USE PTTask;  CREATE USER [IIS APPPOOL\\PTTask]  FOR LOGIN [IIS APPPOOL\\PTTask];"')
+                 bat('sqlcmd -S ".\\SQL2022" -q "USE PTTasks;  CREATE USER [IIS APPPOOL\\PTTasks]  FOR LOGIN [IIS APPPOOL\\PTTasks];"')
              }
         }
 
         stage('Give DBOwner permissions on SQL2022') {
              steps {
-                 bat('sqlcmd -S ".\\SQL2022" -q "USE PTTask;  ALTER ROLE [db_owner] ADD MEMBER [IIS APPPOOL\\PTTask];"')
+                 bat('sqlcmd -S ".\\SQL2022" -q "USE PTTasks;  ALTER ROLE [db_owner] ADD MEMBER [IIS APPPOOL\\PTTasks];"')
              }
         }
         stage('Bye bye') {
