@@ -25,7 +25,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
         [Route("AppName")]
         public string AppName()
         {
-            return "PTTask";
+            return "PTTask3";
         }
 
         [HttpGet]
