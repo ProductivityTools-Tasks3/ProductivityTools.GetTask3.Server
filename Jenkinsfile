@@ -4,111 +4,142 @@ pipeline {
     agent any
 
     stages {
-        stage('hello') {
+        stage('Hello!') {
             steps {
-                // Get some code from a GitHub repository
-                echo 'hello!'
+                echo 'Hello Jenkins!'
             }
         }
-		stage('workplacePath'){
+        stage('Print workpalce Path'){
 			steps{
 				echo "${env.WORKSPACE}"
 			}
 		}
-        stage('deleteWorkspace') {
+        stage('Print workpalce directory'){
             steps {
                 deleteDir()
             }
         }
 
-        stage('clone') {
+        stage('Git clone') {
             steps {
                 // Get some code from a GitHub repository
                 git branch: 'main',
                 url: 'https://github.com/ProductivityTools-Tasks3/ProductivityTools.GetTask3.Server'
             }
         }
-        stage('build') {
+        stage('Build solution') {
             steps {
-				echo 'starting bddduild'
+				echo 'starting build'
                 bat('dotnet publish ProductivityTools.GetTask3.Server.sln -c Release')
             }
         }
-        stage('deleteDbMigratorDir') {
+        stage('Delete databse migration directory') {
             steps {
-                bat('if exist "C:\\Bin\\GetTask3DdbMigration" RMDIR /Q/S "C:\\Bin\\GetTask3DdbMigration"')
+                bat('if exist "C:\\Bin\\DbMigration\\GetTask3DdbMigration" RMDIR /Q/S "C:\\Bin\\DbMigration\\GetTask3DdbMigration"')
             }
         }
-        stage('copyDbMigratorFiles') {
+        stage('Copy database migration files') {
             steps {
-                bat('xcopy "ProductivityTools.GetTask3.Server.DbUp\\bin\\Release\\net7.0\\publish\\" "C:\\Bin\\GetTask3DdbMigration\\" /O /X /E /H /K')
-            }
-        }
-
-        stage('runDbMigratorFiles') {
-            steps {
-                bat('C:\\Bin\\GetTask3DdbMigration\\ProductivityTools.GetTask3.Server.DbUp.exe')
+                bat('xcopy "ProductivityTools.GetTask3.Server.DbUp\\bin\\Release\\net7.0\\publish\\" "C:\\Bin\\DbMigration\\GetTask3DdbMigration\\" /O /X /E /H /K')
             }
         }
 
-        stage('stopPTTask3OnIis') {
+       stage('Run databse migration files') {
             steps {
-                bat('%windir%\\system32\\inetsrv\\appcmd stop site /site.name:PTTasks3')
+                bat('C:\\Bin\\DbMigration\\GetTask3DdbMigration\\ProductivityTools.GetTask3.Server.DbUp.exe')
             }
         }
-		
-		stage('StopAppPool') {
+
+       stage('Create page on the IIS') {
             steps {
-                bat('%windir%\\system32\\inetsrv\\appcmd stop apppool /apppool.name:"PTTasks3"')
-            }
-        }
-		
-		stage('Sleep') {
-			steps {
-				script {
-					print('I am sleeping for a while!')
-					sleep(30)    
-				}
-			}
-		}
-		stage('deleteIisDirFiles') {
-            steps {
-                retry(5) {
-                    bat('if exist "C:\\Bin\\IIS\\PTTasks3" del /q "C:\\Bin\\IIS\\PTTasks3\\*"')
+                powershell('''
+                function CheckIfExist($Name){
+                    cd $env:SystemRoot\\system32\\inetsrv
+                    $exists = (.\\appcmd.exe list sites /name:$Name) -ne $null
+                    Write-Host $exists
+                    return  $exists
                 }
+                
+                 function Create($Name,$HttpbBnding,$PhysicalPath){
+                    $exists=CheckIfExist $Name
+                    if ($exists){
+                        write-host "Web page already existing"
+                    }
+                    else
+                    {
+                        write-host "Creating app pool"
+                        .\\appcmd.exe add apppool /name:$Name /managedRuntimeVersion:"v4.0" /managedPipelineMode:"Integrated"
+                        write-host "Creating webage"
+                        .\\appcmd.exe add site /name:$Name /bindings:http://$HttpbBnding /physicalpath:$PhysicalPath
+                        write-host "assign app pool to the website"
+                        .\\appcmd.exe set app "$Name/" /applicationPool:"$Name"
 
-            }
-        }
-        stage('deleteIisDir') {
-            steps {
-                retry(5) {
-                    bat('if exist "C:\\Bin\\IIS\\PTTasks3" RMDIR /Q/S "C:\\Bin\\IIS\\PTTasks3"')
+
+                    }
                 }
+                Create "PTTasks" "*:8009"  "C:\\Bin\\IIS\\PTTask"                
+                ''')
+            }
+        }
+        stage('Stop PTJournal on IIS') {
+            steps {
+                bat('%windir%\\system32\\inetsrv\\appcmd stop site /site.name:PTTasks')
+            }
+        }
+
+        stage('Delete PTTask IIS directory') {
+            steps {
+              powershell('''
+                if ( Test-Path "C:\\Bin\\IIS\\PTTask")
+                {
+                    while($true) {
+                        if ( (Remove-Item "C:\\Bin\\IIS\\PTTask" -Recurse *>&1) -ne $null)
+                        {  
+                            write-output "Removing failed we should wait"
+                        }
+                        else 
+                        {
+                            break 
+                        } 
+                    }
+                  }
+              ''')
 
             }
-        }
-        stage('copyIisFiles') {
+        }	
+        stage('Copy web page to the IIS Bin directory') {
             steps {
-                bat('xcopy "Src\\Server\\ProductivityTools.GetTask3.API\\bin\\Release\\net7.0\\publish\\" "C:\\Bin\\IIS\\PTTasks3\\" /O /X /E /H /K')				              
+                bat('xcopy "Src\\Server\\ProductivityTools.GetTask3.API\\bin\\Release\\net7.0\\publish\\" "C:\\Bin\\IIS\\PTTasks\\" /O /X /E /H /K')				              
             }
         }
-		
-		stage('Start AppPool') {
-            steps {
-                bat('%windir%\\system32\\inetsrv\\appcmd start apppool /apppool.name:"PTTasks3"')
-            }
-        }
-		
+	
 
-        stage('startMeetingsOnIis') {
+        stage('Start website on IIS') {
             steps {
                 bat('%windir%\\system32\\inetsrv\\appcmd start site /site.name:PTTasks3')
             }
         }
-        stage('byebye') {
+        stage('Create Login PTTask on SQL2022') {
+             steps {
+                 bat('sqlcmd -S ".\\SQL2022" -q "CREATE LOGIN [IIS APPPOOL\\PTTask] FROM WINDOWS WITH DEFAULT_DATABASE=[PTTask];"')
+             }
+        }
+
+        stage('Create User PTTask on SQL2022') {
+             steps {
+                 bat('sqlcmd -S ".\\SQL2022" -q "USE PTTask;  CREATE USER [IIS APPPOOL\\PTTask]  FOR LOGIN [IIS APPPOOL\\PTTask];"')
+             }
+        }
+
+        stage('Give DBOwner permissions on SQL2022') {
+             steps {
+                 bat('sqlcmd -S ".\\SQL2022" -q "USE PTTask;  ALTER ROLE [db_owner] ADD MEMBER [IIS APPPOOL\\PTTask];"')
+             }
+        }
+        stage('Bye bye') {
             steps {
                 // Get some code from a GitHub repository
-                echo 'byebye'
+                echo 'Bye bye'
             }
         }
     }
