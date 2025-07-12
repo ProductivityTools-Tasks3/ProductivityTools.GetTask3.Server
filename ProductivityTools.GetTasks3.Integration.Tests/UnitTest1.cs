@@ -15,7 +15,7 @@ namespace ProductivityTools.GetTasks3.Integration.Tests
     public class UnitTest1
     {
 
-        private IConfiguration _config;
+        private IConfiguration? _config;
         public IConfiguration Configuration
         {
             get
