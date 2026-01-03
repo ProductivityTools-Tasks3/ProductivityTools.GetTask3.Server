@@ -47,13 +47,13 @@ namespace ProductivityTools.GetTask3.API
              .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
              .AddJwtBearer(options =>
              {
-                 options.Authority = "https://securetoken.google.com/ptgettasks3prod";
+                 options.Authority = "https://securetoken.google.com/ptprojectsweb";
                  options.TokenValidationParameters = new TokenValidationParameters
                  {
                      ValidateIssuer = true,
-                     ValidIssuer = "https://securetoken.google.com/ptgettasks3prod",
+                     ValidIssuer = "https://securetoken.google.com/ptprojectsweb",
                      ValidateAudience = true,
-                     ValidAudience = "ptgettasks3prod",
+                     ValidAudience = "ptprojectsweb",
                      ValidateLifetime = true
                  };
              });
