@@ -98,18 +98,18 @@ jobs:
         run: "%windir%\\system32\\inetsrv\\appcmd start site /site.name:PTTasks"
 
       - name: Create Login PTTasks on SQL2022
-        shell: cmd
-        run: sqlcmd -S ".\SQL2022" -q "CREATE LOGIN [IIS APPPOOL\PTTasks] FROM WINDOWS WITH DEFAULT_DATABASE=[PTTasks];"
+        shell: powershell
+        run: Invoke-DbaQuery -SqlInstance ".\SQL2022" -Query "CREATE LOGIN [IIS APPPOOL\PTTasks] FROM WINDOWS WITH DEFAULT_DATABASE=[PTTasks];"
         continue-on-error: true
 
       - name: Create User PTTasks on SQL2022
-        shell: cmd
-        run: sqlcmd -S ".\SQL2022" -q "USE PTTasks;  CREATE USER [IIS APPPOOL\PTTasks]  FOR LOGIN [IIS APPPOOL\PTTasks];"
+        shell: powershell
+        run: Invoke-DbaQuery -SqlInstance ".\SQL2022" -Database "PTTasks" -Query "CREATE USER [IIS APPPOOL\PTTasks]  FOR LOGIN [IIS APPPOOL\PTTasks];"
         continue-on-error: true
 
       - name: Give DBOwner permissions on SQL2022
-        shell: cmd
-        run: sqlcmd -S ".\SQL2022" -q "USE PTTasks;  ALTER ROLE [db_owner] ADD MEMBER [IIS APPPOOL\PTTasks];"
+        shell: powershell
+        run: Invoke-DbaQuery -SqlInstance ".\SQL2022" -Database "PTTasks" -Query "ALTER ROLE [db_owner] ADD MEMBER [IIS APPPOOL\PTTasks];"
         continue-on-error: true
 
       - name: Bye bye
