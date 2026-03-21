@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="14.0.0" />
+    <PackageReference Include="AutoMapper" Version="15.1.3" />
     <PackageReference Include="AutoMapper.Contrib.Autofac.DependencyInjection" Version="9.0.0" />
     <PackageReference Include="ProductivityTools.GetTask3.Contract" Version="0.0.25" />
   </ItemGroup>
