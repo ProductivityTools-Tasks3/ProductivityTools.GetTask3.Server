@@ -1,0 +1,123 @@
+name: CI/CD Local Runner
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build & Deploy
+    runs-on: self-hosted
+
+    steps:
+      - name: Hello!
+        shell: cmd
+        run: echo "Hello GitHub Actions!"
+
+      - name: Print workspace Path
+        shell: cmd
+        run: echo "%GITHUB_WORKSPACE%"
+
+      - name: Git clone
+        uses: actions/checkout@v4
+
+      - name: Build solution
+        shell: cmd
+        run: dotnet publish ProductivityTools.GetTask3.Server.sln -c Release
+
+      - name: Delete database migration directory
+        shell: cmd
+        run: if exist "C:\Bin\DbMigration\GetTask3DdbMigration" RMDIR /Q/S "C:\Bin\DbMigration\GetTask3DdbMigration"
+
+      - name: Copy database migration files
+        shell: cmd
+        # Added /I to automatically assume destination is a folder, /Y to overwrite without prompt
+        run: xcopy "ProductivityTools.GetTask3.Server.DbUp\bin\Release\net9.0\publish\*" "C:\Bin\DbMigration\GetTask3DdbMigration\" /O /X /E /H /K /I /Y
+
+      - name: Run database migration files
+        shell: cmd
+        run: C:\Bin\DbMigration\GetTask3DdbMigration\ProductivityTools.GetTask3.Server.DbUp.exe
+
+      - name: Create page on the IIS
+        shell: powershell
+        run: |
+          function CheckIfExist($Name){
+              cd $env:SystemRoot\system32\inetsrv
+              $exists = (.\appcmd.exe list sites /name:$Name) -ne $null
+              Write-Host $exists
+              return  $exists
+          }
+          
+          function Create($Name, $HttpbBnding, $PhysicalPath){
+              $exists=CheckIfExist $Name
+              if ($exists){
+                  write-host "Web page already existing"
+              }
+              else
+              {
+                  write-host "Creating app pool"
+                  .\appcmd.exe add apppool /name:$Name /managedRuntimeVersion:"v4.0" /managedPipelineMode:"Integrated"
+                  write-host "Creating webage"
+                  .\appcmd.exe add site /name:$Name /bindings:http://$HttpbBnding /physicalpath:$PhysicalPath
+                  write-host "assign app pool to the website"
+                  .\appcmd.exe set app "$Name/" /applicationPool:"$Name"
+              }
+          }
+          Create "PTTasks" "*:8009"  "C:\Bin\IIS\PTTasks"
+
+      - name: Stop PTTasks on IIS
+        shell: cmd
+        run: "%windir%\\system32\\inetsrv\\appcmd stop site /site.name:PTTasks"
+        continue-on-error: true
+
+      - name: Delete PTTasks IIS directory
+        shell: powershell
+        run: |
+          if ( Test-Path "C:\Bin\IIS\PTTasks")
+          {
+              while($true) {
+                  if ( (Remove-Item "C:\Bin\IIS\PTTasks" -Recurse *>&1) -ne $null)
+                  {  
+                      write-output "Removing failed we should wait"
+                      Start-Sleep -Seconds 1
+                  }
+                  else 
+                  {
+                      break 
+                  } 
+              }
+          }
+
+      - name: Copy web page to the IIS Bin directory
+        shell: cmd
+        run: xcopy "Src\Server\ProductivityTools.GetTask3.API\bin\Release\net9.0\publish\*" "C:\Bin\IIS\PTTasks\" /O /X /E /H /K /I /Y
+
+      - name: Start website on IIS
+        shell: cmd
+        run: "%windir%\\system32\\inetsrv\\appcmd start site /site.name:PTTasks"
+
+      - name: Create Login PTTasks on SQL2022
+        shell: cmd
+        run: sqlcmd -S ".\SQL2022" -q "CREATE LOGIN [IIS APPPOOL\PTTasks] FROM WINDOWS WITH DEFAULT_DATABASE=[PTTasks];"
+        continue-on-error: true
+
+      - name: Create User PTTasks on SQL2022
+        shell: cmd
+        run: sqlcmd -S ".\SQL2022" -q "USE PTTasks;  CREATE USER [IIS APPPOOL\PTTasks]  FOR LOGIN [IIS APPPOOL\PTTasks];"
+        continue-on-error: true
+
+      - name: Give DBOwner permissions on SQL2022
+        shell: cmd
+        run: sqlcmd -S ".\SQL2022" -q "USE PTTasks;  ALTER ROLE [db_owner] ADD MEMBER [IIS APPPOOL\PTTasks];"
+        continue-on-error: true
+
+      - name: Bye bye
+        shell: cmd
+        run: echo "Bye bye"
+
+      # Uwaga: Jenkins używał emailext do powiadomień po buildzie (post -> always).
+      # W GitHub Actions domyślnie otrzymujesz powiadomienia e-mail o statusie workflow,
+      # więc krok ten został pominięty. Jeśli jest konieczność wysyłania e-maili do zewnętrznych użytkowników,
+      # można użyć akcji rzepak/dawson-email@v1.
+      
