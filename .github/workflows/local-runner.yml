@@ -27,8 +27,22 @@ jobs:
         run: dotnet publish ProductivityTools.GetTask3.Server.sln -c Release
 
       - name: Delete database migration directory
-        shell: cmd
-        run: if exist "C:\Bin\DbMigration\GetTask3DbMigration" RMDIR /Q/S "C:\Bin\DbMigration\GetTask3DbMigration"
+        shell: powershell
+        run: |
+          if ( Test-Path "C:\Bin\DbMigration\GetTask3DbMigration")
+          {
+              while($true) {
+                  if ( (Remove-Item "C:\Bin\DbMigration\GetTask3DbMigration" -Recurse -Force *>&1) -ne $null)
+                  {  
+                      write-output "Removing failed we should wait"
+                      Start-Sleep -Seconds 1
+                  }
+                  else 
+                  {
+                      break 
+                  } 
+              }
+          }
 
       - name: Create database migration directory
         shell: cmd
