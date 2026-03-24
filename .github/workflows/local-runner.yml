@@ -28,20 +28,20 @@ jobs:
 
       - name: Delete database migration directory
         shell: cmd
-        run: if exist "C:\Bin\DbMigration\GetTask3DdbMigration" RMDIR /Q/S "C:\Bin\DbMigration\GetTask3DdbMigration"
+        run: if exist "C:\Bin\DbMigration\GetTask3DbMigration" RMDIR /Q/S "C:\Bin\DbMigration\GetTask3DbMigration"
 
       - name: Create database migration directory
         shell: cmd
-        run: if not exist "C:\Bin\DbMigration\GetTask3DdbMigration" mkdir "C:\Bin\DbMigration\GetTask3DdbMigration"
+        run: if not exist "C:\Bin\DbMigration\GetTask3DbMigration" mkdir "C:\Bin\DbMigration\GetTask3DbMigration"
 
       - name: Copy database migration files
         shell: cmd
         # Added /I to automatically assume destination is a folder, /Y to overwrite without prompt
-        run: xcopy "ProductivityTools.GetTask3.Server.DbUp\bin\Release\net9.0\publish\*" "C:\Bin\DbMigration\GetTask3DdbMigration\" /E /H /K /I /Y
+        run: xcopy "ProductivityTools.GetTask3.Server.DbUp\bin\Release\net9.0\publish\*" "C:\Bin\DbMigration\GetTask3DbMigration\" /E /H /K /I /Y
 
       - name: Run database migration files
         shell: cmd
-        run: C:\Bin\DbMigration\GetTask3DdbMigration\ProductivityTools.GetTask3.Server.DbUp.exe
+        run: C:\Bin\DbMigration\GetTask3DbMigration\ProductivityTools.GetTask3.Server.DbUp.exe
 
       - name: Create page on the IIS
         shell: powershell
@@ -95,11 +95,11 @@ jobs:
 
       - name: Create PTTasks IIS directory
         shell: cmd
-        run: if not exist "C:\Bin\IIS\PTTasks" mkdir "C:\Bin\IIS\PTTasks"
+        run: if not exist "C:\bin\IIS\PTTasks" mkdir "C:\bin\IIS\PTTasks"
 
       - name: Copy web page to the IIS Bin directory
         shell: cmd
-        run: xcopy "Src\Server\ProductivityTools.GetTask3.API\bin\Release\net9.0\publish\*" "C:\Bin\IIS\PTTasks\" /E /H /K /I /Y
+        run: xcopy "Src\Server\ProductivityTools.GetTask3.API\bin\Release\net9.0\publish\*" "C:\bin\IIS\PTTasks\" /E /H /K /I /Y
 
       - name: Start website on IIS
         shell: cmd
