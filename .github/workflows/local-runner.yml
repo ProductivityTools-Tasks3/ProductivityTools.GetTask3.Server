@@ -36,8 +36,10 @@ jobs:
 
       - name: Copy database migration files
         shell: cmd
-        # Added /I to automatically assume destination is a folder, /Y to overwrite without prompt
-        run: xcopy "ProductivityTools.GetTask3.Server.DbUp\bin\Release\net9.0\publish\*" "C:\Bin\DbMigration\GetTask3DbMigration\" /E /H /K /I /Y
+        # Added robocopy to bypass Windows 260 character path limit
+        run: |
+          robocopy "ProductivityTools.GetTask3.Server.DbUp\bin\Release\net9.0\publish" "C:\Bin\DbMigration\GetTask3DbMigration" /E /IS /IT
+          if %ERRORLEVEL% LEQ 7 exit /b 0
 
       - name: Run database migration files
         shell: cmd
