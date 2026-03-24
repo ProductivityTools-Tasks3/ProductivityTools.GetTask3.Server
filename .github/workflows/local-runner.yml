@@ -101,7 +101,9 @@ jobs:
 
       - name: Copy web page to the IIS Bin directory
         shell: cmd
-        run: xcopy "Src\Server\ProductivityTools.GetTask3.API\bin\Release\net9.0\publish\*" "C:\bin\IIS\PTTasks\" /E /H /K /I /Y
+        run: |
+          robocopy "Src\Server\ProductivityTools.GetTask3.API\bin\Release\net9.0\publish" "C:\bin\IIS\PTTasks" /E /IS /IT
+          if %ERRORLEVEL% LEQ 7 exit /b 0
 
       - name: Start website on IIS
         shell: cmd
