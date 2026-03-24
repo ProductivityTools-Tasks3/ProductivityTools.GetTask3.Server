@@ -30,10 +30,14 @@ jobs:
         shell: cmd
         run: if exist "C:\Bin\DbMigration\GetTask3DdbMigration" RMDIR /Q/S "C:\Bin\DbMigration\GetTask3DdbMigration"
 
+      - name: Create database migration directory
+        shell: cmd
+        run: if not exist "C:\Bin\DbMigration\GetTask3DdbMigration" mkdir "C:\Bin\DbMigration\GetTask3DdbMigration"
+
       - name: Copy database migration files
         shell: cmd
         # Added /I to automatically assume destination is a folder, /Y to overwrite without prompt
-        run: xcopy "ProductivityTools.GetTask3.Server.DbUp\bin\Release\net9.0\publish\*" "C:\Bin\DbMigration\GetTask3DdbMigration\" /O /X /E /H /K /I /Y
+        run: xcopy "ProductivityTools.GetTask3.Server.DbUp\bin\Release\net9.0\publish\*" "C:\Bin\DbMigration\GetTask3DdbMigration\" /E /H /K /I /Y
 
       - name: Run database migration files
         shell: cmd
@@ -89,9 +93,13 @@ jobs:
               }
           }
 
+      - name: Create PTTasks IIS directory
+        shell: cmd
+        run: if not exist "C:\Bin\IIS\PTTasks" mkdir "C:\Bin\IIS\PTTasks"
+
       - name: Copy web page to the IIS Bin directory
         shell: cmd
-        run: xcopy "Src\Server\ProductivityTools.GetTask3.API\bin\Release\net9.0\publish\*" "C:\Bin\IIS\PTTasks\" /O /X /E /H /K /I /Y
+        run: xcopy "Src\Server\ProductivityTools.GetTask3.API\bin\Release\net9.0\publish\*" "C:\Bin\IIS\PTTasks\" /E /H /K /I /Y
 
       - name: Start website on IIS
         shell: cmd
