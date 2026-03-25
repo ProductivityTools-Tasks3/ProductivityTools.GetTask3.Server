@@ -123,7 +123,7 @@ jobs:
 
       - name: Bye bye
         shell: cmd
-        run: echo "Bye bye"
+        run: echo "Byew bye"
 
       # Uwaga: Jenkins używał emailext do powiadomień po buildzie (post -> always).
       # W GitHub Actions domyślnie otrzymujesz powiadomienia e-mail o statusie workflow,
