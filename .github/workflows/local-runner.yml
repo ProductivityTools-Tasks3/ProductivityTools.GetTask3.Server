@@ -111,15 +111,15 @@ jobs:
 
       - name: Create Login PTTasks on SQL2022
         shell: powershell
-        run: Invoke-DbaQuery -SqlInstance "localhost\SQL2022" -Query "CREATE LOGIN [IIS APPPOOL\PTTasks] FROM WINDOWS WITH DEFAULT_DATABASE=[PTTasks];" -ErrorAction Stop -WarningAction Stop
+        run: Invoke-DbaQuery -SqlInstance ".\SQL2022" -Query "CREATE LOGIN [IIS APPPOOL\PTTasks] FROM WINDOWS WITH DEFAULT_DATABASE=[PTTasks];" -ErrorAction Stop -WarningAction Stop
 
       - name: Create User PTTasks on SQL2022
         shell: powershell
-        run: Invoke-DbaQuery -SqlInstance "localhost\SQL2022" -Database "PTTasks" -Query "CREATE USER [IIS APPPOOL\PTTasks]  FOR LOGIN [IIS APPPOOL\PTTasks];" -ErrorAction Stop -WarningAction Stop
+        run: Invoke-DbaQuery -SqlInstance ".\SQL2022" -Database "PTTasks" -Query "CREATE USER [IIS APPPOOL\PTTasks]  FOR LOGIN [IIS APPPOOL\PTTasks];" -ErrorAction Stop -WarningAction Stop
 
       - name: Give DBOwner permissions on SQL2022
         shell: powershell
-        run: Invoke-DbaQuery -SqlInstance "localhost\SQL2022" -Database "PTTasks" -Query "ALTER ROLE [db_owner] ADD MEMBER [IIS APPPOOL\PTTasks];" -ErrorAction Stop -WarningAction Stop
+        run: Invoke-DbaQuery -SqlInstance ".\SQL2022" -Database "PTTasks" -Query "ALTER ROLE [db_owner] ADD MEMBER [IIS APPPOOL\PTTasks];" -ErrorAction Stop -WarningAction Stop
 
       - name: Bye bye
         shell: cmd
