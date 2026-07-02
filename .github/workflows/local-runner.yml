@@ -125,10 +125,45 @@ jobs:
       - name: Bye bye
         shell: cmd
         run: echo "Byew bye"
-      - name: Display Success message
-        shell: cmd
+      - name: Display Advanced Success Summary
+        shell: powershell
         run: |
-          echo App was deployed successfully!
-          echo ### 🚀 Deployment Successful! >> %GITHUB_STEP_SUMMARY%
-          echo woooho >> %GITHUB_STEP_SUMMARY%
+          # 1. Zbyszczenie i przygotowanie dynamicznych zmiennych
+          $Date = (Get-Date).ToString("yyyy-MM-dd HH:mm:ss")
+          $DotnetVersion = (dotnet --version).Trim()
+          
+          # 2. Sprawdzenie realnego statusu IIS (czy aplikacja działa)
+          cd $env:SystemRoot\system32\inetsrv
+          $SiteStatus = .\appcmd.exe list site /name:PTTasks
+          $PoolStatus = .\appcmd.exe list apppool /name:PTTasks
+          
+          # Wyciągamy czytelny status (np. "STARTED" lub "STOPPED")
+          $SiteState = if ($SiteStatus -match "state:Started") { "🟢 Running" } else { "🔴 Stopped" }
+          $PoolState = if ($PoolStatus -match "state:Started") { "🟢 Active" } else { "🔴 Inactive" }
+
+          # 3. Budowanie zaawansowanego podsumowania w Markdown
+          $Summary = @(
+              "### 🚀 Deployment Successful!"
+              ""
+              "| Metric | Details |"
+              "| :--- | :--- |"
+              "| **Application Name** | `PTTasks` |"
+              "| **Environment** | 🖥️ Self-Hosted Runner (Windows) |"
+              "| **Deployment Time** | $Date |"
+              "| **SDK Version** | .NET $DotnetVersion |"
+              "| **IIS Web Site Status** | $SiteState |"
+              "| **IIS App Pool Status** | $PoolState |"
+              "| **Database Context** | `PTTasks` (SQL2022) |"
+              ""
+              "---"
+              "#### 🛠️ Execution Details"
+              "* Code compiled with configuration: `Release`"
+              "* Database migration script executed successfully via DbUp."
+              "* SQL Server permissions configured for `IIS APPPOOL\PTTasks`."
+              ""
+              "_*Tip: If the application doesn't respond, check the IIS logs on the host machine._"
+          )
+
+          # 4. Zapis do pliku z poprawnym kodowaniem UTF-8
+          $Summary | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
             
