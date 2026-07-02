@@ -128,37 +128,41 @@ jobs:
       - name: Display Advanced Success Summary
         shell: powershell
         run: |
+          # 1. Pobranie dynamicznych zmiennych
           $Date = (Get-Date).ToString("yyyy-MM-dd HH:mm:ss")
           $DotnetVersion = (dotnet --version).Trim()
           
+          # 2. Sprawdzenie statusu IIS
           cd $env:SystemRoot\system32\inetsrv
           $SiteStatus = .\appcmd.exe list site /name:PTTasks
           $PoolStatus = .\appcmd.exe list apppool /name:PTTasks
           
-          $SiteState = if ($SiteStatus -match "state:Started") { "🟢 Running" } else { "🔴 Stopped" }
-          $PoolState = if ($PoolStatus -match "state:Started") { "🟢 Active" } else { "🔴 Inactive" }
+          # Bezpieczne statusy tekstowe (zamiast problematycznych emoji)
+          $SiteState = if ($SiteStatus -match "state:Started") { "ONLINE" } else { "OFFLINE" }
+          $PoolState = if ($PoolStatus -match "state:Started") { "ONLINE" } else { "OFFLINE" }
 
-          $Summary = @(
-              "### 🚀 Deployment Successful!"
-              ""
-              "| Metric | Details |"
-              "| :--- | :--- |"
-              "| **Application Name** | `PTTasks` |"
-              "| **Environment** | 🖥️ Self-Hosted Runner (Windows) |"
-              "| **Deployment Time** | $Date |"
-              "| **SDK Version** | .NET $DotnetVersion |"
-              "| **IIS Web Site Status** | $SiteState |"
-              "| **IIS App Pool Status** | $PoolState |"
-              "| **Database Context** | `PTTasks` (SQL2022) |"
-              ""
-              "---"
-              "#### 🛠️ Execution Details"
-              "* Code compiled with configuration: `Release`"
-              "* Database migration script executed successfully via DbUp."
-              "* SQL Server permissions configured for `IIS APPPOOL\PTTasks`."
-              ""
-              "_*Tip: If the application doesn't respond, check the IIS logs on the host machine._"
-          )
+          # 3. Budowanie podsumowania za pomocą bezpiecznego Here-String
+          $Summary = @"
+          ### Deployment Successful!
+          
+          | Metric | Details |
+          | :--- | :--- |
+          | **Application Name** | ``PTTasks`` |
+          | **Environment** | Self-Hosted Runner (Windows) |
+          | **Deployment Time** | $Date |
+          | **SDK Version** | .NET $DotnetVersion |
+          | **IIS Web Site Status** | $SiteState |
+          | **IIS App Pool Status** | $PoolState |
+          | **Database Context** | ``PTTasks`` (SQL2022) |
+          
+          ---
+          #### Execution Details
+          - Code compiled with configuration: ``Release``
+          - Database migration script executed successfully via DbUp.
+          - SQL Server permissions configured for ``IIS APPPOOL\PTTasks``.
+          
+          _Tip: If the application does not respond, check the IIS logs on the host machine._
+          "@
 
+          # 4. Zapis do pliku z jawnym kodowaniem UTF8
           $Summary | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
-            
