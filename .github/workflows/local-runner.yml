@@ -125,15 +125,10 @@ jobs:
       - name: Bye bye
         shell: cmd
         run: echo "Byew bye"
-        
       - name: Display Success message
+        shell: cmd
         run: |
-          echo "App was deployed successfully!"
-          echo "### 🚀 Deployment Successful!" >> $GITHUB_STEP_SUMMARY
-          echo "woooho" >> $GITHUB_STEP_SUMMARY
-
-      # Uwaga: Jenkins używał emailext do powiadomień po buildzie (post -> always).
-      # W GitHub Actions domyślnie otrzymujesz powiadomienia e-mail o statusie workflow,
-      # więc krok ten został pominięty. Jeśli jest konieczność wysyłania e-maili do zewnętrznych użytkowników,
-      # można użyć akcji rzepak/dawson-email@v1.
-      
+          echo App was deployed successfully!
+          echo ### 🚀 Deployment Successful! >> %GITHUB_STEP_SUMMARY%
+          echo woooho >> %GITHUB_STEP_SUMMARY%
+            
