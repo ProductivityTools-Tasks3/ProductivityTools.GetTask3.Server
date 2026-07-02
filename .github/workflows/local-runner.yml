@@ -6,6 +6,7 @@ on:
       - main
 permissions:
   contents: write
+  administration: write  
 jobs:
   build:
     name: Build & Deploy
@@ -166,3 +167,20 @@ jobs:
 
           # 4. Zapis do pliku z jawnym kodowaniem UTF8
           $Summary | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+      - name: Update Repository Details
+        shell: powershell
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Wymagane do autoryzacji w API GitHuba
+        run: |
+          # 1. Definiujemy nowe wartości dla okienka ze zdjęcia
+          $Description = "Moja super aplikacja zadań GetTask3 zautomatyzowana przez CI/CD."
+          $Website = "http://localhost:8009" # Tutaj możesz podać realny adres, pod którym stoi IIS
+          $Topics = '["dotnet", "iis", "sql-server", "automation"]' # Tagi muszą być tablicą JSON w postaci stringa
+
+          Write-Output "Aktualizacja okienka Edit repository details..."
+
+          # 2. Aktualizacja Description oraz Website
+          gh repo edit ${{ github.repository }} --description "$Description" --homepage "$Website"
+
+          # 3. Aktualizacja sekcji Topics (tagów)
+          gh repo edit ${{ github.repository }} --add-topic $Topics
