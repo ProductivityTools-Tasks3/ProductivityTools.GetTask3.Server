@@ -7,6 +7,7 @@ on:
 permissions:
   contents: write
   administration: write  
+
 jobs:
   build:
     name: Build & Deploy
@@ -74,12 +75,12 @@ jobs:
           }
           Create "PTTasks" "*:8009"  "C:\Bin\IIS\PTTasks"
 
-    - name: Open Firewall Port 8009
-      shell: powershell
-      run: |
-        if (!(Get-NetFirewallRule -DisplayName "PTTasks 8009" -ErrorAction SilentlyContinue)) {
-            New-NetFirewallRule -DisplayName "PTTasks 8009" -Direction Inbound -LocalPort 8009 -Protocol TCP -Action Allow
-        }
+      - name: Open Firewall Port 8009
+        shell: powershell
+        run: |
+          if (!(Get-NetFirewallRule -DisplayName "PTTasks 8009" -ErrorAction SilentlyContinue)) {
+              New-NetFirewallRule -DisplayName "PTTasks 8009" -Direction Inbound -LocalPort 8009 -Protocol TCP -Action Allow
+          }
 
       - name: Stop PTTasks on IIS
         shell: cmd
@@ -133,6 +134,7 @@ jobs:
       - name: Bye bye
         shell: cmd
         run: echo "Byew bye"
+        
       - name: Display Advanced Success Summary
         shell: powershell
         run: |
@@ -174,6 +176,7 @@ jobs:
 
           # 4. Zapis do pliku z jawnym kodowaniem UTF8
           $Summary | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+          
       - name: Update Repository Details
         shell: powershell
         env:
