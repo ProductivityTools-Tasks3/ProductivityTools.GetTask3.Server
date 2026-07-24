@@ -182,7 +182,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Wymagane do autoryzacji w API GitHuba
         run: |
           # 1. Definiujemy nowe wartości dla okienka ze zdjęcia
-          $Description = "Moja super aplikacja zadań GetTask3 zautomatyzowana przez CI/CD."
+          $Description = "GetTask3"
           $Website = "http://localhost:8009" # Tutaj możesz podać realny adres, pod którym stoi IIS
           $Topics = '["dotnet", "iis", "sql-server", "automation"]' # Tagi muszą być tablicą JSON w postaci stringa
 
