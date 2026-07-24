@@ -74,6 +74,13 @@ jobs:
           }
           Create "PTTasks" "*:8009"  "C:\Bin\IIS\PTTasks"
 
+    - name: Open Firewall Port 8009
+      shell: powershell
+      run: |
+        if (!(Get-NetFirewallRule -DisplayName "PTTasks 8009" -ErrorAction SilentlyContinue)) {
+            New-NetFirewallRule -DisplayName "PTTasks 8009" -Direction Inbound -LocalPort 8009 -Protocol TCP -Action Allow
+        }
+
       - name: Stop PTTasks on IIS
         shell: cmd
         run: "%windir%\\system32\\inetsrv\\appcmd stop site /site.name:PTTasks"
