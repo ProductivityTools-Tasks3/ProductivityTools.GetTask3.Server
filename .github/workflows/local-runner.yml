@@ -9,9 +9,29 @@ permissions:
   contents: write
 
 jobs:
-  build:
-    name: Build & Deploy
-    runs-on: self-hosted
+ get-runners:
+    runs-on: ubuntu-latest
+    outputs:
+      runner_list: ${{ steps.set-runners.outputs.matrix }}
+    steps:
+      - name: Pobierz aktywne runnery
+        id: set-runners
+        env:
+          GH_TOKEN: ${{ secrets.PAT_TOKEN }}
+        run: |
+          RUNNERS=$(gh api /repos/${{ github.repository }}/actions/runners --jq '[.runners[] | select(.status=="online") | .name]')
+          echo "matrix=$RUNNERS" >> $GITHUB_OUTPUT
+
+  # 2. Task2: Perform the actual work on each machine
+  sync-configuration:
+    needs: get-runners
+    strategy:
+      fail-fast: false # When erro, continue on the rest
+      matrix:
+        machine: ${{ fromJson(needs.get-runners.outputs.runner_list) }}
+    
+    # Dynamic assigment to each machine fom the matrix
+    runs-on: [self-hosted, "${{ matrix.machine }}"]
 
     steps:
       - name: Hello!
