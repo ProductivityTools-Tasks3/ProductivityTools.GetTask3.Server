@@ -9,7 +9,7 @@ permissions:
   contents: write
 
 jobs:
- get-runners:
+  get-runners:
     runs-on: ubuntu-latest
     outputs:
       runner_list: ${{ steps.set-runners.outputs.matrix }}
