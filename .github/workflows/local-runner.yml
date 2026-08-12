@@ -141,15 +141,21 @@ jobs:
 
       - name: Create Login PTTasks on SQL2022
         shell: powershell
-        run: Invoke-DbaQuery -SqlInstance ".\SQL2022" -TrustServerCertificate -Query "IF NOT EXISTS (SELECT name FROM sys.server_principals WHERE name = 'IIS APPPOOL\PTTasks') BEGIN CREATE LOGIN [IIS APPPOOL\PTTasks] FROM WINDOWS WITH DEFAULT_DATABASE=[PTTasks]; END" -ErrorAction Stop
+        run: |
+          $server = Connect-DbaInstance -SqlInstance ".\SQL2022" -TrustServerCertificate
+          Invoke-DbaQuery -SqlInstance $server -Query "IF NOT EXISTS (SELECT name FROM sys.server_principals WHERE name = 'IIS APPPOOL\PTTasks') BEGIN CREATE LOGIN [IIS APPPOOL\PTTasks] FROM WINDOWS WITH DEFAULT_DATABASE=[PTTasks]; END" -ErrorAction Stop
 
       - name: Create User PTTasks on SQL2022
         shell: powershell
-        run: Invoke-DbaQuery -SqlInstance ".\SQL2022" -TrustServerCertificate -Database "PTTasks" -Query "IF NOT EXISTS (SELECT * FROM sys.database_principals WHERE name = 'IIS APPPOOL\PTTasks') BEGIN CREATE USER [IIS APPPOOL\PTTasks] FOR LOGIN [IIS APPPOOL\PTTasks]; END" -ErrorAction Stop
+        run: |
+          $server = Connect-DbaInstance -SqlInstance ".\SQL2022" -TrustServerCertificate
+          Invoke-DbaQuery -SqlInstance $server -Database "PTTasks" -Query "IF NOT EXISTS (SELECT * FROM sys.database_principals WHERE name = 'IIS APPPOOL\PTTasks') BEGIN CREATE USER [IIS APPPOOL\PTTasks] FOR LOGIN [IIS APPPOOL\PTTasks]; END" -ErrorAction Stop
 
       - name: Give DBOwner permissions on SQL2022
         shell: powershell
-        run: Invoke-DbaQuery -SqlInstance ".\SQL2022" -TrustServerCertificate -Database "PTTasks" -Query "IF IS_ROLEMEMBER('db_owner', 'IIS APPPOOL\PTTasks') = 0 BEGIN ALTER ROLE [db_owner] ADD MEMBER [IIS APPPOOL\PTTasks]; END" -ErrorAction Stop
+        run: |
+          $server = Connect-DbaInstance -SqlInstance ".\SQL2022" -TrustServerCertificate
+          Invoke-DbaQuery -SqlInstance $server -Database "PTTasks" -Query "IF IS_ROLEMEMBER('db_owner', 'IIS APPPOOL\PTTasks') = 0 BEGIN ALTER ROLE [db_owner] ADD MEMBER [IIS APPPOOL\PTTasks]; END" -ErrorAction Stop
       - name: Bye bye
         shell: cmd
         run: echo "Byew bye"
