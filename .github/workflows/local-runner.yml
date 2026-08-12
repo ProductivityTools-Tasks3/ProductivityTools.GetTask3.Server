@@ -47,7 +47,7 @@ jobs:
         run: if exist "C:\Bin\DbMigration\GetTask3DbMigration" RMDIR /Q/S "C:\Bin\DbMigration\GetTask3DbMigration"
 
       - name: Git clone
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Build solution
         shell: cmd
