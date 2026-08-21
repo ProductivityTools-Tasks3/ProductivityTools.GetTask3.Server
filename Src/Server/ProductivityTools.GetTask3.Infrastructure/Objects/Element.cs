@@ -1,4 +1,4 @@
-﻿using ProductivityTools.GetTask3.CoreObjects;
+using ProductivityTools.GetTask3.CoreObjects;
 using ProductivityTools.GetTask3.CoreObjects.Tomato;
 using ProductivityTools.GetTask3.Infrastructure.Objects;
 using System;
@@ -14,6 +14,7 @@ namespace ProductivityTools.GetTask3.Infrastructure
         public string Name { get; set; }    
         public string Details { get; set; }
         public string DetailsType { get; set; }
+        public string InboxName { get; set; }
         public int? ParentId { get; protected set; }
         public ElementType Type { get; protected set; }
         public Status Status { get; protected set; }

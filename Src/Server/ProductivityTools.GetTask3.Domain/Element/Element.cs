@@ -1,4 +1,4 @@
-﻿using ProductivityTools.GetTask3.CoreObjects;
+using ProductivityTools.GetTask3.CoreObjects;
 using ProductivityTools.GetTask3.CoreObjects.Tomato;
 using ProductivityTools.GetTask3.Domain.Events;
 using ProductivityTools.GetTask3.Domain.Policy;
@@ -14,6 +14,7 @@ namespace ProductivityTools.GetTask3.Domain
         public string Details { get; protected set; }
 
         public string DetailsType { get; protected set; }
+        public string InboxName { get; protected set; }
         //pw:change it to Id  
         public int ElementId { get; protected set; }
         public int? ParentId { get; protected set; }
@@ -88,6 +89,16 @@ namespace ProductivityTools.GetTask3.Domain
         public void ChangeType(ElementType type)
         {
             this.Type= type;
+        }
+
+        public void SetInboxName(string inboxName)
+        {
+            this.InboxName = inboxName;
+        }
+
+        public void ClearInboxName()
+        {
+            this.InboxName = null;
         }
 
         public void Undone()

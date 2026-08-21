@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -136,6 +136,22 @@ namespace ProductivityTools.GetTask3.API.Controllers
             ElementType type=(ElementType)Enum.Parse(typeof(ElementType), request.Type);
             Commands.ChangeType(request.ElementId, type);
             return true;
+        }
+
+        [HttpPost]
+        [Route("SetInboxName")]
+        [Authorize]
+        public void SetInboxName([FromBody] SetInboxNameRequest request)
+        {
+            Commands.SetInboxName(request.ElementId, request.InboxName);
+        }
+
+        [HttpPost]
+        [Route("ClearInboxName")]
+        [Authorize]
+        public void ClearInboxName([FromBody] ClearInboxNameRequest request)
+        {
+            Commands.ClearInboxName(request.ElementId);
         }
 
 

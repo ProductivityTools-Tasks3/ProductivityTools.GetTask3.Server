@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using ProductivityTools.DateTimeTools;
 using ProductivityTools.GetTask3.CoreObjects.Tomato;
 using ProductivityTools.GetTask3.Domain;
@@ -19,6 +19,8 @@ namespace ProductivityTools.GetTask3.App.Commands
         void Finish(int elementId);
         void Start(int elementId);
         void ChangeType(int elementId, CoreObjects.ElementType type);
+        void SetInboxName(int elementId, string inboxName);
+        void ClearInboxName(int elementId);
 
         void Undone(int elementId);
         void Delay(int elementId, DateTime dateTime);
@@ -100,6 +102,28 @@ namespace ProductivityTools.GetTask3.App.Commands
             var element = _taskUnitOfWork.TaskRepository.Get(elementId);
             Domain.Element d = _mapper.Map<Domain.Element>(element);
             d.ChangeType(elementType);
+            element = _mapper.Map<Infrastructure.Element>(d);
+
+            _taskUnitOfWork.TaskRepository.Update(element);
+            _taskUnitOfWork.Commit();
+        }
+
+        public void SetInboxName(int elementId, string inboxName)
+        {
+            var element = _taskUnitOfWork.TaskRepository.Get(elementId);
+            Domain.Element d = _mapper.Map<Domain.Element>(element);
+            d.SetInboxName(inboxName);
+            element = _mapper.Map<Infrastructure.Element>(d);
+
+            _taskUnitOfWork.TaskRepository.Update(element);
+            _taskUnitOfWork.Commit();
+        }
+
+        public void ClearInboxName(int elementId)
+        {
+            var element = _taskUnitOfWork.TaskRepository.Get(elementId);
+            Domain.Element d = _mapper.Map<Domain.Element>(element);
+            d.ClearInboxName();
             element = _mapper.Map<Infrastructure.Element>(d);
 
             _taskUnitOfWork.TaskRepository.Update(element);
