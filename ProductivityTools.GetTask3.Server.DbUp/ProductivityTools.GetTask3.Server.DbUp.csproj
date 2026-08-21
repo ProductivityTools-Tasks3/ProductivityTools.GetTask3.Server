@@ -34,7 +34,7 @@
     <EmbeddedResource Include="Scripts\003.DefinedElementGroup.sql" />
     <EmbeddedResource Include="Scripts\005.SingleElement.sql" />
     <EmbeddedResource Include="Scripts\006.TomatoElement.sql" />
-    <EmbeddedResource Include="Scripts\011.InboxName.sq" />
+    <EmbeddedResource Include="Scripts\011.InboxName.sql" />
   </ItemGroup>
 
   <ItemGroup>
