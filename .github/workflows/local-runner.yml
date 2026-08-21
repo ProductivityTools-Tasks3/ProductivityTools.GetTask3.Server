@@ -68,7 +68,7 @@ jobs:
         shell: cmd
         run: C:\Bin\DbMigration\GetTask3DbMigration\ProductivityTools.GetTask3.Server.DbUp.exe
 
-      - name: Create page on the IIS
+      - name: Ensure IIS Site and AppPool Exist
         shell: powershell
         run: |
           function CheckIfExist($Name){
@@ -107,6 +107,11 @@ jobs:
         run: "%windir%\\system32\\inetsrv\\appcmd stop site /site.name:PTTasks"
         continue-on-error: true
 
+      - name: Stop IIS App Pool
+        shell: cmd
+        run: "%windir%\\system32\\inetsrv\\appcmd stop apppool /apppool.name:PTTasks"
+        continue-on-error: true
+
       - name: Delete PTTasks IIS directory
         shell: powershell
         run: |
@@ -134,6 +139,10 @@ jobs:
         run: |
           robocopy "Src\Server\ProductivityTools.GetTask3.API\bin\Release\net9.0\publish" "C:\bin\IIS\PTTasks" /E /IS /IT
           if %ERRORLEVEL% LEQ 7 exit /b 0
+
+      - name: Start IIS App Pool
+        shell: cmd
+        run: "%windir%\\system32\\inetsrv\\appcmd start apppool /apppool.name:PTTasks"
 
       - name: Start website on IIS
         shell: cmd
