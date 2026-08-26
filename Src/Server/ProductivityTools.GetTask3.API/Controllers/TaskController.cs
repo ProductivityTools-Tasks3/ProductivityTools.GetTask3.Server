@@ -139,7 +139,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
         }
 
         [HttpPost]
-        [Route("SetInboxName")]
+        [Route(Consts.SetInboxName)]
         [Authorize]
         public void SetInboxName([FromBody] SetInboxNameRequest request)
         {
@@ -147,7 +147,7 @@ namespace ProductivityTools.GetTask3.API.Controllers
         }
 
         [HttpPost]
-        [Route("ClearInboxName")]
+        [Route(Consts.ClearInboxName)]
         [Authorize]
         public void ClearInboxName([FromBody] ClearInboxNameRequest request)
         {
