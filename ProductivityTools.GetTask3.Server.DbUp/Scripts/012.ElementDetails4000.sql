@@ -1,0 +1,1 @@
+ALTER TABLE [gt].[Element] ALTER COLUMN Details VARCHAR(4000)
