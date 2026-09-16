@@ -17,6 +17,7 @@
     <None Remove="Scripts\009.InitElements.sql" />
     <None Remove="Scripts\011.InboxName.sql" />
     <None Remove="Scripts\012.ElementDetails4000.sql" />
+    <None Remove="Scripts\013.AddUserMalgorzata.sql" />
     <None Remove="Scripts\201.DataMigration-Function.sql" />
     <None Remove="Scripts\202.DataMigrationSlate2Plate1.sql" />
     <None Remove="Scripts\203.DataMigrationSlate2PlateDetails1.sql" />
@@ -37,6 +38,7 @@
     <EmbeddedResource Include="Scripts\006.TomatoElement.sql" />
     <EmbeddedResource Include="Scripts\011.InboxName.sql" />
     <EmbeddedResource Include="Scripts\012.ElementDetails4000.sql" />
+    <EmbeddedResource Include="Scripts\013.AddUserMalgorzata.sql" />
   </ItemGroup>
 
   <ItemGroup>
