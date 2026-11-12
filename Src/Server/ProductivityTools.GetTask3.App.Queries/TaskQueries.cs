@@ -14,6 +14,7 @@ namespace ProductivityTools.GetTask3.App.Queries
     {
         ElementView GetTaskList(int? bagId, string path, string userName);
         ElementView GetTaskListFinishedThisWeek(int? bagId, string path, string userName);
+        ElementView GetTaskListFinishedLast7Days(int? bagId, string path, string userName);
         int? GetParent(int elementId);
         TomatoView GetTomato();
         int GetRootRequest(int elementId, string path, string userName);

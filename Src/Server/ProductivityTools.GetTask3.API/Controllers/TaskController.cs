@@ -85,6 +85,15 @@ namespace ProductivityTools.GetTask3.API.Controllers
         }
 
         [HttpPost]
+        [Authorize]
+        [Route("Last7DaysList")]
+        public ElementView GetTasksLast7Days([FromBody] ListRequest request = null)
+        {
+            var x = Queries.GetTaskListFinishedLast7Days(request?.ElementId, request?.Path, base.UserEmail);
+            return x;
+        }
+
+        [HttpPost]
         [Route(Consts.GetRoot)]
         [Authorize]
         public int? GetRoot([FromBody] GetRootRequest request)
